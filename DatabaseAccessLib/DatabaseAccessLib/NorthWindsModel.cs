@@ -7,8 +7,8 @@ namespace DatabaseAccessLib
 
     public partial class NorthWindsModel : DbContext
     {
-        public NorthWindsModel()
-            : base("name=NorthwindsDB")
+        public NorthWindsModel(string connectionString = "name=NorthwindsDB")
+            : base(connectionString)
         {
         }
 

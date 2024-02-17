@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.34526.175
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAccessLib", "DatabaseAccessLib\DatabaseAccessLib.csproj", "{B8C14118-06DC-4E64-A8AC-B645CAE3318E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAccessLibUnitTests", "DatabaseAccessLibUnitTests\DatabaseAccessLibUnitTests.csproj", "{D6B4BFB4-2C51-43E0-AF13-0DF801A21BFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B8C14118-06DC-4E64-A8AC-B645CAE3318E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8C14118-06DC-4E64-A8AC-B645CAE3318E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8C14118-06DC-4E64-A8AC-B645CAE3318E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6B4BFB4-2C51-43E0-AF13-0DF801A21BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6B4BFB4-2C51-43E0-AF13-0DF801A21BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6B4BFB4-2C51-43E0-AF13-0DF801A21BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6B4BFB4-2C51-43E0-AF13-0DF801A21BFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
