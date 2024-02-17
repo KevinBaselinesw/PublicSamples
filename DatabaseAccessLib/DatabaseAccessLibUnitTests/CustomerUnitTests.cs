@@ -25,5 +25,22 @@ namespace DatabaseAccessLibUnitTests
             }
 
         }
+
+        [TestMethod]
+        public void ReadCustomersAndSuppliersByCity()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Customers = dbContext.Customer_and_Suppliers_by_Cities.ToArray();
+
+                foreach (var customer in Customers)
+                {
+                    Console.WriteLine(string.Format($"City: {customer.City}, {customer.CompanyName}"));
+                }
+
+
+            }
+
+        }
     }
 }
