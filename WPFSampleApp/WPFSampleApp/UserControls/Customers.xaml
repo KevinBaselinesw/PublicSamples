@@ -5,8 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFSampleApp.UserControls"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="TODO: Customers Page"  FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" />
+        <DataGrid x:Name="CustomerGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding CustomerID}"/>
+                <DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}"/>
+                <DataGridTextColumn Header="Contact Name" Binding="{Binding ContactName}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="City" Binding="{Binding City}"/>
+                <DataGridTextColumn Header="Region" Binding="{Binding Region}"/>
+                <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -13,5 +13,7 @@ namespace DatabaseAccessLib
         IEnumerable<Category> GetAllProductCategories();
 
         IEnumerable<Product> GetAllProducts();
+
+        IEnumerable<Customer> GetAllCustomers();
     }
 }

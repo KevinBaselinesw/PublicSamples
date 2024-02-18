@@ -8,6 +8,8 @@ namespace DatabaseAccessLib
 {
     public class DataAccessAPIDB : IDataAccessAPI
     {
+ 
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             using (var dbContext = new NorthWindsModel())
@@ -32,6 +34,15 @@ namespace DatabaseAccessLib
             {
                 var Products = dbContext.Products.ToArray();
                 return Products;
+            }
+        }
+
+        public IEnumerable<Customer> GetAllCustomers()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Customers = dbContext.Customers.ToArray();
+                return Customers;
             }
         }
     }
