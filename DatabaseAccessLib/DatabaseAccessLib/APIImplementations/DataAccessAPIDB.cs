@@ -50,9 +50,27 @@ namespace DatabaseAccessLib
         {
             using (var dbContext = new NorthWindsModel())
             {
-                var Orders = dbContext.Orders.ToArray();
+                var Orders = dbContext.Orders.
+                        Include("Employee").
+                        Include("Customer").
+                        Include("Order_Details").
+                        Include("Shipper").
+                        ToArray();
+
                 return Orders;
             }
         }
+
+
+        public IEnumerable<Orders_Qry> GetAllOrdersQry()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Orders = dbContext.Orders_Qries.ToArray();
+                return Orders;
+            }
+        }
+
+  
     }
 }

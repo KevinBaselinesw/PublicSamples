@@ -17,5 +17,6 @@ namespace DatabaseAccessLib
         IEnumerable<Customer> GetAllCustomers();
 
         IEnumerable<Order> GetAllOrders();
+        IEnumerable<Orders_Qry> GetAllOrdersQry();
     }
 }

@@ -4,16 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFSampleApp.UserControls"
+             xmlns:converters="clr-namespace:WPFSampleApp.ConverterFunctions"
              mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:EmployeeToNameConverter x:Key="nameConverter"/>
+    </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="OrdersGrid" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding OrderID}"/>
-                <DataGridTextColumn Header="Category Name" Binding="{Binding CategoryName}"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
-       
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.CompanyName}"/>
+                <DataGridTextColumn Header="Salesman" Binding="{Binding Employee, Converter={StaticResource nameConverter}}"/>
+                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -72,4 +72,21 @@ namespace WPFSampleApp.ConverterFunctions
         }
     }
 
+    public class EmployeeToNameConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            DatabaseAccessLib.Employee employee = value as DatabaseAccessLib.Employee;
+            if (employee == null)
+                return string.Empty;
+
+            return string.Format($"{employee.LastName}, {employee.FirstName}");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
 }
