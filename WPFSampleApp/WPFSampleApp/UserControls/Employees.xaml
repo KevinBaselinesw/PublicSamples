@@ -4,10 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFSampleApp.UserControls"
+             xmlns:converters="clr-namespace:WPFSampleApp.ConverterFunctions"
              mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:EmployeePhotoConverter x:Key="photoConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <Label Content="TODO: Employees Page"  FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" />
+        <DataGrid x:Name="EmployeeGrid" AutoGenerateColumns="False">
+                <DataGridTextColumn Header="ID" Binding="{Binding EmployeeID}"/>
+                <DataGridTextColumn Header="Last" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="First" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Date of Hire" Binding="{Binding HireDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="City" Binding="{Binding City}"/>
+                <DataGridTextColumn Header="State" Binding="{Binding Region}"/>
+                <DataGridTemplateColumn Header="Photo" Width="130">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=Photo, Converter={StaticResource photoConverter}}" Height="100"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

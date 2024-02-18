@@ -32,11 +32,8 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var xx = DataAccessAPI.GetAllEmployees();
-            foreach (var employee in xx)
-            {
-                Console.WriteLine(employee.FirstName);
-            }
+            var AllEmployees = DataAccessAPI.GetAllEmployees();
+            EmployeeGrid.ItemsSource = AllEmployees;
         }
     }
 }
