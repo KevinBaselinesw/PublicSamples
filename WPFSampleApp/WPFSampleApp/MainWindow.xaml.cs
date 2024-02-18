@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFSampleApp.UserControls;
 
 namespace WPFSampleApp
 {
@@ -27,32 +28,37 @@ namespace WPFSampleApp
 
         private void Employees_Click(object sender, RoutedEventArgs e)
         {
-
+            NorthwindsContent.Content = new Employees();
         }
 
-        private void ProductCatagories_Click(object sender, RoutedEventArgs e)
+        private void ProductCategories_Click(object sender, RoutedEventArgs e)
         {
-
+            NorthwindsContent.Content = new ProductCategories();
         }
 
         private void Products_Click(object sender, RoutedEventArgs e)
         {
-
+            NorthwindsContent.Content = new Products();
         }
 
         private void Customers_Click(object sender, RoutedEventArgs e)
         {
-
+            NorthwindsContent.Content = new Customers();
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-
+            NorthwindsContent.Content = new Orders();
         }
 
         private void Suppliers_Click(object sender, RoutedEventArgs e)
         {
+            NorthwindsContent.Content = new Suppliers();
+        }
 
+        private void Shippers_Click(object sender, RoutedEventArgs e)
+        {
+            NorthwindsContent.Content = new Shippers();
         }
     }
 }
