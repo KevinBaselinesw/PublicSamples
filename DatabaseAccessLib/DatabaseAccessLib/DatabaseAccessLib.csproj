@@ -60,7 +60,9 @@
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerDemographic.cs" />
     <Compile Include="Customer_and_Suppliers_by_City.cs" />
+    <Compile Include="DataAccessAPIDB.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="IDataAccessAPI.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="NorthWindsModel.cs" />
     <Compile Include="Order.cs" />
