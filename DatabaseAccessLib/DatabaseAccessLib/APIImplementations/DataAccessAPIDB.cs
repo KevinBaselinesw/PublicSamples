@@ -25,5 +25,14 @@ namespace DatabaseAccessLib
                 return Categories;
             }
         }
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Products = dbContext.Products.ToArray();
+                return Products;
+            }
+        }
     }
 }

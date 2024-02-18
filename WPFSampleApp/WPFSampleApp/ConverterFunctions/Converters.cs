@@ -71,4 +71,5 @@ namespace WPFSampleApp.ConverterFunctions
             return null;
         }
     }
+
 }

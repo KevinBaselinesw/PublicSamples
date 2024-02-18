@@ -4,9 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFSampleApp.UserControls"
+             xmlns:converters="clr-namespace:WPFSampleApp.ConverterFunctions"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="DataGridRow">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Discontinued}" Value="true">
+                    <Setter Property="Foreground" Value="Gray" />
+                    <Setter Property="ToolTip" Value="Discontinued Item" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Label Content="TODO: Products Page"  FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" />
+        <DataGrid x:Name="ProductGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ProductID}"/>
+                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Header="Qty Per Unit" Binding="{Binding QuantityPerUnit}"/>
+                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}"/>
+                <DataGridTextColumn Header="In Stock" Binding="{Binding UnitsInStock}"/>
+                <DataGridTextColumn Header="On Order" Binding="{Binding UnitsOnOrder}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -11,5 +11,7 @@ namespace DatabaseAccessLib
         IEnumerable<Employee> GetAllEmployees();
 
         IEnumerable<Category> GetAllProductCategories();
+
+        IEnumerable<Product> GetAllProducts();
     }
 }
