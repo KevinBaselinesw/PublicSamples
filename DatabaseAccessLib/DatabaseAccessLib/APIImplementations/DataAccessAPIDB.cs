@@ -16,5 +16,14 @@ namespace DatabaseAccessLib
                 return Employees;
             }
         }
+
+        public IEnumerable<Category> GetAllProductCategories()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Categories = dbContext.Categories.ToArray();
+                return Categories;
+            }
+        }
     }
 }

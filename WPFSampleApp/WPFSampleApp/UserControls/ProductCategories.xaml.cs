@@ -21,9 +21,19 @@ namespace WPFSampleApp.UserControls
     /// </summary>
     public partial class ProductCategories : UserControl
     {
+        IDataAccessAPI DataAccessAPI = null;
+
         public ProductCategories(IDataAccessAPI DataAccessAPI)
         {
             InitializeComponent();
+
+            this.DataAccessAPI = DataAccessAPI;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var AllCategories = DataAccessAPI.GetAllProductCategories();
+            ProductCategoryGrid.ItemsSource = AllCategories;
         }
     }
 }

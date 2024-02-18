@@ -9,5 +9,7 @@ namespace DatabaseAccessLib
     public interface IDataAccessAPI
     {
         IEnumerable<Employee> GetAllEmployees();
+
+        IEnumerable<Category> GetAllProductCategories();
     }
 }
