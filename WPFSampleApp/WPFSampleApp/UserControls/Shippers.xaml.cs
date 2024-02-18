@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseAccessLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace WPFSampleApp.UserControls
     /// </summary>
     public partial class Shippers : UserControl
     {
-        public Shippers()
+        public Shippers(IDataAccessAPI DataAccessAPI)
         {
             InitializeComponent();
         }

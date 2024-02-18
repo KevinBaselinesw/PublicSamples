@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseAccessLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,22 @@ namespace WPFSampleApp.UserControls
     /// </summary>
     public partial class Employees : UserControl
     {
-        public Employees()
+        IDataAccessAPI DataAccessAPI = null;
+
+        public Employees(IDataAccessAPI DataAccessAPI)
         {
             InitializeComponent();
+
+            this.DataAccessAPI = DataAccessAPI;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var xx = DataAccessAPI.GetAllEmployees();
+            foreach (var employee in xx)
+            {
+                Console.WriteLine(employee.FirstName);
+            }
         }
     }
 }
