@@ -21,9 +21,18 @@ namespace WPFSampleApp.UserControls
     /// </summary>
     public partial class Shippers : UserControl
     {
+        IDataAccessAPI DataAccessAPI = null;
+
         public Shippers(IDataAccessAPI DataAccessAPI)
         {
             InitializeComponent();
+            this.DataAccessAPI = DataAccessAPI;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var AllShippers = DataAccessAPI.GetAllShippers();
+            SuppliersGrid.ItemsSource = AllShippers;
         }
     }
 }

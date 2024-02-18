@@ -79,5 +79,14 @@ namespace DatabaseAccessLib
                 return Suppliers;
             }
         }
+
+        public IEnumerable<Shipper> GetAllShippers()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Shippers = dbContext.Shippers.ToArray();
+                return Shippers;
+            }
+        }
     }
 }

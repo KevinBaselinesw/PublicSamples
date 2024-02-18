@@ -20,5 +20,7 @@ namespace DatabaseAccessLib
         IEnumerable<Orders_Qry> GetAllOrdersQry();
 
         IEnumerable<Supplier> GetAllSuppliers();
+
+        IEnumerable<Shipper> GetAllShippers();
     }
 }
