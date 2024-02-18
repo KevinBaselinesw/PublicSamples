@@ -45,5 +45,14 @@ namespace DatabaseAccessLib
                 return Customers;
             }
         }
+
+        public IEnumerable<Order> GetAllOrders()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Orders = dbContext.Orders.ToArray();
+                return Orders;
+            }
+        }
     }
 }
