@@ -18,6 +18,14 @@
                 <DataGridTextColumn Header="Region" Binding="{Binding Region}"/>
                 <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                <DataGridTemplateColumn Header="Orders">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Margin="2" Content="Orders" Tag="{Binding CustomerID}" Click="OrdersByCustomer_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+    
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

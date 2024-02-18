@@ -22,6 +22,7 @@ namespace WPFSampleApp.UserControls
     public partial class ProductCategories : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        IEnumerable<Category> AllCategories;
 
         public ProductCategories(IDataAccessAPI DataAccessAPI)
         {
@@ -32,8 +33,27 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var AllCategories = DataAccessAPI.GetAllProductCategories();
+            AllCategories = DataAccessAPI.GetAllProductCategories();
             ProductCategoryGrid.ItemsSource = AllCategories;
+        }
+
+        private void ProductsByCategory_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int categoryID = (int)btn.Tag;
+
+            var ProductsByCategory = DataAccessAPI.GetProductsByCategoryID(categoryID);
+            var category = AllCategories.First(t => t.CategoryID == categoryID);
+
+            MessageBox.Show(string.Format($"There are {ProductsByCategory.Count()} products for {category.CategoryName}"));
+
+            return;
         }
     }
 }

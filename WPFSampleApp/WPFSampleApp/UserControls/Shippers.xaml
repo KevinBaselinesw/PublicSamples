@@ -10,9 +10,16 @@
     <Grid>
         <DataGrid x:Name="SuppliersGrid" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ShipperID}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ShipperID}" />
                 <DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                <DataGridTemplateColumn Header="Orders">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Margin="2" Content="Orders" Tag="{Binding ShipperID}" Click="OrdersByShipper_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

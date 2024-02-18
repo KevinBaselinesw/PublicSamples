@@ -28,11 +28,38 @@ namespace DatabaseAccessLib
             }
         }
 
+        public IEnumerable<Category> GetProductCategoriesByID(int CategoryID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Categories = dbContext.Categories.Where(t=>t.CategoryID == CategoryID).ToArray();
+                return Categories;
+            }
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Products = dbContext.Products.ToArray();
+                return Products;
+            }
+        }
+
+        public IEnumerable<Product> GetProductsBySupplier(int SupplierID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Products = dbContext.Products.Where(t=>t.SupplierID == SupplierID).ToArray();
+                return Products;
+            }
+        }
+
+        public IEnumerable<Product> GetProductsByCategoryID(int CategoryID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Products = dbContext.Products.Where(t => t.CategoryID == CategoryID).ToArray();
                 return Products;
             }
         }
@@ -61,6 +88,52 @@ namespace DatabaseAccessLib
             }
         }
 
+        public IEnumerable<Order> GetOrdersByShipVia(int ShipVia)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Orders = dbContext.Orders.
+                        Include("Employee").
+                        Include("Customer").
+                        Include("Order_Details").
+                        Where(t=>t.ShipVia == ShipVia).
+                        ToArray();
+
+                return Orders;
+            }
+        }
+
+        public IEnumerable<Order> GetOrdersByEmployeeID(int EmployeeID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Orders = dbContext.Orders.
+                        Include("Employee").
+                        Include("Customer").
+                        Include("Order_Details").
+                        Include("Shipper").
+                        Where(t => t.EmployeeID == EmployeeID).
+                        ToArray();
+
+                return Orders;
+            }
+        }
+        public IEnumerable<Order> GetOrdersByCustomerID(string CustomerID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Orders = dbContext.Orders.
+                        Include("Employee").
+                        Include("Customer").
+                        Include("Order_Details").
+                        Include("Shipper").
+                        Where(t=>t.CustomerID == CustomerID).
+                        ToArray();
+
+                return Orders;
+            }
+        }
+
 
         public IEnumerable<Orders_Qry> GetAllOrdersQry()
         {
@@ -80,6 +153,15 @@ namespace DatabaseAccessLib
             }
         }
 
+        public IEnumerable<Supplier> GetSuppliersByID(int SupplierID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Suppliers = dbContext.Suppliers.Where(t=>t.SupplierID == SupplierID).ToArray();
+                return Suppliers;
+            }
+        }
+
         public IEnumerable<Shipper> GetAllShippers()
         {
             using (var dbContext = new NorthWindsModel())
@@ -88,5 +170,19 @@ namespace DatabaseAccessLib
                 return Shippers;
             }
         }
+
+        public IEnumerable<Order_Detail> GetOrderDetailsByProductID(int ProductID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var OrderDetails = dbContext.Order_Details.
+                    Include("Order").
+                    Include("Product").
+                    Where(t=>t.ProductID == ProductID).ToArray();
+                return OrderDetails;
+            }
+        }
+
+
     }
 }

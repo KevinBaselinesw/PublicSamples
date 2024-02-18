@@ -35,5 +35,28 @@ namespace WPFSampleApp.UserControls
             var AllCustomers = DataAccessAPI.GetAllCustomers();
             CustomerGrid.ItemsSource = AllCustomers;
         }
+
+        private void OrdersByCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.String))
+                return;
+
+            string customerID = (string)btn.Tag;
+
+            var OrdersByCustomer = DataAccessAPI.GetOrdersByCustomerID(customerID);
+
+            MessageBox.Show(string.Format($"There are {OrdersByCustomer.Count()} orders for {OrdersByCustomer.First().Customer.CompanyName}"));
+
+            return;
+        }
+
+        private void DemographicsByCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

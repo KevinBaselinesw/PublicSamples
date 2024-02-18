@@ -17,6 +17,13 @@
                 <DataGridTextColumn Header="Region" Binding="{Binding Region}"/>
                 <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                <DataGridTemplateColumn Header="Products">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Margin="2" Content="Products" Tag="{Binding SupplierID}" Click="ProductsBySupplier_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

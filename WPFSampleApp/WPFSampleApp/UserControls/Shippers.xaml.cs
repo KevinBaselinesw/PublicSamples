@@ -22,6 +22,7 @@ namespace WPFSampleApp.UserControls
     public partial class Shippers : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        IEnumerable<Shipper> AllShippers;
 
         public Shippers(IDataAccessAPI DataAccessAPI)
         {
@@ -31,8 +32,28 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var AllShippers = DataAccessAPI.GetAllShippers();
+            AllShippers = DataAccessAPI.GetAllShippers();
             SuppliersGrid.ItemsSource = AllShippers;
+        }
+
+        private void OrdersByShipper_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int shipperID = (int)btn.Tag;
+       
+            var OrdersByShipper = DataAccessAPI.GetOrdersByShipVia(shipperID);
+
+            var shipper = AllShippers.First(t => t.ShipperID == shipperID);
+
+            MessageBox.Show(string.Format($"There are {OrdersByShipper.Count()} orders for {shipper.CompanyName}"));
+
+            return;
         }
     }
 }

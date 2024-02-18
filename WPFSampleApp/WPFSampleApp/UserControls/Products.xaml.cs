@@ -34,5 +34,59 @@ namespace WPFSampleApp.UserControls
             var AllCategories = DataAccessAPI.GetAllProducts();
             ProductGrid.ItemsSource = AllCategories;
         }
+
+        private void GetSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int supplierID = (int)btn.Tag;
+
+            var suppliers = DataAccessAPI.GetSuppliersByID(supplierID);
+
+            MessageBox.Show(string.Format($"The supplier for this product is {suppliers.First().CompanyName}"));
+
+            return;
+        }
+
+        private void GetCategory_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int categoryID = (int)btn.Tag;
+
+            var categories = DataAccessAPI.GetProductCategoriesByID(categoryID);
+
+            MessageBox.Show(string.Format($"The category for this product is {categories.First().CategoryName}"));
+
+            return;
+        }
+
+        private void GetOrderDetails_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int productID = (int)btn.Tag;
+
+            var orderDetails = DataAccessAPI.GetOrderDetailsByProductID(productID);
+
+            MessageBox.Show(string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().Product.ProductName}"));
+
+            return;
+        }
     }
 }

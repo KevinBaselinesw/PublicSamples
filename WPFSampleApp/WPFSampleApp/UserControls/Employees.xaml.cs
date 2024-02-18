@@ -22,6 +22,7 @@ namespace WPFSampleApp.UserControls
     public partial class Employees : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        IEnumerable<Employee> AllEmployees;
 
         public Employees(IDataAccessAPI DataAccessAPI)
         {
@@ -32,8 +33,27 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var AllEmployees = DataAccessAPI.GetAllEmployees();
+            AllEmployees = DataAccessAPI.GetAllEmployees();
             EmployeeGrid.ItemsSource = AllEmployees;
+        }
+
+        private void OrdersByEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int employeeID = (int)btn.Tag;
+
+            var OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employeeID);
+            var employee = AllEmployees.First(t => t.EmployeeID == employeeID);
+
+            MessageBox.Show(string.Format($"There are {OrdersByEmployee.Count()} orders for {employee.FirstName} {employee.LastName}"));
+
+            return;
         }
     }
 }
