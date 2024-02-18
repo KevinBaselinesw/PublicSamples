@@ -24,5 +24,35 @@ namespace WPFSampleApp
         {
             InitializeComponent();
         }
+
+        private void Employees_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ProductCatagories_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Products_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Customers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Suppliers_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

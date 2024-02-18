@@ -42,5 +42,22 @@ namespace DatabaseAccessLibUnitTests
             }
 
         }
+
+        [TestMethod]
+        public void ReadAlphabeticalListOfProducts()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Products = dbContext.Alphabetical_list_of_products.OrderBy(t=>t.ProductName);
+
+                foreach (var product in Products)
+                {
+                    Console.WriteLine(string.Format($"ID: {product.ProductID}, {product.ProductName}"));
+                }
+
+
+            }
+
+        }
     }
 }
