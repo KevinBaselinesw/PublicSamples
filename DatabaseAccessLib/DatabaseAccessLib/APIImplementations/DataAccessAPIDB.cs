@@ -78,10 +78,10 @@ namespace DatabaseAccessLib
             using (var dbContext = new NorthWindsModel())
             {
                 var Orders = dbContext.Orders.
-                        Include("Employee").
-                        Include("Customer").
-                        Include("Order_Details").
-                        Include("Shipper").
+                        Include(nameof(Order.Employee)).
+                        Include(nameof(Order.Customer)).
+                        Include(nameof(Order.Order_Details)).
+                        Include(nameof(Order.Shipper)).
                         ToArray();
 
                 return Orders;
@@ -93,9 +93,9 @@ namespace DatabaseAccessLib
             using (var dbContext = new NorthWindsModel())
             {
                 var Orders = dbContext.Orders.
-                        Include("Employee").
-                        Include("Customer").
-                        Include("Order_Details").
+                        Include(nameof(Order.Employee)).
+                        Include(nameof(Order.Customer)).
+                        Include(nameof(Order.Order_Details)).
                         Where(t=>t.ShipVia == ShipVia).
                         ToArray();
 
@@ -108,10 +108,10 @@ namespace DatabaseAccessLib
             using (var dbContext = new NorthWindsModel())
             {
                 var Orders = dbContext.Orders.
-                        Include("Employee").
-                        Include("Customer").
-                        Include("Order_Details").
-                        Include("Shipper").
+                        Include(nameof(Order.Employee)).
+                        Include(nameof(Order.Customer)).
+                        Include(nameof(Order.Order_Details)).
+                        Include(nameof(Order.Shipper)).
                         Where(t => t.EmployeeID == EmployeeID).
                         ToArray();
 
@@ -123,10 +123,10 @@ namespace DatabaseAccessLib
             using (var dbContext = new NorthWindsModel())
             {
                 var Orders = dbContext.Orders.
-                        Include("Employee").
-                        Include("Customer").
-                        Include("Order_Details").
-                        Include("Shipper").
+                        Include(nameof(Order.Employee)).
+                        Include(nameof(Order.Customer)).
+                        Include(nameof(Order.Order_Details)).
+                        Include(nameof(Order.Shipper)).
                         Where(t=>t.CustomerID == CustomerID).
                         ToArray();
 
@@ -176,8 +176,8 @@ namespace DatabaseAccessLib
             using (var dbContext = new NorthWindsModel())
             {
                 var OrderDetails = dbContext.Order_Details.
-                    Include("Order").
-                    Include("Product").
+                    Include(nameof(Order_Detail.Order)).
+                    Include(nameof(Order_Detail.Product)).
                     Where(t=>t.ProductID == ProductID).ToArray();
                 return OrderDetails;
             }
