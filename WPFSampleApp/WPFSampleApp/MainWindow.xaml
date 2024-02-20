@@ -27,7 +27,8 @@
     
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -101,7 +102,10 @@
         </ToolBarTray>
 
         <ContentControl Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" x:Name="NorthwindsContent" Margin="5"/>
-        <ContentControl Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" x:Name="SecondaryContent" Margin="5"/>
+
+        <GridSplitter Grid.Column="1" Grid.Row="2"  Width="5" HorizontalAlignment="Stretch" Background="Black" />
+
+        <ContentControl Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="1" x:Name="SecondaryContent" Margin="5"/>
 
     </Grid>
 
