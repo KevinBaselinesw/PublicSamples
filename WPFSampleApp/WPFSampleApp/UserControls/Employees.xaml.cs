@@ -50,7 +50,7 @@ namespace WPFSampleApp.UserControls
 
             int employeeID = (int)btn.Tag;
 
-            contentControl.Content = new EmployeeOrders(DataAccessAPI, employeeID, contentControl);
+            contentControl.Content = new OrdersByEmployee(DataAccessAPI, employeeID, contentControl);
 
             return;
         }

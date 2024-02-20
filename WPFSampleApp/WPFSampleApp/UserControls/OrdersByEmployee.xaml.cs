@@ -17,15 +17,15 @@ using System.Windows.Shapes;
 namespace WPFSampleApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for EmployeeOrders.xaml
+    /// Interaction logic for OrdersByEmployee.xaml
     /// </summary>
-    public partial class EmployeeOrders : UserControl
+    public partial class OrdersByEmployee : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
         int EmployeeID = 0;
         ContentControl contentControl;
 
-        public EmployeeOrders(IDataAccessAPI DataAccessAPI, int EmployeeID, ContentControl contentControl)
+        public OrdersByEmployee(IDataAccessAPI DataAccessAPI, int EmployeeID, ContentControl contentControl)
         {
             InitializeComponent();
 
