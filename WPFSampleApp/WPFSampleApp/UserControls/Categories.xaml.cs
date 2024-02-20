@@ -50,12 +50,7 @@ namespace WPFSampleApp.UserControls
 
             int categoryID = (int)btn.Tag;
 
-            var ProductsByCategory = DataAccessAPI.GetProductsByCategoryID(categoryID);
-            var category = AllCategories.First(t => t.CategoryID == categoryID);
-
-            string Message = string.Format($"There are {ProductsByCategory.Count()} products for {category.CategoryName}");
-
-            contentControl.Content = new SimpleText(Message);
+            contentControl.Content = new ProductsByCategory(DataAccessAPI, categoryID, contentControl);
 
             return;
         }
