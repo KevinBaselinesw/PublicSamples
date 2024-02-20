@@ -22,11 +22,13 @@ namespace WPFSampleApp.UserControls
     public partial class Products : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
 
-        public Products(IDataAccessAPI DataAccessAPI)
+        public Products(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -48,7 +50,9 @@ namespace WPFSampleApp.UserControls
 
             var suppliers = DataAccessAPI.GetSuppliersByID(supplierID);
 
-            MessageBox.Show(string.Format($"The supplier for this product is {suppliers.First().CompanyName}"));
+            string Message = string.Format($"The supplier for this product is {suppliers.First().CompanyName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }
@@ -66,7 +70,9 @@ namespace WPFSampleApp.UserControls
 
             var categories = DataAccessAPI.GetProductCategoriesByID(categoryID);
 
-            MessageBox.Show(string.Format($"The category for this product is {categories.First().CategoryName}"));
+            string Message = string.Format($"The category for this product is {categories.First().CategoryName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }
@@ -84,7 +90,9 @@ namespace WPFSampleApp.UserControls
 
             var orderDetails = DataAccessAPI.GetOrderDetailsByProductID(productID);
 
-            MessageBox.Show(string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().Product.ProductName}"));
+            string Message = string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().Product.ProductName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }

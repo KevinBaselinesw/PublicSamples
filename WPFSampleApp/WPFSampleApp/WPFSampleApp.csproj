@@ -88,6 +88,9 @@
     <Compile Include="UserControls\Shippers.xaml.cs">
       <DependentUpon>Shippers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SimpleText.xaml.cs">
+      <DependentUpon>SimpleText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Suppliers.xaml.cs">
       <DependentUpon>Suppliers.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Shippers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SimpleText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

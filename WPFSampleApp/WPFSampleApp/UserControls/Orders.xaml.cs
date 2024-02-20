@@ -22,12 +22,14 @@ namespace WPFSampleApp.UserControls
     public partial class Orders : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
 
-        public Orders(IDataAccessAPI DataAccessAPI)
+        public Orders(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
 
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

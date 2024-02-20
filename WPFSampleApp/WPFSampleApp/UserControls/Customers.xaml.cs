@@ -22,12 +22,14 @@ namespace WPFSampleApp.UserControls
     public partial class Customers : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
 
-        public Customers(IDataAccessAPI DataAccessAPI)
+        public Customers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
 
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -49,14 +51,12 @@ namespace WPFSampleApp.UserControls
 
             var OrdersByCustomer = DataAccessAPI.GetOrdersByCustomerID(customerID);
 
-            MessageBox.Show(string.Format($"There are {OrdersByCustomer.Count()} orders for {OrdersByCustomer.First().Customer.CompanyName}"));
+            string Message = string.Format($"There are {OrdersByCustomer.Count()} orders for {OrdersByCustomer.First().Customer.CompanyName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }
 
-        private void DemographicsByCustomer_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

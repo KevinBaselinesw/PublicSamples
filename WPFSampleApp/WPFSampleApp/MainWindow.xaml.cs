@@ -33,37 +33,45 @@ namespace WPFSampleApp
 
         private void Employees_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new Employees(DataAccessAPI);
+            SecondaryContent.Content = null;
+            gridSplitter.UpdateLayout();
+            PrimaryContent.Content = new Employees(DataAccessAPI, SecondaryContent);
         }
 
         private void ProductCategories_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new ProductCategories(DataAccessAPI);
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new ProductCategories(DataAccessAPI, SecondaryContent);
         }
 
         private void Products_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new Products(DataAccessAPI);
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Products(DataAccessAPI, SecondaryContent);
         }
 
         private void Customers_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new Customers(DataAccessAPI);
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Customers(DataAccessAPI, SecondaryContent);
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new Orders(DataAccessAPI);
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Orders(DataAccessAPI, SecondaryContent);
         }
 
         private void Suppliers_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new Suppliers(DataAccessAPI);
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Suppliers(DataAccessAPI, SecondaryContent);
         }
 
         private void Shippers_Click(object sender, RoutedEventArgs e)
         {
-            NorthwindsContent.Content = new Shippers(DataAccessAPI);
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Shippers(DataAccessAPI, SecondaryContent);
         }
     }
 }

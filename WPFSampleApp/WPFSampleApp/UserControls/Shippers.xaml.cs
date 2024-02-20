@@ -22,12 +22,14 @@ namespace WPFSampleApp.UserControls
     public partial class Shippers : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
         IEnumerable<Shipper> AllShippers;
 
-        public Shippers(IDataAccessAPI DataAccessAPI)
+        public Shippers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +53,9 @@ namespace WPFSampleApp.UserControls
 
             var shipper = AllShippers.First(t => t.ShipperID == shipperID);
 
-            MessageBox.Show(string.Format($"There are {OrdersByShipper.Count()} orders for {shipper.CompanyName}"));
+            string Message = string.Format($"There are {OrdersByShipper.Count()} orders for {shipper.CompanyName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }

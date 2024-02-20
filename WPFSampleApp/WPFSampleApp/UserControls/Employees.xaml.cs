@@ -22,13 +22,15 @@ namespace WPFSampleApp.UserControls
     public partial class Employees : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
         IEnumerable<Employee> AllEmployees;
 
-        public Employees(IDataAccessAPI DataAccessAPI)
+        public Employees(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
 
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +53,9 @@ namespace WPFSampleApp.UserControls
             var OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employeeID);
             var employee = AllEmployees.First(t => t.EmployeeID == employeeID);
 
-            MessageBox.Show(string.Format($"There are {OrdersByEmployee.Count()} orders for {employee.FirstName} {employee.LastName}"));
+            string Message = string.Format($"There are {OrdersByEmployee.Count()} orders for {employee.FirstName} {employee.LastName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }

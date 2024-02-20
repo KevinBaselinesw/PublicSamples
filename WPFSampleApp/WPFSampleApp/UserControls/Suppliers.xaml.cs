@@ -22,12 +22,14 @@ namespace WPFSampleApp.UserControls
     public partial class Suppliers : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
         IEnumerable<Supplier> AllSuppliers;
 
-        public Suppliers(IDataAccessAPI DataAccessAPI)
+        public Suppliers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +53,10 @@ namespace WPFSampleApp.UserControls
 
             var supplier = AllSuppliers.First(t => t.SupplierID == supplierID);
 
-            MessageBox.Show(string.Format($"There are {OrdersByShipper.Count()} products from {supplier.CompanyName}"));
+            string Message = string.Format($"There are {OrdersByShipper.Count()} products from {supplier.CompanyName}");
+
+            contentControl.Content = new SimpleText(Message);
+
 
             return;
         }

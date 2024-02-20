@@ -22,13 +22,15 @@ namespace WPFSampleApp.UserControls
     public partial class ProductCategories : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        ContentControl contentControl;
         IEnumerable<Category> AllCategories;
 
-        public ProductCategories(IDataAccessAPI DataAccessAPI)
+        public ProductCategories(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
 
             this.DataAccessAPI = DataAccessAPI;
+            this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +53,9 @@ namespace WPFSampleApp.UserControls
             var ProductsByCategory = DataAccessAPI.GetProductsByCategoryID(categoryID);
             var category = AllCategories.First(t => t.CategoryID == categoryID);
 
-            MessageBox.Show(string.Format($"There are {ProductsByCategory.Count()} products for {category.CategoryName}"));
+            string Message = string.Format($"There are {ProductsByCategory.Count()} products for {category.CategoryName}");
+
+            contentControl.Content = new SimpleText(Message);
 
             return;
         }
