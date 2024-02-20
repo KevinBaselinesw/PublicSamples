@@ -17,15 +17,15 @@ using System.Windows.Shapes;
 namespace WPFSampleApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for ProductCatagories.xaml
+    /// Interaction logic for Catagories.xaml
     /// </summary>
-    public partial class ProductCategories : UserControl
+    public partial class Categories : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
         IEnumerable<Category> AllCategories;
 
-        public ProductCategories(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
+        public Categories(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
             InitializeComponent();
 

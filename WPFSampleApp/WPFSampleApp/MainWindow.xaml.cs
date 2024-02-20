@@ -41,7 +41,7 @@ namespace WPFSampleApp
         private void ProductCategories_Click(object sender, RoutedEventArgs e)
         {
             SecondaryContent.Content = null;
-            PrimaryContent.Content = new ProductCategories(DataAccessAPI, SecondaryContent);
+            PrimaryContent.Content = new Categories(DataAccessAPI, SecondaryContent);
         }
 
         private void Products_Click(object sender, RoutedEventArgs e)

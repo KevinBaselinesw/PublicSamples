@@ -82,8 +82,8 @@
     <Compile Include="UserControls\Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProductCategories.xaml.cs">
-      <DependentUpon>ProductCategories.xaml</DependentUpon>
+    <Compile Include="UserControls\Categories.xaml.cs">
+      <DependentUpon>Categories.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Products.xaml.cs">
       <DependentUpon>Products.xaml</DependentUpon>
@@ -125,7 +125,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ProductCategories.xaml">
+    <Page Include="UserControls\Categories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
