@@ -25,7 +25,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -44,9 +44,9 @@
 
             </MenuItem>
         </Menu>
-
-        <ToolBarTray Background="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="99" Margin="5">
-            <ToolBar>
+       
+        <ToolBarTray Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="99"  Margin="5">
+            <ToolBar Background="White" Width="{Binding Path=ActualWidth, ElementName=MainGrid}" ToolBarTray.IsLocked="True">
                 <Button Style="{StaticResource SubsystemSelector}" Click="Employees_Click">
                     <StackPanel>
                         <TextBlock>Employees</TextBlock>
