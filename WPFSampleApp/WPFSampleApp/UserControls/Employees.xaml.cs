@@ -50,12 +50,7 @@ namespace WPFSampleApp.UserControls
 
             int employeeID = (int)btn.Tag;
 
-            var OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employeeID);
-            var employee = AllEmployees.First(t => t.EmployeeID == employeeID);
-
-            string Message = string.Format($"There are {OrdersByEmployee.Count()} orders for {employee.FirstName} {employee.LastName}");
-
-            contentControl.Content = new SimpleText(Message);
+            contentControl.Content = new EmployeeOrders(DataAccessAPI, employeeID, contentControl);
 
             return;
         }
