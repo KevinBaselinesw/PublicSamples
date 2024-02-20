@@ -49,14 +49,7 @@ namespace WPFSampleApp.UserControls
 
             int supplierID = (int)btn.Tag;
 
-            var OrdersByShipper = DataAccessAPI.GetProductsBySupplier(supplierID);
-
-            var supplier = AllSuppliers.First(t => t.SupplierID == supplierID);
-
-            string Message = string.Format($"There are {OrdersByShipper.Count()} products from {supplier.CompanyName}");
-
-            contentControl.Content = new SimpleText(Message);
-
+            contentControl.Content = new ProductsBySupplier(DataAccessAPI, supplierID, contentControl);
 
             return;
         }
