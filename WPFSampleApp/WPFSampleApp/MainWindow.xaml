@@ -10,50 +10,98 @@
     <Window.Resources>
         <Style TargetType="Button" x:Key="SubsystemSelector">
             <Setter Property="Margin" Value="10, 0, 10, 0"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Width" Value="Auto"/>
             <Setter Property="Button.Effect">
                 <Setter.Value>
                     <DropShadowEffect Color="Black" Direction="320" ShadowDepth="4" BlurRadius="5" Opacity="0.5"/>
                 </Setter.Value>
             </Setter>
-
+        </Style>
+        <Style TargetType="Image" x:Key="SubsystemSelectorImage">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Stretch" Value="None"/>
         </Style>
     </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--Left side subsystem buttons-->
-        <Grid Grid.Column="0" Grid.Row="1" Background="AliceBlue">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.ColumnSpan="99">
+            <MenuItem Header="File">
+                
+            </MenuItem>
+            <MenuItem Header="File">
 
-            <Button Grid.Row="0" Content="Employees"  Style="{StaticResource SubsystemSelector}" Click="Employees_Click"/>
-            <Button Grid.Row="1" Content="Product Categories"  Style="{StaticResource SubsystemSelector}" Click="ProductCategories_Click"/>
-            <Button Grid.Row="2" Content="Products"  Style="{StaticResource SubsystemSelector}" Click="Products_Click"/>
-            <Button Grid.Row="3" Content="Customers"  Style="{StaticResource SubsystemSelector}" Click="Customers_Click"/>
-            <Button Grid.Row="4" Content="Orders"  Style="{StaticResource SubsystemSelector}" Click="Orders_Click"/>
-            <Button Grid.Row="5" Content="Suppliers"  Style="{StaticResource SubsystemSelector}" Click="Suppliers_Click"/>
-            <Button Grid.Row="6" Content="Shippers"  Style="{StaticResource SubsystemSelector}" Click="Shippers_Click"/>    
+            </MenuItem>
+        </Menu>
 
-        </Grid>
+        <ToolBarTray Background="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="99" Margin="5">
+            <ToolBar>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Employees_Click">
+                    <StackPanel>
+                        <TextBlock>Employees</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\division32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="ProductCategories_Click">
+                    <StackPanel>
+                        <TextBlock>Product</TextBlock>
+                        <TextBlock>Categories</TextBlock>
+                        <Image Source="Icons\Category32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Products_Click">
+                    <StackPanel>
+                        <TextBlock>Products</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\products32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Customers_Click">
+                    <StackPanel>
+                        <TextBlock>Customers</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\customers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
 
-        <ContentControl Grid.Column="1" Grid.Row="1" x:Name="NorthwindsContent"/>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Orders_Click">
+                    <StackPanel>
+                        <TextBlock>Orders</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\orders32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Suppliers_Click">
+                    <StackPanel>
+                        <TextBlock>Suppliers</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\suppliers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Shippers_Click">
+                    <StackPanel>
+                        <TextBlock>Shippers</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\shippers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <ContentControl Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" x:Name="NorthwindsContent" Margin="5"/>
+        <ContentControl Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" x:Name="SecondaryContent" Margin="5"/>
 
     </Grid>
 

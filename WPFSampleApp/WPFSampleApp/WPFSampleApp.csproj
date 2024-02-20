@@ -159,6 +159,44 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\division32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\category32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\products32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category.png" />
+    <Resource Include="Images\division.png" />
+    <Resource Include="Images\products.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\customers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\customers32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\orders.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\orders32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\suppliers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\suppliers32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shippers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shippers32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
