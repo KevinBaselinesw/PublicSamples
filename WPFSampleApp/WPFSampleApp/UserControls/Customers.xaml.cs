@@ -49,11 +49,7 @@ namespace WPFSampleApp.UserControls
 
             string customerID = (string)btn.Tag;
 
-            var OrdersByCustomer = DataAccessAPI.GetOrdersByCustomerID(customerID);
-
-            string Message = string.Format($"There are {OrdersByCustomer.Count()} orders for {OrdersByCustomer.First().Customer.CompanyName}");
-
-            contentControl.Content = new SimpleText(Message);
+            contentControl.Content = new OrdersByCustomer(DataAccessAPI, customerID, contentControl);
 
             return;
         }
