@@ -48,12 +48,7 @@ namespace WPFSampleApp.UserControls
 
             int supplierID = (int)btn.Tag;
 
-            var suppliers = DataAccessAPI.GetSuppliersByID(supplierID);
-
-            string Message = string.Format($"The supplier for this product is {suppliers.First().CompanyName}");
-
-            contentControl.Content = new SimpleText(Message);
-
+            contentControl.Content = new SuppliersByProduct(DataAccessAPI, supplierID, contentControl);
             return;
         }
 
