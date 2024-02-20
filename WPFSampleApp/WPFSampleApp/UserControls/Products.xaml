@@ -17,9 +17,27 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+
+        <Style TargetType="Image" x:Key="SubsystemSelectorImage">
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Stretch" Value="Fill"/>
+        </Style>
+
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="ProductGrid" AutoGenerateColumns="False">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Image Source="..\Images\products.png" Style="{StaticResource SubsystemSelectorImage}" Margin="10" />
+            <TextBlock Text="List of products" FontSize="24" VerticalAlignment="Center" Margin="10"/>
+        </StackPanel>
+        
+        <DataGrid x:Name="ProductGrid" Grid.Row="1" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ProductID}"/>
                 <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>
