@@ -10,7 +10,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:EmployeePhotoConverter x:Key="photoConverter"/>
-
+        <converters:DateToDateStringConverter x:Key="dateToDateStringConverter"/>
+        
         <Style TargetType="Image" x:Key="SubsystemSelectorImage">
             <Setter Property="Height" Value="80"/>
             <Setter Property="Width" Value="80"/>
@@ -32,7 +33,7 @@
                 <DataGridTextColumn Header="ID" Binding="{Binding EmployeeID}"/>
                 <DataGridTextColumn Header="Last" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Header="First" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Date of Hire" Binding="{Binding HireDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Date of Hire" Binding="{Binding HireDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
                 <DataGridTextColumn Header="City" Binding="{Binding City}"/>
                 <DataGridTextColumn Header="State" Binding="{Binding Region}"/>

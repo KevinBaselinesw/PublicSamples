@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:EmployeeToNameConverter x:Key="nameConverter"/>
-
+        <converters:DateToDateStringConverter x:Key="dateToDateStringConverter"/>
 
         <Style TargetType="Image" x:Key="SubsystemSelectorImage">
             <Setter Property="Height" Value="80"/>
@@ -33,9 +33,9 @@
                 <DataGridTextColumn Header="ID" Binding="{Binding OrderID}"/>
                 <DataGridTextColumn Header="Customer Name" Binding="{Binding Customer.CompanyName}"/>
                 <DataGridTextColumn Header="Salesman" Binding="{Binding Employee, Converter={StaticResource nameConverter}}"/>
-                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, StringFormat={}{0:dd/MM/yyyy}}"/>
-                <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource dateToDateStringConverter}}"/>
+                <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, Converter={StaticResource dateToDateStringConverter}}"/>
+                <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource dateToDateStringConverter}}"/>
 
             </DataGrid.Columns>
         </DataGrid>
