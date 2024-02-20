@@ -65,10 +65,7 @@ namespace WPFSampleApp.UserControls
 
             var categories = DataAccessAPI.GetProductCategoriesByID(categoryID);
 
-            string Message = string.Format($"The category for this product is {categories.First().CategoryName}");
-
-            contentControl.Content = new SimpleText(Message);
-
+            contentControl.Content = new CategoriesByProduct(DataAccessAPI, categoryID, contentControl);
             return;
         }
 

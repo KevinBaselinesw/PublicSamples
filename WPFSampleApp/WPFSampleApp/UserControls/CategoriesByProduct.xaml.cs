@@ -17,38 +17,38 @@ using System.Windows.Shapes;
 namespace WPFSampleApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for SuppliersByProduct.xaml
+    /// Interaction logic for CategoriesByProduct.xaml
     /// </summary>
-    public partial class SuppliersByProduct : UserControl
+    public partial class CategoriesByProduct : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
-        int SupplierID;
+        int CategoryID;
         ContentControl contentControl;
 
-        public SuppliersByProduct(IDataAccessAPI DataAccessAPI, int SupplierID, ContentControl contentControl)
+        public CategoriesByProduct(IDataAccessAPI DataAccessAPI, int CategoryID, ContentControl contentControl)
         {
             InitializeComponent();
+
             this.DataAccessAPI = DataAccessAPI;
-            this.SupplierID = SupplierID;
+            this.CategoryID = CategoryID;
             this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var Suppliers = DataAccessAPI.GetSuppliersByID(SupplierID);
-            var Supplier = Suppliers.FirstOrDefault();
-            if (Supplier != null)
+            var Categories = DataAccessAPI.GetProductCategoriesByID(CategoryID);
+            var Category = Categories.FirstOrDefault();
+            if (Category != null)
             {
-                ReportTitle.Text = string.Format($"The supplier for this product is {Supplier.CompanyName}");
+                ReportTitle.Text = string.Format($"The category for this product is {Category.CategoryName}");
             }
             else
             {
-                ReportTitle.Text = string.Format($"The supplier for this product is unknown");
+                ReportTitle.Text = string.Format($"The category for this product is unknown");
             }
 
-            SuppliersGrid.ItemsSource = Suppliers;
+            ProductCategoryGrid.ItemsSource = Categories;
         }
 
-  
     }
 }
