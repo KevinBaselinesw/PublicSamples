@@ -43,7 +43,7 @@ namespace WPFSampleApp.UserControls
             }
             else
             {
-                ReportTitle.Text = string.Format($"there are no products in the {FirstCategory.CategoryName} category");
+                ReportTitle.Text = string.Format($"This category is not found in the database!");
             }
 
             ProductGrid.ItemsSource = ProductsByCategory;

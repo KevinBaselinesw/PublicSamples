@@ -44,7 +44,7 @@ namespace WPFSampleApp.UserControls
             }
             else
             {
-                ReportTitle.Text = string.Format($"There are no sales orders for {FirstOrder.Employee.FirstName} {FirstOrder.Employee.LastName}");
+                ReportTitle.Text = string.Format($"Employee not found in the database!");
             }
 
             OrdersGrid.ItemsSource = OrdersByEmployee;

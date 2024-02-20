@@ -43,7 +43,7 @@ namespace WPFSampleApp.UserControls
             }
             else
             {
-                ReportTitle.Text = string.Format($"there are no products from {FirstSupplier.CompanyName}");
+                ReportTitle.Text = string.Format($"Supplier is not found in database!");
             }
 
             ProductGrid.ItemsSource = ProductsBySupplier;
