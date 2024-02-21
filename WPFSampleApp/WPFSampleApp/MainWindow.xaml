@@ -46,6 +46,7 @@
                 <MenuItem Header="Adjust dates relative to today" Click="AdjustDBDatesToday_Click"></MenuItem>
                 <MenuItem Header="Adjust dates by entered amount" Click="AdjustDBDates_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="About" Click="About_Click"></MenuItem>
         </Menu>
        
         <ToolBarTray Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="99"  Margin="5">

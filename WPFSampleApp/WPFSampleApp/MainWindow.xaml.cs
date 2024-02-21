@@ -108,5 +108,11 @@ namespace WPFSampleApp
                 DataAccessAPI.AdjustAllDatesInDatabaseByDays(DaysToAdjust);
             }
         }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            var aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+        }
     }
 }

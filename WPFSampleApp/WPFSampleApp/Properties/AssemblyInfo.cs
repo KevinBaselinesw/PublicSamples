@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("WPF Sample App")]
 [assembly: AssemblyDescription("This demo app uses WPF, SQL Server, EF and Linq")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Baseline Softwae Solutions")]
+[assembly: AssemblyCompany("Baseline Software Solutions")]
 [assembly: AssemblyProduct("WPFSampleApp")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
