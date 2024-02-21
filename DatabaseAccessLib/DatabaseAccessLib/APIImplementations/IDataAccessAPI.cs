@@ -32,5 +32,8 @@ namespace DatabaseAccessLib
         IEnumerable<Shipper> GetAllShippers();
 
         IEnumerable<Order_Detail> GetOrderDetailsByProductID(int ProductID);
+
+        DateTime GetLatestDateInDatabase();
+        void AdjustAllDatesInDatabaseByDays(int days);
     }
 }

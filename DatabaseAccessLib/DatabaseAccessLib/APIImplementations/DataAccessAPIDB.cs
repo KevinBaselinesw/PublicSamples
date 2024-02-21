@@ -183,6 +183,55 @@ namespace DatabaseAccessLib
             }
         }
 
+        public DateTime GetLatestDateInDatabase()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                List<DateTime?> AllDates = new List<DateTime?>();
 
+                AllDates.AddRange(dbContext.Employees.Select(t => t.BirthDate).ToList());
+                AllDates.AddRange(dbContext.Employees.Select(t => t.HireDate).ToList());
+                AllDates.AddRange(dbContext.Orders.Select(t => t.OrderDate).ToList());
+                AllDates.AddRange(dbContext.Orders.Select(t => t.RequiredDate).ToList());
+                AllDates.AddRange(dbContext.Orders.Select(t => t.ShippedDate).ToList());
+
+                AllDates.Sort();
+
+                var LastDate = AllDates.LastOrDefault();
+
+                return LastDate.Value;
+            }
+        }
+
+        public void AdjustAllDatesInDatabaseByDays(int days)
+        {
+            if (days == 0)
+                return;
+
+            using (var dbContext = new NorthWindsModel())
+            {
+                var EmployeeDates = dbContext.Employees;
+                foreach (var ed in EmployeeDates)
+                {
+                    if (ed.BirthDate != null)
+                        ed.BirthDate = ed.BirthDate?.AddDays(days);
+                    if (ed.HireDate != null)
+                        ed.HireDate = ed.HireDate?.AddDays(days);
+                }
+
+                var OrderDates = dbContext.Orders;
+                foreach (var od in OrderDates)
+                {
+                    if (od.OrderDate != null)
+                        od.OrderDate = od.OrderDate?.AddDays(days);
+                    if (od.RequiredDate != null)
+                        od.RequiredDate = od.RequiredDate?.AddDays(days);
+                    if (od.ShippedDate != null)
+                        od.ShippedDate = od.ShippedDate?.AddDays(days);
+                }
+
+                dbContext.SaveChanges();
+            }
+        }
     }
 }
