@@ -73,5 +73,28 @@ namespace WPFSampleApp
             SecondaryContent.Content = null;
             PrimaryContent.Content = new Shippers(DataAccessAPI, SecondaryContent);
         }
+
+        private void AdjustDBDatesToday_Click(object sender, RoutedEventArgs e)
+        {
+            var bResult = MessageBox.Show(
+                "This operation will adjust all dates in the NorthWind demo database to be relative to today.  Do you want to continue?",
+                "Adjust Dates?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (bResult == MessageBoxResult.Yes)
+            {
+                // get the most recent date in all the database records.
+                var latestDate = DataAccessAPI.GetLatestDateInDatabase();
+
+                // generate a datetime with today's date and latestDate time (we only want to adjust days)
+                DateTime Now = DateTime.Now;
+                DateTime Current = new DateTime(Now.Year, Now.Month, Now.Day, latestDate.Hour, latestDate.Minute, latestDate.Second);
+
+                // calculate the difference between current date and latestDate.
+                var diff = Current - latestDate;
+
+                // diff.Days contains the number of days to adjust each datetime value in the database.  The latestDate will be set to today.
+                DataAccessAPI.AdjustAllDatesInDatabaseByDays(diff.Days);
+            }
+        }
     }
 }
