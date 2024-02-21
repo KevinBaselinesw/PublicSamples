@@ -38,10 +38,13 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccessLib
 {
+    /// <summary>
+    /// This is the SQL server/entityframework implementation of the IDataAccessAPI
+    /// </summary>
     public class DataAccessAPIDB : IDataAccessAPI
     {
- 
 
+        /// <inheritdoc/>
         public IEnumerable<Employee> GetAllEmployees()
         {
             using (var dbContext = new NorthWindsModel())
@@ -51,6 +54,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Category> GetAllProductCategories()
         {
             using (var dbContext = new NorthWindsModel())
@@ -59,7 +63,7 @@ namespace DatabaseAccessLib
                 return Categories;
             }
         }
-
+        /// <inheritdoc />
         public IEnumerable<Category> GetProductCategoriesByID(int CategoryID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -69,6 +73,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Product> GetAllProducts()
         {
             using (var dbContext = new NorthWindsModel())
@@ -77,7 +82,7 @@ namespace DatabaseAccessLib
                 return Products;
             }
         }
-
+        /// <inheritdoc />
         public IEnumerable<Product> GetProductsBySupplier(int SupplierID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -86,7 +91,7 @@ namespace DatabaseAccessLib
                 return Products;
             }
         }
-
+        /// <inheritdoc />
         public IEnumerable<Product> GetProductsByCategoryID(int CategoryID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -96,6 +101,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Customer> GetAllCustomers()
         {
             using (var dbContext = new NorthWindsModel())
@@ -105,6 +111,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Order> GetAllOrders()
         {
             using (var dbContext = new NorthWindsModel())
@@ -120,6 +127,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Order> GetOrdersByShipVia(int ShipVia)
         {
             using (var dbContext = new NorthWindsModel())
@@ -135,6 +143,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Order> GetOrdersByEmployeeID(int EmployeeID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -150,6 +159,7 @@ namespace DatabaseAccessLib
                 return Orders;
             }
         }
+        /// <inheritdoc />
         public IEnumerable<Order> GetOrdersByCustomerID(string CustomerID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -166,7 +176,7 @@ namespace DatabaseAccessLib
             }
         }
 
-
+        /// <inheritdoc />
         public IEnumerable<Orders_Qry> GetAllOrdersQry()
         {
             using (var dbContext = new NorthWindsModel())
@@ -176,6 +186,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Supplier> GetAllSuppliers()
         {
             using (var dbContext = new NorthWindsModel())
@@ -184,7 +195,7 @@ namespace DatabaseAccessLib
                 return Suppliers;
             }
         }
-
+        /// <inheritdoc />
         public IEnumerable<Supplier> GetSuppliersByID(int SupplierID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -194,6 +205,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Shipper> GetAllShippers()
         {
             using (var dbContext = new NorthWindsModel())
@@ -203,6 +215,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Order_Detail> GetOrderDetailsByProductID(int ProductID)
         {
             using (var dbContext = new NorthWindsModel())
@@ -215,6 +228,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public DateTime GetLatestDateInDatabase()
         {
             using (var dbContext = new NorthWindsModel())
@@ -235,6 +249,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public void AdjustAllDatesInDatabaseByDays(int days)
         {
             if (days == 0)
