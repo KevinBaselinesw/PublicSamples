@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.33529.398
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFSampleApp", "WPFSampleApp\WPFSampleApp\WPFSampleApp.csproj", "{2B554A54-7DC0-4E3D-8E91-8808D3A7D6B2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B8C14118-06DC-4E64-A8AC-B645CAE3318E} = {B8C14118-06DC-4E64-A8AC-B645CAE3318E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAccessLib", "DatabaseAccessLib\DatabaseAccessLib\DatabaseAccessLib.csproj", "{B8C14118-06DC-4E64-A8AC-B645CAE3318E}"
 EndProject
