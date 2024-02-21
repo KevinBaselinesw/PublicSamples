@@ -44,6 +44,7 @@
             </MenuItem>
             <MenuItem Header="Database">
                 <MenuItem Header="Adjust dates relative to today" Click="AdjustDBDatesToday_Click"></MenuItem>
+                <MenuItem Header="Adjust dates by entered amount" Click="AdjustDBDates_Click"></MenuItem>
             </MenuItem>
         </Menu>
        

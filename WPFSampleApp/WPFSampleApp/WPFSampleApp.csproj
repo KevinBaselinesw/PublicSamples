@@ -70,6 +70,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ConverterFunctions\Converters.cs" />
+    <Compile Include="Dialogs\DatabaseDaysToAdjust.xaml.cs">
+      <DependentUpon>DatabaseDaysToAdjust.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CategoriesByProduct.xaml.cs">
       <DependentUpon>CategoriesByProduct.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
     <Compile Include="UserControls\Suppliers.xaml.cs">
       <DependentUpon>Suppliers.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\DatabaseDaysToAdjust.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

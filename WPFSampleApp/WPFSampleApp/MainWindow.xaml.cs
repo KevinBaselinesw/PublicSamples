@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFSampleApp.Dialogs;
 using WPFSampleApp.UserControls;
 
 namespace WPFSampleApp
@@ -94,6 +95,17 @@ namespace WPFSampleApp
 
                 // diff.Days contains the number of days to adjust each datetime value in the database.  The latestDate will be set to today.
                 DataAccessAPI.AdjustAllDatesInDatabaseByDays(diff.Days);
+            }
+        }
+
+        private void AdjustDBDates_Click(object sender, RoutedEventArgs e)
+        {
+            var Dlg = new DatabaseDaysToAdjust();
+            var bResult = Dlg.ShowDialog();
+            if (bResult == true)
+            {
+                int DaysToAdjust = Dlg.DaysToAdjust;
+                DataAccessAPI.AdjustAllDatesInDatabaseByDays(DaysToAdjust);
             }
         }
     }
