@@ -37,7 +37,7 @@
             <TextBlock x:Name="ReportTitle" Text="" FontSize="24" VerticalAlignment="Center" Margin="10"/>
         </StackPanel>
         
-        <DataGrid x:Name="ProductGrid" Grid.Row="1" AutoGenerateColumns="False">
+        <DataGrid x:Name="ProductGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ProductID}"/>
                 <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>

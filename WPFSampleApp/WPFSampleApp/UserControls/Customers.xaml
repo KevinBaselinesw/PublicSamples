@@ -26,7 +26,7 @@
             <Image Source="..\Images\customers.png" Style="{StaticResource SubsystemSelectorImage}" Margin="10" />
             <TextBlock Text="List of customers" FontSize="24" VerticalAlignment="Center" Margin="10"/>
         </StackPanel>
-        <DataGrid x:Name="CustomerGrid" Grid.Row="1" AutoGenerateColumns="False">
+        <DataGrid x:Name="CustomerGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding CustomerID}"/>
                 <DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}"/>

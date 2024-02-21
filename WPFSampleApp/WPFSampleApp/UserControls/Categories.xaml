@@ -27,7 +27,7 @@
             <Image Source="..\Images\category.png" Style="{StaticResource SubsystemSelectorImage}" Margin="10" />
             <TextBlock Text="Categories of products" FontSize="24" VerticalAlignment="Center" Margin="10"/>
         </StackPanel>
-        <DataGrid x:Name="ProductCategoryGrid" Grid.Row="1" AutoGenerateColumns="False">
+        <DataGrid x:Name="ProductCategoryGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding CategoryID}"/>
                 <DataGridTextColumn Header="Category Name" Binding="{Binding CategoryName}"/>
