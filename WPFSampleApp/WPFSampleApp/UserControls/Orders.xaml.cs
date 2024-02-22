@@ -55,6 +55,7 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
 
         public Orders(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
@@ -68,6 +69,30 @@ namespace WPFSampleApp.UserControls
         {
             var AllOrdersWithSubtotal = DataAccessAPI.GetAllOrdersWithSubtotals();
             OrdersGrid.ItemsSource = AllOrdersWithSubtotal;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
+        }
+
+        private void GetOrderDetails_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int orderID = (int)btn.Tag;
+
+            var orderDetails = DataAccessAPI.GetOrderDetailsByOrderID(orderID);
+
+            string Message = string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().OrderID}");
+
+            pageAnimation.TransitionType = App.PageAnimationType;
+            pageAnimation.ShowPage(new SimpleText(Message));
+
+            return;
         }
     }
 }

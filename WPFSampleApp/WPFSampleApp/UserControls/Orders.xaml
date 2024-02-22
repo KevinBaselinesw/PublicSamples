@@ -37,7 +37,13 @@
                 <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Order Total" Binding="{Binding Subtotal.Subtotal}"/>
-
+                <DataGridTemplateColumn Header="Order Details">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Margin="2" Content="Order Details" Tag="{Binding OrderID}" Click="GetOrderDetails_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

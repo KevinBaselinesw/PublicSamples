@@ -109,25 +109,6 @@ namespace WPFSampleApp.UserControls
             return;
         }
 
-        private void GetOrderDetails_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = sender as Button;
-            if (btn == null)
-                return;
-
-            if (btn.Tag.GetType() != typeof(System.Int32))
-                return;
-
-            int productID = (int)btn.Tag;
-
-            var orderDetails = DataAccessAPI.GetOrderDetailsByProductID(productID);
-
-            string Message = string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().Product.ProductName}");
-
-            pageAnimation.TransitionType = App.PageAnimationType;
-            pageAnimation.ShowPage(new SimpleText(Message));
-
-            return;
-        }
+  
     }
 }
