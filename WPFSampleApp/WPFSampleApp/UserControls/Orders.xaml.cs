@@ -66,8 +66,8 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var AllOrders = DataAccessAPI.GetAllOrders();
-            OrdersGrid.ItemsSource = AllOrders;
+            var AllOrdersWithSubtotal = DataAccessAPI.GetAllOrdersWithSubtotals();
+            OrdersGrid.ItemsSource = AllOrdersWithSubtotal;
         }
     }
 }

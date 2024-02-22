@@ -36,6 +36,7 @@
                 <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource dateToDateStringConverter}}"/>
+                <DataGridTextColumn Header="Order Total" Binding="{Binding Subtotal.Subtotal}"/>
 
             </DataGrid.Columns>
         </DataGrid>
