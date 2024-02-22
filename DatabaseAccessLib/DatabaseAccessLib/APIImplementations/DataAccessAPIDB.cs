@@ -126,6 +126,7 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotals()
         {
             using (var dbContext = new NorthWindsModel())
@@ -254,6 +255,20 @@ namespace DatabaseAccessLib
                 return OrderDetails;
             }
         }
+
+        /// <inheritdoc />
+        public IEnumerable<Order_Detail> GetOrderDetailsByOrderID(int OrderID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var OrderDetails = dbContext.Order_Details.
+                    Include(nameof(Order_Detail.Order)).
+                    Include(nameof(Order_Detail.Product)).
+                    Where(t => t.OrderID == OrderID).ToArray();
+                return OrderDetails;
+            }
+        }
+
 
         /// <inheritdoc />
         public DateTime GetLatestDateInDatabase()

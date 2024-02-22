@@ -105,7 +105,10 @@ namespace DatabaseAccessLib
         /// <returns></returns>
         IEnumerable<Order> GetAllOrders();
 
-
+        /// <summary>
+        /// Returns a collection of all orders in the database including the subtotal of those orders
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotals();
 
         /// <summary>
@@ -157,6 +160,14 @@ namespace DatabaseAccessLib
         /// <param name="ProductID"></param>
         /// <returns></returns>
         IEnumerable<Order_Detail> GetOrderDetailsByProductID(int ProductID);
+
+
+        /// <summary>
+        /// Returns a collection of Order Details matching a specific order ID
+        /// </summary>
+        /// <param name="ProductID"></param>
+        /// <returns></returns>
+        IEnumerable<Order_Detail> GetOrderDetailsByOrderID(int OrderID);
 
         /// <summary>
         /// Returns the most recent date value from the database.  Used when trying to adjust the data to different dates.
