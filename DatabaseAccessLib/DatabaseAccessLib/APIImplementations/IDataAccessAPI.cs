@@ -38,6 +38,18 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccessLib
 {
+    public class OrderWithSubtotal
+    {
+        public int OrderID { get; set; }
+        public Customer Customer { get; set; }
+        public Employee Employee { get; set; }
+        public Shipper Shipper { get; set; }
+        public Order_Subtotal Subtotal { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public DateTime? RequiredDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
+    }
+
     /// <summary>
     /// This interface defines the database access of this system
     /// </summary>
@@ -66,6 +78,8 @@ namespace DatabaseAccessLib
         /// </summary>
         /// <returns></returns>
         IEnumerable<Product> GetAllProducts();
+
+
         /// <summary>
         /// Returns a collection of products that are from a specific supplier
         /// </summary>
@@ -90,6 +104,10 @@ namespace DatabaseAccessLib
         /// </summary>
         /// <returns></returns>
         IEnumerable<Order> GetAllOrders();
+
+
+        IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotals();
+
         /// <summary>
         /// Returns a collection of orders that have been shipped by a specific shipper
         /// </summary>
