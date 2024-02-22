@@ -86,7 +86,7 @@ namespace WPFSampleApp.UserControls
 
             int supplierID = (int)btn.Tag;
 
-            pageAnimation.TransitionType = PageAnimationType.FlipAndFade;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new ProductsBySupplier(DataAccessAPI, supplierID, contentControl));
 
             return;

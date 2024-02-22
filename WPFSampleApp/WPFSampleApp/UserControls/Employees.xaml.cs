@@ -87,7 +87,7 @@ namespace WPFSampleApp.UserControls
 
             int employeeID = (int)btn.Tag;
 
-            pageAnimation.TransitionType = PageAnimationType.SpinAndFade;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new OrdersByEmployee(DataAccessAPI, employeeID, contentControl));
 
             return;

@@ -85,7 +85,7 @@ namespace WPFSampleApp.UserControls
 
             string customerID = (string)btn.Tag;
 
-            pageAnimation.TransitionType = PageAnimationType.FlipAndFade;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new OrdersByCustomer(DataAccessAPI, customerID, contentControl));
 
             return;

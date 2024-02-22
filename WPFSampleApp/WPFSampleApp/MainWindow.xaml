@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFSampleApp"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="Northwinds Corporation" MinHeight="450" MinWidth="800">
 
     <Window.Resources>
@@ -45,6 +46,18 @@
             <MenuItem Header="Database">
                 <MenuItem Header="Adjust dates relative to today" Click="AdjustDBDatesToday_Click"></MenuItem>
                 <MenuItem Header="Adjust dates by entered amount" Click="AdjustDBDates_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Animation" x:Name="AnimationMenu" >
+                <MenuItem Header="None" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="Fade" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="Slide" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="SlideAndFade" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="Grow" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="GrowAndFade" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="Flip" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="FlipAndFade" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="Spin" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
+                <MenuItem Header="SpinAndFade" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>
             </MenuItem>
             <MenuItem Header="About" Click="About_Click"></MenuItem>
         </Menu>

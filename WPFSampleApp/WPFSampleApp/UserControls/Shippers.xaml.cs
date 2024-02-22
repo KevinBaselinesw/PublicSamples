@@ -86,7 +86,7 @@ namespace WPFSampleApp.UserControls
 
             int shipperID = (int)btn.Tag;
 
-            pageAnimation.TransitionType = PageAnimationType.Slide;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new OrdersByShipper(DataAccessAPI, shipperID, contentControl));
 
             return;

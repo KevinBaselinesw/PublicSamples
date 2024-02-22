@@ -84,7 +84,7 @@ namespace WPFSampleApp.UserControls
 
             int supplierID = (int)btn.Tag;
 
-            pageAnimation.TransitionType = PageAnimationType.FlipAndFade;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new SuppliersByProduct(DataAccessAPI, supplierID, null));
 
             return;
@@ -103,7 +103,7 @@ namespace WPFSampleApp.UserControls
 
             var categories = DataAccessAPI.GetProductCategoriesByID(categoryID);
 
-            pageAnimation.TransitionType = PageAnimationType.Slide;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new CategoriesByProduct(DataAccessAPI, categoryID, null));
 
             return;
@@ -124,7 +124,7 @@ namespace WPFSampleApp.UserControls
 
             string Message = string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().Product.ProductName}");
 
-            pageAnimation.TransitionType = PageAnimationType.GrowAndFade;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new SimpleText(Message));
 
             return;

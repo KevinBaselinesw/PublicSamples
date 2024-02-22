@@ -33,6 +33,7 @@
 using DatabaseAccessLib;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,12 +57,30 @@ namespace WPFSampleApp
     public partial class MainWindow : Window
     {
         IDataAccessAPI DataAccessAPI;
-
         public MainWindow()
         {
             InitializeComponent();
 
             DataAccessAPI = new DataAccessAPIDB();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string AnimationType = ConfigurationManager.AppSettings["AnimationType"];
+
+            foreach (var item in AnimationMenu.Items)
+            {
+                MenuItem mi = item as MenuItem;
+                if (mi != null)
+                {
+                    if ((string)mi.Header == AnimationType)
+                    {
+                        mi.IsChecked = true;
+                        break;
+                    }
+                }
+            }
+
         }
 
         private void Employees_Click(object sender, RoutedEventArgs e)
@@ -146,5 +165,33 @@ namespace WPFSampleApp
             var aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
+
+        private void AnimationMenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            MenuItem SelectedItem = sender as MenuItem;
+            if (SelectedItem == null)
+                return;
+
+            foreach (var item in AnimationMenu.Items)
+            {
+                MenuItem mi = item as MenuItem;
+                if (mi != null)
+                {
+                    if (mi.Header != SelectedItem.Header)
+                        mi.IsChecked = false;
+                }
+            }
+
+            PageAnimationType pageAnimationType;
+            bool bResult = Enum.TryParse((string)SelectedItem.Header, out pageAnimationType);
+            if (bResult)
+            {
+                App.PageAnimationType = pageAnimationType;
+            }
+
+            return;
+        }
+
+ 
     }
 }

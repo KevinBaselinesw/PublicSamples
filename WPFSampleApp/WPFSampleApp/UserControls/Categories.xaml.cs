@@ -87,7 +87,7 @@ namespace WPFSampleApp.UserControls
 
             int categoryID = (int)btn.Tag;
 
-            pageAnimation.TransitionType = PageAnimationType.Spin;
+            pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new ProductsByCategory(DataAccessAPI, categoryID, contentControl));
 
             return;
