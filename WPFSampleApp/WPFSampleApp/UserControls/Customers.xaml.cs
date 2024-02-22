@@ -55,6 +55,7 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
 
         public Customers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
@@ -68,6 +69,9 @@ namespace WPFSampleApp.UserControls
         {
             var AllCustomers = DataAccessAPI.GetAllCustomers();
             CustomerGrid.ItemsSource = AllCustomers;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
         }
 
         private void OrdersByCustomer_Click(object sender, RoutedEventArgs e)
@@ -81,7 +85,8 @@ namespace WPFSampleApp.UserControls
 
             string customerID = (string)btn.Tag;
 
-            contentControl.Content = new OrdersByCustomer(DataAccessAPI, customerID, contentControl);
+            pageAnimation.TransitionType = PageAnimationType.FlipAndFade;
+            pageAnimation.ShowPage(new OrdersByCustomer(DataAccessAPI, customerID, contentControl));
 
             return;
         }

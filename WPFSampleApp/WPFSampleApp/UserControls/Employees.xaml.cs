@@ -55,6 +55,8 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
+
         IEnumerable<Employee> AllEmployees;
 
         public Employees(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
@@ -69,6 +71,9 @@ namespace WPFSampleApp.UserControls
         {
             AllEmployees = DataAccessAPI.GetAllEmployees();
             EmployeeGrid.ItemsSource = AllEmployees;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
         }
 
         private void OrdersByEmployee_Click(object sender, RoutedEventArgs e)
@@ -82,7 +87,8 @@ namespace WPFSampleApp.UserControls
 
             int employeeID = (int)btn.Tag;
 
-            contentControl.Content = new OrdersByEmployee(DataAccessAPI, employeeID, contentControl);
+            pageAnimation.TransitionType = PageAnimationType.SpinAndFade;
+            pageAnimation.ShowPage(new OrdersByEmployee(DataAccessAPI, employeeID, contentControl));
 
             return;
         }

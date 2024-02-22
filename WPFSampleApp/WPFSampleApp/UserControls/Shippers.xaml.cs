@@ -55,6 +55,8 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
+
         IEnumerable<Shipper> AllShippers;
 
         public Shippers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
@@ -68,6 +70,9 @@ namespace WPFSampleApp.UserControls
         {
             AllShippers = DataAccessAPI.GetAllShippers();
             SuppliersGrid.ItemsSource = AllShippers;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
         }
 
         private void OrdersByShipper_Click(object sender, RoutedEventArgs e)
@@ -80,8 +85,9 @@ namespace WPFSampleApp.UserControls
                 return;
 
             int shipperID = (int)btn.Tag;
-       
-            contentControl.Content = new OrdersByShipper(DataAccessAPI, shipperID, contentControl);
+
+            pageAnimation.TransitionType = PageAnimationType.Slide;
+            pageAnimation.ShowPage(new OrdersByShipper(DataAccessAPI, shipperID, contentControl));
 
             return;
         }

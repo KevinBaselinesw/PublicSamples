@@ -55,6 +55,8 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
+
         IEnumerable<Supplier> AllSuppliers;
 
         public Suppliers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
@@ -68,6 +70,9 @@ namespace WPFSampleApp.UserControls
         {
             AllSuppliers = DataAccessAPI.GetAllSuppliers();
             SuppliersGrid.ItemsSource = AllSuppliers;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
         }
 
         private void ProductsBySupplier_Click(object sender, RoutedEventArgs e)
@@ -81,7 +86,8 @@ namespace WPFSampleApp.UserControls
 
             int supplierID = (int)btn.Tag;
 
-            contentControl.Content = new ProductsBySupplier(DataAccessAPI, supplierID, contentControl);
+            pageAnimation.TransitionType = PageAnimationType.FlipAndFade;
+            pageAnimation.ShowPage(new ProductsBySupplier(DataAccessAPI, supplierID, contentControl));
 
             return;
         }

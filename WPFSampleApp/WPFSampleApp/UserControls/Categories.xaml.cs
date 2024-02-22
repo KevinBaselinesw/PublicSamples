@@ -55,6 +55,8 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
+
         IEnumerable<Category> AllCategories;
 
         public Categories(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
@@ -69,6 +71,9 @@ namespace WPFSampleApp.UserControls
         {
             AllCategories = DataAccessAPI.GetAllProductCategories();
             ProductCategoryGrid.ItemsSource = AllCategories;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
         }
 
         private void ProductsByCategory_Click(object sender, RoutedEventArgs e)
@@ -82,7 +87,8 @@ namespace WPFSampleApp.UserControls
 
             int categoryID = (int)btn.Tag;
 
-            contentControl.Content = new ProductsByCategory(DataAccessAPI, categoryID, contentControl);
+            pageAnimation.TransitionType = PageAnimationType.Spin;
+            pageAnimation.ShowPage(new ProductsByCategory(DataAccessAPI, categoryID, contentControl));
 
             return;
         }
