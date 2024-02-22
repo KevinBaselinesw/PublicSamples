@@ -155,4 +155,19 @@ namespace WPFSampleApp.ConverterFunctions
         }
     }
 
+    public class DecimalToCurrencyConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            Decimal decValue = (Decimal)value;
+            return decValue.ToString("C", CultureInfo.CurrentCulture);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }

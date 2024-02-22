@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <converters:EmployeeToNameConverter x:Key="nameConverter"/>
         <converters:DateToDateStringConverter x:Key="dateToDateStringConverter"/>
+        <converters:DecimalToCurrencyConverter x:Key="decimalToCurrencyConverter"/>
 
         <Style TargetType="Image" x:Key="SubsystemSelectorImage">
             <Setter Property="Height" Value="80"/>
@@ -36,7 +37,7 @@
                 <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Required Date" Binding="{Binding RequiredDate, Converter={StaticResource dateToDateStringConverter}}"/>
                 <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource dateToDateStringConverter}}"/>
-                <DataGridTextColumn Header="Order Total" Binding="{Binding Subtotal.Subtotal}"/>
+                <DataGridTextColumn Header="Order Total" Binding="{Binding Subtotal.Subtotal, Converter={StaticResource decimalToCurrencyConverter}}"/>
                 <DataGridTemplateColumn Header="Order Details">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
