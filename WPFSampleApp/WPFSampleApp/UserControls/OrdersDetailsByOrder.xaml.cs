@@ -49,46 +49,38 @@ using System.Windows.Shapes;
 namespace WPFSampleApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for Orders.xaml
+    /// Interaction logic for OrdersDetailsByOrder.xaml
     /// </summary>
-    public partial class Orders : UserControl
+    public partial class OrdersDetailsByOrder : UserControl
     {
         IDataAccessAPI DataAccessAPI = null;
+        int OrderID = 0;
         ContentControl contentControl;
-        PageAnimation pageAnimation;
 
-        public Orders(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
+        public OrdersDetailsByOrder(IDataAccessAPI DataAccessAPI, int OrderID, ContentControl contentControl)
         {
             InitializeComponent();
 
             this.DataAccessAPI = DataAccessAPI;
+            this.OrderID = OrderID;
             this.contentControl = contentControl;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var AllOrdersWithSubtotal = DataAccessAPI.GetAllOrdersWithSubtotals();
-            OrdersGrid.ItemsSource = AllOrdersWithSubtotal;
+            var orderDetails = DataAccessAPI.GetOrderDetailsByOrderID(OrderID);
+   
+            var FirstOrder = orderDetails.FirstOrDefault(t => t.OrderID == OrderID);  // all records likely have this
+            if (FirstOrder != null)
+            {
+                ReportTitle.Text = string.Format($"Order details for order #{FirstOrder.OrderID}");
+            }
+            else
+            {
+                ReportTitle.Text = string.Format($"order not found in database!");
+            }
 
-            pageAnimation = new PageAnimation();
-            contentControl.Content = pageAnimation;
-        }
-
-        private void GetOrderDetails_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = sender as Button;
-            if (btn == null)
-                return;
-
-            if (btn.Tag.GetType() != typeof(System.Int32))
-                return;
-
-            int orderID = (int)btn.Tag;
-             
-            pageAnimation.TransitionType = App.PageAnimationType;
-            pageAnimation.ShowPage(new OrdersDetailsByOrder(DataAccessAPI,orderID, contentControl));
-
-            return;
+            OrdersGrid.ItemsSource = orderDetails;
         }
     }
 }
