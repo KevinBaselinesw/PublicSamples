@@ -112,6 +112,12 @@ namespace DatabaseAccessLib
         IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotals();
 
         /// <summary>
+        /// Returns a collection of all orders in the database including the subtotal of those orders
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID);
+
+        /// <summary>
         /// Returns a collection of orders that have been shipped by a specific shipper
         /// </summary>
         /// <param name="ShipVia"></param>

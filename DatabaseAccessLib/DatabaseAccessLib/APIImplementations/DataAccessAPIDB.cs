@@ -154,6 +154,35 @@ namespace DatabaseAccessLib
             }
         }
 
+        /// <inheritdoc />
+        public IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+
+                var Orders = (from order in dbContext.Orders where order.CustomerID == CustomerID
+                              join employee in dbContext.Employees on order.EmployeeID equals employee.EmployeeID
+                              join customer in dbContext.Customers on order.CustomerID equals customer.CustomerID
+                              join orderSubtotals in dbContext.Order_Subtotals on order.OrderID equals orderSubtotals.OrderID
+                              join shipper in dbContext.Shippers on order.ShipVia equals shipper.ShipperID
+                              
+                              select new OrderWithSubtotal
+                              {
+                                  OrderID = order.OrderID,
+                                  OrderDate = order.OrderDate,
+                                  RequiredDate = order.RequiredDate,
+                                  ShippedDate = order.ShippedDate,
+                                  Customer = customer,
+                                  Employee = employee,
+                                  Shipper = shipper,
+                                  Subtotal = orderSubtotals,
+                              } 
+                              ) .ToArray();
+
+                return Orders;
+            }
+        }
+
 
         /// <inheritdoc />
         public IEnumerable<Order> GetOrdersByShipVia(int ShipVia)

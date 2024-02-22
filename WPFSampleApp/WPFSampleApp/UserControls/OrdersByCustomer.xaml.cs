@@ -68,8 +68,8 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var OrdersByCustomer = DataAccessAPI.GetOrdersByCustomerID(CustomerID);
-            var FirstOrder = OrdersByCustomer.FirstOrDefault(t => t.CustomerID == CustomerID);  // all records likely have this
+            var OrdersByCustomer = DataAccessAPI.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
+            var FirstOrder = OrdersByCustomer.FirstOrDefault(t => t.Customer.CustomerID == CustomerID);  // all records likely have this
             if (FirstOrder != null)
             {
                 ReportTitle.Text = string.Format($"Sales orders for {FirstOrder.Customer.CompanyName}");
