@@ -55,6 +55,7 @@ namespace WPFSampleApp.UserControls
     {
         IDataAccessAPI DataAccessAPI = null;
         ContentControl contentControl;
+        PageAnimation pageAnimation;
 
         public Products(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
@@ -67,6 +68,9 @@ namespace WPFSampleApp.UserControls
         {
             var AllCategories = DataAccessAPI.GetAllProducts();
             ProductGrid.ItemsSource = AllCategories;
+
+            pageAnimation = new PageAnimation();
+            contentControl.Content = pageAnimation;
         }
 
         private void GetSupplier_Click(object sender, RoutedEventArgs e)
@@ -80,7 +84,9 @@ namespace WPFSampleApp.UserControls
 
             int supplierID = (int)btn.Tag;
 
-            contentControl.Content = new SuppliersByProduct(DataAccessAPI, supplierID, contentControl);
+            pageAnimation.TransitionType = PageAnimationType.FlipAndFade;
+            pageAnimation.ShowPage(new SuppliersByProduct(DataAccessAPI, supplierID, null));
+
             return;
         }
 
@@ -97,7 +103,9 @@ namespace WPFSampleApp.UserControls
 
             var categories = DataAccessAPI.GetProductCategoriesByID(categoryID);
 
-            contentControl.Content = new CategoriesByProduct(DataAccessAPI, categoryID, contentControl);
+            pageAnimation.TransitionType = PageAnimationType.Slide;
+            pageAnimation.ShowPage(new CategoriesByProduct(DataAccessAPI, categoryID, null));
+
             return;
         }
 
@@ -116,7 +124,8 @@ namespace WPFSampleApp.UserControls
 
             string Message = string.Format($"There are {orderDetails.Count()} order details for {orderDetails.First().Product.ProductName}");
 
-            contentControl.Content = new SimpleText(Message);
+            pageAnimation.TransitionType = PageAnimationType.GrowAndFade;
+            pageAnimation.ShowPage(new SimpleText(Message));
 
             return;
         }
