@@ -165,9 +165,9 @@ namespace DatabaseAccessLib
         /// <summary>
         /// Returns a collection of Order Details matching a specific order ID
         /// </summary>
-        /// <param name="ProductID"></param>
+        /// <param name="OrderID"></param>
         /// <returns></returns>
-        IEnumerable<Order_Detail> GetOrderDetailsByOrderID(int OrderID);
+        IEnumerable<Order_Details_Extended> GetOrderDetailsByOrderID(int OrderID);
 
         /// <summary>
         /// Returns the most recent date value from the database.  Used when trying to adjust the data to different dates.

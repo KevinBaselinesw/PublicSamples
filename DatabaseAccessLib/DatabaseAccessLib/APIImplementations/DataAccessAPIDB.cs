@@ -257,13 +257,11 @@ namespace DatabaseAccessLib
         }
 
         /// <inheritdoc />
-        public IEnumerable<Order_Detail> GetOrderDetailsByOrderID(int OrderID)
+        public IEnumerable<Order_Details_Extended> GetOrderDetailsByOrderID(int OrderID)
         {
             using (var dbContext = new NorthWindsModel())
             {
-                var OrderDetails = dbContext.Order_Details.
-                    Include(nameof(Order_Detail.Order)).
-                    Include(nameof(Order_Detail.Product)).
+                var OrderDetails = dbContext.Order_Details_Extendeds.
                     Where(t => t.OrderID == OrderID).ToArray();
                 return OrderDetails;
             }
