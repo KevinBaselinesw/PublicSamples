@@ -102,7 +102,7 @@
     <None Include="Connected Services\WCFSampleService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.CompositeType.datasource">
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.EmployeeDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\WCFSampleService\WCFSampleService.wsdl" />

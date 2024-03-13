@@ -29,8 +29,13 @@ namespace WCFSampleClient
         {
             WCFSampleService.WCFSampleServiceClient Client = new WCFSampleService.WCFSampleServiceClient();
 
-            string Message = Client.GetData(34);
-            MessageBox.Show(Message);
+            var Employees = Client.GetAllEmployees();
+            MessageBox.Show(Employees[0].LastName);
+
+            //var str = Client.GetData(97);
+            //MessageBox.Show(str);
         }
+
+   
     }
 }

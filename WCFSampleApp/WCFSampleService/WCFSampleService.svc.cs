@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using DatabaseAccessLib;
 
 namespace WCFSampleApp
 {
@@ -13,22 +14,33 @@ namespace WCFSampleApp
     /// </summary>
     public class WCFSampleService : IWCFSampleService
     {
-        public string GetData(int value)
+        static DataAccessAPIDB DatabaseAPI = null;
+
+        private DataAccessAPIDB GetDatabaseAPI()
         {
-            return string.Format("You entered: {0}", value);
+            if (DatabaseAPI == null)
+            {
+                DatabaseAPI = new DataAccessAPIDB();
+            }
+            return DatabaseAPI;
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        
+
+        public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
-            if (composite == null)
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var employees = DatabaseAPI.GetAllEmployees();
+
+            List<EmployeeDTO> employeeDTOs = new List<EmployeeDTO>();
+            foreach (var employee in employees)
             {
-                throw new ArgumentNullException("composite");
+                employeeDTOs.Add(new EmployeeDTO() { FirstName = employee.FirstName, LastName = employee.LastName });
             }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+      
+            return employeeDTOs;
         }
+   
     }
 }

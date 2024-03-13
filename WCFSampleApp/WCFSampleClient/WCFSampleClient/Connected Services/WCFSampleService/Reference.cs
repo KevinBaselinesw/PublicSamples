@@ -15,18 +15,18 @@ namespace WCFSampleClient.WCFSampleService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/WCFSampleApp")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeDTO", Namespace="http://schemas.datacontract.org/2004/07/WCFSampleApp")]
     [System.SerializableAttribute()]
-    public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class EmployeeDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
+        private string FirstNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
+        private string LastNameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -39,27 +39,27 @@ namespace WCFSampleClient.WCFSampleService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool BoolValue {
+        public string FirstName {
             get {
-                return this.BoolValueField;
+                return this.FirstNameField;
             }
             set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
+                if ((object.ReferenceEquals(this.FirstNameField, value) != true)) {
+                    this.FirstNameField = value;
+                    this.RaisePropertyChanged("FirstName");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StringValue {
+        public string LastName {
             get {
-                return this.StringValueField;
+                return this.LastNameField;
             }
             set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
+                if ((object.ReferenceEquals(this.LastNameField, value) != true)) {
+                    this.LastNameField = value;
+                    this.RaisePropertyChanged("LastName");
                 }
             }
         }
@@ -78,17 +78,11 @@ namespace WCFSampleClient.WCFSampleService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WCFSampleService.IWCFSampleService")]
     public interface IWCFSampleService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetData", ReplyAction="http://tempuri.org/IWCFSampleService/GetDataResponse")]
-        string GetData(int value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllEmployees", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllEmployeesResponse")]
+        WCFSampleClient.WCFSampleService.EmployeeDTO[] GetAllEmployees();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetData", ReplyAction="http://tempuri.org/IWCFSampleService/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IWCFSampleService/GetDataUsingDataContractResponse")]
-        WCFSampleClient.WCFSampleService.CompositeType GetDataUsingDataContract(WCFSampleClient.WCFSampleService.CompositeType composite);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IWCFSampleService/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CompositeType> GetDataUsingDataContractAsync(WCFSampleClient.WCFSampleService.CompositeType composite);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllEmployees", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllEmployeesResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.EmployeeDTO[]> GetAllEmployeesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -118,20 +112,12 @@ namespace WCFSampleClient.WCFSampleService {
                 base(binding, remoteAddress) {
         }
         
-        public string GetData(int value) {
-            return base.Channel.GetData(value);
+        public WCFSampleClient.WCFSampleService.EmployeeDTO[] GetAllEmployees() {
+            return base.Channel.GetAllEmployees();
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
-        }
-        
-        public WCFSampleClient.WCFSampleService.CompositeType GetDataUsingDataContract(WCFSampleClient.WCFSampleService.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContract(composite);
-        }
-        
-        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CompositeType> GetDataUsingDataContractAsync(WCFSampleClient.WCFSampleService.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.EmployeeDTO[]> GetAllEmployeesAsync() {
+            return base.Channel.GetAllEmployeesAsync();
         }
     }
 }
