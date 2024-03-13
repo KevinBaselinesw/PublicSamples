@@ -25,7 +25,7 @@ namespace WCFSampleApp
             return DatabaseAPI;
         }
 
-        
+
 
         public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
@@ -33,14 +33,42 @@ namespace WCFSampleApp
 
             var employees = DatabaseAPI.GetAllEmployees();
 
+            return ConvertToDTO(employees);
+        }
+
+        private IEnumerable<EmployeeDTO> ConvertToDTO(IEnumerable<Employee> employees)
+        {
             List<EmployeeDTO> employeeDTOs = new List<EmployeeDTO>();
             foreach (var employee in employees)
             {
-                employeeDTOs.Add(new EmployeeDTO() { FirstName = employee.FirstName, LastName = employee.LastName });
+                var covertedEmployee = new EmployeeDTO()
+                {
+                    EmployeeID = employee.EmployeeID,
+                    LastName = employee.LastName,
+                    FirstName = employee.FirstName,
+                    Title = employee.Title,
+                    TitleOfCourtesy = employee.TitleOfCourtesy,
+                    BirthDate = employee.BirthDate,
+                    HireDate = employee.HireDate,
+                    Address = employee.Address,
+                    City = employee.City,
+                    Region = employee.Region,
+                    PostalCode = employee.PostalCode,
+                    Country = employee.Country,
+                    HomePhone = employee.HomePhone,
+                    Extension = employee.Extension,
+                    Photo = employee.Photo,
+                    Notes = employee.Notes,
+                    ReportsTo = employee.ReportsTo,
+                    PhotoPath = employee.PhotoPath,
+                };
+
+                employeeDTOs.Add(covertedEmployee);
             }
-      
+
             return employeeDTOs;
         }
    
+
     }
 }
