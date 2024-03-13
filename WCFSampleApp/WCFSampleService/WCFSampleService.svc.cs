@@ -81,6 +81,40 @@ namespace WCFSampleApp
             return ConvertToDTO(products);
         }
 
+        public IEnumerable<CustomerDTO> GetAllCustomers()
+        {
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var customers = DatabaseAPI.GetAllCustomers();
+
+            return ConvertToDTO(customers);
+        }
+
+        private IEnumerable<CustomerDTO> ConvertToDTO(IEnumerable<Customer> customers)
+        {
+            List<CustomerDTO> customerDTOs = new List<CustomerDTO>();
+
+            foreach (var customer in customers)
+            {
+                var convertedProduct = new CustomerDTO()
+                {
+                    CustomerID = customer.CustomerID,
+                    CompanyName = customer.CompanyName,
+                    ContactName = customer.ContactName,
+                    ContactTitle = customer.ContactTitle,
+                    Address = customer.Address,
+                    City = customer.City,
+                    Region = customer.Region,
+                    PostalCode = customer.PostalCode,
+                    Country = customer.Country,
+                    Phone = customer.Phone,
+                    Fax = customer.Fax,
+                };
+                customerDTOs.Add(convertedProduct);
+            }
+            return customerDTOs;
+        }
+
         private IEnumerable<ProductDTO> ConvertToDTO(IEnumerable<Product> products)
         {
             List<ProductDTO> productDTOs = new List<ProductDTO>();
