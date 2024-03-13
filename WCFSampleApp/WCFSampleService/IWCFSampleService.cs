@@ -16,7 +16,21 @@ namespace WCFSampleApp
     {
         [OperationContract]
         IEnumerable<EmployeeDTO> GetAllEmployees();
-  
+
+        [OperationContract]
+        IEnumerable<CategoryDTO> GetAllProductCategories();
+
+        [OperationContract]
+        IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID);
+
+        [OperationContract]
+        IEnumerable<ProductDTO> GetAllProducts();
+
+        [OperationContract]
+        IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID);
+
+        [OperationContract]
+        IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID);
     }
 
     [DataContract]
@@ -83,16 +97,64 @@ namespace WCFSampleApp
 
     }
 
+    [DataContract]
+    public class CategoryDTO
+    {
+        public CategoryDTO()
+        {
+        }
 
-    //[DataContract]
-    //public class EmployeeDTO
-    //{
-    //    [DataMember]
-    //    public string FirstName { get; set; }
+        [DataMember]
+        public int CategoryID { get; set; }
 
-    //    [DataMember]
-    //    public string LastName { get; set; }
+        [DataMember]
+        public string CategoryName { get; set; }
 
-    //}
+        [DataMember]
+        public string Description { get; set; }
+
+        [DataMember]
+        public byte[] Picture { get; set; }
+
+    }
+
+    [DataContract]
+    public class ProductDTO
+    {
+        public ProductDTO()
+        {
+        }
+
+        [DataMember]
+        public int ProductID { get; set; }
+
+        [DataMember]
+        public string ProductName { get; set; }
+
+        [DataMember]
+        public int? SupplierID { get; set; }
+
+        [DataMember]
+        public int? CategoryID { get; set; }
+
+        [DataMember]
+        public string QuantityPerUnit { get; set; }
+
+        [DataMember]
+        public decimal? UnitPrice { get; set; }
+
+        [DataMember]
+        public short? UnitsInStock { get; set; }
+
+        [DataMember]
+        public short? UnitsOnOrder { get; set; }
+
+        [DataMember]
+        public short? ReorderLevel { get; set; }
+
+        [DataMember]
+        public bool Discontinued { get; set; }
+
+    }
 
 }

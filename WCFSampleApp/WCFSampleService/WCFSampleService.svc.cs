@@ -36,6 +36,75 @@ namespace WCFSampleApp
             return ConvertToDTO(employees);
         }
 
+        public IEnumerable<CategoryDTO> GetAllProductCategories()
+        {
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var categories = DatabaseAPI.GetAllProductCategories();
+
+            return ConvertToDTO(categories);
+        }
+
+        public IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID)
+        {
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var categories = DatabaseAPI.GetProductCategoriesByID(CategoryID);
+
+            return ConvertToDTO(categories);
+        }
+
+        public IEnumerable<ProductDTO> GetAllProducts()
+        {
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var products = DatabaseAPI.GetAllProducts();
+
+            return ConvertToDTO(products);
+        }
+
+        public IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID)
+        {
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var products = DatabaseAPI.GetProductsBySupplier(SupplierID);
+
+            return ConvertToDTO(products);
+        }
+
+        public IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID)
+        {
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var products = DatabaseAPI.GetProductsByCategoryID(CategoryID);
+
+            return ConvertToDTO(products);
+        }
+
+        private IEnumerable<ProductDTO> ConvertToDTO(IEnumerable<Product> products)
+        {
+            List<ProductDTO> productDTOs = new List<ProductDTO>();
+
+            foreach (var product in products)
+            {
+                var convertedProduct = new ProductDTO()
+                {
+                    ProductID = product.ProductID,
+                    ProductName = product.ProductName,
+                    SupplierID = product.SupplierID,
+                    CategoryID = product.CategoryID,
+                    QuantityPerUnit = product.QuantityPerUnit,
+                    UnitPrice = product.UnitPrice,
+                    UnitsInStock = product.UnitsInStock,
+                    UnitsOnOrder = product.UnitsOnOrder,
+                    ReorderLevel = product.ReorderLevel,
+                    Discontinued = product.Discontinued,
+                };
+                productDTOs.Add(convertedProduct);
+            }
+            return productDTOs;
+        }
+
         private IEnumerable<EmployeeDTO> ConvertToDTO(IEnumerable<Employee> employees)
         {
             List<EmployeeDTO> employeeDTOs = new List<EmployeeDTO>();
@@ -68,7 +137,25 @@ namespace WCFSampleApp
 
             return employeeDTOs;
         }
-   
+
+        private IEnumerable<CategoryDTO> ConvertToDTO(IEnumerable<Category> categories)
+        {
+            List<CategoryDTO> categoryDTOs = new List<CategoryDTO>();
+
+            foreach (var category in categories)
+            {
+                var convertedCategory = new CategoryDTO()
+                {
+                    CategoryID = category.CategoryID,
+                    CategoryName = category.CategoryName,
+                    Description = category.Description,
+                    Picture = category.Picture,
+                };
+                categoryDTOs.Add(convertedCategory);
+            }
+            return categoryDTOs;
+        }
+
 
     }
 }
