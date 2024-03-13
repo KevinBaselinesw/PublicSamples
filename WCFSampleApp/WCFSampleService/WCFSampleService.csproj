@@ -87,6 +87,10 @@
       <Project>{B8C14118-06DC-4E64-A8AC-B645CAE3318E}</Project>
       <Name>DatabaseAccessLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\UtilityFunctions\UtilityFunctions\UtilityFunctions.csproj">
+      <Project>{A1F38FDB-57CE-4513-ACD9-51F160AD8E2E}</Project>
+      <Name>UtilityFunctions</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
