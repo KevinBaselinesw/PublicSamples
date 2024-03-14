@@ -92,64 +92,117 @@ namespace WCFSampleApp
 
         public IEnumerable<OrderDTO> GetAllOrders()
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetAllOrders();
+
+            return ConvertToDTO(orders);
         }
 
+ 
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotals()
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetAllOrdersWithSubtotals();
+
+            return ConvertToDTO(orders);
         }
+
+  
 
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
+
+            return ConvertToDTO(orders);
         }
 
         public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetOrdersByShipVia(ShipVia);
+
+            return ConvertToDTO(orders);
         }
 
         public IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetOrdersByEmployeeID(EmployeeID);
+
+            return ConvertToDTO(orders);
         }
 
         public IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetOrdersByCustomerID(CustomerID);
+
+            return ConvertToDTO(orders);
         }
 
         public IEnumerable<Orders_QryDTO> GetAllOrdersQry()
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orders = DatabaseAPI.GetAllOrdersQry();
+
+            return ConvertToDTO(orders);
         }
 
         public IEnumerable<SupplierDTO> GetAllSuppliers()
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var suppliers = DatabaseAPI.GetAllSuppliers();
+
+            return ConvertToDTO(suppliers);
         }
 
         public IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var suppliers = DatabaseAPI.GetSuppliersByID(SupplierID);
+
+            return ConvertToDTO(suppliers);
         }
 
         public IEnumerable<ShipperDTO> GetAllShippers()
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var shippers = DatabaseAPI.GetAllShippers();
+
+            return ConvertToDTO(shippers);
         }
 
+ 
         public IEnumerable<Order_DetailDTO> GetOrderDetailsByProductID(int ProductID)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orderDetails = DatabaseAPI.GetOrderDetailsByProductID(ProductID);
+
+            return ConvertToDTO(orderDetails);
         }
 
         public IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID)
         {
-            throw new NotImplementedException();
+            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+
+            var orderDetails = DatabaseAPI.GetOrderDetailsByOrderID(OrderID);
+
+            return ConvertToDTO(orderDetails);
         }
 
+ 
         #region convert collections of data structures
         private List<CustomerDTO> ConvertToDTO(IEnumerable<Customer> customers)
         {
@@ -227,7 +280,7 @@ namespace WCFSampleApp
             return categoryDTOs;
         }
 
-        private List<CustomerDemographicDTO> ConvertToDTO(ICollection<CustomerDemographic> customerDemographics)
+        private List<CustomerDemographicDTO> ConvertToDTO(IEnumerable<CustomerDemographic> customerDemographics)
         {
             if (customerDemographics == null)
                 return null;
@@ -247,7 +300,7 @@ namespace WCFSampleApp
         }
 
 
-        private List<OrderDTO> ConvertToDTO(ICollection<Order> orders)
+        private List<OrderDTO> ConvertToDTO(IEnumerable<Order> orders)
         {
             if (orders == null)
                 return null;
@@ -265,7 +318,8 @@ namespace WCFSampleApp
             return orderDTOs;
         }
 
-        private List<Order_DetailDTO> ConvertToDTO(ICollection<Order_Detail> order_details)
+
+        private List<Order_DetailDTO> ConvertToDTO(IEnumerable<Order_Detail> order_details)
         {
             if (order_details == null)
                 return null;
@@ -284,7 +338,7 @@ namespace WCFSampleApp
             return orderDetailDTOs;
         }
 
-        private List<TerritoryDTO> ConvertToDTO(ICollection<Territory> territories)
+        private List<TerritoryDTO> ConvertToDTO(IEnumerable<Territory> territories)
         {
             if (territories == null)
                 return null;
@@ -303,6 +357,47 @@ namespace WCFSampleApp
             }
             return territoryDTOs;
         }
+
+        private IEnumerable<OrderWithSubtotalDTO> ConvertToDTO(IEnumerable<OrderWithSubtotal> orders)
+        {
+            if (orders == null)
+                return null;
+
+            List<OrderWithSubtotalDTO> orderDTOs = new List<OrderWithSubtotalDTO>();
+
+            foreach (var order in orders)
+            {
+                OrderWithSubtotalDTO convertedTerritory = ToOrderWithSubtotalDTO(order);
+
+                if (convertedTerritory != null)
+                {
+                    orderDTOs.Add(convertedTerritory);
+                }
+
+            }
+            return orderDTOs;
+        }
+
+        private List<Orders_QryDTO> ConvertToDTO(IEnumerable<Orders_Qry> orders)
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<SupplierDTO> ConvertToDTO(IEnumerable<Supplier> suppliers)
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<ShipperDTO> ConvertToDTO(IEnumerable<Shipper> shippers)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<Order_Details_ExtendedDTO> ConvertToDTO(IEnumerable<Order_Details_Extended> orderDetails)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #endregion
 
@@ -547,9 +642,44 @@ namespace WCFSampleApp
             return convertedRegion;
         }
 
+        private OrderWithSubtotalDTO ToOrderWithSubtotalDTO(OrderWithSubtotal order)
+        {
+            if (order == null)
+                return null;
+
+            OrderWithSubtotalDTO convertedOrder = new OrderWithSubtotalDTO()
+            {
+                OrderID = order.OrderID,
+                Customer = ToCustomerDTO(order.Customer),
+                Employee = ToEmployeeDTO(order.Employee),
+                Shipper = ToShipperDTO(order.Shipper),
+                Subtotal = ToOrder_SubTotalDTO(order.Subtotal),
+                OrderDate = order.OrderDate,
+                RequiredDate = order.RequiredDate,
+                ShippedDate = order.ShippedDate,
+            };
+
+            return convertedOrder;
+        }
+
+        private Order_SubtotalDTO ToOrder_SubTotalDTO(Order_Subtotal subtotal)
+        {
+            if (subtotal == null)
+                return null;
+
+            Order_SubtotalDTO convertedSubTotal = new Order_SubtotalDTO()
+            {
+                OrderID = subtotal.OrderID,
+                Subtotal = subtotal.Subtotal,
+            };
+
+            return convertedSubTotal;
+
+        }
+
         #endregion
 
 
-   
+
     }
 }
