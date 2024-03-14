@@ -33,7 +33,7 @@ namespace WCFSampleApp
 
             var employees = DatabaseAPI.GetAllEmployees();
 
-            return ConvertToDTO(employees);
+            return ConvertToEmployeesDTO(employees);
         }
 
         public IEnumerable<CategoryDTO> GetAllProductCategories()
@@ -42,7 +42,7 @@ namespace WCFSampleApp
 
             var categories = DatabaseAPI.GetAllProductCategories();
 
-            return ConvertToDTO(categories);
+            return ConvertToCategoriesDTO(categories);
         }
 
         public IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID)
@@ -51,7 +51,7 @@ namespace WCFSampleApp
 
             var categories = DatabaseAPI.GetProductCategoriesByID(CategoryID);
 
-            return ConvertToDTO(categories);
+            return ConvertToCategoriesDTO(categories);
         }
 
         public IEnumerable<ProductDTO> GetAllProducts()
@@ -60,7 +60,7 @@ namespace WCFSampleApp
 
             var products = DatabaseAPI.GetAllProducts();
 
-            return ConvertToDTO(products);
+            return ConvertToProductsDTO(products);
         }
 
         public IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID)
@@ -69,7 +69,7 @@ namespace WCFSampleApp
 
             var products = DatabaseAPI.GetProductsBySupplier(SupplierID);
 
-            return ConvertToDTO(products);
+            return ConvertToProductsDTO(products);
         }
 
         public IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID)
@@ -78,7 +78,7 @@ namespace WCFSampleApp
 
             var products = DatabaseAPI.GetProductsByCategoryID(CategoryID);
 
-            return ConvertToDTO(products);
+            return ConvertToProductsDTO(products);
         }
 
         public IEnumerable<CustomerDTO> GetAllCustomers()
@@ -87,7 +87,7 @@ namespace WCFSampleApp
 
             var customers = DatabaseAPI.GetAllCustomers();
 
-            return ConvertToDTO(customers);
+            return ConvertToCustomersDTO(customers);
         }
 
         public IEnumerable<OrderDTO> GetAllOrders()
@@ -96,7 +96,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrders();
 
-            return ConvertToDTO(orders);
+            return ConvertToOrdersDTO(orders);
         }
 
  
@@ -106,7 +106,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrdersWithSubtotals();
 
-            return ConvertToDTO(orders);
+            return ConvertToOrderWithSubtotalsDTO(orders);
         }
 
   
@@ -117,7 +117,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
 
-            return ConvertToDTO(orders);
+            return ConvertToOrderWithSubtotalsDTO(orders);
         }
 
         public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
@@ -126,7 +126,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetOrdersByShipVia(ShipVia);
 
-            return ConvertToDTO(orders);
+            return ConvertToOrdersDTO(orders);
         }
 
         public IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID)
@@ -135,7 +135,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetOrdersByEmployeeID(EmployeeID);
 
-            return ConvertToDTO(orders);
+            return ConvertToOrdersDTO(orders);
         }
 
         public IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID)
@@ -144,7 +144,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetOrdersByCustomerID(CustomerID);
 
-            return ConvertToDTO(orders);
+            return ConvertToOrdersDTO(orders);
         }
 
         public IEnumerable<Orders_QryDTO> GetAllOrdersQry()
@@ -153,7 +153,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrdersQry();
 
-            return ConvertToDTO(orders);
+            return ConvertToOrdersQrysDTO(orders);
         }
 
         public IEnumerable<SupplierDTO> GetAllSuppliers()
@@ -162,7 +162,7 @@ namespace WCFSampleApp
 
             var suppliers = DatabaseAPI.GetAllSuppliers();
 
-            return ConvertToDTO(suppliers);
+            return ConvertToSuppliersDTO(suppliers);
         }
 
         public IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID)
@@ -171,7 +171,7 @@ namespace WCFSampleApp
 
             var suppliers = DatabaseAPI.GetSuppliersByID(SupplierID);
 
-            return ConvertToDTO(suppliers);
+            return ConvertToSuppliersDTO(suppliers);
         }
 
         public IEnumerable<ShipperDTO> GetAllShippers()
@@ -180,7 +180,7 @@ namespace WCFSampleApp
 
             var shippers = DatabaseAPI.GetAllShippers();
 
-            return ConvertToDTO(shippers);
+            return ConvertToShippersDTO(shippers);
         }
 
  
@@ -190,7 +190,7 @@ namespace WCFSampleApp
 
             var orderDetails = DatabaseAPI.GetOrderDetailsByProductID(ProductID);
 
-            return ConvertToDTO(orderDetails);
+            return ConvertToOrderDetailsDTO(orderDetails);
         }
 
         public IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID)
@@ -199,12 +199,12 @@ namespace WCFSampleApp
 
             var orderDetails = DatabaseAPI.GetOrderDetailsByOrderID(OrderID);
 
-            return ConvertToDTO(orderDetails);
+            return ConvertToOrderDetailsExtendedsDTO(orderDetails);
         }
 
  
         #region convert collections of data structures
-        private List<CustomerDTO> ConvertToDTO(IEnumerable<Customer> customers)
+        private List<CustomerDTO> ConvertToCustomersDTO(IEnumerable<Customer> customers)
         {
             if (customers == null)
                 return null;
@@ -223,7 +223,7 @@ namespace WCFSampleApp
             return customerDTOs;
         }
 
-        private List<ProductDTO> ConvertToDTO(IEnumerable<Product> products)
+        private List<ProductDTO> ConvertToProductsDTO(IEnumerable<Product> products)
         {
             if (products == null)
                 return null;
@@ -243,7 +243,7 @@ namespace WCFSampleApp
         }
 
 
-        private List<EmployeeDTO> ConvertToDTO(IEnumerable<Employee> employees)
+        private List<EmployeeDTO> ConvertToEmployeesDTO(IEnumerable<Employee> employees)
         {
             if (employees == null)
                 return null;
@@ -261,7 +261,7 @@ namespace WCFSampleApp
             return employeeDTOs;
         }
 
-        private List<CategoryDTO> ConvertToDTO(IEnumerable<Category> categories)
+        private List<CategoryDTO> ConvertToCategoriesDTO(IEnumerable<Category> categories)
         {
             if (categories == null)
                 return null;
@@ -280,7 +280,7 @@ namespace WCFSampleApp
             return categoryDTOs;
         }
 
-        private List<CustomerDemographicDTO> ConvertToDTO(IEnumerable<CustomerDemographic> customerDemographics)
+        private List<CustomerDemographicDTO> ConvertToCustomerDemographicDTO(IEnumerable<CustomerDemographic> customerDemographics)
         {
             if (customerDemographics == null)
                 return null;
@@ -300,7 +300,7 @@ namespace WCFSampleApp
         }
 
 
-        private List<OrderDTO> ConvertToDTO(IEnumerable<Order> orders)
+        private List<OrderDTO> ConvertToOrdersDTO(IEnumerable<Order> orders)
         {
             if (orders == null)
                 return null;
@@ -319,7 +319,7 @@ namespace WCFSampleApp
         }
 
 
-        private List<Order_DetailDTO> ConvertToDTO(IEnumerable<Order_Detail> order_details)
+        private List<Order_DetailDTO> ConvertToOrderDetailsDTO(IEnumerable<Order_Detail> order_details)
         {
             if (order_details == null)
                 return null;
@@ -338,7 +338,7 @@ namespace WCFSampleApp
             return orderDetailDTOs;
         }
 
-        private List<TerritoryDTO> ConvertToDTO(IEnumerable<Territory> territories)
+        private List<TerritoryDTO> ConvertToTerritoryDTO(IEnumerable<Territory> territories)
         {
             if (territories == null)
                 return null;
@@ -358,7 +358,7 @@ namespace WCFSampleApp
             return territoryDTOs;
         }
 
-        private IEnumerable<OrderWithSubtotalDTO> ConvertToDTO(IEnumerable<OrderWithSubtotal> orders)
+        private IEnumerable<OrderWithSubtotalDTO> ConvertToOrderWithSubtotalsDTO(IEnumerable<OrderWithSubtotal> orders)
         {
             if (orders == null)
                 return null;
@@ -367,36 +367,97 @@ namespace WCFSampleApp
 
             foreach (var order in orders)
             {
-                OrderWithSubtotalDTO convertedTerritory = ToOrderWithSubtotalDTO(order);
+                OrderWithSubtotalDTO convertedOrder = ToOrderWithSubtotalDTO(order);
 
-                if (convertedTerritory != null)
+                if (convertedOrder != null)
                 {
-                    orderDTOs.Add(convertedTerritory);
+                    orderDTOs.Add(convertedOrder);
                 }
 
             }
             return orderDTOs;
         }
 
-        private List<Orders_QryDTO> ConvertToDTO(IEnumerable<Orders_Qry> orders)
+        private List<Orders_QryDTO> ConvertToOrdersQrysDTO(IEnumerable<Orders_Qry> orders)
         {
-            throw new NotImplementedException();
+            if (orders == null)
+                return null;
+
+            List<Orders_QryDTO> orderDTOs = new List<Orders_QryDTO>();
+
+            foreach (var order in orders)
+            {
+                Orders_QryDTO convertedOrder = ToOrders_QryDTO(order);
+
+                if (convertedOrder != null)
+                {
+                    orderDTOs.Add(convertedOrder);
+                }
+
+            }
+            return orderDTOs;
         }
 
-        private List<SupplierDTO> ConvertToDTO(IEnumerable<Supplier> suppliers)
+ 
+        private List<SupplierDTO> ConvertToSuppliersDTO(IEnumerable<Supplier> suppliers)
         {
-            throw new NotImplementedException();
+            if (suppliers == null)
+                return null;
+
+            List<SupplierDTO> supplierDTOs = new List<SupplierDTO>();
+
+            foreach (var supplier in suppliers)
+            {
+                SupplierDTO convertedSupplier = ToSupplierDTO(supplier);
+
+                if (convertedSupplier != null)
+                {
+                    supplierDTOs.Add(convertedSupplier);
+                }
+
+            }
+            return supplierDTOs;
         }
 
-        private List<ShipperDTO> ConvertToDTO(IEnumerable<Shipper> shippers)
+        private List<ShipperDTO> ConvertToShippersDTO(IEnumerable<Shipper> shippers)
         {
-            throw new NotImplementedException();
+            if (shippers == null)
+                return null;
+
+            List<ShipperDTO> shipperDTOs = new List<ShipperDTO>();
+
+            foreach (var shipper in shippers)
+            {
+                ShipperDTO convertedShipper = ToShipperDTO(shipper);
+
+                if (convertedShipper != null)
+                {
+                    shipperDTOs.Add(convertedShipper);
+                }
+
+            }
+            return shipperDTOs;
+        }
+        private IEnumerable<Order_Details_ExtendedDTO> ConvertToOrderDetailsExtendedsDTO(IEnumerable<Order_Details_Extended> orderDetailsExtended)
+        {
+            if (orderDetailsExtended == null)
+                return null;
+
+            List<Order_Details_ExtendedDTO> orderDetailsDTO = new List<Order_Details_ExtendedDTO>();
+
+            foreach (var orderExtended in orderDetailsExtended)
+            {
+                Order_Details_ExtendedDTO convertedShipper = ToOrderDetailsExtendedDTO(orderExtended);
+
+                if (convertedShipper != null)
+                {
+                    orderDetailsDTO.Add(convertedShipper);
+                }
+
+            }
+            return orderDetailsDTO;
         }
 
-        private IEnumerable<Order_Details_ExtendedDTO> ConvertToDTO(IEnumerable<Order_Details_Extended> orderDetails)
-        {
-            throw new NotImplementedException();
-        }
 
 
         #endregion
@@ -421,8 +482,8 @@ namespace WCFSampleApp
                 Country = customer.Country,
                 Phone = customer.Phone,
                 Fax = customer.Fax,
-                CustomerDemographics = ConvertToDTO(customer.CustomerDemographics),
-                Orders = ConvertToDTO(customer.Orders)
+                CustomerDemographics = ConvertToCustomerDemographicDTO(customer.CustomerDemographics),
+                Orders = ConvertToOrdersDTO(customer.Orders)
             };
 
             return convertedCustomer;
@@ -446,7 +507,7 @@ namespace WCFSampleApp
                 ReorderLevel = product.ReorderLevel,
                 Discontinued = product.Discontinued,
                 Category = ToCategoryDTO(product.Category),
-                Order_Details = ConvertToDTO(product.Order_Details),
+                Order_Details = ConvertToOrderDetailsDTO(product.Order_Details),
                 Supplier = ToSupplierDTO(product.Supplier),
             };
 
@@ -479,9 +540,9 @@ namespace WCFSampleApp
                 ReportsTo = employee.ReportsTo,
                 PhotoPath = employee.PhotoPath,
                 Employee1 = ToEmployeeDTO(employee.Employee1),
-                Employees1 = ConvertToDTO(employee.Employees1),
-                Orders = ConvertToDTO(employee.Orders),
-                Territories = ConvertToDTO(employee.Territories),
+                Employees1 = ConvertToEmployeesDTO(employee.Employees1),
+                Orders = ConvertToOrdersDTO(employee.Orders),
+                Territories = ConvertToTerritoryDTO(employee.Territories),
             };
 
             return covertedEmployee;
@@ -498,7 +559,7 @@ namespace WCFSampleApp
                 CategoryName = category.CategoryName,
                 Description = category.Description,
                 Picture = category.Picture,
-                Products = ConvertToDTO(category.Products),
+                Products = ConvertToProductsDTO(category.Products),
             };
 
             return convertedCategory;
@@ -514,7 +575,7 @@ namespace WCFSampleApp
             {
                 CustomerTypeID = demographic.CustomerTypeID,
                 CustomerDesc = demographic.CustomerDesc,
-                Customers = ConvertToDTO(demographic.Customers),
+                Customers = ConvertToCustomersDTO(demographic.Customers),
             };
             return convertedDemograhic;
         }
@@ -542,7 +603,7 @@ namespace WCFSampleApp
                 ShipCountry = order.ShipCountry,
                 Customer = ToCustomerDTO(order.Customer),
                 Employee = ToEmployeeDTO(order.Employee),
-                Order_Details = ConvertToDTO(order.Order_Details),
+                Order_Details = ConvertToOrderDetailsDTO(order.Order_Details),
                 Shipper = ToShipperDTO(order.Shipper),
             };
 
@@ -560,7 +621,7 @@ namespace WCFSampleApp
                 ShipperID = shipper.ShipperID,
                 CompanyName = shipper.CompanyName,
                 Phone = shipper.Phone,
-                Orders = ConvertToDTO(shipper.Orders),
+                Orders = ConvertToOrdersDTO(shipper.Orders),
             };
 
             return convertedShipper;
@@ -585,7 +646,7 @@ namespace WCFSampleApp
                 Phone = supplier.Phone,
                 Fax = supplier.Fax,
                 HomePage = supplier.HomePage,
-                Products = ConvertToDTO(supplier.Products),
+                Products = ConvertToProductsDTO(supplier.Products),
             };
 
             return convertedSupplier;
@@ -621,7 +682,7 @@ namespace WCFSampleApp
                 TerritoryDescription = territory.TerritoryDescription,
                 RegionID = territory.RegionID,
                 Region = ConvertToDTO(territory.Region),
-                Employees = ConvertToDTO(territory.Employees),
+                Employees = ConvertToEmployeesDTO(territory.Employees),
             };
 
             return convertedTerritory;
@@ -636,7 +697,7 @@ namespace WCFSampleApp
             {
                 RegionID = region.RegionID,
                 RegionDescription = region.RegionDescription,
-                Territories = ConvertToDTO(region.Territories),
+                Territories = ConvertToTerritoryDTO(region.Territories),
             };
 
             return convertedRegion;
@@ -676,6 +737,58 @@ namespace WCFSampleApp
             return convertedSubTotal;
 
         }
+
+        private Order_Details_ExtendedDTO ToOrderDetailsExtendedDTO(Order_Details_Extended orderExtended)
+        {
+            if (orderExtended == null)
+                return null;
+
+            Order_Details_ExtendedDTO orderDetailsConverted = new Order_Details_ExtendedDTO()
+            {
+                OrderID = orderExtended.OrderID,
+                ProductID = orderExtended.ProductID,
+                ProductName = orderExtended.ProductName,
+                UnitPrice = orderExtended.UnitPrice,
+                Quantity = orderExtended.Quantity,
+                Discount = orderExtended.Discount,
+                ExtendedPrice = orderExtended.ExtendedPrice,
+            };
+
+            return orderDetailsConverted;
+        }
+
+        private Orders_QryDTO ToOrders_QryDTO(Orders_Qry order)
+        {
+            if (order == null)
+                return null;
+
+            Orders_QryDTO orderQryDTO = new Orders_QryDTO()
+            {
+                OrderID = order.OrderID,
+                CustomerID = order.CustomerID,
+                EmployeeID = order.EmployeeID,
+                OrderDate = order.OrderDate,
+                RequiredDate = order.RequiredDate,
+                ShippedDate = order.ShippedDate,
+                ShipVia = order.ShipVia,
+                Freight = order.Freight,
+                ShipName =order.ShipName,
+                ShipAddress = order.ShipAddress,
+                ShipCity = order.ShipCity,
+                ShipRegion = order.ShipRegion,
+                ShipPostalCode = order.ShipPostalCode,
+                ShipCountry = order.ShipCountry,
+                CompanyName = order.CompanyName,
+                Address = order.Address,
+                City = order.City,
+                Region = order.Region,
+                PostalCode = order.PostalCode,
+                Country = order.Country,
+            };
+
+            return orderQryDTO;
+        }
+
 
         #endregion
 
