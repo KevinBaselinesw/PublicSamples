@@ -350,5 +350,46 @@ namespace DatabaseAccessLib
                 dbContext.SaveChanges();
             }
         }
+
+        public DatabaseBackup GetDatabaseBackup()
+        {
+            DatabaseBackup db = new DatabaseBackup();
+
+            using (var dbContext = new NorthWindsModel())
+            {
+                var productCategories = dbContext.Categories.ToArray();
+                db.AllProductCategories = DTOConversions.ConvertToCategoriesDTO(productCategories);
+
+                var customers = dbContext.Customers.ToArray();
+                db.AllCustomers = DTOConversions.ConvertToCustomersDTO(customers);
+
+                var Employees = dbContext.Employees.ToArray();
+                db.AllEmployees = DTOConversions.ConvertToEmployeesDTO(Employees);
+
+                var OrderDetails = dbContext.Order_Details.ToArray();
+                db.AllOrderDetails = DTOConversions.ConvertToOrderDetailsDTO(OrderDetails);
+
+                var Orders = dbContext.Orders.ToArray();
+                db.AllOrders = DTOConversions.ConvertToOrdersDTO(Orders);
+
+                var Products = dbContext.Products.ToArray();
+                db.AllProducts = DTOConversions.ConvertToProductsDTO(Products);
+
+                var Regions = dbContext.Regions.ToArray();
+                db.AllRegions = DTOConversions.ConvertToRegionsDTO(Regions);
+
+                var Shippers = dbContext.Shippers.ToArray();
+                db.AllShippers = DTOConversions.ConvertToShippersDTO(Shippers);
+
+                var Suppliers = dbContext.Suppliers.ToArray();
+                db.AllSuppliers = DTOConversions.ConvertToSuppliersDTO(Suppliers);
+
+                var Territories = dbContext.Territories.ToArray();
+                db.AllTerritories = DTOConversions.ConvertToTerritoriesDTO(Territories);
+
+            }
+
+            return db;
+        }
     }
 }

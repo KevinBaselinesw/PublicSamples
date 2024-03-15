@@ -50,6 +50,20 @@ namespace DatabaseAccessLib
         public DateTime? ShippedDate { get; set; }
     }
 
+    public class DatabaseBackup
+    {
+        public List<CategoryDTO> AllProductCategories;
+        public List<CustomerDTO> AllCustomers;
+        public List<EmployeeDTO> AllEmployees;
+        public List<Order_DetailDTO> AllOrderDetails;
+        public List<OrderDTO> AllOrders;
+        public List<ProductDTO> AllProducts;
+        public List<RegionDTO> AllRegions;
+        public List<ShipperDTO> AllShippers;
+        public List<SupplierDTO> AllSuppliers;
+        public List<TerritoryDTO> AllTerritories;
+    }
+
     /// <summary>
     /// This interface defines the database access of this system
     /// </summary>
@@ -185,5 +199,12 @@ namespace DatabaseAccessLib
         /// </summary>
         /// <param name="days"></param>
         void AdjustAllDatesInDatabaseByDays(int days);
+
+
+        /// <summary>
+        /// Returns a data structure containing all of the data from the database.
+        /// </summary>
+        /// <returns></returns>
+        DatabaseBackup GetDatabaseBackup();
     }
 }

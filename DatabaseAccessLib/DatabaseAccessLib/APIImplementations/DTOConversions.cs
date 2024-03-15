@@ -666,7 +666,29 @@ namespace DatabaseAccessLib
             return orderDetailDTOs;
         }
 
-        public static List<TerritoryDTO> ConvertToTerritoryDTO(IEnumerable<Territory> territories)
+        
+
+        public static List<RegionDTO> ConvertToRegionsDTO(IEnumerable<Region> regions)
+        {
+            if (regions == null)
+                return null;
+
+            List<RegionDTO> regionDTOs = new List<RegionDTO>();
+
+            foreach (var territory in regions.ToArray())
+            {
+                RegionDTO convertedRegion = ToRegionDTO(territory);
+
+                if (convertedRegion != null)
+                {
+                    regionDTOs.Add(convertedRegion);
+                }
+
+            }
+            return regionDTOs;
+        }
+
+        public static List<TerritoryDTO> ConvertToTerritoriesDTO(IEnumerable<Territory> territories)
         {
             if (territories == null)
                 return null;
@@ -685,6 +707,7 @@ namespace DatabaseAccessLib
             }
             return territoryDTOs;
         }
+
 
         public static IEnumerable<OrderWithSubtotalDTO> ConvertToOrderWithSubtotalsDTO(IEnumerable<OrderWithSubtotal> orders)
         {
@@ -1010,14 +1033,14 @@ namespace DatabaseAccessLib
                 TerritoryID = territory.TerritoryID,
                 TerritoryDescription = territory.TerritoryDescription,
                 RegionID = territory.RegionID,
-                Region = ConvertToDTO(territory.Region),
+                Region = ToRegionDTO(territory.Region),
                 Employees = ConvertToEmployeesDTO(territory.Employees),
             };
 
             return convertedTerritory;
         }
 
-        private static RegionDTO ConvertToDTO(Region region)
+        private static RegionDTO ToRegionDTO(Region region)
         {
             if (region == null)
                 return null;
@@ -1026,7 +1049,7 @@ namespace DatabaseAccessLib
             {
                 RegionID = region.RegionID,
                 RegionDescription = region.RegionDescription,
-                Territories = ConvertToTerritoryDTO(region.Territories),
+                //Territories = ConvertToTerritoriesDTO(region.Territories),
             };
 
             return convertedRegion;
