@@ -64,7 +64,6 @@ namespace WPFSampleApp
         {
             InitializeComponent();
 
-            DataAccessAPI = new DataAccessAPIDB();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -99,7 +98,7 @@ namespace WPFSampleApp
                 string errorMessage = string.Format("The configuration item 'DatabaseSource' not equal to either 'XMLFile' or 'SQLServer'. " +
                                  "Would you like to load the database from XML?");
 
-                var mbResult =  MessageBox.Show(errorMessage, "Invalid DatabaseSource onfiguration", MessageBoxButton.YesNo);
+                var mbResult =  MessageBox.Show(errorMessage, "Invalid DatabaseSource configuration", MessageBoxButton.YesNo);
                 if (mbResult == MessageBoxResult.Yes)
                 {
                     LoadDatabaseFromXMLFile();
@@ -115,7 +114,34 @@ namespace WPFSampleApp
 
         private void LoadDatabaseFromSQLServer()
         {
-            throw new NotImplementedException();
+            bool bResult = false;
+            try
+            {
+                DataAccessAPI = new DataAccessAPIDB();
+                bResult = DataAccessAPI.DatabaseValidation();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Exception thrown connection to SQL Server.  Check connection string! {0}", ex.Message));
+            }
+
+            if (bResult == false)
+            {
+                string errorMessage = string.Format("We failed to load the database from SQL Server. " +
+                         "Would you like to load the database from XML?");
+
+                var mbResult = MessageBox.Show(errorMessage, "Invalid Database Load", MessageBoxButton.YesNo);
+                if (mbResult == MessageBoxResult.Yes)
+                {
+                    LoadDatabaseFromXMLFile();
+                }
+                else
+                {
+                    DatabaseBackup databaseBackup = new DatabaseBackup();
+                    DataAccessAPI = new DataAccessAPIInMemory(databaseBackup);
+                }
+            }
+
         }
 
         private void LoadDatabaseFromXMLFile()
