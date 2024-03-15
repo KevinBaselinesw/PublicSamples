@@ -21,6 +21,12 @@ namespace DatabaseAccessLib
         }
 
         /// <inheritdoc/>
+        public bool DatabaseValidation()
+        {
+            return true;
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
             Validate();

@@ -72,6 +72,12 @@ namespace DatabaseAccessLib
     public interface IDataAccessAPI
     {
         /// <summary>
+        /// Returns true if database connection string is valid
+        /// </summary>
+        /// <returns></returns>
+        bool DatabaseValidation();
+
+        /// <summary>
         /// Returns a collection containg all employees in the database
         /// </summary>
         /// <returns></returns>

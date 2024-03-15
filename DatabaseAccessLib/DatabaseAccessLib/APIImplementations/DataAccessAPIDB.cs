@@ -45,6 +45,16 @@ namespace DatabaseAccessLib
     {
 
         /// <inheritdoc/>
+        public bool DatabaseValidation()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                var Employee = dbContext.Employees.FirstOrDefault();
+                return Employee != null;
+            }
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
             using (var dbContext = new NorthWindsModel())
