@@ -46,6 +46,7 @@
             <MenuItem Header="Database">
                 <MenuItem Header="Adjust dates relative to today" Click="AdjustDBDatesToday_Click"></MenuItem>
                 <MenuItem Header="Adjust dates by entered amount" Click="AdjustDBDates_Click"></MenuItem>
+                <MenuItem Header="Save SQL database to XML" Click="SaveDBToXML_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Animation" x:Name="AnimationMenu" >
                 <MenuItem Header="None" IsCheckable="True" Checked="AnimationMenuItem_Checked"/>

@@ -46,6 +46,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WPFSampleApp.Dialogs;
 using WPFSampleApp.UserControls;
 
@@ -56,6 +57,8 @@ namespace WPFSampleApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        string NorthwindsDBBackupName = "NorthwindsDB.xml";
+
         IDataAccessAPI DataAccessAPI;
         public MainWindow()
         {
@@ -192,6 +195,44 @@ namespace WPFSampleApp
             return;
         }
 
- 
+        private void SaveDBToXML_Click(object sender, RoutedEventArgs e)
+        {
+            DataAccessAPIDB DataAccessAPI;
+            DatabaseBackup DatabaseBackup;
+
+
+            try
+            {
+                DataAccessAPI = new DataAccessAPIDB();
+                DatabaseBackup = DataAccessAPI.GetDatabaseBackup();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("failure to OPEN Northwinds SQL database. Check connection string");
+                return;
+            }
+
+            string XmlDB;
+            try
+            {
+                XmlDB = Utility.SerializeXml(DatabaseBackup);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("failure to SERIALIZE Northwinds SQL database {0}", ex.Message));
+                return;
+            }
+
+            try
+            {
+                System.IO.File.WriteAllText(NorthwindsDBBackupName, XmlDB);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("failure to WRITE {0} XML file to disk {1}", NorthwindsDBBackupName, ex.Message));
+                return;
+            }
+
+        }
     }
 }

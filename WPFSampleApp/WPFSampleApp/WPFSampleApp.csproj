@@ -285,6 +285,17 @@
   <ItemGroup>
     <Resource Include="Icons\shippers32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UtilityFunctions\UtilityFunctions\UtilityFunctions.csproj">
+      <Project>{a1f38fdb-57ce-4513-acd9-51f160ad8e2e}</Project>
+      <Name>UtilityFunctions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NorthwindsDB.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
