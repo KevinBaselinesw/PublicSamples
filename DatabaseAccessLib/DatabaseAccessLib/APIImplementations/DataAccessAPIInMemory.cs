@@ -112,120 +112,89 @@ namespace DatabaseAccessLib
         /// <inheritdoc />
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
         {
-            using (var dbContext = new NorthWindsModel())
+            Validate();
+
+            return _db.AllOrders.Where(t=>t.CustomerID == CustomerID).Select(a => new OrderWithSubtotalDTO()
             {
+                OrderID = a.OrderID,
+                OrderDate = a.OrderDate,
+                RequiredDate = a.RequiredDate,
+                ShippedDate = a.ShippedDate,
 
-                var Orders = (from order in dbContext.Orders
-                              where order.CustomerID == CustomerID
-                              join employee in dbContext.Employees on order.EmployeeID equals employee.EmployeeID
-                              join customer in dbContext.Customers on order.CustomerID equals customer.CustomerID
-                              join orderSubtotals in dbContext.Order_Subtotals on order.OrderID equals orderSubtotals.OrderID
-                              join shipper in dbContext.Shippers on order.ShipVia equals shipper.ShipperID
-
-                              select new OrderWithSubtotal
-                              {
-                                  OrderID = order.OrderID,
-                                  OrderDate = order.OrderDate,
-                                  RequiredDate = order.RequiredDate,
-                                  ShippedDate = order.ShippedDate,
-                                  Customer = customer,
-                                  Employee = employee,
-                                  Shipper = shipper,
-                                  Subtotal = orderSubtotals,
-                              }
-                              ).ToArray();
-
-                return DTOConversions.ConvertToOrderWithSubtotalsDTO(Orders);
-            }
+                Customer = _db.AllCustomers.FirstOrDefault(t => t.CustomerID == a.CustomerID),
+                Employee = _db.AllEmployees.FirstOrDefault(t => t.EmployeeID == a.EmployeeID),
+                Shipper = _db.AllShippers.FirstOrDefault(t => t.ShipperID == a.ShipVia),
+                Subtotal = _db.All_OrderSubtotals.FirstOrDefault(t => t.OrderID == a.OrderID),
+            });
+     
         }
 
 
         /// <inheritdoc />
         public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Orders = dbContext.Orders.
-                        Include(nameof(Order.Employee)).
-                        Include(nameof(Order.Customer)).
-                        Include(nameof(Order.Order_Details)).
-                        Where(t => t.ShipVia == ShipVia).
-                        ToArray();
+            Validate();
 
-                return DTOConversions.ConvertToOrdersDTO(Orders);
-            }
+            return _db.AllOrders.Where(t=>t.ShipVia == ShipVia).Select(a => new OrderDTO(a)
+            {
+                Employee = _db.AllEmployees.FirstOrDefault(t => t.EmployeeID == a.EmployeeID),
+                Customer = _db.AllCustomers.FirstOrDefault(t => t.CustomerID == a.CustomerID),
+                Order_Details = _db.AllOrderDetails.Where(t => t.OrderID == a.OrderID).ToList(),
+            });
+
+    
         }
 
         /// <inheritdoc />
         public IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Orders = dbContext.Orders.
-                        Include(nameof(Order.Employee)).
-                        Include(nameof(Order.Customer)).
-                        Include(nameof(Order.Order_Details)).
-                        Include(nameof(Order.Shipper)).
-                        Where(t => t.EmployeeID == EmployeeID).
-                        ToArray();
+            Validate();
 
-                return DTOConversions.ConvertToOrdersDTO(Orders);
-            }
+            return _db.AllOrders.Where(t=>t.EmployeeID == EmployeeID).Select(a => new OrderDTO(a)
+            {
+                Employee = _db.AllEmployees.FirstOrDefault(t => t.EmployeeID == a.EmployeeID),
+                Customer = _db.AllCustomers.FirstOrDefault(t => t.CustomerID == a.CustomerID),
+                Order_Details = _db.AllOrderDetails.Where(t => t.OrderID == a.OrderID).ToList(),
+                Shipper = _db.AllShippers.FirstOrDefault(t => t.ShipperID == a.ShipVia)
+            });
+
         }
         /// <inheritdoc />
         public IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Orders = dbContext.Orders.
-                        Include(nameof(Order.Employee)).
-                        Include(nameof(Order.Customer)).
-                        Include(nameof(Order.Order_Details)).
-                        Include(nameof(Order.Shipper)).
-                        Where(t => t.CustomerID == CustomerID).
-                        ToArray();
+            Validate();
 
-                return DTOConversions.ConvertToOrdersDTO(Orders);
-            }
+            return _db.AllOrders.Where(t => t.CustomerID == CustomerID).Select(a => new OrderDTO(a)
+            {
+                Employee = _db.AllEmployees.FirstOrDefault(t => t.EmployeeID == a.EmployeeID),
+                Customer = _db.AllCustomers.FirstOrDefault(t => t.CustomerID == a.CustomerID),
+                Order_Details = _db.AllOrderDetails.Where(t => t.OrderID == a.OrderID).ToList(),
+                Shipper = _db.AllShippers.FirstOrDefault(t => t.ShipperID == a.ShipVia)
+            });
+  
         }
 
         /// <inheritdoc />
         public IEnumerable<Orders_QryDTO> GetAllOrdersQry()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Orders = dbContext.Orders_Qries.ToArray();
-                return DTOConversions.ConvertToOrdersQrysDTO(Orders);
-            }
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
         public IEnumerable<SupplierDTO> GetAllSuppliers()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Suppliers = dbContext.Suppliers.ToArray();
-                return DTOConversions.ConvertToSuppliersDTO(Suppliers);
-            }
+            return _db.AllSuppliers;
         }
         /// <inheritdoc />
         public IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Suppliers = dbContext.Suppliers.Where(t => t.SupplierID == SupplierID).ToArray();
-                return DTOConversions.ConvertToSuppliersDTO(Suppliers);
-            }
+            return _db.AllSuppliers.Where(t=>t.SupplierID == SupplierID).ToList();
         }
 
         /// <inheritdoc />
         public IEnumerable<ShipperDTO> GetAllShippers()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Shippers = dbContext.Shippers.ToArray();
-                return DTOConversions.ConvertToShippersDTO(Shippers);
-            }
+            return _db.AllShippers;
         }
 
         /// <inheritdoc />
@@ -256,22 +225,20 @@ namespace DatabaseAccessLib
         /// <inheritdoc />
         public DateTime GetLatestDateInDatabase()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                List<DateTime?> AllDates = new List<DateTime?>();
+            List<DateTime?> AllDates = new List<DateTime?>();
 
-                AllDates.AddRange(dbContext.Employees.Select(t => t.BirthDate).ToList());
-                AllDates.AddRange(dbContext.Employees.Select(t => t.HireDate).ToList());
-                AllDates.AddRange(dbContext.Orders.Select(t => t.OrderDate).ToList());
-                AllDates.AddRange(dbContext.Orders.Select(t => t.RequiredDate).ToList());
-                AllDates.AddRange(dbContext.Orders.Select(t => t.ShippedDate).ToList());
+            AllDates.AddRange(_db.AllEmployees.Select(t => t.BirthDate).ToList());
+            AllDates.AddRange(_db.AllEmployees.Select(t => t.HireDate).ToList());
+            AllDates.AddRange(_db.AllOrders.Select(t => t.OrderDate).ToList());
+            AllDates.AddRange(_db.AllOrders.Select(t => t.RequiredDate).ToList());
+            AllDates.AddRange(_db.AllOrders.Select(t => t.ShippedDate).ToList());
 
-                AllDates.Sort();
+            AllDates.Sort();
 
-                var LastDate = AllDates.LastOrDefault();
+            var LastDate = AllDates.LastOrDefault();
 
-                return LastDate.Value;
-            }
+            return LastDate.Value;
+
         }
 
         /// <inheritdoc />
@@ -280,71 +247,31 @@ namespace DatabaseAccessLib
             if (days == 0)
                 return;
 
-            using (var dbContext = new NorthWindsModel())
+            var EmployeeDates = _db.AllEmployees;
+            foreach (var ed in EmployeeDates)
             {
-                var EmployeeDates = dbContext.Employees;
-                foreach (var ed in EmployeeDates)
-                {
-                    if (ed.BirthDate != null)
-                        ed.BirthDate = ed.BirthDate?.AddDays(days);
-                    if (ed.HireDate != null)
-                        ed.HireDate = ed.HireDate?.AddDays(days);
-                }
-
-                var OrderDates = dbContext.Orders;
-                foreach (var od in OrderDates)
-                {
-                    if (od.OrderDate != null)
-                        od.OrderDate = od.OrderDate?.AddDays(days);
-                    if (od.RequiredDate != null)
-                        od.RequiredDate = od.RequiredDate?.AddDays(days);
-                    if (od.ShippedDate != null)
-                        od.ShippedDate = od.ShippedDate?.AddDays(days);
-                }
-
-                dbContext.SaveChanges();
+                if (ed.BirthDate != null)
+                    ed.BirthDate = ed.BirthDate?.AddDays(days);
+                if (ed.HireDate != null)
+                    ed.HireDate = ed.HireDate?.AddDays(days);
             }
+
+            var OrderDates = _db.AllOrders;
+            foreach (var od in OrderDates)
+            {
+                if (od.OrderDate != null)
+                    od.OrderDate = od.OrderDate?.AddDays(days);
+                if (od.RequiredDate != null)
+                    od.RequiredDate = od.RequiredDate?.AddDays(days);
+                if (od.ShippedDate != null)
+                    od.ShippedDate = od.ShippedDate?.AddDays(days);
+            }
+
         }
 
         public DatabaseBackup GetDatabaseBackup()
         {
-            DatabaseBackup db = new DatabaseBackup();
-
-            using (var dbContext = new NorthWindsModel())
-            {
-                var productCategories = dbContext.Categories.ToArray();
-                db.AllProductCategories = DTOConversions.ConvertToCategoriesDTO(productCategories);
-
-                var customers = dbContext.Customers.ToArray();
-                db.AllCustomers = DTOConversions.ConvertToCustomersDTO(customers);
-
-                var Employees = dbContext.Employees.ToArray();
-                db.AllEmployees = DTOConversions.ConvertToEmployeesDTO(Employees);
-
-                var OrderDetails = dbContext.Order_Details.ToArray();
-                db.AllOrderDetails = DTOConversions.ConvertToOrderDetailsDTO(OrderDetails);
-
-                var Orders = dbContext.Orders.ToArray();
-                db.AllOrders = DTOConversions.ConvertToOrdersDTO(Orders);
-
-                var Products = dbContext.Products.ToArray();
-                db.AllProducts = DTOConversions.ConvertToProductsDTO(Products);
-
-                var Regions = dbContext.Regions.ToArray();
-                db.AllRegions = DTOConversions.ConvertToRegionsDTO(Regions);
-
-                var Shippers = dbContext.Shippers.ToArray();
-                db.AllShippers = DTOConversions.ConvertToShippersDTO(Shippers);
-
-                var Suppliers = dbContext.Suppliers.ToArray();
-                db.AllSuppliers = DTOConversions.ConvertToSuppliersDTO(Suppliers);
-
-                var Territories = dbContext.Territories.ToArray();
-                db.AllTerritories = DTOConversions.ConvertToTerritoriesDTO(Territories);
-
-            }
-
-            return db;
+            return _db;
         }
     }
 }
