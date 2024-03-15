@@ -292,7 +292,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NorthwindsDB.xml">
+    <Content Include="..\..\NorthWindsDB\XMLBackup\NorthwindsDB.xml">
+      <Link>NorthwindsDB.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
