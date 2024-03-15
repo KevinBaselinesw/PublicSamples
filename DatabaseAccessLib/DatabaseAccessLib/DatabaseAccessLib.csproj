@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIImplementations\DTOConversions.cs" />
     <Compile Include="Views\Alphabetical_list_of_product.cs" />
     <Compile Include="Tables\Category.cs" />
     <Compile Include="Views\Category_Sales_for_1997.cs" />
