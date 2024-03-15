@@ -52,18 +52,18 @@ namespace DatabaseAccessLib
 
     public class DatabaseBackup
     {
-        public List<CategoryDTO> AllProductCategories;
-        public List<CustomerDTO> AllCustomers;
-        public List<EmployeeDTO> AllEmployees;
-        public List<Order_DetailDTO> AllOrderDetails;
-        public List<OrderDTO> AllOrders;
-        public List<ProductDTO> AllProducts;
-        public List<RegionDTO> AllRegions;
-        public List<ShipperDTO> AllShippers;
-        public List<SupplierDTO> AllSuppliers;
-        public List<TerritoryDTO> AllTerritories;
-        public List<Order_SubtotalDTO> All_OrderSubtotals;
-        public List<Order_Details_ExtendedDTO> All_OrderDetailsExtended;
+        public List<CategoryDTO> AllProductCategories = new List<CategoryDTO>();
+        public List<CustomerDTO> AllCustomers = new List<CustomerDTO>();
+        public List<EmployeeDTO> AllEmployees = new List<EmployeeDTO>();
+        public List<Order_DetailDTO> AllOrderDetails = new List<Order_DetailDTO>();
+        public List<OrderDTO> AllOrders = new List<OrderDTO>();
+        public List<ProductDTO> AllProducts = new List<ProductDTO>();
+        public List<RegionDTO> AllRegions = new List<RegionDTO>();
+        public List<ShipperDTO> AllShippers = new List<ShipperDTO>();
+        public List<SupplierDTO> AllSuppliers = new List<SupplierDTO>();
+        public List<TerritoryDTO> AllTerritories = new List<TerritoryDTO>();
+        public List<Order_SubtotalDTO> All_OrderSubtotals = new List<Order_SubtotalDTO>();
+        public List<Order_Details_ExtendedDTO> All_OrderDetailsExtended = new List<Order_Details_ExtendedDTO>();
     }
 
     /// <summary>
