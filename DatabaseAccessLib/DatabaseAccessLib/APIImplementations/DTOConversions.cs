@@ -227,6 +227,30 @@ namespace DatabaseAccessLib
         {
         }
 
+        public OrderDTO(OrderDTO orig)
+        {
+            OrderID = orig.OrderID;
+            CustomerID = orig.CustomerID;
+            EmployeeID = orig.EmployeeID;
+            OrderDate = orig.OrderDate;
+            RequiredDate = orig.RequiredDate;
+            ShippedDate = orig.ShippedDate;
+            ShipVia = orig.ShipVia;
+            Freight = orig.Freight;
+            ShipName = orig.ShipName;
+            ShipAddress = orig.ShipAddress;
+            ShipCity = orig.ShipCity;
+            ShipRegion = orig.ShipRegion;
+            ShipPostalCode = orig.ShipPostalCode;
+            ShipCountry = orig.ShipCountry;
+
+            Employee = orig.Employee;
+            Customer = orig.Customer;
+            Order_Details = orig.Order_Details;
+            Shipper = orig.Shipper;
+        }
+   
+
         [DataMember]
         public int OrderID { get; set; }
 
@@ -707,6 +731,29 @@ namespace DatabaseAccessLib
             }
             return territoryDTOs;
         }
+
+        public static List<Order_SubtotalDTO> ConvertToOrderSubTotalsDTO(IEnumerable<Order_Subtotal> SubTotals)
+        {
+            if (SubTotals == null)
+                return null;
+
+            List<Order_SubtotalDTO> SubTotalDTOs = new List<Order_SubtotalDTO>();
+
+            foreach (var subTotal in SubTotals.ToArray())
+            {
+                Order_SubtotalDTO convertedSubTotal = ToOrder_SubTotalDTO(subTotal);
+
+                if (convertedSubTotal != null)
+                {
+                    SubTotalDTOs.Add(convertedSubTotal);
+                }
+
+            }
+            return SubTotalDTOs;
+        }
+
+
+        
 
 
         public static IEnumerable<OrderWithSubtotalDTO> ConvertToOrderWithSubtotalsDTO(IEnumerable<OrderWithSubtotal> orders)

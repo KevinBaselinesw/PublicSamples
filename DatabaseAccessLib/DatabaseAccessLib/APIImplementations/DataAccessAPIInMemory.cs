@@ -1,36 +1,4 @@
-﻿/*
- * BSD 3-Clause License
- *
- * Copyright (c) 2024
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. Neither the name of the copyright holder nor the names of its
- *    contributors may be used to endorse or promote products derived from
- *    this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,106 +6,122 @@ using System.Threading.Tasks;
 
 namespace DatabaseAccessLib
 {
-    /// <summary>
-    /// This is the SQL server/entityframework implementation of the IDataAccessAPI
-    /// </summary>
-    public class DataAccessAPIDB : IDataAccessAPI
+    public class DataAccessAPIInMemory : IDataAccessAPI
     {
+        DatabaseBackup _db = null;
+        public DataAccessAPIInMemory(DatabaseBackup backup)
+        {
+            _db = backup;
+        }
+
+        private void Validate()
+        {
+            if (_db == null)
+                throw new ArgumentException("database has not been initialized");
+        }
 
         /// <inheritdoc/>
         public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Employees = dbContext.Employees.ToArray();
+            Validate();
 
-                return DTOConversions.ConvertToEmployeesDTO(Employees);
-            }
+            return _db.AllEmployees;
         }
 
         /// <inheritdoc />
         public IEnumerable<CategoryDTO> GetAllProductCategories()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Categories = dbContext.Categories.ToArray();
-                return DTOConversions.ConvertToCategoriesDTO(Categories);
-            }
+            Validate();
+
+            return _db.AllProductCategories;
         }
         /// <inheritdoc />
         public IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Categories = dbContext.Categories.Where(t=>t.CategoryID == CategoryID).ToArray();
-                return DTOConversions.ConvertToCategoriesDTO(Categories);
-            }
+            Validate();
+
+            return _db.AllProductCategories.Where(t=>t.CategoryID == CategoryID).ToList();
         }
 
         /// <inheritdoc />
         public IEnumerable<ProductDTO> GetAllProducts()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Products = dbContext.Products.ToArray();
-                return DTOConversions.ConvertToProductsDTO(Products);
-            }
+            Validate();
+
+            return _db.AllProducts;
+
         }
         /// <inheritdoc />
         public IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Products = dbContext.Products.Where(t=>t.SupplierID == SupplierID).ToArray();
-                return DTOConversions.ConvertToProductsDTO(Products);
-            }
+            Validate();
+
+            return _db.AllProducts.Where(t=>t.SupplierID == SupplierID).ToList();
         }
         /// <inheritdoc />
         public IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Products = dbContext.Products.Where(t => t.CategoryID == CategoryID).ToArray();
-                return DTOConversions.ConvertToProductsDTO(Products);
-            }
+            Validate();
+
+            return _db.AllProducts.Where(t => t.CategoryID == CategoryID).ToList();
         }
 
         /// <inheritdoc />
         public IEnumerable<CustomerDTO> GetAllCustomers()
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var Customers = dbContext.Customers.ToArray();
-                return DTOConversions.ConvertToCustomersDTO(Customers);
-            }
+            Validate();
+
+            return _db.AllCustomers;
         }
 
         /// <inheritdoc />
         public IEnumerable<OrderDTO> GetAllOrders()
         {
-            using (var dbContext = new NorthWindsModel())
+            Validate();
+
+            return _db.AllOrders.Select(a => new OrderDTO(a)
             {
-                var Orders = dbContext.Orders.
-                        Include(nameof(Order.Employee)).
-                        Include(nameof(Order.Customer)).
-                        Include(nameof(Order.Order_Details)).
-                        Include(nameof(Order.Shipper)).
-                        ToArray();
-                return DTOConversions.ConvertToOrdersDTO(Orders);
-            }
+                Employee = _db.AllEmployees.FirstOrDefault(t => t.EmployeeID == a.EmployeeID),
+                Customer = _db.AllCustomers.FirstOrDefault(t => t.CustomerID == a.CustomerID),
+                Order_Details = _db.AllOrderDetails.Where(t => t.OrderID == a.OrderID).ToList(),
+                Shipper = _db.AllShippers.FirstOrDefault(t => t.ShipperID == a.ShipVia)
+            });
+   
         }
 
         /// <inheritdoc />
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotals()
         {
+            Validate();
+
+            return _db.AllOrders.Select(a => new OrderWithSubtotalDTO()
+            {
+                OrderID = a.OrderID,
+                OrderDate = a.OrderDate,
+                RequiredDate = a.RequiredDate,
+                ShippedDate = a.ShippedDate,
+
+                Customer = _db.AllCustomers.FirstOrDefault(t=>t.CustomerID == a.CustomerID),
+                Employee = _db.AllEmployees.FirstOrDefault(t=>t.EmployeeID == a.EmployeeID),
+                Shipper = _db.AllShippers.FirstOrDefault(t=>t.ShipperID == a.ShipVia),
+                Subtotal = _db.All_OrderSubtotals.FirstOrDefault(t => t.OrderID == a.OrderID),
+            });
+    
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
+        {
             using (var dbContext = new NorthWindsModel())
             {
 
                 var Orders = (from order in dbContext.Orders
+                              where order.CustomerID == CustomerID
                               join employee in dbContext.Employees on order.EmployeeID equals employee.EmployeeID
                               join customer in dbContext.Customers on order.CustomerID equals customer.CustomerID
                               join orderSubtotals in dbContext.Order_Subtotals on order.OrderID equals orderSubtotals.OrderID
                               join shipper in dbContext.Shippers on order.ShipVia equals shipper.ShipperID
+
                               select new OrderWithSubtotal
                               {
                                   OrderID = order.OrderID,
@@ -155,35 +139,6 @@ namespace DatabaseAccessLib
             }
         }
 
-        /// <inheritdoc />
-        public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
-        {
-            using (var dbContext = new NorthWindsModel())
-            {
-
-                var Orders = (from order in dbContext.Orders where order.CustomerID == CustomerID
-                              join employee in dbContext.Employees on order.EmployeeID equals employee.EmployeeID
-                              join customer in dbContext.Customers on order.CustomerID equals customer.CustomerID
-                              join orderSubtotals in dbContext.Order_Subtotals on order.OrderID equals orderSubtotals.OrderID
-                              join shipper in dbContext.Shippers on order.ShipVia equals shipper.ShipperID
-                              
-                              select new OrderWithSubtotal
-                              {
-                                  OrderID = order.OrderID,
-                                  OrderDate = order.OrderDate,
-                                  RequiredDate = order.RequiredDate,
-                                  ShippedDate = order.ShippedDate,
-                                  Customer = customer,
-                                  Employee = employee,
-                                  Shipper = shipper,
-                                  Subtotal = orderSubtotals,
-                              } 
-                              ) .ToArray();
-
-                return DTOConversions.ConvertToOrderWithSubtotalsDTO(Orders);
-            }
-        }
-
 
         /// <inheritdoc />
         public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
@@ -194,7 +149,7 @@ namespace DatabaseAccessLib
                         Include(nameof(Order.Employee)).
                         Include(nameof(Order.Customer)).
                         Include(nameof(Order.Order_Details)).
-                        Where(t=>t.ShipVia == ShipVia).
+                        Where(t => t.ShipVia == ShipVia).
                         ToArray();
 
                 return DTOConversions.ConvertToOrdersDTO(Orders);
@@ -227,7 +182,7 @@ namespace DatabaseAccessLib
                         Include(nameof(Order.Customer)).
                         Include(nameof(Order.Order_Details)).
                         Include(nameof(Order.Shipper)).
-                        Where(t=>t.CustomerID == CustomerID).
+                        Where(t => t.CustomerID == CustomerID).
                         ToArray();
 
                 return DTOConversions.ConvertToOrdersDTO(Orders);
@@ -258,7 +213,7 @@ namespace DatabaseAccessLib
         {
             using (var dbContext = new NorthWindsModel())
             {
-                var Suppliers = dbContext.Suppliers.Where(t=>t.SupplierID == SupplierID).ToArray();
+                var Suppliers = dbContext.Suppliers.Where(t => t.SupplierID == SupplierID).ToArray();
                 return DTOConversions.ConvertToSuppliersDTO(Suppliers);
             }
         }
@@ -281,7 +236,7 @@ namespace DatabaseAccessLib
                 var OrderDetails = dbContext.Order_Details.
                     Include(nameof(Order_Detail.Order)).
                     Include(nameof(Order_Detail.Product)).
-                    Where(t=>t.ProductID == ProductID).ToArray();
+                    Where(t => t.ProductID == ProductID).ToArray();
                 return DTOConversions.ConvertToOrderDetailsDTO(OrderDetails);
             }
         }
@@ -386,9 +341,6 @@ namespace DatabaseAccessLib
 
                 var Territories = dbContext.Territories.ToArray();
                 db.AllTerritories = DTOConversions.ConvertToTerritoriesDTO(Territories);
-
-                var Order_Subtotals = dbContext.Order_Subtotals.ToArray();
-                db.All_OrderSubtotals = DTOConversions.ConvertToOrderSubTotalsDTO(Order_Subtotals);
 
             }
 
