@@ -59,25 +59,25 @@ namespace DatabaseAccessLib
         /// Returns a collection containg all employees in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Employee> GetAllEmployees();
+        IEnumerable<EmployeeDTO> GetAllEmployees();
 
         /// <summary>
         /// Returns a collection of all the product categories in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Category> GetAllProductCategories();
+        IEnumerable<CategoryDTO> GetAllProductCategories();
         /// <summary>
         /// Returns a collection of product categories matching a specific category ID
         /// </summary>
         /// <param name="CategoryID"></param>
         /// <returns></returns>
-        IEnumerable<Category> GetProductCategoriesByID(int CategoryID);
+        IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID);
 
         /// <summary>
         /// Returns a collection of all product records in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Product> GetAllProducts();
+        IEnumerable<ProductDTO> GetAllProducts();
 
 
         /// <summary>
@@ -85,87 +85,87 @@ namespace DatabaseAccessLib
         /// </summary>
         /// <param name="SupplierID"></param>
         /// <returns></returns>
-        IEnumerable<Product> GetProductsBySupplier(int SupplierID);
+        IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID);
         /// <summary>
         /// Returns a collection of products that are from a specific category of product types
         /// </summary>
         /// <param name="categoryID"></param>
         /// <returns></returns>
-        IEnumerable<Product> GetProductsByCategoryID(int categoryID);
+        IEnumerable<ProductDTO> GetProductsByCategoryID(int categoryID);
 
         /// <summary>
         /// Returns a collection of all the customers in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Customer> GetAllCustomers();
+        IEnumerable<CustomerDTO> GetAllCustomers();
 
         /// <summary>
         /// Returns a collection of all orders in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Order> GetAllOrders();
+        IEnumerable<OrderDTO> GetAllOrders();
 
         /// <summary>
         /// Returns a collection of all orders in the database including the subtotal of those orders
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotals();
+        IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotals();
 
         /// <summary>
         /// Returns a collection of all orders in the database including the subtotal of those orders
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID);
+        IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID);
 
         /// <summary>
         /// Returns a collection of orders that have been shipped by a specific shipper
         /// </summary>
         /// <param name="ShipVia"></param>
         /// <returns></returns>
-        IEnumerable<Order> GetOrdersByShipVia(int ShipVia);
+        IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia);
         /// <summary>
         /// Returns a collection of orders that were sold by a specific employee
         /// </summary>
         /// <param name="EmployeeID"></param>
         /// <returns></returns>
-        IEnumerable<Order> GetOrdersByEmployeeID(int EmployeeID);
+        IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID);
         /// <summary>
         /// Returns a collection of orders that have been purchased by a specific customer
         /// </summary>
         /// <param name="CustomerID"></param>
         /// <returns></returns>
-        IEnumerable<Order> GetOrdersByCustomerID(string CustomerID);
+        IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID);
 
         /// <summary>
         /// Returns a collection or Orders Qry
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Orders_Qry> GetAllOrdersQry();
+        IEnumerable<Orders_QryDTO> GetAllOrdersQry();
 
         /// <summary>
         /// Returns a collection of all suppliers in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Supplier> GetAllSuppliers();
+        IEnumerable<SupplierDTO> GetAllSuppliers();
         /// <summary>
         /// Returns a collection or suppliers with a specific ID
         /// </summary>
         /// <param name="SupplierID"></param>
         /// <returns></returns>
-        IEnumerable<Supplier> GetSuppliersByID(int SupplierID);
+        IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID);
 
         /// <summary>
         /// Returns a collection of all shippers in the database
         /// </summary>
         /// <returns></returns>
-        IEnumerable<Shipper> GetAllShippers();
+        IEnumerable<ShipperDTO> GetAllShippers();
 
         /// <summary>
         /// Returns a collection of Order Details matching a specific product ID
         /// </summary>
         /// <param name="ProductID"></param>
         /// <returns></returns>
-        IEnumerable<Order_Detail> GetOrderDetailsByProductID(int ProductID);
+        IEnumerable<Order_DetailDTO> GetOrderDetailsByProductID(int ProductID);
 
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace DatabaseAccessLib
         /// </summary>
         /// <param name="OrderID"></param>
         /// <returns></returns>
-        IEnumerable<Order_Details_Extended> GetOrderDetailsByOrderID(int OrderID);
+        IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID);
 
         /// <summary>
         /// Returns the most recent date value from the database.  Used when trying to adjust the data to different dates.

@@ -57,7 +57,7 @@ namespace WPFSampleApp.UserControls
         ContentControl contentControl;
         PageAnimation pageAnimation;
 
-        IEnumerable<Employee> AllEmployees;
+        IEnumerable<EmployeeDTO> AllEmployees;
 
         public Employees(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {
@@ -70,7 +70,7 @@ namespace WPFSampleApp.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             AllEmployees = DataAccessAPI.GetAllEmployees();
-            EmployeeGrid.ItemsSource = AllEmployees;
+            EmployeeGrid.ItemsSource =  AllEmployees.ToList();
 
             pageAnimation = new PageAnimation();
             contentControl.Content = pageAnimation;

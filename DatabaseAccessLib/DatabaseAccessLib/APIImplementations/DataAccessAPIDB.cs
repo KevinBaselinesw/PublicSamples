@@ -45,74 +45,75 @@ namespace DatabaseAccessLib
     {
 
         /// <inheritdoc/>
-        public IEnumerable<Employee> GetAllEmployees()
+        public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Employees = dbContext.Employees.ToArray();
-                return Employees;
+
+                return DTOConversions.ConvertToEmployeesDTO(Employees);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Category> GetAllProductCategories()
+        public IEnumerable<CategoryDTO> GetAllProductCategories()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Categories = dbContext.Categories.ToArray();
-                return Categories;
+                return DTOConversions.ConvertToCategoriesDTO(Categories);
             }
         }
         /// <inheritdoc />
-        public IEnumerable<Category> GetProductCategoriesByID(int CategoryID)
+        public IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID)
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Categories = dbContext.Categories.Where(t=>t.CategoryID == CategoryID).ToArray();
-                return Categories;
+                return DTOConversions.ConvertToCategoriesDTO(Categories);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<ProductDTO> GetAllProducts()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Products = dbContext.Products.ToArray();
-                return Products;
+                return DTOConversions.ConvertToProductsDTO(Products);
             }
         }
         /// <inheritdoc />
-        public IEnumerable<Product> GetProductsBySupplier(int SupplierID)
+        public IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID)
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Products = dbContext.Products.Where(t=>t.SupplierID == SupplierID).ToArray();
-                return Products;
+                return DTOConversions.ConvertToProductsDTO(Products);
             }
         }
         /// <inheritdoc />
-        public IEnumerable<Product> GetProductsByCategoryID(int CategoryID)
+        public IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID)
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Products = dbContext.Products.Where(t => t.CategoryID == CategoryID).ToArray();
-                return Products;
+                return DTOConversions.ConvertToProductsDTO(Products);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Customer> GetAllCustomers()
+        public IEnumerable<CustomerDTO> GetAllCustomers()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Customers = dbContext.Customers.ToArray();
-                return Customers;
+                return DTOConversions.ConvertToCustomersDTO(Customers);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Order> GetAllOrders()
+        public IEnumerable<OrderDTO> GetAllOrders()
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -122,12 +123,12 @@ namespace DatabaseAccessLib
                         Include(nameof(Order.Order_Details)).
                         Include(nameof(Order.Shipper)).
                         ToArray();
-                return Orders;
+                return DTOConversions.ConvertToOrdersDTO(Orders);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotals()
+        public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotals()
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -150,12 +151,12 @@ namespace DatabaseAccessLib
                               }
                               ).ToArray();
 
-                return Orders;
+                return DTOConversions.ConvertToOrderWithSubtotalsDTO(Orders);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<OrderWithSubtotal> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
+        public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -179,13 +180,13 @@ namespace DatabaseAccessLib
                               } 
                               ) .ToArray();
 
-                return Orders;
+                return DTOConversions.ConvertToOrderWithSubtotalsDTO(Orders);
             }
         }
 
 
         /// <inheritdoc />
-        public IEnumerable<Order> GetOrdersByShipVia(int ShipVia)
+        public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -196,12 +197,12 @@ namespace DatabaseAccessLib
                         Where(t=>t.ShipVia == ShipVia).
                         ToArray();
 
-                return Orders;
+                return DTOConversions.ConvertToOrdersDTO(Orders);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Order> GetOrdersByEmployeeID(int EmployeeID)
+        public IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID)
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -213,11 +214,11 @@ namespace DatabaseAccessLib
                         Where(t => t.EmployeeID == EmployeeID).
                         ToArray();
 
-                return Orders;
+                return DTOConversions.ConvertToOrdersDTO(Orders);
             }
         }
         /// <inheritdoc />
-        public IEnumerable<Order> GetOrdersByCustomerID(string CustomerID)
+        public IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID)
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -229,51 +230,51 @@ namespace DatabaseAccessLib
                         Where(t=>t.CustomerID == CustomerID).
                         ToArray();
 
-                return Orders;
+                return DTOConversions.ConvertToOrdersDTO(Orders);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Orders_Qry> GetAllOrdersQry()
+        public IEnumerable<Orders_QryDTO> GetAllOrdersQry()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Orders = dbContext.Orders_Qries.ToArray();
-                return Orders;
+                return DTOConversions.ConvertToOrdersQrysDTO(Orders);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Supplier> GetAllSuppliers()
+        public IEnumerable<SupplierDTO> GetAllSuppliers()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Suppliers = dbContext.Suppliers.ToArray();
-                return Suppliers;
+                return DTOConversions.ConvertToSuppliersDTO(Suppliers);
             }
         }
         /// <inheritdoc />
-        public IEnumerable<Supplier> GetSuppliersByID(int SupplierID)
+        public IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID)
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Suppliers = dbContext.Suppliers.Where(t=>t.SupplierID == SupplierID).ToArray();
-                return Suppliers;
+                return DTOConversions.ConvertToSuppliersDTO(Suppliers);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Shipper> GetAllShippers()
+        public IEnumerable<ShipperDTO> GetAllShippers()
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var Shippers = dbContext.Shippers.ToArray();
-                return Shippers;
+                return DTOConversions.ConvertToShippersDTO(Shippers);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Order_Detail> GetOrderDetailsByProductID(int ProductID)
+        public IEnumerable<Order_DetailDTO> GetOrderDetailsByProductID(int ProductID)
         {
             using (var dbContext = new NorthWindsModel())
             {
@@ -281,18 +282,18 @@ namespace DatabaseAccessLib
                     Include(nameof(Order_Detail.Order)).
                     Include(nameof(Order_Detail.Product)).
                     Where(t=>t.ProductID == ProductID).ToArray();
-                return OrderDetails;
+                return DTOConversions.ConvertToOrderDetailsDTO(OrderDetails);
             }
         }
 
         /// <inheritdoc />
-        public IEnumerable<Order_Details_Extended> GetOrderDetailsByOrderID(int OrderID)
+        public IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID)
         {
             using (var dbContext = new NorthWindsModel())
             {
                 var OrderDetails = dbContext.Order_Details_Extendeds.
                     Where(t => t.OrderID == OrderID).ToArray();
-                return OrderDetails;
+                return DTOConversions.ConvertToOrderDetailsExtendedsDTO(OrderDetails);
             }
         }
 

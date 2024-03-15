@@ -57,7 +57,7 @@ namespace WPFSampleApp.UserControls
         ContentControl contentControl;
         PageAnimation pageAnimation;
 
-        IEnumerable<Shipper> AllShippers;
+        IEnumerable<ShipperDTO> AllShippers;
 
         public Shippers(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {

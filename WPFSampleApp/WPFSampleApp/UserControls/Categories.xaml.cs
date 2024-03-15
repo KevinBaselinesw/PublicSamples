@@ -57,7 +57,7 @@ namespace WPFSampleApp.UserControls
         ContentControl contentControl;
         PageAnimation pageAnimation;
 
-        IEnumerable<Category> AllCategories;
+        IEnumerable<CategoryDTO> AllCategories;
 
         public Categories(IDataAccessAPI DataAccessAPI, ContentControl contentControl)
         {

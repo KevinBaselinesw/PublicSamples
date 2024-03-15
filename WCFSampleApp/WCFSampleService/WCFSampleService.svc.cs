@@ -6,7 +6,6 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using DatabaseAccessLib;
-using DatabaseAccessLib.APIImplementations;
 
 namespace WCFSampleApp
 {
@@ -34,7 +33,7 @@ namespace WCFSampleApp
 
             var employees = DatabaseAPI.GetAllEmployees();
 
-            return DTOConversions.ConvertToEmployeesDTO(employees);
+            return employees;
         }
 
         public IEnumerable<CategoryDTO> GetAllProductCategories()
@@ -43,7 +42,7 @@ namespace WCFSampleApp
 
             var categories = DatabaseAPI.GetAllProductCategories();
 
-            return DTOConversions.ConvertToCategoriesDTO(categories);
+            return categories;
         }
 
         public IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID)
@@ -52,7 +51,7 @@ namespace WCFSampleApp
 
             var categories = DatabaseAPI.GetProductCategoriesByID(CategoryID);
 
-            return DTOConversions.ConvertToCategoriesDTO(categories);
+            return categories;
         }
 
         public IEnumerable<ProductDTO> GetAllProducts()
@@ -61,7 +60,7 @@ namespace WCFSampleApp
 
             var products = DatabaseAPI.GetAllProducts();
 
-            return DTOConversions.ConvertToProductsDTO(products);
+            return products;
         }
 
         public IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID)
@@ -70,7 +69,7 @@ namespace WCFSampleApp
 
             var products = DatabaseAPI.GetProductsBySupplier(SupplierID);
 
-            return DTOConversions.ConvertToProductsDTO(products);
+            return products;
         }
 
         public IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID)
@@ -79,7 +78,7 @@ namespace WCFSampleApp
 
             var products = DatabaseAPI.GetProductsByCategoryID(CategoryID);
 
-            return DTOConversions.ConvertToProductsDTO(products);
+            return products;
         }
 
         public IEnumerable<CustomerDTO> GetAllCustomers()
@@ -88,7 +87,7 @@ namespace WCFSampleApp
 
             var customers = DatabaseAPI.GetAllCustomers();
 
-            return DTOConversions.ConvertToCustomersDTO(customers);
+            return customers;
         }
 
         public IEnumerable<OrderDTO> GetAllOrders()
@@ -97,7 +96,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrders();
 
-            return DTOConversions.ConvertToOrdersDTO(orders);
+            return orders;
         }
 
  
@@ -107,7 +106,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrdersWithSubtotals();
 
-            return DTOConversions.ConvertToOrderWithSubtotalsDTO(orders);
+            return orders;
         }
 
   
@@ -118,7 +117,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
 
-            return DTOConversions.ConvertToOrderWithSubtotalsDTO(orders);
+            return orders;
         }
 
         public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
@@ -127,7 +126,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetOrdersByShipVia(ShipVia);
 
-            return DTOConversions.ConvertToOrdersDTO(orders);
+            return orders;
         }
 
         public IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID)
@@ -136,7 +135,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetOrdersByEmployeeID(EmployeeID);
 
-            return DTOConversions.ConvertToOrdersDTO(orders);
+            return orders;
         }
 
         public IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID)
@@ -145,7 +144,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetOrdersByCustomerID(CustomerID);
 
-            return DTOConversions.ConvertToOrdersDTO(orders);
+            return orders;
         }
 
         public IEnumerable<Orders_QryDTO> GetAllOrdersQry()
@@ -154,7 +153,7 @@ namespace WCFSampleApp
 
             var orders = DatabaseAPI.GetAllOrdersQry();
 
-            return DTOConversions.ConvertToOrdersQrysDTO(orders);
+            return orders;
         }
 
         public IEnumerable<SupplierDTO> GetAllSuppliers()
@@ -163,7 +162,7 @@ namespace WCFSampleApp
 
             var suppliers = DatabaseAPI.GetAllSuppliers();
 
-            return DTOConversions.ConvertToSuppliersDTO(suppliers);
+            return suppliers;
         }
 
         public IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID)
@@ -172,7 +171,7 @@ namespace WCFSampleApp
 
             var suppliers = DatabaseAPI.GetSuppliersByID(SupplierID);
 
-            return DTOConversions.ConvertToSuppliersDTO(suppliers);
+            return suppliers;
         }
 
         public IEnumerable<ShipperDTO> GetAllShippers()
@@ -181,7 +180,7 @@ namespace WCFSampleApp
 
             var shippers = DatabaseAPI.GetAllShippers();
 
-            return DTOConversions.ConvertToShippersDTO(shippers);
+            return shippers;
         }
 
  
@@ -191,7 +190,7 @@ namespace WCFSampleApp
 
             var orderDetails = DatabaseAPI.GetOrderDetailsByProductID(ProductID);
 
-            return DTOConversions.ConvertToOrderDetailsDTO(orderDetails);
+            return orderDetails;
         }
 
         public IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID)
@@ -200,7 +199,7 @@ namespace WCFSampleApp
 
             var orderDetails = DatabaseAPI.GetOrderDetailsByOrderID(OrderID);
 
-            return DTOConversions.ConvertToOrderDetailsExtendedsDTO(orderDetails);
+            return orderDetails;
         }
 
  

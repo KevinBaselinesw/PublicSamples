@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseAccessLib.APIImplementations
+namespace DatabaseAccessLib
 {
     [DataContract]
     public class EmployeeDTO
@@ -577,7 +577,7 @@ namespace DatabaseAccessLib.APIImplementations
                 return null;
 
             List<EmployeeDTO> employeeDTOs = new List<EmployeeDTO>();
-            foreach (var employee in employees)
+            foreach (var employee in employees.ToArray())
             {
                 EmployeeDTO covertedEmployee = ToEmployeeDTO(employee);
                 if (covertedEmployee != null)
@@ -635,7 +635,7 @@ namespace DatabaseAccessLib.APIImplementations
 
             List<OrderDTO> orderDTOs = new List<OrderDTO>();
 
-            foreach (var order in orders)
+            foreach (var order in orders.ToArray())
             {
                 OrderDTO convertedOrder = ToOrderDTO(order);
                 if (convertedOrder != null)
@@ -673,7 +673,7 @@ namespace DatabaseAccessLib.APIImplementations
 
             List<TerritoryDTO> territoryDTOs = new List<TerritoryDTO>();
 
-            foreach (var territory in territories)
+            foreach (var territory in territories.ToArray())
             {
                 TerritoryDTO convertedTerritory = ToTerritoryDTO(territory);
 
@@ -810,8 +810,8 @@ namespace DatabaseAccessLib.APIImplementations
                 Country = customer.Country,
                 Phone = customer.Phone,
                 Fax = customer.Fax,
-                CustomerDemographics = ConvertToCustomerDemographicDTO(customer.CustomerDemographics),
-                Orders = ConvertToOrdersDTO(customer.Orders)
+                //CustomerDemographics = ConvertToCustomerDemographicDTO(customer.CustomerDemographics),
+                //Orders = ConvertToOrdersDTO(customer.Orders)
             };
 
             return convertedCustomer;
@@ -835,7 +835,7 @@ namespace DatabaseAccessLib.APIImplementations
                 ReorderLevel = product.ReorderLevel,
                 Discontinued = product.Discontinued,
                 Category = ToCategoryDTO(product.Category),
-                Order_Details = ConvertToOrderDetailsDTO(product.Order_Details),
+                //Order_Details = ConvertToOrderDetailsDTO(product.Order_Details),
                 Supplier = ToSupplierDTO(product.Supplier),
             };
 
@@ -867,10 +867,11 @@ namespace DatabaseAccessLib.APIImplementations
                 Notes = employee.Notes,
                 ReportsTo = employee.ReportsTo,
                 PhotoPath = employee.PhotoPath,
-                Employee1 = ToEmployeeDTO(employee.Employee1),
-                Employees1 = ConvertToEmployeesDTO(employee.Employees1),
-                Orders = ConvertToOrdersDTO(employee.Orders),
-                Territories = ConvertToTerritoryDTO(employee.Territories),
+                // these conversions end up causing stack overrun as each conversion ends up with more employees/orders to process
+                //Employee1 = ToEmployeeDTO(employee.Employee1),
+                //Employees1 = ConvertToEmployeesDTO(employee.Employees1),
+                //Orders = ConvertToOrdersDTO(employee.Orders),
+                //Territories = ConvertToTerritoryDTO(employee.Territories),
             };
 
             return covertedEmployee;
@@ -887,7 +888,7 @@ namespace DatabaseAccessLib.APIImplementations
                 CategoryName = category.CategoryName,
                 Description = category.Description,
                 Picture = category.Picture,
-                Products = ConvertToProductsDTO(category.Products),
+                //Products = ConvertToProductsDTO(category.Products),
             };
 
             return convertedCategory;
@@ -932,7 +933,7 @@ namespace DatabaseAccessLib.APIImplementations
                 Customer = ToCustomerDTO(order.Customer),
                 Employee = ToEmployeeDTO(order.Employee),
                 Order_Details = ConvertToOrderDetailsDTO(order.Order_Details),
-                Shipper = ToShipperDTO(order.Shipper),
+                //Shipper = ToShipperDTO(order.Shipper),
             };
 
             return convertedOrder;
@@ -949,7 +950,7 @@ namespace DatabaseAccessLib.APIImplementations
                 ShipperID = shipper.ShipperID,
                 CompanyName = shipper.CompanyName,
                 Phone = shipper.Phone,
-                Orders = ConvertToOrdersDTO(shipper.Orders),
+                //Orders = ConvertToOrdersDTO(shipper.Orders),
             };
 
             return convertedShipper;
@@ -974,7 +975,7 @@ namespace DatabaseAccessLib.APIImplementations
                 Phone = supplier.Phone,
                 Fax = supplier.Fax,
                 HomePage = supplier.HomePage,
-                Products = ConvertToProductsDTO(supplier.Products),
+                //Products = ConvertToProductsDTO(supplier.Products),
             };
 
             return convertedSupplier;
@@ -992,7 +993,7 @@ namespace DatabaseAccessLib.APIImplementations
                 UnitPrice = orderDetail.UnitPrice,
                 Quantity = orderDetail.Quantity,
                 Discount = orderDetail.Discount,
-                Order = ToOrderDTO(orderDetail.Order),
+                //Order = ToOrderDTO(orderDetail.Order),
                 Product = ToProductDTO(orderDetail.Product),
             };
 
