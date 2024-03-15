@@ -84,6 +84,87 @@ namespace WPFSampleApp
                 }
             }
 
+
+            string DatabaseSource = ConfigurationManager.AppSettings["DatabaseSource"];
+            if (DatabaseSource == "XMLFile")
+            {
+                LoadDatabaseFromXMLFile();
+            }
+            else if (DatabaseSource == "SQLServer")
+            {
+                LoadDatabaseFromSQLServer();
+            }
+            else
+            {
+                string errorMessage = string.Format("The configuration item 'DatabaseSource' not equal to either 'XMLFile' or 'SQLServer'. " +
+                                 "Would you like to load the database from XML?");
+
+                var mbResult =  MessageBox.Show(errorMessage, "Invalid DatabaseSource onfiguration", MessageBoxButton.YesNo);
+                if (mbResult == MessageBoxResult.Yes)
+                {
+                    LoadDatabaseFromXMLFile();
+                }
+                else
+                {
+                    DatabaseBackup databaseBackup = new DatabaseBackup();
+                    DataAccessAPI = new DataAccessAPIInMemory(databaseBackup);
+                }
+            }
+
+        }
+
+        private void LoadDatabaseFromSQLServer()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LoadDatabaseFromXMLFile()
+        {
+            try
+            {
+                if (!System.IO.File.Exists(NorthwindsDBBackupName))
+                {
+                    MessageBox.Show(string.Format("The database XML file {0} is not found!", NorthwindsDBBackupName));
+                }
+                else
+                {
+                    string XmlDB = null;
+                    DatabaseBackup databaseBackup = null;
+                    try
+                    {
+                        XmlDB = System.IO.File.ReadAllText(NorthwindsDBBackupName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(string.Format("Found, but unable to read the database XML file {0}!", NorthwindsDBBackupName));
+                    }
+
+                    if (XmlDB != null)
+                    {
+                        try
+                        {
+                            databaseBackup = Utility.DeserializeXml<DatabaseBackup>(XmlDB);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(string.Format("Found, but unable to DESERIALIZE the database XML file {0}!", NorthwindsDBBackupName));
+                        }
+                    }
+
+                    if (databaseBackup != null)
+                    {
+                        DataAccessAPI = new DataAccessAPIInMemory(databaseBackup);
+                    }
+                }
+            }
+            finally
+            {
+                if (DataAccessAPI == null)
+                {
+                    DatabaseBackup databaseBackup = new DatabaseBackup();
+                    DataAccessAPI = new DataAccessAPIInMemory(databaseBackup);
+                }
+            }
         }
 
         private void Employees_Click(object sender, RoutedEventArgs e)
