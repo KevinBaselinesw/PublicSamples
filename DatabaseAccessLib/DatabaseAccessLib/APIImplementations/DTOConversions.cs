@@ -472,6 +472,22 @@ namespace DatabaseAccessLib
     [DataContract]
     public class Order_DetailDTO
     {
+        public Order_DetailDTO()
+        {
+
+        }
+        public Order_DetailDTO(Order_DetailDTO orig)
+        {
+            OrderID = orig.OrderID;
+            ProductID = orig.ProductID;
+            UnitPrice = orig.UnitPrice;
+            Quantity = orig.Quantity;
+            Discount = orig.Discount;
+
+            Order = null;
+            Product = null;
+        }
+
         [DataMember]
         public int OrderID { get; set; }
         [DataMember]
@@ -836,7 +852,7 @@ namespace DatabaseAccessLib
             }
             return shipperDTOs;
         }
-        public static IEnumerable<Order_Details_ExtendedDTO> ConvertToOrderDetailsExtendedsDTO(IEnumerable<Order_Details_Extended> orderDetailsExtended)
+        public static List<Order_Details_ExtendedDTO> ConvertToOrderDetailsExtendedsDTO(IEnumerable<Order_Details_Extended> orderDetailsExtended)
         {
             if (orderDetailsExtended == null)
                 return null;

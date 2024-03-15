@@ -63,6 +63,7 @@ namespace DatabaseAccessLib
         public List<SupplierDTO> AllSuppliers;
         public List<TerritoryDTO> AllTerritories;
         public List<Order_SubtotalDTO> All_OrderSubtotals;
+        public List<Order_Details_ExtendedDTO> All_OrderDetailsExtended;
     }
 
     /// <summary>

@@ -200,25 +200,20 @@ namespace DatabaseAccessLib
         /// <inheritdoc />
         public IEnumerable<Order_DetailDTO> GetOrderDetailsByProductID(int ProductID)
         {
-            using (var dbContext = new NorthWindsModel())
+            Validate();
+
+            return _db.AllOrderDetails.Where(t => t.ProductID == ProductID).Select(a => new Order_DetailDTO(a)
             {
-                var OrderDetails = dbContext.Order_Details.
-                    Include(nameof(Order_Detail.Order)).
-                    Include(nameof(Order_Detail.Product)).
-                    Where(t => t.ProductID == ProductID).ToArray();
-                return DTOConversions.ConvertToOrderDetailsDTO(OrderDetails);
-            }
+                Order = _db.AllOrders.FirstOrDefault(t=>t.OrderID == a.OrderID),
+                Product = _db.AllProducts.FirstOrDefault(t=>t.ProductID == a.ProductID),
+            });
+  
         }
 
         /// <inheritdoc />
         public IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID)
         {
-            using (var dbContext = new NorthWindsModel())
-            {
-                var OrderDetails = dbContext.Order_Details_Extendeds.
-                    Where(t => t.OrderID == OrderID).ToArray();
-                return DTOConversions.ConvertToOrderDetailsExtendedsDTO(OrderDetails);
-            }
+            return _db.All_OrderDetailsExtended.Where(t=>t.OrderID == OrderID);
         }
 
 

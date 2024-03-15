@@ -390,6 +390,10 @@ namespace DatabaseAccessLib
                 var Order_Subtotals = dbContext.Order_Subtotals.ToArray();
                 db.All_OrderSubtotals = DTOConversions.ConvertToOrderSubTotalsDTO(Order_Subtotals);
 
+                var Order_Details_Extended = dbContext.Order_Details_Extendeds.ToArray();
+                db.All_OrderDetailsExtended = DTOConversions.ConvertToOrderDetailsExtendedsDTO(Order_Details_Extended);
+
+
             }
 
             return db;
