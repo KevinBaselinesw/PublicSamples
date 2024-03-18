@@ -84,11 +84,17 @@
     <Compile Include="UserControls\Employees.xaml.cs">
       <DependentUpon>Employees.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Orders.xaml.cs">
+      <DependentUpon>Orders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\OrdersByCustomer.xaml.cs">
       <DependentUpon>OrdersByCustomer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\OrdersByEmployee.xaml.cs">
       <DependentUpon>OrdersByEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrdersDetailsByOrder.xaml.cs">
+      <DependentUpon>OrdersDetailsByOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Products.xaml.cs">
       <DependentUpon>Products.xaml</DependentUpon>
@@ -141,11 +147,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Orders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\OrdersByCustomer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\OrdersByEmployee.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\OrdersDetailsByOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -210,7 +224,16 @@
     <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.Order_DetailDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.Order_Details_ExtendedDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.ProductDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.ShipperDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.SupplierDTO.datasource">
