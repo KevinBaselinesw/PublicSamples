@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConverterFunctions\Converters.cs" />
     <Compile Include="RESTExample.xaml.cs">
       <DependentUpon>RESTExample.xaml</DependentUpon>
     </Compile>
@@ -169,6 +170,48 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\category32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\customers32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\division32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\orders32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\products32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\shippers32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\suppliers32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\customers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\division.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\orders.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\products.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shippers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\suppliers.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
