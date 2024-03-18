@@ -29,6 +29,8 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,40 +45,68 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WCFSampleClient.WCFSampleService;
 
-namespace WCFSampleClient
+namespace WCFSampleClient.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Employees.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Employees : UserControl
     {
-        public MainWindow()
+
+        ContentControl contentControl;
+        WCFType WCFType;
+ 
+        IEnumerable<EmployeeDTO> AllEmployees;
+
+        public Employees(ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();
+  
+            this.contentControl = contentControl;
+            this.WCFType = WCFType;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            WCFSampleService.WCFSampleServiceClient Client = new WCFSampleService.WCFSampleServiceClient();
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
 
-            var Employees = Client.GetAllEmployees();
-            MessageBox.Show(Employees[0].LastName);
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+                    var AllEmployees = Client.GetAllEmployees();
 
-            //var str = Client.GetData(97);
-            //MessageBox.Show(str);
+                    EmployeeGrid.ItemsSource = AllEmployees.ToList();
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+  
+  
         }
 
-        private void SOAPExamplButton_Click(object sender, RoutedEventArgs e)
+        private void OrdersByEmployee_Click(object sender, RoutedEventArgs e)
         {
-            SOAPExample dlg = new SOAPExample();
-            dlg.Show();
-        }
+            var btn = sender as Button;
+            if (btn == null)
+                return;
 
-        private void RESTExamplButton_Click(object sender, RoutedEventArgs e)
-        {
-            RESTExample dlg = new RESTExample();
-            dlg.Show();
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int employeeID = (int)btn.Tag;
+
+            contentControl.Content = new OrdersByEmployee(employeeID, contentControl, WCFType);
+               
+            return;
         }
     }
 }

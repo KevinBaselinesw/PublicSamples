@@ -29,6 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,40 +44,62 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WCFSampleClient.WCFSampleService;
 
-namespace WCFSampleClient
+namespace WCFSampleClient.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OrdersByEmployee.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OrdersByEmployee : UserControl
     {
-        public MainWindow()
+        int EmployeeID = 0;
+        ContentControl contentControl;
+        WCFType WCFType;
+
+        public OrdersByEmployee(int EmployeeID, ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();
+
+            this.EmployeeID = EmployeeID;
+            this.contentControl = contentControl;
+            this.WCFType = WCFType;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            WCFSampleService.WCFSampleServiceClient Client = new WCFSampleService.WCFSampleServiceClient();
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
 
-            var Employees = Client.GetAllEmployees();
-            MessageBox.Show(Employees[0].LastName);
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
 
-            //var str = Client.GetData(97);
-            //MessageBox.Show(str);
-        }
+                    var OrdersByEmployee = Client.GetOrdersByEmployeeID(EmployeeID);
+                    var FirstOrder = OrdersByEmployee.FirstOrDefault(t => t.EmployeeID == EmployeeID);  // all records likely have this
+                    if (FirstOrder != null)
+                    {
+                        ReportTitle.Text = string.Format($"Sales orders for {FirstOrder.Employee.FirstName} {FirstOrder.Employee.LastName}");
+                    }
+                    else
+                    {
+                        ReportTitle.Text = string.Format($"Employee not found in the database!");
+                    }
 
-        private void SOAPExamplButton_Click(object sender, RoutedEventArgs e)
-        {
-            SOAPExample dlg = new SOAPExample();
-            dlg.Show();
-        }
+                    OrdersGrid.ItemsSource = OrdersByEmployee;
 
-        private void RESTExamplButton_Click(object sender, RoutedEventArgs e)
-        {
-            RESTExample dlg = new RESTExample();
-            dlg.Show();
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+
+    
         }
     }
 }

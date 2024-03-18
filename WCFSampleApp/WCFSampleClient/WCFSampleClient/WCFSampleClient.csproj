@@ -72,6 +72,13 @@
     <Compile Include="SOAPExample.xaml.cs">
       <DependentUpon>SOAPExample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Employees.xaml.cs">
+      <DependentUpon>Employees.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrdersByEmployee.xaml.cs">
+      <DependentUpon>OrdersByEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WCFType.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,6 +103,14 @@
     <Page Include="SOAPExample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Employees.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\OrdersByEmployee.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
