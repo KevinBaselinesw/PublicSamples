@@ -102,6 +102,12 @@
     <Compile Include="UserControls\ProductsByCategory.xaml.cs">
       <DependentUpon>ProductsByCategory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ProductsBySupplier.xaml.cs">
+      <DependentUpon>ProductsBySupplier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Suppliers.xaml.cs">
+      <DependentUpon>Suppliers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SuppliersByProduct.xaml.cs">
       <DependentUpon>SuppliersByProduct.xaml</DependentUpon>
     </Compile>
@@ -168,6 +174,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ProductsByCategory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ProductsBySupplier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Suppliers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
