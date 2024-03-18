@@ -29,6 +29,8 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,63 +43,62 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WCFSampleClient.UserControls;
+using WCFSampleClient.WCFSampleService;
 
-namespace WCFSampleClient
+namespace WCFSampleClient.UserControls
 {
-    /// <summary>
-    /// Interaction logic for SOAPExample.xaml
+    /// <WCFSampleClient>
+    /// Interaction logic for ProductsByCategory.xaml
     /// </summary>
-    public partial class SOAPExample : Window
+    public partial class ProductsByCategory : UserControl
     {
-        public SOAPExample()
+        int CategoryID = 0;
+        ContentControl contentControl;
+        WCFType WCFType;
+
+        public ProductsByCategory(int CategoryID, ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();
+            this.CategoryID = CategoryID;
+            this.contentControl = contentControl;
+            this.WCFType = WCFType;
         }
 
-        private void Employees_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            SecondaryContent.Content = null;
-            gridSplitter.UpdateLayout();
-            PrimaryContent.Content = new Employees(SecondaryContent, WCFType.SOAP);
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
+
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+                    var ProductsByCategory = Client.GetProductsByCategoryID(CategoryID);
+                    var FirstCategory = Client.GetProductCategoriesByID(CategoryID).FirstOrDefault();
+                    if (FirstCategory != null)
+                    {
+                        ReportTitle.Text = string.Format($"Products in the {FirstCategory.CategoryName} category");
+                    }
+                    else
+                    {
+                        ReportTitle.Text = string.Format($"This category is not found in the database!");
+                    }
+
+                    ProductGrid.ItemsSource = ProductsByCategory;
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+  
         }
-
-        private void ProductCategories_Click(object sender, RoutedEventArgs e)
-        {
-            SecondaryContent.Content = null;
-            PrimaryContent.Content = new Categories(SecondaryContent, WCFType.SOAP);
-        }
-
-        private void Products_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Customers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Orders_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Suppliers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Shippers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            var aboutBoxSoap = new AboutBoxSOAP();
-            aboutBoxSoap.ShowDialog();
-        }
+  
+   
     }
 }

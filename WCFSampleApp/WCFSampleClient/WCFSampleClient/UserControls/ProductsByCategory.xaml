@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="WCFSampleClient.UserControls.ProductsByCategory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WCFSampleClient.UserControls"
+             xmlns:converters="clr-namespace:WCFSampleClient.ConverterFunctions"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="DataGridRow">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Discontinued}" Value="true">
+                    <Setter Property="Foreground" Value="Gray" />
+                    <Setter Property="ToolTip" Value="Discontinued Item" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <Style TargetType="Image" x:Key="SubsystemSelectorImage">
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Stretch" Value="Fill"/>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Image Source="..\Images\products.png" Style="{StaticResource SubsystemSelectorImage}" Margin="10" />
+            <TextBlock x:Name="ReportTitle" Text="" FontSize="24" VerticalAlignment="Center" Margin="10"/>
+        </StackPanel>
+        
+        <DataGrid x:Name="ProductGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ProductID}"/>
+                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Header="Qty Per Unit" Binding="{Binding QuantityPerUnit}"/>
+                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}"/>
+                <DataGridTextColumn Header="In Stock" Binding="{Binding UnitsInStock}"/>
+                <DataGridTextColumn Header="On Order" Binding="{Binding UnitsOnOrder}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
