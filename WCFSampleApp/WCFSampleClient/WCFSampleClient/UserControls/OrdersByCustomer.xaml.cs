@@ -63,6 +63,7 @@ namespace WCFSampleClient.UserControls
 
             this.CustomerID = CustomerID;
             this.contentControl = contentControl;
+            this.WCFType = WCFType;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
