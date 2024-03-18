@@ -29,6 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,65 +42,62 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WCFSampleClient.UserControls;
+using WCFSampleClient.WCFSampleService;
 
-namespace WCFSampleClient
+namespace WCFSampleClient.UserControls
 {
     /// <summary>
-    /// Interaction logic for SOAPExample.xaml
+    /// Interaction logic for OrdersByCustomer.xaml
     /// </summary>
-    public partial class SOAPExample : Window
+    public partial class OrdersByCustomer : UserControl
     {
-        public SOAPExample()
+        string CustomerID = null;
+        ContentControl contentControl;
+        WCFType WCFType;
+
+        public OrdersByCustomer(string CustomerID, ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();
+
+            this.CustomerID = CustomerID;
+            this.contentControl = contentControl;
         }
 
-        private void Employees_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            SecondaryContent.Content = null;
-            gridSplitter.UpdateLayout();
-            PrimaryContent.Content = new Employees(SecondaryContent, WCFType.SOAP);
-        }
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
 
-        private void ProductCategories_Click(object sender, RoutedEventArgs e)
-        {
-            SecondaryContent.Content = null;
-            PrimaryContent.Content = new Categories(SecondaryContent, WCFType.SOAP);
-        }
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+                    var OrdersByCustomer = Client.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
+                    var FirstOrder = OrdersByCustomer.FirstOrDefault(t => t.Customer.CustomerID == CustomerID);  // all records likely have this
+                    if (FirstOrder != null)
+                    {
+                        ReportTitle.Text = string.Format($"Sales orders for {FirstOrder.Customer.CompanyName}");
+                    }
+                    else
+                    {
+                        ReportTitle.Text = string.Format($"Customer not found in database!");
+                    }
 
-        private void Products_Click(object sender, RoutedEventArgs e)
-        {
-            SecondaryContent.Content = null;
-            PrimaryContent.Content = new Products(SecondaryContent, WCFType.SOAP);
-        }
+                    OrdersGrid.ItemsSource = OrdersByCustomer;
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
 
-        private void Customers_Click(object sender, RoutedEventArgs e)
-        {
-            SecondaryContent.Content = null;
-            PrimaryContent.Content = new Customers(SecondaryContent, WCFType.SOAP);
-        }
 
-        private void Orders_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Suppliers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Shippers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            var aboutBoxSoap = new AboutBoxSOAP();
-            aboutBoxSoap.ShowDialog();
+  
         }
     }
 }
