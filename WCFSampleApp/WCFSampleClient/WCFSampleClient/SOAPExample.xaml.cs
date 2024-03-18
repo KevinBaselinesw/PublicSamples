@@ -61,7 +61,8 @@ namespace WCFSampleClient
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-
+            var aboutBoxSoap = new AboutBoxSOAP();
+            aboutBoxSoap.ShowDialog();
         }
     }
 }
