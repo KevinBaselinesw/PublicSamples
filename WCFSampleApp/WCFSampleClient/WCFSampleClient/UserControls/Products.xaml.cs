@@ -29,6 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,64 +42,82 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WCFSampleClient.UserControls;
+using WCFSampleClient.WCFSampleService;
 
-namespace WCFSampleClient
+namespace WCFSampleClient.UserControls
 {
     /// <summary>
-    /// Interaction logic for SOAPExample.xaml
+    /// Interaction logic for Products.xaml
     /// </summary>
-    public partial class SOAPExample : Window
+    public partial class Products : UserControl
     {
-        public SOAPExample()
+        ContentControl contentControl;
+        WCFType WCFType;
+
+        public Products(ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();
+            this.contentControl = contentControl;
+            this.WCFType = WCFType;
         }
 
-        private void Employees_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            SecondaryContent.Content = null;
-            gridSplitter.UpdateLayout();
-            PrimaryContent.Content = new Employees(SecondaryContent, WCFType.SOAP);
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
+
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+                    var AllProducts = Client.GetAllProducts();
+                    ProductGrid.ItemsSource = AllProducts;
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+ 
         }
 
-        private void ProductCategories_Click(object sender, RoutedEventArgs e)
+        private void GetSupplier_Click(object sender, RoutedEventArgs e)
         {
-            SecondaryContent.Content = null;
-            PrimaryContent.Content = new Categories(SecondaryContent, WCFType.SOAP);
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int supplierID = (int)btn.Tag;
+
+            contentControl.Content = new SuppliersByProduct(supplierID, null, WCFType);
+
+            return;
         }
 
-        private void Products_Click(object sender, RoutedEventArgs e)
+        private void GetCategory_Click(object sender, RoutedEventArgs e)
         {
-            SecondaryContent.Content = null;
-            PrimaryContent.Content = new Products(SecondaryContent, WCFType.SOAP);
+            var btn = sender as Button;
+            if (btn == null)
+                return;
+
+            if (btn.Tag.GetType() != typeof(System.Int32))
+                return;
+
+            int categoryID = (int)btn.Tag;
+
+            contentControl.Content = new CategoriesByProduct(categoryID, null, WCFType);
+
+            return;
         }
 
-        private void Customers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Orders_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Suppliers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Shippers_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            var aboutBoxSoap = new AboutBoxSOAP();
-            aboutBoxSoap.ShowDialog();
-        }
+  
     }
 }

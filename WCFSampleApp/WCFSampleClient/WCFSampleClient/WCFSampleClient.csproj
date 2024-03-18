@@ -75,14 +75,23 @@
     <Compile Include="UserControls\Categories.xaml.cs">
       <DependentUpon>Categories.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CategoriesByProduct.xaml.cs">
+      <DependentUpon>CategoriesByProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Employees.xaml.cs">
       <DependentUpon>Employees.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\OrdersByEmployee.xaml.cs">
       <DependentUpon>OrdersByEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Products.xaml.cs">
+      <DependentUpon>Products.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProductsByCategory.xaml.cs">
       <DependentUpon>ProductsByCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SuppliersByProduct.xaml.cs">
+      <DependentUpon>SuppliersByProduct.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\WCFType.cs" />
     <Page Include="MainWindow.xaml">
@@ -114,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\CategoriesByProduct.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\Employees.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,7 +135,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Products.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\ProductsByCategory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SuppliersByProduct.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
