@@ -272,4 +272,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSupplierDTO" nillable="true" type="tns:ArrayOfSupplierDTO" />
+  <xs:complexType name="ArrayOfShipperDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShipperDTO" nillable="true" type="tns:ShipperDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShipperDTO" nillable="true" type="tns:ArrayOfShipperDTO" />
+  <xs:complexType name="ArrayOfOrder_Details_ExtendedDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order_Details_ExtendedDTO" nillable="true" type="tns:Order_Details_ExtendedDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder_Details_ExtendedDTO" nillable="true" type="tns:ArrayOfOrder_Details_ExtendedDTO" />
+  <xs:complexType name="Order_Details_ExtendedDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Discount" type="xs:float" />
+      <xs:element minOccurs="0" name="ExtendedPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OrderID" type="xs:int" />
+      <xs:element minOccurs="0" name="ProductID" type="xs:int" />
+      <xs:element minOccurs="0" name="ProductName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:short" />
+      <xs:element minOccurs="0" name="UnitPrice" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Order_Details_ExtendedDTO" nillable="true" type="tns:Order_Details_ExtendedDTO" />
 </xs:schema>
