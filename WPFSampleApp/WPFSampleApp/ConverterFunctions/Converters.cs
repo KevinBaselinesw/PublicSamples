@@ -108,7 +108,7 @@ namespace WPFSampleApp.ConverterFunctions
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DatabaseAccessLib.Employee employee = value as DatabaseAccessLib.Employee;
+            DatabaseAccessLib.EmployeeDTO employee = value as DatabaseAccessLib.EmployeeDTO;
             if (employee == null)
                 return string.Empty;
 
