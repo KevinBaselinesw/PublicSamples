@@ -160,7 +160,7 @@ namespace WPFSampleApp
                     {
                         XmlDB = System.IO.File.ReadAllText(NorthwindsDBBackupName);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         MessageBox.Show(string.Format("Found, but unable to read the database XML file {0}!", NorthwindsDBBackupName));
                     }
@@ -171,7 +171,7 @@ namespace WPFSampleApp
                         {
                             databaseBackup = Utility.DeserializeXml<DatabaseBackup>(XmlDB);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             MessageBox.Show(string.Format("Found, but unable to DESERIALIZE the database XML file {0}!", NorthwindsDBBackupName));
                         }
@@ -313,7 +313,7 @@ namespace WPFSampleApp
                 DataAccessAPI = new DataAccessAPIDB();
                 DatabaseBackup = DataAccessAPI.GetDatabaseBackup();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("failure to OPEN Northwinds SQL database. Check connection string");
                 return;

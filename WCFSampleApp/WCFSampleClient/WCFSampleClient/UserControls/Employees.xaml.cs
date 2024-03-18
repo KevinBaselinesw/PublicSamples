@@ -58,8 +58,6 @@ namespace WCFSampleClient.UserControls
         ContentControl contentControl;
         WCFType WCFType;
  
-        IEnumerable<EmployeeDTO> AllEmployees;
-
         public Employees(ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();

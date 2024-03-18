@@ -57,8 +57,6 @@ namespace WCFSampleClient.UserControls
         ContentControl contentControl;
         WCFType WCFType;
 
-        IEnumerable<CategoryDTO> AllCategories;
-
         public Categories(ContentControl contentControl, WCFType WCFType)
         {
             InitializeComponent();
