@@ -2595,6 +2595,147 @@ namespace WCFSampleClient.WCFSampleService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Order_Details_ExtendedDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class Order_Details_ExtendedDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float DiscountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> ExtendedPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProductIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short QuantityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal UnitPriceField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Discount {
+            get {
+                return this.DiscountField;
+            }
+            set {
+                if ((this.DiscountField.Equals(value) != true)) {
+                    this.DiscountField = value;
+                    this.RaisePropertyChanged("Discount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> ExtendedPrice {
+            get {
+                return this.ExtendedPriceField;
+            }
+            set {
+                if ((this.ExtendedPriceField.Equals(value) != true)) {
+                    this.ExtendedPriceField = value;
+                    this.RaisePropertyChanged("ExtendedPrice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderID {
+            get {
+                return this.OrderIDField;
+            }
+            set {
+                if ((this.OrderIDField.Equals(value) != true)) {
+                    this.OrderIDField = value;
+                    this.RaisePropertyChanged("OrderID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProductID {
+            get {
+                return this.ProductIDField;
+            }
+            set {
+                if ((this.ProductIDField.Equals(value) != true)) {
+                    this.ProductIDField = value;
+                    this.RaisePropertyChanged("ProductID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductName {
+            get {
+                return this.ProductNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductNameField, value) != true)) {
+                    this.ProductNameField = value;
+                    this.RaisePropertyChanged("ProductName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal UnitPrice {
+            get {
+                return this.UnitPriceField;
+            }
+            set {
+                if ((this.UnitPriceField.Equals(value) != true)) {
+                    this.UnitPriceField = value;
+                    this.RaisePropertyChanged("UnitPrice");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WCFSampleService.IWCFSampleService")]
     public interface IWCFSampleService {
@@ -2696,6 +2837,24 @@ namespace WCFSampleClient.WCFSampleService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetSuppliersByID", ReplyAction="http://tempuri.org/IWCFSampleService/GetSuppliersByIDResponse")]
         System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.SupplierDTO[]> GetSuppliersByIDAsync(int SupplierID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllShippers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllShippersResponse")]
+        WCFSampleClient.WCFSampleService.ShipperDTO[] GetAllShippers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllShippers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllShippersResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ShipperDTO[]> GetAllShippersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrderDetailsByProductID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrderDetailsByProductIDResponse")]
+        WCFSampleClient.WCFSampleService.Order_DetailDTO[] GetOrderDetailsByProductID(int ProductID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrderDetailsByProductID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrderDetailsByProductIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Order_DetailDTO[]> GetOrderDetailsByProductIDAsync(int ProductID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrderDetailsByOrderID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrderDetailsByOrderIDResponse")]
+        WCFSampleClient.WCFSampleService.Order_Details_ExtendedDTO[] GetOrderDetailsByOrderID(int OrderID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrderDetailsByOrderID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrderDetailsByOrderIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Order_Details_ExtendedDTO[]> GetOrderDetailsByOrderIDAsync(int OrderID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2851,6 +3010,30 @@ namespace WCFSampleClient.WCFSampleService {
         
         public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.SupplierDTO[]> GetSuppliersByIDAsync(int SupplierID) {
             return base.Channel.GetSuppliersByIDAsync(SupplierID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.ShipperDTO[] GetAllShippers() {
+            return base.Channel.GetAllShippers();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ShipperDTO[]> GetAllShippersAsync() {
+            return base.Channel.GetAllShippersAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.Order_DetailDTO[] GetOrderDetailsByProductID(int ProductID) {
+            return base.Channel.GetOrderDetailsByProductID(ProductID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Order_DetailDTO[]> GetOrderDetailsByProductIDAsync(int ProductID) {
+            return base.Channel.GetOrderDetailsByProductIDAsync(ProductID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.Order_Details_ExtendedDTO[] GetOrderDetailsByOrderID(int OrderID) {
+            return base.Channel.GetOrderDetailsByOrderID(OrderID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Order_Details_ExtendedDTO[]> GetOrderDetailsByOrderIDAsync(int OrderID) {
+            return base.Channel.GetOrderDetailsByOrderIDAsync(OrderID);
         }
     }
 }

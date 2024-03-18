@@ -63,11 +63,15 @@ namespace WCFSampleApp
         [OperationContract]
         IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID);
 
+        [OperationContract]
         IEnumerable<ShipperDTO> GetAllShippers();
 
+        [OperationContract]
         IEnumerable<Order_DetailDTO> GetOrderDetailsByProductID(int ProductID);
 
+        [OperationContract]
         IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID);
+
     }
 
  
