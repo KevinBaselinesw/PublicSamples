@@ -93,6 +93,9 @@
     <Compile Include="UserControls\OrdersByEmployee.xaml.cs">
       <DependentUpon>OrdersByEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\OrdersByShipper.xaml.cs">
+      <DependentUpon>OrdersByShipper.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\OrdersDetailsByOrder.xaml.cs">
       <DependentUpon>OrdersDetailsByOrder.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,9 @@
     </Compile>
     <Compile Include="UserControls\ProductsBySupplier.xaml.cs">
       <DependentUpon>ProductsBySupplier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Shippers.xaml.cs">
+      <DependentUpon>Shippers.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Suppliers.xaml.cs">
       <DependentUpon>Suppliers.xaml</DependentUpon>
@@ -165,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\OrdersByShipper.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\OrdersDetailsByOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -178,6 +188,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ProductsBySupplier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Shippers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
