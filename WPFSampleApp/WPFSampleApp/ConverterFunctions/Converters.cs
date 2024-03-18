@@ -48,11 +48,11 @@ namespace WPFSampleApp.ConverterFunctions
         {
             return value as byte[];
 
-            byte[] original = value as byte[];
-            byte[] adjusted = new byte[original.Length - 78];
-            Array.Copy(original, 78, adjusted, 0, original.Length - 78);
+            //byte[] original = value as byte[];
+            //byte[] adjusted = new byte[original.Length - 78];
+            //Array.Copy(original, 78, adjusted, 0, original.Length - 78);
 
-            return adjusted;
+            //return adjusted;
 
             //MemoryStream ms = new MemoryStream(adjusted);
             //Image returnImage = Image.FromStream(ms);
@@ -79,11 +79,11 @@ namespace WPFSampleApp.ConverterFunctions
         {
             return value as byte[];
 
-            byte[] original = value as byte[];
-            byte[] adjusted = new byte[original.Length - 78];
-            Array.Copy(original, 78, adjusted, 0, original.Length - 78);
+            //byte[] original = value as byte[];
+            //byte[] adjusted = new byte[original.Length - 78];
+            //Array.Copy(original, 78, adjusted, 0, original.Length - 78);
 
-            return adjusted;
+            //return adjusted;
 
             //MemoryStream ms = new MemoryStream(adjusted);
             //Image returnImage = Image.FromStream(ms);
@@ -123,7 +123,7 @@ namespace WPFSampleApp.ConverterFunctions
 
     public class DateToDateStringConverter : IValueConverter
     {
-        private string[] Months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        private readonly string[] Months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)

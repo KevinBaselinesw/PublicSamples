@@ -49,11 +49,11 @@ namespace WCFSampleClient.ConverterFunctions
         {
             return value as byte[];
 
-            byte[] original = value as byte[];
-            byte[] adjusted = new byte[original.Length - 78];
-            Array.Copy(original, 78, adjusted, 0, original.Length - 78);
+            //byte[] original = value as byte[];
+            //byte[] adjusted = new byte[original.Length - 78];
+            //Array.Copy(original, 78, adjusted, 0, original.Length - 78);
 
-            return adjusted;
+            //return adjusted;
 
             //MemoryStream ms = new MemoryStream(adjusted);
             //Image returnImage = Image.FromStream(ms);
@@ -80,11 +80,11 @@ namespace WCFSampleClient.ConverterFunctions
         {
             return value as byte[];
 
-            byte[] original = value as byte[];
-            byte[] adjusted = new byte[original.Length - 78];
-            Array.Copy(original, 78, adjusted, 0, original.Length - 78);
+            //byte[] original = value as byte[];
+            //byte[] adjusted = new byte[original.Length - 78];
+            //Array.Copy(original, 78, adjusted, 0, original.Length - 78);
 
-            return adjusted;
+            //return adjusted;
 
             //MemoryStream ms = new MemoryStream(adjusted);
             //Image returnImage = Image.FromStream(ms);
@@ -109,8 +109,7 @@ namespace WCFSampleClient.ConverterFunctions
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            EmployeeDTO employee = value as EmployeeDTO;
-            if (employee == null)
+            if (!(value is EmployeeDTO employee))
                 return string.Empty;
 
             return string.Format($"{employee.LastName}, {employee.FirstName}");
@@ -124,7 +123,7 @@ namespace WCFSampleClient.ConverterFunctions
 
     public class DateToDateStringConverter : IValueConverter
     {
-        private string[] Months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        private readonly string[] Months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
