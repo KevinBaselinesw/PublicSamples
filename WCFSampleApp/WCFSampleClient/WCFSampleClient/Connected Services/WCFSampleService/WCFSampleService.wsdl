@@ -4,7 +4,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFSampleApp" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IWCFSampleService_GetAllEmployees_InputMessage">
@@ -13,16 +13,301 @@
   <wsdl:message name="IWCFSampleService_GetAllEmployees_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllEmployeesResponse" />
   </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllProductCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProductCategories" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllProductCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProductCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetProductCategoriesByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductCategoriesByID" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetProductCategoriesByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductCategoriesByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllProducts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProducts" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllProducts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetProductsBySupplier_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductsBySupplier" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetProductsBySupplier_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductsBySupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetProductsByCategoryID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductsByCategoryID" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetProductsByCategoryID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductsByCategoryIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllCustomers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCustomers" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllCustomers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCustomersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrders" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrdersWithSubtotals_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersWithSubtotals" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrdersWithSubtotals_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersWithSubtotalsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrdersWithSubtotalsByCustomerID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersWithSubtotalsByCustomerID" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrdersWithSubtotalsByCustomerID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersWithSubtotalsByCustomerIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetOrdersByShipVia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersByShipVia" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetOrdersByShipVia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersByShipViaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetOrdersByEmployeeID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersByEmployeeID" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetOrdersByEmployeeID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersByEmployeeIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetOrdersByCustomerID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersByCustomerID" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetOrdersByCustomerID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdersByCustomerIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrdersQry_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersQry" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllOrdersQry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersQryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllSuppliers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSuppliers" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetAllSuppliers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllSuppliersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetSuppliersByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSuppliersByID" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_GetSuppliersByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSuppliersByIDResponse" />
+  </wsdl:message>
   <wsdl:portType name="IWCFSampleService">
     <wsdl:operation name="GetAllEmployees">
       <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllEmployees" message="tns:IWCFSampleService_GetAllEmployees_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllEmployeesResponse" message="tns:IWCFSampleService_GetAllEmployees_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProductCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllProductCategories" message="tns:IWCFSampleService_GetAllProductCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllProductCategoriesResponse" message="tns:IWCFSampleService_GetAllProductCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCategoriesByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetProductCategoriesByID" message="tns:IWCFSampleService_GetProductCategoriesByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetProductCategoriesByIDResponse" message="tns:IWCFSampleService_GetProductCategoriesByID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProducts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllProducts" message="tns:IWCFSampleService_GetAllProducts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllProductsResponse" message="tns:IWCFSampleService_GetAllProducts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsBySupplier">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetProductsBySupplier" message="tns:IWCFSampleService_GetProductsBySupplier_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetProductsBySupplierResponse" message="tns:IWCFSampleService_GetProductsBySupplier_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByCategoryID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetProductsByCategoryID" message="tns:IWCFSampleService_GetProductsByCategoryID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetProductsByCategoryIDResponse" message="tns:IWCFSampleService_GetProductsByCategoryID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCustomers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllCustomers" message="tns:IWCFSampleService_GetAllCustomers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllCustomersResponse" message="tns:IWCFSampleService_GetAllCustomers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrders" message="tns:IWCFSampleService_GetAllOrders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersResponse" message="tns:IWCFSampleService_GetAllOrders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdersWithSubtotals">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotals" message="tns:IWCFSampleService_GetAllOrdersWithSubtotals_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsResponse" message="tns:IWCFSampleService_GetAllOrdersWithSubtotals_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdersWithSubtotalsByCustomerID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerID" message="tns:IWCFSampleService_GetAllOrdersWithSubtotalsByCustomerID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerIDResponse" message="tns:IWCFSampleService_GetAllOrdersWithSubtotalsByCustomerID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByShipVia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetOrdersByShipVia" message="tns:IWCFSampleService_GetOrdersByShipVia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetOrdersByShipViaResponse" message="tns:IWCFSampleService_GetOrdersByShipVia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByEmployeeID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeID" message="tns:IWCFSampleService_GetOrdersByEmployeeID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeIDResponse" message="tns:IWCFSampleService_GetOrdersByEmployeeID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByCustomerID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerID" message="tns:IWCFSampleService_GetOrdersByCustomerID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerIDResponse" message="tns:IWCFSampleService_GetOrdersByCustomerID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdersQry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQry" message="tns:IWCFSampleService_GetAllOrdersQry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQryResponse" message="tns:IWCFSampleService_GetAllOrdersQry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSuppliers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllSuppliers" message="tns:IWCFSampleService_GetAllSuppliers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllSuppliersResponse" message="tns:IWCFSampleService_GetAllSuppliers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSuppliersByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetSuppliersByID" message="tns:IWCFSampleService_GetSuppliersByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetSuppliersByIDResponse" message="tns:IWCFSampleService_GetSuppliersByID_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IWCFSampleService" type="tns:IWCFSampleService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAllEmployees">
       <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllEmployees" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProductCategories">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllProductCategories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCategoriesByID">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetProductCategoriesByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProducts">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsBySupplier">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetProductsBySupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductsByCategoryID">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetProductsByCategoryID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCustomers">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllCustomers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrders">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllOrders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdersWithSubtotals">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdersWithSubtotalsByCustomerID">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByShipVia">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetOrdersByShipVia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByEmployeeID">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdersByCustomerID">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrdersQry">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllOrdersQry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSuppliers">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllSuppliers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSuppliersByID">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetSuppliersByID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

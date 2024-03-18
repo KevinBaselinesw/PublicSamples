@@ -15,7 +15,7 @@ namespace WCFSampleClient.WCFSampleService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeDTO", Namespace="http://schemas.datacontract.org/2004/07/WCFSampleApp")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EmployeeDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
     [System.SerializableAttribute()]
     public partial class EmployeeDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -23,10 +23,70 @@ namespace WCFSampleClient.WCFSampleService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> BirthDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CountryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.EmployeeDTO Employee1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EmployeeIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.EmployeeDTO[] Employees1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExtensionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FirstNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> HireDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HomePhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NotesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.OrderDTO[] OrdersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] PhotoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhotoPathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ReportsToField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.TerritoryDTO[] TerritoriesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleOfCourtesyField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -35,6 +95,110 @@ namespace WCFSampleClient.WCFSampleService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> BirthDate {
+            get {
+                return this.BirthDateField;
+            }
+            set {
+                if ((this.BirthDateField.Equals(value) != true)) {
+                    this.BirthDateField = value;
+                    this.RaisePropertyChanged("BirthDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string City {
+            get {
+                return this.CityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CityField, value) != true)) {
+                    this.CityField = value;
+                    this.RaisePropertyChanged("City");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Country {
+            get {
+                return this.CountryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CountryField, value) != true)) {
+                    this.CountryField = value;
+                    this.RaisePropertyChanged("Country");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.EmployeeDTO Employee1 {
+            get {
+                return this.Employee1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Employee1Field, value) != true)) {
+                    this.Employee1Field = value;
+                    this.RaisePropertyChanged("Employee1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EmployeeID {
+            get {
+                return this.EmployeeIDField;
+            }
+            set {
+                if ((this.EmployeeIDField.Equals(value) != true)) {
+                    this.EmployeeIDField = value;
+                    this.RaisePropertyChanged("EmployeeID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.EmployeeDTO[] Employees1 {
+            get {
+                return this.Employees1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Employees1Field, value) != true)) {
+                    this.Employees1Field = value;
+                    this.RaisePropertyChanged("Employees1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Extension {
+            get {
+                return this.ExtensionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExtensionField, value) != true)) {
+                    this.ExtensionField = value;
+                    this.RaisePropertyChanged("Extension");
+                }
             }
         }
         
@@ -52,6 +216,32 @@ namespace WCFSampleClient.WCFSampleService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> HireDate {
+            get {
+                return this.HireDateField;
+            }
+            set {
+                if ((this.HireDateField.Equals(value) != true)) {
+                    this.HireDateField = value;
+                    this.RaisePropertyChanged("HireDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HomePhone {
+            get {
+                return this.HomePhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HomePhoneField, value) != true)) {
+                    this.HomePhoneField = value;
+                    this.RaisePropertyChanged("HomePhone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string LastName {
             get {
                 return this.LastNameField;
@@ -60,6 +250,2337 @@ namespace WCFSampleClient.WCFSampleService {
                 if ((object.ReferenceEquals(this.LastNameField, value) != true)) {
                     this.LastNameField = value;
                     this.RaisePropertyChanged("LastName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Notes {
+            get {
+                return this.NotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotesField, value) != true)) {
+                    this.NotesField = value;
+                    this.RaisePropertyChanged("Notes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.OrderDTO[] Orders {
+            get {
+                return this.OrdersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrdersField, value) != true)) {
+                    this.OrdersField = value;
+                    this.RaisePropertyChanged("Orders");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] Photo {
+            get {
+                return this.PhotoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhotoField, value) != true)) {
+                    this.PhotoField = value;
+                    this.RaisePropertyChanged("Photo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PhotoPath {
+            get {
+                return this.PhotoPathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhotoPathField, value) != true)) {
+                    this.PhotoPathField = value;
+                    this.RaisePropertyChanged("PhotoPath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostalCode {
+            get {
+                return this.PostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostalCodeField, value) != true)) {
+                    this.PostalCodeField = value;
+                    this.RaisePropertyChanged("PostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ReportsTo {
+            get {
+                return this.ReportsToField;
+            }
+            set {
+                if ((this.ReportsToField.Equals(value) != true)) {
+                    this.ReportsToField = value;
+                    this.RaisePropertyChanged("ReportsTo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.TerritoryDTO[] Territories {
+            get {
+                return this.TerritoriesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerritoriesField, value) != true)) {
+                    this.TerritoriesField = value;
+                    this.RaisePropertyChanged("Territories");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title {
+            get {
+                return this.TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TitleOfCourtesy {
+            get {
+                return this.TitleOfCourtesyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleOfCourtesyField, value) != true)) {
+                    this.TitleOfCourtesyField = value;
+                    this.RaisePropertyChanged("TitleOfCourtesy");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class OrderDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.CustomerDTO CustomerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.EmployeeDTO EmployeeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> EmployeeIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> FreightField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OrderDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.Order_DetailDTO[] Order_DetailsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> RequiredDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipAddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipCityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipCountryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipPostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ShipViaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ShippedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.ShipperDTO ShipperField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.CustomerDTO Customer {
+            get {
+                return this.CustomerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerField, value) != true)) {
+                    this.CustomerField = value;
+                    this.RaisePropertyChanged("Customer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomerID {
+            get {
+                return this.CustomerIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerIDField, value) != true)) {
+                    this.CustomerIDField = value;
+                    this.RaisePropertyChanged("CustomerID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.EmployeeDTO Employee {
+            get {
+                return this.EmployeeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmployeeField, value) != true)) {
+                    this.EmployeeField = value;
+                    this.RaisePropertyChanged("Employee");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> EmployeeID {
+            get {
+                return this.EmployeeIDField;
+            }
+            set {
+                if ((this.EmployeeIDField.Equals(value) != true)) {
+                    this.EmployeeIDField = value;
+                    this.RaisePropertyChanged("EmployeeID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Freight {
+            get {
+                return this.FreightField;
+            }
+            set {
+                if ((this.FreightField.Equals(value) != true)) {
+                    this.FreightField = value;
+                    this.RaisePropertyChanged("Freight");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OrderDate {
+            get {
+                return this.OrderDateField;
+            }
+            set {
+                if ((this.OrderDateField.Equals(value) != true)) {
+                    this.OrderDateField = value;
+                    this.RaisePropertyChanged("OrderDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderID {
+            get {
+                return this.OrderIDField;
+            }
+            set {
+                if ((this.OrderIDField.Equals(value) != true)) {
+                    this.OrderIDField = value;
+                    this.RaisePropertyChanged("OrderID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.Order_DetailDTO[] Order_Details {
+            get {
+                return this.Order_DetailsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Order_DetailsField, value) != true)) {
+                    this.Order_DetailsField = value;
+                    this.RaisePropertyChanged("Order_Details");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> RequiredDate {
+            get {
+                return this.RequiredDateField;
+            }
+            set {
+                if ((this.RequiredDateField.Equals(value) != true)) {
+                    this.RequiredDateField = value;
+                    this.RaisePropertyChanged("RequiredDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipAddress {
+            get {
+                return this.ShipAddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipAddressField, value) != true)) {
+                    this.ShipAddressField = value;
+                    this.RaisePropertyChanged("ShipAddress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipCity {
+            get {
+                return this.ShipCityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipCityField, value) != true)) {
+                    this.ShipCityField = value;
+                    this.RaisePropertyChanged("ShipCity");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipCountry {
+            get {
+                return this.ShipCountryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipCountryField, value) != true)) {
+                    this.ShipCountryField = value;
+                    this.RaisePropertyChanged("ShipCountry");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipName {
+            get {
+                return this.ShipNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipNameField, value) != true)) {
+                    this.ShipNameField = value;
+                    this.RaisePropertyChanged("ShipName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipPostalCode {
+            get {
+                return this.ShipPostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipPostalCodeField, value) != true)) {
+                    this.ShipPostalCodeField = value;
+                    this.RaisePropertyChanged("ShipPostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipRegion {
+            get {
+                return this.ShipRegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipRegionField, value) != true)) {
+                    this.ShipRegionField = value;
+                    this.RaisePropertyChanged("ShipRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ShipVia {
+            get {
+                return this.ShipViaField;
+            }
+            set {
+                if ((this.ShipViaField.Equals(value) != true)) {
+                    this.ShipViaField = value;
+                    this.RaisePropertyChanged("ShipVia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ShippedDate {
+            get {
+                return this.ShippedDateField;
+            }
+            set {
+                if ((this.ShippedDateField.Equals(value) != true)) {
+                    this.ShippedDateField = value;
+                    this.RaisePropertyChanged("ShippedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.ShipperDTO Shipper {
+            get {
+                return this.ShipperField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipperField, value) != true)) {
+                    this.ShipperField = value;
+                    this.RaisePropertyChanged("Shipper");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TerritoryDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class TerritoryDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.EmployeeDTO[] EmployeesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.RegionDTO RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TerritoryDescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TerritoryIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.EmployeeDTO[] Employees {
+            get {
+                return this.EmployeesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmployeesField, value) != true)) {
+                    this.EmployeesField = value;
+                    this.RaisePropertyChanged("Employees");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.RegionDTO Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionID {
+            get {
+                return this.RegionIDField;
+            }
+            set {
+                if ((this.RegionIDField.Equals(value) != true)) {
+                    this.RegionIDField = value;
+                    this.RaisePropertyChanged("RegionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TerritoryDescription {
+            get {
+                return this.TerritoryDescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerritoryDescriptionField, value) != true)) {
+                    this.TerritoryDescriptionField = value;
+                    this.RaisePropertyChanged("TerritoryDescription");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TerritoryID {
+            get {
+                return this.TerritoryIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerritoryIDField, value) != true)) {
+                    this.TerritoryIDField = value;
+                    this.RaisePropertyChanged("TerritoryID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CustomerDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class CustomerDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContactNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContactTitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CountryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.CustomerDemographicDTO[] CustomerDemographicsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FaxField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.OrderDTO[] OrdersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string City {
+            get {
+                return this.CityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CityField, value) != true)) {
+                    this.CityField = value;
+                    this.RaisePropertyChanged("City");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompanyName {
+            get {
+                return this.CompanyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyNameField, value) != true)) {
+                    this.CompanyNameField = value;
+                    this.RaisePropertyChanged("CompanyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContactName {
+            get {
+                return this.ContactNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContactNameField, value) != true)) {
+                    this.ContactNameField = value;
+                    this.RaisePropertyChanged("ContactName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContactTitle {
+            get {
+                return this.ContactTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContactTitleField, value) != true)) {
+                    this.ContactTitleField = value;
+                    this.RaisePropertyChanged("ContactTitle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Country {
+            get {
+                return this.CountryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CountryField, value) != true)) {
+                    this.CountryField = value;
+                    this.RaisePropertyChanged("Country");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.CustomerDemographicDTO[] CustomerDemographics {
+            get {
+                return this.CustomerDemographicsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerDemographicsField, value) != true)) {
+                    this.CustomerDemographicsField = value;
+                    this.RaisePropertyChanged("CustomerDemographics");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomerID {
+            get {
+                return this.CustomerIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerIDField, value) != true)) {
+                    this.CustomerIDField = value;
+                    this.RaisePropertyChanged("CustomerID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fax {
+            get {
+                return this.FaxField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FaxField, value) != true)) {
+                    this.FaxField = value;
+                    this.RaisePropertyChanged("Fax");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.OrderDTO[] Orders {
+            get {
+                return this.OrdersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrdersField, value) != true)) {
+                    this.OrdersField = value;
+                    this.RaisePropertyChanged("Orders");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone {
+            get {
+                return this.PhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
+                    this.PhoneField = value;
+                    this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostalCode {
+            get {
+                return this.PostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostalCodeField, value) != true)) {
+                    this.PostalCodeField = value;
+                    this.RaisePropertyChanged("PostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ShipperDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class ShipperDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.OrderDTO[] OrdersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ShipperIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompanyName {
+            get {
+                return this.CompanyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyNameField, value) != true)) {
+                    this.CompanyNameField = value;
+                    this.RaisePropertyChanged("CompanyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.OrderDTO[] Orders {
+            get {
+                return this.OrdersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrdersField, value) != true)) {
+                    this.OrdersField = value;
+                    this.RaisePropertyChanged("Orders");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone {
+            get {
+                return this.PhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
+                    this.PhoneField = value;
+                    this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ShipperID {
+            get {
+                return this.ShipperIDField;
+            }
+            set {
+                if ((this.ShipperIDField.Equals(value) != true)) {
+                    this.ShipperIDField = value;
+                    this.RaisePropertyChanged("ShipperID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Order_DetailDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class Order_DetailDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float DiscountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.OrderDTO OrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.ProductDTO ProductField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProductIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short QuantityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal UnitPriceField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Discount {
+            get {
+                return this.DiscountField;
+            }
+            set {
+                if ((this.DiscountField.Equals(value) != true)) {
+                    this.DiscountField = value;
+                    this.RaisePropertyChanged("Discount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.OrderDTO Order {
+            get {
+                return this.OrderField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrderField, value) != true)) {
+                    this.OrderField = value;
+                    this.RaisePropertyChanged("Order");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderID {
+            get {
+                return this.OrderIDField;
+            }
+            set {
+                if ((this.OrderIDField.Equals(value) != true)) {
+                    this.OrderIDField = value;
+                    this.RaisePropertyChanged("OrderID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.ProductDTO Product {
+            get {
+                return this.ProductField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductField, value) != true)) {
+                    this.ProductField = value;
+                    this.RaisePropertyChanged("Product");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProductID {
+            get {
+                return this.ProductIDField;
+            }
+            set {
+                if ((this.ProductIDField.Equals(value) != true)) {
+                    this.ProductIDField = value;
+                    this.RaisePropertyChanged("ProductID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short Quantity {
+            get {
+                return this.QuantityField;
+            }
+            set {
+                if ((this.QuantityField.Equals(value) != true)) {
+                    this.QuantityField = value;
+                    this.RaisePropertyChanged("Quantity");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal UnitPrice {
+            get {
+                return this.UnitPriceField;
+            }
+            set {
+                if ((this.UnitPriceField.Equals(value) != true)) {
+                    this.UnitPriceField = value;
+                    this.RaisePropertyChanged("UnitPrice");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CustomerDemographicDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class CustomerDemographicDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerTypeIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.CustomerDTO[] CustomersField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomerDesc {
+            get {
+                return this.CustomerDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerDescField, value) != true)) {
+                    this.CustomerDescField = value;
+                    this.RaisePropertyChanged("CustomerDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomerTypeID {
+            get {
+                return this.CustomerTypeIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerTypeIDField, value) != true)) {
+                    this.CustomerTypeIDField = value;
+                    this.RaisePropertyChanged("CustomerTypeID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.CustomerDTO[] Customers {
+            get {
+                return this.CustomersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomersField, value) != true)) {
+                    this.CustomersField = value;
+                    this.RaisePropertyChanged("Customers");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class ProductDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.CategoryDTO CategoryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CategoryIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool DiscontinuedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.Order_DetailDTO[] Order_DetailsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProductIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string QuantityPerUnitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<short> ReorderLevelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.SupplierDTO SupplierField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SupplierIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> UnitPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<short> UnitsInStockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<short> UnitsOnOrderField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.CategoryDTO Category {
+            get {
+                return this.CategoryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CategoryField, value) != true)) {
+                    this.CategoryField = value;
+                    this.RaisePropertyChanged("Category");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CategoryID {
+            get {
+                return this.CategoryIDField;
+            }
+            set {
+                if ((this.CategoryIDField.Equals(value) != true)) {
+                    this.CategoryIDField = value;
+                    this.RaisePropertyChanged("CategoryID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Discontinued {
+            get {
+                return this.DiscontinuedField;
+            }
+            set {
+                if ((this.DiscontinuedField.Equals(value) != true)) {
+                    this.DiscontinuedField = value;
+                    this.RaisePropertyChanged("Discontinued");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.Order_DetailDTO[] Order_Details {
+            get {
+                return this.Order_DetailsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Order_DetailsField, value) != true)) {
+                    this.Order_DetailsField = value;
+                    this.RaisePropertyChanged("Order_Details");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProductID {
+            get {
+                return this.ProductIDField;
+            }
+            set {
+                if ((this.ProductIDField.Equals(value) != true)) {
+                    this.ProductIDField = value;
+                    this.RaisePropertyChanged("ProductID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductName {
+            get {
+                return this.ProductNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductNameField, value) != true)) {
+                    this.ProductNameField = value;
+                    this.RaisePropertyChanged("ProductName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string QuantityPerUnit {
+            get {
+                return this.QuantityPerUnitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.QuantityPerUnitField, value) != true)) {
+                    this.QuantityPerUnitField = value;
+                    this.RaisePropertyChanged("QuantityPerUnit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<short> ReorderLevel {
+            get {
+                return this.ReorderLevelField;
+            }
+            set {
+                if ((this.ReorderLevelField.Equals(value) != true)) {
+                    this.ReorderLevelField = value;
+                    this.RaisePropertyChanged("ReorderLevel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.SupplierDTO Supplier {
+            get {
+                return this.SupplierField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupplierField, value) != true)) {
+                    this.SupplierField = value;
+                    this.RaisePropertyChanged("Supplier");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SupplierID {
+            get {
+                return this.SupplierIDField;
+            }
+            set {
+                if ((this.SupplierIDField.Equals(value) != true)) {
+                    this.SupplierIDField = value;
+                    this.RaisePropertyChanged("SupplierID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> UnitPrice {
+            get {
+                return this.UnitPriceField;
+            }
+            set {
+                if ((this.UnitPriceField.Equals(value) != true)) {
+                    this.UnitPriceField = value;
+                    this.RaisePropertyChanged("UnitPrice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<short> UnitsInStock {
+            get {
+                return this.UnitsInStockField;
+            }
+            set {
+                if ((this.UnitsInStockField.Equals(value) != true)) {
+                    this.UnitsInStockField = value;
+                    this.RaisePropertyChanged("UnitsInStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<short> UnitsOnOrder {
+            get {
+                return this.UnitsOnOrderField;
+            }
+            set {
+                if ((this.UnitsOnOrderField.Equals(value) != true)) {
+                    this.UnitsOnOrderField = value;
+                    this.RaisePropertyChanged("UnitsOnOrder");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CategoryDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class CategoryDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CategoryIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CategoryNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] PictureField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.ProductDTO[] ProductsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CategoryID {
+            get {
+                return this.CategoryIDField;
+            }
+            set {
+                if ((this.CategoryIDField.Equals(value) != true)) {
+                    this.CategoryIDField = value;
+                    this.RaisePropertyChanged("CategoryID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CategoryName {
+            get {
+                return this.CategoryNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CategoryNameField, value) != true)) {
+                    this.CategoryNameField = value;
+                    this.RaisePropertyChanged("CategoryName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] Picture {
+            get {
+                return this.PictureField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PictureField, value) != true)) {
+                    this.PictureField = value;
+                    this.RaisePropertyChanged("Picture");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.ProductDTO[] Products {
+            get {
+                return this.ProductsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductsField, value) != true)) {
+                    this.ProductsField = value;
+                    this.RaisePropertyChanged("Products");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SupplierDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class SupplierDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContactNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContactTitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CountryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FaxField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HomePageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.ProductDTO[] ProductsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SupplierIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string City {
+            get {
+                return this.CityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CityField, value) != true)) {
+                    this.CityField = value;
+                    this.RaisePropertyChanged("City");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompanyName {
+            get {
+                return this.CompanyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyNameField, value) != true)) {
+                    this.CompanyNameField = value;
+                    this.RaisePropertyChanged("CompanyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContactName {
+            get {
+                return this.ContactNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContactNameField, value) != true)) {
+                    this.ContactNameField = value;
+                    this.RaisePropertyChanged("ContactName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContactTitle {
+            get {
+                return this.ContactTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContactTitleField, value) != true)) {
+                    this.ContactTitleField = value;
+                    this.RaisePropertyChanged("ContactTitle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Country {
+            get {
+                return this.CountryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CountryField, value) != true)) {
+                    this.CountryField = value;
+                    this.RaisePropertyChanged("Country");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fax {
+            get {
+                return this.FaxField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FaxField, value) != true)) {
+                    this.FaxField = value;
+                    this.RaisePropertyChanged("Fax");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HomePage {
+            get {
+                return this.HomePageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HomePageField, value) != true)) {
+                    this.HomePageField = value;
+                    this.RaisePropertyChanged("HomePage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone {
+            get {
+                return this.PhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
+                    this.PhoneField = value;
+                    this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostalCode {
+            get {
+                return this.PostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostalCodeField, value) != true)) {
+                    this.PostalCodeField = value;
+                    this.RaisePropertyChanged("PostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.ProductDTO[] Products {
+            get {
+                return this.ProductsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductsField, value) != true)) {
+                    this.ProductsField = value;
+                    this.RaisePropertyChanged("Products");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SupplierID {
+            get {
+                return this.SupplierIDField;
+            }
+            set {
+                if ((this.SupplierIDField.Equals(value) != true)) {
+                    this.SupplierIDField = value;
+                    this.RaisePropertyChanged("SupplierID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RegionDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class RegionDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionDescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.TerritoryDTO[] TerritoriesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RegionDescription {
+            get {
+                return this.RegionDescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionDescriptionField, value) != true)) {
+                    this.RegionDescriptionField = value;
+                    this.RaisePropertyChanged("RegionDescription");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionID {
+            get {
+                return this.RegionIDField;
+            }
+            set {
+                if ((this.RegionIDField.Equals(value) != true)) {
+                    this.RegionIDField = value;
+                    this.RaisePropertyChanged("RegionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.TerritoryDTO[] Territories {
+            get {
+                return this.TerritoriesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerritoriesField, value) != true)) {
+                    this.TerritoriesField = value;
+                    this.RaisePropertyChanged("Territories");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderWithSubtotalDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class OrderWithSubtotalDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.CustomerDTO CustomerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.EmployeeDTO EmployeeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OrderDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> RequiredDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ShippedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.ShipperDTO ShipperField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private WCFSampleClient.WCFSampleService.Order_SubtotalDTO SubtotalField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.CustomerDTO Customer {
+            get {
+                return this.CustomerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerField, value) != true)) {
+                    this.CustomerField = value;
+                    this.RaisePropertyChanged("Customer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.EmployeeDTO Employee {
+            get {
+                return this.EmployeeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmployeeField, value) != true)) {
+                    this.EmployeeField = value;
+                    this.RaisePropertyChanged("Employee");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OrderDate {
+            get {
+                return this.OrderDateField;
+            }
+            set {
+                if ((this.OrderDateField.Equals(value) != true)) {
+                    this.OrderDateField = value;
+                    this.RaisePropertyChanged("OrderDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderID {
+            get {
+                return this.OrderIDField;
+            }
+            set {
+                if ((this.OrderIDField.Equals(value) != true)) {
+                    this.OrderIDField = value;
+                    this.RaisePropertyChanged("OrderID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> RequiredDate {
+            get {
+                return this.RequiredDateField;
+            }
+            set {
+                if ((this.RequiredDateField.Equals(value) != true)) {
+                    this.RequiredDateField = value;
+                    this.RaisePropertyChanged("RequiredDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ShippedDate {
+            get {
+                return this.ShippedDateField;
+            }
+            set {
+                if ((this.ShippedDateField.Equals(value) != true)) {
+                    this.ShippedDateField = value;
+                    this.RaisePropertyChanged("ShippedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.ShipperDTO Shipper {
+            get {
+                return this.ShipperField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipperField, value) != true)) {
+                    this.ShipperField = value;
+                    this.RaisePropertyChanged("Shipper");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public WCFSampleClient.WCFSampleService.Order_SubtotalDTO Subtotal {
+            get {
+                return this.SubtotalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubtotalField, value) != true)) {
+                    this.SubtotalField = value;
+                    this.RaisePropertyChanged("Subtotal");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Order_SubtotalDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class Order_SubtotalDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> SubtotalField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderID {
+            get {
+                return this.OrderIDField;
+            }
+            set {
+                if ((this.OrderIDField.Equals(value) != true)) {
+                    this.OrderIDField = value;
+                    this.RaisePropertyChanged("OrderID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Subtotal {
+            get {
+                return this.SubtotalField;
+            }
+            set {
+                if ((this.SubtotalField.Equals(value) != true)) {
+                    this.SubtotalField = value;
+                    this.RaisePropertyChanged("Subtotal");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Orders_QryDTO", Namespace="http://schemas.datacontract.org/2004/07/DatabaseAccessLib")]
+    [System.SerializableAttribute()]
+    public partial class Orders_QryDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompanyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CountryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CustomerIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> EmployeeIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> FreightField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OrderDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> RequiredDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipAddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipCityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipCountryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipPostalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShipRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ShipViaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ShippedDateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string City {
+            get {
+                return this.CityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CityField, value) != true)) {
+                    this.CityField = value;
+                    this.RaisePropertyChanged("City");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompanyName {
+            get {
+                return this.CompanyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyNameField, value) != true)) {
+                    this.CompanyNameField = value;
+                    this.RaisePropertyChanged("CompanyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Country {
+            get {
+                return this.CountryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CountryField, value) != true)) {
+                    this.CountryField = value;
+                    this.RaisePropertyChanged("Country");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CustomerID {
+            get {
+                return this.CustomerIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CustomerIDField, value) != true)) {
+                    this.CustomerIDField = value;
+                    this.RaisePropertyChanged("CustomerID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> EmployeeID {
+            get {
+                return this.EmployeeIDField;
+            }
+            set {
+                if ((this.EmployeeIDField.Equals(value) != true)) {
+                    this.EmployeeIDField = value;
+                    this.RaisePropertyChanged("EmployeeID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Freight {
+            get {
+                return this.FreightField;
+            }
+            set {
+                if ((this.FreightField.Equals(value) != true)) {
+                    this.FreightField = value;
+                    this.RaisePropertyChanged("Freight");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OrderDate {
+            get {
+                return this.OrderDateField;
+            }
+            set {
+                if ((this.OrderDateField.Equals(value) != true)) {
+                    this.OrderDateField = value;
+                    this.RaisePropertyChanged("OrderDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderID {
+            get {
+                return this.OrderIDField;
+            }
+            set {
+                if ((this.OrderIDField.Equals(value) != true)) {
+                    this.OrderIDField = value;
+                    this.RaisePropertyChanged("OrderID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostalCode {
+            get {
+                return this.PostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostalCodeField, value) != true)) {
+                    this.PostalCodeField = value;
+                    this.RaisePropertyChanged("PostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> RequiredDate {
+            get {
+                return this.RequiredDateField;
+            }
+            set {
+                if ((this.RequiredDateField.Equals(value) != true)) {
+                    this.RequiredDateField = value;
+                    this.RaisePropertyChanged("RequiredDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipAddress {
+            get {
+                return this.ShipAddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipAddressField, value) != true)) {
+                    this.ShipAddressField = value;
+                    this.RaisePropertyChanged("ShipAddress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipCity {
+            get {
+                return this.ShipCityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipCityField, value) != true)) {
+                    this.ShipCityField = value;
+                    this.RaisePropertyChanged("ShipCity");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipCountry {
+            get {
+                return this.ShipCountryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipCountryField, value) != true)) {
+                    this.ShipCountryField = value;
+                    this.RaisePropertyChanged("ShipCountry");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipName {
+            get {
+                return this.ShipNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipNameField, value) != true)) {
+                    this.ShipNameField = value;
+                    this.RaisePropertyChanged("ShipName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipPostalCode {
+            get {
+                return this.ShipPostalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipPostalCodeField, value) != true)) {
+                    this.ShipPostalCodeField = value;
+                    this.RaisePropertyChanged("ShipPostalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShipRegion {
+            get {
+                return this.ShipRegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShipRegionField, value) != true)) {
+                    this.ShipRegionField = value;
+                    this.RaisePropertyChanged("ShipRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ShipVia {
+            get {
+                return this.ShipViaField;
+            }
+            set {
+                if ((this.ShipViaField.Equals(value) != true)) {
+                    this.ShipViaField = value;
+                    this.RaisePropertyChanged("ShipVia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ShippedDate {
+            get {
+                return this.ShippedDateField;
+            }
+            set {
+                if ((this.ShippedDateField.Equals(value) != true)) {
+                    this.ShippedDateField = value;
+                    this.RaisePropertyChanged("ShippedDate");
                 }
             }
         }
@@ -83,6 +2604,98 @@ namespace WCFSampleClient.WCFSampleService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllEmployees", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllEmployeesResponse")]
         System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.EmployeeDTO[]> GetAllEmployeesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllProductCategories", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllProductCategoriesResponse")]
+        WCFSampleClient.WCFSampleService.CategoryDTO[] GetAllProductCategories();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllProductCategories", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllProductCategoriesResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CategoryDTO[]> GetAllProductCategoriesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetProductCategoriesByID", ReplyAction="http://tempuri.org/IWCFSampleService/GetProductCategoriesByIDResponse")]
+        WCFSampleClient.WCFSampleService.CategoryDTO[] GetProductCategoriesByID(int CategoryID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetProductCategoriesByID", ReplyAction="http://tempuri.org/IWCFSampleService/GetProductCategoriesByIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CategoryDTO[]> GetProductCategoriesByIDAsync(int CategoryID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllProducts", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllProductsResponse")]
+        WCFSampleClient.WCFSampleService.ProductDTO[] GetAllProducts();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllProducts", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllProductsResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ProductDTO[]> GetAllProductsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetProductsBySupplier", ReplyAction="http://tempuri.org/IWCFSampleService/GetProductsBySupplierResponse")]
+        WCFSampleClient.WCFSampleService.ProductDTO[] GetProductsBySupplier(int SupplierID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetProductsBySupplier", ReplyAction="http://tempuri.org/IWCFSampleService/GetProductsBySupplierResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ProductDTO[]> GetProductsBySupplierAsync(int SupplierID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetProductsByCategoryID", ReplyAction="http://tempuri.org/IWCFSampleService/GetProductsByCategoryIDResponse")]
+        WCFSampleClient.WCFSampleService.ProductDTO[] GetProductsByCategoryID(int CategoryID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetProductsByCategoryID", ReplyAction="http://tempuri.org/IWCFSampleService/GetProductsByCategoryIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ProductDTO[]> GetProductsByCategoryIDAsync(int CategoryID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllCustomers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllCustomersResponse")]
+        WCFSampleClient.WCFSampleService.CustomerDTO[] GetAllCustomers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllCustomers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllCustomersResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CustomerDTO[]> GetAllCustomersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrders", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersResponse")]
+        WCFSampleClient.WCFSampleService.OrderDTO[] GetAllOrders();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrders", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetAllOrdersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotals", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsResponse")]
+        WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[] GetAllOrdersWithSubtotals();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotals", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[]> GetAllOrdersWithSubtotalsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerID", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerIDRespons" +
+            "e")]
+        WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[] GetAllOrdersWithSubtotalsByCustomerID(string CustomerID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerID", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersWithSubtotalsByCustomerIDRespons" +
+            "e")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[]> GetAllOrdersWithSubtotalsByCustomerIDAsync(string CustomerID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrdersByShipVia", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrdersByShipViaResponse")]
+        WCFSampleClient.WCFSampleService.OrderDTO[] GetOrdersByShipVia(int ShipVia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrdersByShipVia", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrdersByShipViaResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetOrdersByShipViaAsync(int ShipVia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeIDResponse")]
+        WCFSampleClient.WCFSampleService.OrderDTO[] GetOrdersByEmployeeID(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrdersByEmployeeIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetOrdersByEmployeeIDAsync(int EmployeeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerIDResponse")]
+        WCFSampleClient.WCFSampleService.OrderDTO[] GetOrdersByCustomerID(string CustomerID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerID", ReplyAction="http://tempuri.org/IWCFSampleService/GetOrdersByCustomerIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetOrdersByCustomerIDAsync(string CustomerID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQry", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersQryResponse")]
+        WCFSampleClient.WCFSampleService.Orders_QryDTO[] GetAllOrdersQry();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQry", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersQryResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Orders_QryDTO[]> GetAllOrdersQryAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllSuppliers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllSuppliersResponse")]
+        WCFSampleClient.WCFSampleService.SupplierDTO[] GetAllSuppliers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllSuppliers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllSuppliersResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.SupplierDTO[]> GetAllSuppliersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetSuppliersByID", ReplyAction="http://tempuri.org/IWCFSampleService/GetSuppliersByIDResponse")]
+        WCFSampleClient.WCFSampleService.SupplierDTO[] GetSuppliersByID(int SupplierID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetSuppliersByID", ReplyAction="http://tempuri.org/IWCFSampleService/GetSuppliersByIDResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.SupplierDTO[]> GetSuppliersByIDAsync(int SupplierID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -118,6 +2731,126 @@ namespace WCFSampleClient.WCFSampleService {
         
         public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.EmployeeDTO[]> GetAllEmployeesAsync() {
             return base.Channel.GetAllEmployeesAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.CategoryDTO[] GetAllProductCategories() {
+            return base.Channel.GetAllProductCategories();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CategoryDTO[]> GetAllProductCategoriesAsync() {
+            return base.Channel.GetAllProductCategoriesAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.CategoryDTO[] GetProductCategoriesByID(int CategoryID) {
+            return base.Channel.GetProductCategoriesByID(CategoryID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CategoryDTO[]> GetProductCategoriesByIDAsync(int CategoryID) {
+            return base.Channel.GetProductCategoriesByIDAsync(CategoryID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.ProductDTO[] GetAllProducts() {
+            return base.Channel.GetAllProducts();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ProductDTO[]> GetAllProductsAsync() {
+            return base.Channel.GetAllProductsAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.ProductDTO[] GetProductsBySupplier(int SupplierID) {
+            return base.Channel.GetProductsBySupplier(SupplierID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ProductDTO[]> GetProductsBySupplierAsync(int SupplierID) {
+            return base.Channel.GetProductsBySupplierAsync(SupplierID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.ProductDTO[] GetProductsByCategoryID(int CategoryID) {
+            return base.Channel.GetProductsByCategoryID(CategoryID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.ProductDTO[]> GetProductsByCategoryIDAsync(int CategoryID) {
+            return base.Channel.GetProductsByCategoryIDAsync(CategoryID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.CustomerDTO[] GetAllCustomers() {
+            return base.Channel.GetAllCustomers();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.CustomerDTO[]> GetAllCustomersAsync() {
+            return base.Channel.GetAllCustomersAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderDTO[] GetAllOrders() {
+            return base.Channel.GetAllOrders();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetAllOrdersAsync() {
+            return base.Channel.GetAllOrdersAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[] GetAllOrdersWithSubtotals() {
+            return base.Channel.GetAllOrdersWithSubtotals();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[]> GetAllOrdersWithSubtotalsAsync() {
+            return base.Channel.GetAllOrdersWithSubtotalsAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[] GetAllOrdersWithSubtotalsByCustomerID(string CustomerID) {
+            return base.Channel.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO[]> GetAllOrdersWithSubtotalsByCustomerIDAsync(string CustomerID) {
+            return base.Channel.GetAllOrdersWithSubtotalsByCustomerIDAsync(CustomerID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderDTO[] GetOrdersByShipVia(int ShipVia) {
+            return base.Channel.GetOrdersByShipVia(ShipVia);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetOrdersByShipViaAsync(int ShipVia) {
+            return base.Channel.GetOrdersByShipViaAsync(ShipVia);
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderDTO[] GetOrdersByEmployeeID(int EmployeeID) {
+            return base.Channel.GetOrdersByEmployeeID(EmployeeID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetOrdersByEmployeeIDAsync(int EmployeeID) {
+            return base.Channel.GetOrdersByEmployeeIDAsync(EmployeeID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderDTO[] GetOrdersByCustomerID(string CustomerID) {
+            return base.Channel.GetOrdersByCustomerID(CustomerID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO[]> GetOrdersByCustomerIDAsync(string CustomerID) {
+            return base.Channel.GetOrdersByCustomerIDAsync(CustomerID);
+        }
+        
+        public WCFSampleClient.WCFSampleService.Orders_QryDTO[] GetAllOrdersQry() {
+            return base.Channel.GetAllOrdersQry();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Orders_QryDTO[]> GetAllOrdersQryAsync() {
+            return base.Channel.GetAllOrdersQryAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.SupplierDTO[] GetAllSuppliers() {
+            return base.Channel.GetAllSuppliers();
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.SupplierDTO[]> GetAllSuppliersAsync() {
+            return base.Channel.GetAllSuppliersAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.SupplierDTO[] GetSuppliersByID(int SupplierID) {
+            return base.Channel.GetSuppliersByID(SupplierID);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.SupplierDTO[]> GetSuppliersByIDAsync(int SupplierID) {
+            return base.Channel.GetSuppliersByIDAsync(SupplierID);
         }
     }
 }
