@@ -66,8 +66,8 @@ namespace WPFSampleApp.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var AllCategories = DataAccessAPI.GetAllProducts();
-            ProductGrid.ItemsSource = AllCategories;
+            var AllProducts = DataAccessAPI.GetAllProducts();
+            ProductGrid.ItemsSource = AllProducts;
 
             pageAnimation = new PageAnimation();
             contentControl.Content = pageAnimation;
@@ -100,8 +100,6 @@ namespace WPFSampleApp.UserControls
                 return;
 
             int categoryID = (int)btn.Tag;
-
-            var categories = DataAccessAPI.GetProductCategoriesByID(categoryID);
 
             pageAnimation.TransitionType = App.PageAnimationType;
             pageAnimation.ShowPage(new CategoriesByProduct(DataAccessAPI, categoryID, null));

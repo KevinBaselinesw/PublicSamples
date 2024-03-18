@@ -10,8 +10,6 @@ namespace WCFSampleServer
 {
     class Program
     {
-        static IDataAccessAPI DataAccessAPI;
-
         static void Main(string[] args)
         {
 
