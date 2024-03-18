@@ -36,6 +36,16 @@ namespace WCFSampleClient
             //MessageBox.Show(str);
         }
 
-   
+        private void SOAPExamplButton_Click(object sender, RoutedEventArgs e)
+        {
+            SOAPExample dlg = new SOAPExample();
+            dlg.Show();
+        }
+
+        private void RESTExamplButton_Click(object sender, RoutedEventArgs e)
+        {
+            RESTExample dlg = new RESTExample();
+            dlg.Show();
+        }
     }
 }

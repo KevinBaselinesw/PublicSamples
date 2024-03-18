@@ -57,6 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RESTExample.xaml.cs">
+      <DependentUpon>RESTExample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SOAPExample.xaml.cs">
+      <DependentUpon>SOAPExample.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +80,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RESTExample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SOAPExample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -102,7 +116,28 @@
     <None Include="Connected Services\WCFSampleService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.CategoryDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.CustomerDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.EmployeeDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.OrderDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.Orders_QryDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.OrderWithSubtotalDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.ProductDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WCFSampleService\WCFSampleClient.WCFSampleService.SupplierDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\WCFSampleService\WCFSampleService.wsdl" />

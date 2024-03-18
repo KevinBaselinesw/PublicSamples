@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WCFSampleClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="WCF quick check"  Click="Button_Click"/>
+        Title="WCF SOAP and REST example" Height="450" Width="800">
+    <Grid Background="AntiqueWhite">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Content="WCF SOAP Example" Background="LightBlue"  Height="200" Width="200" Click="SOAPExamplButton_Click"/>
+        <Button Grid.Column="1" Grid.Row="0" Content="WCF REST Example" Background="LightGreen"  Height="200" Width="200" Click="RESTExamplButton_Click"/>
     </Grid>
 </Window>
