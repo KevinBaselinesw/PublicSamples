@@ -44,6 +44,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -66,7 +67,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -99,7 +100,30 @@ namespace WCFSampleClient.UserControls
                 }
             }
 
-    
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(@"http://localhost:8080/api/");
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", EmployeeID.ToString() }
+                };
+
+                var OrdersByEmployee = await RestClient.Get<List<OrderDTO>>("GetOrdersByEmployeeID", parameters);
+                var FirstOrder = OrdersByEmployee.FirstOrDefault(t => t.EmployeeID == EmployeeID);  // all records likely have this
+                if (FirstOrder != null)
+                {
+                    ReportTitle.Text = string.Format($"Sales orders for {FirstOrder.Employee.FirstName} {FirstOrder.Employee.LastName}");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"Employee not found in the database!");
+                }
+
+                OrdersGrid.ItemsSource = OrdersByEmployee;
+            }
+
+
         }
     }
 }

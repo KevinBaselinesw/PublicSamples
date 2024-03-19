@@ -45,6 +45,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -66,7 +67,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -86,6 +87,13 @@ namespace WCFSampleClient.UserControls
                         Client.Abort();
                     }
                 }
+            }
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(@"http://localhost:8080/api/");
+
+                var AllEmployees = await RestClient.Get<List<EmployeeDTO>>("GetAllEmployees", null);
+                EmployeeGrid.ItemsSource = AllEmployees.ToList();
             }
   
   
