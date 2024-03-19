@@ -16,12 +16,15 @@ namespace WCFSampleApp
     public interface IWCFSampleService
     {
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllEmployees", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<EmployeeDTO> GetAllEmployees();
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllProductCategories", ResponseFormat = WebMessageFormat.Json, RequestFormat =WebMessageFormat.Json, BodyStyle =WebMessageBodyStyle.Bare )]
         IEnumerable<CategoryDTO> GetAllProductCategories();
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllProductCategories/?id={CategoryID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID);
 
         [OperationContract]
@@ -49,6 +52,8 @@ namespace WCFSampleApp
         IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia);
 
         [OperationContract]
+        
+        [WebInvoke(Method = "GET", UriTemplate = "GetOrdersByEmployeeID/?id={EmployeeID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID);
 
         [OperationContract]
