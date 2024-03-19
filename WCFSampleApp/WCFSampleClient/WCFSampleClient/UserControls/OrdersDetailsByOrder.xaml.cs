@@ -44,6 +44,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -66,7 +67,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -98,7 +99,30 @@ namespace WCFSampleClient.UserControls
                 }
             }
 
-   
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", OrderID.ToString() }
+                };
+
+                var orderDetails = await RestClient.Get<List<Order_Details_ExtendedDTO>>("GetOrderDetailsByOrderID", parameters);
+                var FirstOrder = orderDetails.FirstOrDefault(t => t.OrderID == OrderID);  // all records likely have this
+                if (FirstOrder != null)
+                {
+                    ReportTitle.Text = string.Format($"Order details for order #{FirstOrder.OrderID}");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"order not found in database!");
+                }
+
+                OrdersGrid.ItemsSource = orderDetails;
+            }
+
+
         }
     }
 }
