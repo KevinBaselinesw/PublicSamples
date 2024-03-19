@@ -5,7 +5,9 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Windows;
 using DatabaseAccessLib;
+using UtilityFunctions;
 
 namespace WCFSampleApp
 {
@@ -14,17 +16,74 @@ namespace WCFSampleApp
     /// </summary>
     public class WCFSampleService : IWCFSampleService
     {
+        static string NorthwindsDBBackupName = "NorthwindsDB.xml";
         static IDataAccessAPI DatabaseAPI = null;
 
+        #region initialization
         private IDataAccessAPI GetDatabaseAPI()
         {
             if (DatabaseAPI == null)
             {
-                DatabaseAPI = new DataAccessAPIDB();
+                LoadDatabaseFromXMLFile();
+
+                if (DatabaseAPI == null)
+                {
+                    DatabaseAPI = new DataAccessAPIDB();
+                }
             }
             return DatabaseAPI;
         }
-  
+
+        private void LoadDatabaseFromXMLFile()
+        {
+            try
+            {
+                if (!System.IO.File.Exists(NorthwindsDBBackupName))
+                {
+                    MessageBox.Show(string.Format("The database XML file {0} is not found!", NorthwindsDBBackupName));
+                }
+                else
+                {
+                    string XmlDB = null;
+                    DatabaseBackup databaseBackup = null;
+                    try
+                    {
+                        XmlDB = System.IO.File.ReadAllText(NorthwindsDBBackupName);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(string.Format("Found, but unable to read the database XML file {0}!", NorthwindsDBBackupName));
+                    }
+
+                    if (XmlDB != null)
+                    {
+                        try
+                        {
+                            databaseBackup = Utility.DeserializeXml<DatabaseBackup>(XmlDB);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(string.Format("Found, but unable to DESERIALIZE the database XML file {0}!", NorthwindsDBBackupName));
+                        }
+                    }
+
+                    if (databaseBackup != null)
+                    {
+                        DatabaseAPI = new DataAccessAPIInMemory(databaseBackup);
+                    }
+                }
+            }
+            finally
+            {
+                if (DatabaseAPI == null)
+                {
+                    DatabaseBackup databaseBackup = new DatabaseBackup();
+                    DatabaseAPI = new DataAccessAPIInMemory(databaseBackup);
+                }
+            }
+        }
+        #endregion
+
         public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
             IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
