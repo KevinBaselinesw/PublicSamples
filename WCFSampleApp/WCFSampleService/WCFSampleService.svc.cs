@@ -14,9 +14,9 @@ namespace WCFSampleApp
     /// </summary>
     public class WCFSampleService : IWCFSampleService
     {
-        static DataAccessAPIDB DatabaseAPI = null;
+        static IDataAccessAPI DatabaseAPI = null;
 
-        private DataAccessAPIDB GetDatabaseAPI()
+        private IDataAccessAPI GetDatabaseAPI()
         {
             if (DatabaseAPI == null)
             {
@@ -24,12 +24,10 @@ namespace WCFSampleApp
             }
             return DatabaseAPI;
         }
-
-
-
+  
         public IEnumerable<EmployeeDTO> GetAllEmployees()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var employees = DatabaseAPI.GetAllEmployees();
 
@@ -38,7 +36,7 @@ namespace WCFSampleApp
 
         public IEnumerable<CategoryDTO> GetAllProductCategories()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var categories = DatabaseAPI.GetAllProductCategories();
 
@@ -47,7 +45,7 @@ namespace WCFSampleApp
 
         public IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var categories = DatabaseAPI.GetProductCategoriesByID(CategoryID);
 
@@ -56,7 +54,7 @@ namespace WCFSampleApp
 
         public IEnumerable<ProductDTO> GetAllProducts()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var products = DatabaseAPI.GetAllProducts();
 
@@ -65,7 +63,7 @@ namespace WCFSampleApp
 
         public IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var products = DatabaseAPI.GetProductsBySupplier(SupplierID);
 
@@ -74,7 +72,7 @@ namespace WCFSampleApp
 
         public IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var products = DatabaseAPI.GetProductsByCategoryID(CategoryID);
 
@@ -83,7 +81,7 @@ namespace WCFSampleApp
 
         public IEnumerable<CustomerDTO> GetAllCustomers()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var customers = DatabaseAPI.GetAllCustomers();
 
@@ -92,7 +90,7 @@ namespace WCFSampleApp
 
         public IEnumerable<OrderDTO> GetAllOrders()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetAllOrders();
 
@@ -102,7 +100,7 @@ namespace WCFSampleApp
  
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotals()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetAllOrdersWithSubtotals();
 
@@ -113,7 +111,7 @@ namespace WCFSampleApp
 
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetAllOrdersWithSubtotalsByCustomerID(CustomerID);
 
@@ -122,7 +120,7 @@ namespace WCFSampleApp
 
         public IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetOrdersByShipVia(ShipVia);
 
@@ -131,7 +129,7 @@ namespace WCFSampleApp
 
         public IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetOrdersByEmployeeID(EmployeeID);
 
@@ -140,7 +138,7 @@ namespace WCFSampleApp
 
         public IEnumerable<OrderDTO> GetOrdersByCustomerID(string CustomerID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetOrdersByCustomerID(CustomerID);
 
@@ -149,7 +147,7 @@ namespace WCFSampleApp
 
         public IEnumerable<Orders_QryDTO> GetAllOrdersQry()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orders = DatabaseAPI.GetAllOrdersQry();
 
@@ -158,7 +156,7 @@ namespace WCFSampleApp
 
         public IEnumerable<SupplierDTO> GetAllSuppliers()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var suppliers = DatabaseAPI.GetAllSuppliers();
 
@@ -167,7 +165,7 @@ namespace WCFSampleApp
 
         public IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var suppliers = DatabaseAPI.GetSuppliersByID(SupplierID);
 
@@ -176,7 +174,7 @@ namespace WCFSampleApp
 
         public IEnumerable<ShipperDTO> GetAllShippers()
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var shippers = DatabaseAPI.GetAllShippers();
 
@@ -186,7 +184,7 @@ namespace WCFSampleApp
  
         public IEnumerable<Order_DetailDTO> GetOrderDetailsByProductID(int ProductID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orderDetails = DatabaseAPI.GetOrderDetailsByProductID(ProductID);
 
@@ -195,7 +193,7 @@ namespace WCFSampleApp
 
         public IEnumerable<Order_Details_ExtendedDTO> GetOrderDetailsByOrderID(int OrderID)
         {
-            DataAccessAPIDB DatabaseAPI = GetDatabaseAPI();
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
             var orderDetails = DatabaseAPI.GetOrderDetailsByOrderID(OrderID);
 
