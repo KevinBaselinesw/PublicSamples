@@ -102,7 +102,7 @@ namespace WCFSampleClient.UserControls
 
             if (WCFType == WCFType.REST)
             {
-                RESTClient RestClient = new RESTClient(@"http://localhost:8080/api/");
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>
                 {

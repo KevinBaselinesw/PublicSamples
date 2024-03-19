@@ -13,5 +13,14 @@ namespace WCFSampleClient
     /// </summary>
     public partial class App : Application
     {
+        public static string NorthwindsServerBaseURL;
+
+        public App()
+        {
+            NorthwindsServerBaseURL = ConfigurationManager.AppSettings["NorthwindsServerBaseURL"];
+
+            return;
+        }
+
     }
 }

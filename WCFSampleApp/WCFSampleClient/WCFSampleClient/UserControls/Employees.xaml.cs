@@ -90,7 +90,7 @@ namespace WCFSampleClient.UserControls
             }
             if (WCFType == WCFType.REST)
             {
-                RESTClient RestClient = new RESTClient(@"http://localhost:8080/api/");
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
 
                 var AllEmployees = await RestClient.Get<List<EmployeeDTO>>("GetAllEmployees", null);
                 EmployeeGrid.ItemsSource = AllEmployees.ToList();
