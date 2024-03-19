@@ -56,10 +56,10 @@ namespace WCFSampleApp
         IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotalsByCustomerID(string CustomerID);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetOrdersByShipVia/?id={ShipVia}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<OrderDTO> GetOrdersByShipVia(int ShipVia);
 
         [OperationContract]
-        
         [WebInvoke(Method = "GET", UriTemplate = "GetOrdersByEmployeeID/?id={EmployeeID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<OrderDTO> GetOrdersByEmployeeID(int EmployeeID);
 
@@ -78,6 +78,7 @@ namespace WCFSampleApp
         IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllShippers", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<ShipperDTO> GetAllShippers();
 
         [OperationContract]

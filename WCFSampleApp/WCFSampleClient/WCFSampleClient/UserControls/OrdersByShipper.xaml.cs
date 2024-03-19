@@ -44,6 +44,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -66,7 +67,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -98,9 +99,34 @@ namespace WCFSampleClient.UserControls
                 }
             }
 
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", ShipperID.ToString() }
+                };
+
+                var OrdersByShipper = await RestClient.Get<List<OrderDTO>>("GetOrdersByShipVia", parameters);
+                var Shippers = await RestClient.Get<List<ShipperDTO>>("GetAllShippers", parameters);
+                var FirstShipper = Shippers.FirstOrDefault(t => t.ShipperID == ShipperID);  // all records likely have this
+                if (FirstShipper != null)
+                {
+                    ReportTitle.Text = string.Format($"Orders sent by {FirstShipper.CompanyName}");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"Shipping company not found in database!");
+                }
+
+                OrdersGrid.ItemsSource = OrdersByShipper;
+            }
 
 
-   
+
+
+
         }
     }
 }
