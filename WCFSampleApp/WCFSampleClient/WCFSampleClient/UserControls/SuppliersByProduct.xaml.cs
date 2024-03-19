@@ -44,6 +44,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -65,7 +66,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -96,7 +97,30 @@ namespace WCFSampleClient.UserControls
                 }
             }
 
-  
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", SupplierID.ToString() }
+                };
+
+                var Suppliers = await RestClient.Get<List<SupplierDTO>>("GetSuppliersByID", parameters);
+                var Supplier = Suppliers.FirstOrDefault();
+                if (Supplier != null)
+                {
+                    ReportTitle.Text = string.Format($"The supplier for this product is {Supplier.CompanyName}");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"The supplier for this product is unknown");
+                }
+
+                SuppliersGrid.ItemsSource = Suppliers;
+            }
+
+
         }
 
   

@@ -45,6 +45,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -66,7 +67,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -96,7 +97,31 @@ namespace WCFSampleClient.UserControls
                     }
                 }
             }
-  
+
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", CategoryID.ToString() }
+                };
+
+                var ProductsByCategory = await RestClient.Get<List<ProductDTO>>("GetProductsByCategoryID", parameters);
+
+                var FirstCategory = await RestClient.Get<List<CategoryDTO>>("GetProductCategoriesByID", parameters);
+                if (FirstCategory != null)
+                {
+                    ReportTitle.Text = string.Format($"Products in the {FirstCategory.FirstOrDefault().CategoryName} category");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"This category is not found in the database!");
+                }
+
+                ProductGrid.ItemsSource = ProductsByCategory;
+            }
+
         }
   
    

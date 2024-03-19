@@ -44,6 +44,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -66,7 +67,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -95,6 +96,29 @@ namespace WCFSampleClient.UserControls
                         Client.Abort();
                     }
                 }
+            }
+
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", CategoryID.ToString() }
+                };
+
+                var Categories = await RestClient.Get<List<CategoryDTO>>("GetProductCategoriesByID", parameters);
+                var Category = Categories.FirstOrDefault();
+                if (Category != null)
+                {
+                    ReportTitle.Text = string.Format($"The category for this product is {Category.CategoryName}");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"The category for this product is unknown");
+                }
+
+                ProductCategoryGrid.ItemsSource = Categories;
             }
 
         }

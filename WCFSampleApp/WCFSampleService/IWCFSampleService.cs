@@ -24,16 +24,18 @@ namespace WCFSampleApp
         IEnumerable<CategoryDTO> GetAllProductCategories();
 
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "GetAllProductCategories/?id={CategoryID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(Method = "GET", UriTemplate = "GetProductCategoriesByID/?id={CategoryID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<CategoryDTO> GetProductCategoriesByID(int CategoryID);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllProducts", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<ProductDTO> GetAllProducts();
 
         [OperationContract]
         IEnumerable<ProductDTO> GetProductsBySupplier(int SupplierID);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetProductsByCategoryID/?id={CategoryID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<ProductDTO> GetProductsByCategoryID(int CategoryID);
 
         [OperationContract]
@@ -66,6 +68,7 @@ namespace WCFSampleApp
         IEnumerable<SupplierDTO> GetAllSuppliers();
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetSuppliersByID/?id={SupplierID}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<SupplierDTO> GetSuppliersByID(int SupplierID);
 
         [OperationContract]
