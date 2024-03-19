@@ -6,7 +6,109 @@
         xmlns:local="clr-namespace:WCFSampleClient"
         mc:Ignorable="d"
         Title="WCF REST Example" Height="450" Width="800">
-    <Grid>
-        
+
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="SubsystemSelector">
+            <Setter Property="Margin" Value="10, 0, 10, 0"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Button.Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="4" BlurRadius="5" Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Image" x:Key="SubsystemSelectorImage">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Stretch" Value="None"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="99">
+            <MenuItem Header="File">
+
+            </MenuItem>
+
+            <MenuItem Header="About" Click="About_Click"></MenuItem>
+        </Menu>
+
+        <ToolBarTray Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="99"  Margin="5">
+            <ToolBar Background="White" Width="{Binding Path=ActualWidth, ElementName=MainGrid}" ToolBarTray.IsLocked="True">
+                <Button Style="{StaticResource SubsystemSelector}" Click="Employees_Click">
+                    <StackPanel>
+                        <TextBlock>Employees</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\division32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="ProductCategories_Click">
+                    <StackPanel>
+                        <TextBlock>Product</TextBlock>
+                        <TextBlock>Categories</TextBlock>
+                        <Image Source="Icons\Category32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Products_Click">
+                    <StackPanel>
+                        <TextBlock>Products</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\products32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Customers_Click">
+                    <StackPanel>
+                        <TextBlock>Customers</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\customers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource SubsystemSelector}" Click="Orders_Click">
+                    <StackPanel>
+                        <TextBlock>Orders</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\orders32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Suppliers_Click">
+                    <StackPanel>
+                        <TextBlock>Suppliers</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\suppliers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource SubsystemSelector}" Click="Shippers_Click">
+                    <StackPanel>
+                        <TextBlock>Shippers</TextBlock>
+                        <TextBlock></TextBlock>
+                        <Image Source="Icons\shippers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <ContentControl Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" x:Name="PrimaryContent" Margin="5"/>
+
+        <GridSplitter Grid.Column="1" Grid.Row="2" x:Name="gridSplitter"  Width="5" HorizontalAlignment="Stretch" Background="Black" />
+
+        <ContentControl Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="1" x:Name="SecondaryContent" Margin="5,5,25,5"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="99"  x:Name="Status"  Background="LightGray"/>
+
+
     </Grid>
 </Window>

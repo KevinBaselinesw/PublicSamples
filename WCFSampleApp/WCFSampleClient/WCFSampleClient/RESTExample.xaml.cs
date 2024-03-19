@@ -42,6 +42,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WCFSampleClient.UserControls;
 
 namespace WCFSampleClient
 {
@@ -53,6 +54,55 @@ namespace WCFSampleClient
         public RESTExample()
         {
             InitializeComponent();
+        }
+
+        private void Employees_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            gridSplitter.UpdateLayout();
+            PrimaryContent.Content = new Employees(SecondaryContent, WCFType.REST);
+        }
+
+        private void ProductCategories_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Categories(SecondaryContent, WCFType.REST);
+        }
+
+        private void Products_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Products(SecondaryContent, WCFType.REST);
+        }
+
+        private void Customers_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Customers(SecondaryContent, WCFType.REST);
+        }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Orders(SecondaryContent, WCFType.REST);
+        }
+
+        private void Suppliers_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Suppliers(SecondaryContent, WCFType.REST);
+        }
+
+        private void Shippers_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryContent.Content = null;
+            PrimaryContent.Content = new Shippers(SecondaryContent, WCFType.SOAP);
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            var aboutBoxSoap = new AboutBoxSOAP();
+            aboutBoxSoap.ShowDialog();
         }
     }
 }
