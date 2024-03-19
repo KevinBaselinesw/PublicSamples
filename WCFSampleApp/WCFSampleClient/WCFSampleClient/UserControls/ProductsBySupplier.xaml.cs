@@ -44,6 +44,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityFunctions;
 using WCFSampleClient.WCFSampleService;
 
 namespace WCFSampleClient.UserControls
@@ -65,7 +66,7 @@ namespace WCFSampleClient.UserControls
             this.WCFType = WCFType;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (WCFType == WCFType.SOAP)
             {
@@ -96,7 +97,31 @@ namespace WCFSampleClient.UserControls
                 }
             }
 
-    
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>
+                {
+                    { "id", SupplierID.ToString() }
+                };
+
+                var ProductsBySupplier = await RestClient.Get<List<ProductDTO>>("GetProductsBySupplier", parameters);
+                var FirstSuppliers = await RestClient.Get<List<SupplierDTO>>("GetSuppliersByID", parameters);
+                var FirstSupplier = FirstSuppliers.FirstOrDefault();
+                if (FirstSupplier != null )
+                {
+                    ReportTitle.Text = string.Format($"Products from {FirstSupplier.CompanyName}");
+                }
+                else
+                {
+                    ReportTitle.Text = string.Format($"Supplier is not found in database!");
+                }
+
+                ProductGrid.ItemsSource = ProductsBySupplier;
+            }
+
+
         }
   
    
