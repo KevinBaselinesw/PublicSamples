@@ -69,7 +69,7 @@ namespace WPFSampleApp.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             AllShippers = DataAccessAPI.GetAllShippers();
-            SuppliersGrid.ItemsSource = AllShippers;
+            ShippersGrid.ItemsSource = AllShippers;
 
             pageAnimation = new PageAnimation();
             contentControl.Content = pageAnimation;
