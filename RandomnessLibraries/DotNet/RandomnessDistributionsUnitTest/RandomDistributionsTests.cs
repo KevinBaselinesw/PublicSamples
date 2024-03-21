@@ -472,6 +472,7 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(arr, new Int32[] { 2, 9, 3, 6, 1, 7, 5, 0, 4, 8 });
 
             arr = arangeInt32(10);
+            print(arr);
 
             random.shuffle(arr);
             print(arr);
