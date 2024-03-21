@@ -733,15 +733,19 @@ namespace RandomDistributions
         }
 
 
-#endregion
-#endregion
+        #endregion
+        #endregion
 
-#region shuffle/permutation
+        #region shuffle/permutation
+
+        public void shuffle<T>(T x)
+        {
+            shuffle(new T[] { x });
+        }
 
         public void shuffle<T>(T[] x)
         {
             int n = x.Length;
-
 
             T buf = default(T);
 
@@ -753,6 +757,11 @@ namespace RandomDistributions
                 x[i] = buf;
             }
             return;
+        }
+
+        public T[] permutation<T>(T arr)
+        {
+            return permutation(new T[] { arr });
         }
 
         public T[] permutation<T>(T[] arr)

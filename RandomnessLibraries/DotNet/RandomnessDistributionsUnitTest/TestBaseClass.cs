@@ -63,6 +63,18 @@ namespace RandomnessDistributionsUnitTest
             }
         }
 
+        internal Int32[] arangeInt32(Int32 m)
+        {
+            Int32[] output = new Int32[m];
+
+            for (Int32 i = 0; i < m; i++)
+            {
+                output[i] = i;
+            }
+
+            return output;
+        }
+
     }
 
 
@@ -195,5 +207,7 @@ namespace RandomnessDistributionsUnitTest
             Array.Copy(array, firstTen, 10);
             return firstTen;
         }
+
+
     }
 }

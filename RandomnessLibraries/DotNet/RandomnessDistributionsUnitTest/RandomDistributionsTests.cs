@@ -458,5 +458,42 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(arr, ExpectedData);
         }
         #endregion
+
+        #region shuffle/permutation
+
+        [TestMethod]
+        public void test_rand_shuffle_1()
+        {
+            var random = new RandomDistributions.random();
+            random.seed(1964);
+            var arr = arangeInt32(10);
+            random.shuffle(arr);
+            print(arr);
+            AssertArray(arr, new Int32[] { 2, 9, 3, 6, 1, 7, 5, 0, 4, 8 });
+
+            arr = arangeInt32(10);
+
+            random.shuffle(arr);
+            print(arr);
+            AssertArray(arr, new Int32[] { 0 , 3 ,  7 ,  8 ,  5 ,  9 ,  4 ,  6 ,  1 ,  2 });
+        }
+
+        [TestMethod]
+        public void test_rand_permutation_1()
+        {
+            var random = new RandomDistributions.random();
+            random.seed(1963);
+
+            var arr = random.permutation(10);
+            print(arr);
+            AssertArray(arr, new Int32[] { 6, 7, 4, 5, 1, 2, 9, 0, 8, 3 });
+
+            arr = random.permutation(arangeInt32(5));
+            print(arr);
+            AssertArray(arr, new Int32[] { 2, 3, 1, 0, 4 });
+
+        }
+
+        #endregion
     }
 }
