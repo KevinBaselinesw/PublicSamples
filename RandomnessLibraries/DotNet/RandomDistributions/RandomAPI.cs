@@ -466,7 +466,7 @@ namespace RandomDistributions
 
         #region randuint64
 
-        public UInt64[] _randuint64(long low, UInt64? high, long size)
+        public UInt64[] randuint64(long low, UInt64? high, long size)
         {
             ValidateSize(size);
 

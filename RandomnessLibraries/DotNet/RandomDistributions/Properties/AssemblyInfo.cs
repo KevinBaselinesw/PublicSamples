@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RandomDistributions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Library to generate random numbers and statistical distributions")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Baseline Software Solutions")]
 [assembly: AssemblyProduct("RandomDistributions")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
