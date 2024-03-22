@@ -1471,9 +1471,14 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_normal, size, oloc, oscale);
         }
 
-#endregion
+        #endregion
 
-#region pareto
+        #region pareto
+
+        public double[] pareto(double oa, long size = 0)
+        {
+            return pareto(new double[] { oa }, size);
+        }
 
         public double[] pareto(double[] oa, long size = 0)
         {
@@ -1489,10 +1494,13 @@ namespace RandomDistributions
 
             return cont1_array(internal_state, RandomDistributions.rk_pareto, size, oa);
         }
-#endregion
+        #endregion
 
-#region Poisson
-
+        #region Poisson
+        public long[] poisson(double olam, long size = 0)
+        {
+            return poisson(new double[] { olam }, size);
+        }
         public long[] poisson(double[] olam, long size = 0)
         {
             const double poisson_lam_max = 9.223372006484771e+18;
@@ -1513,9 +1521,13 @@ namespace RandomDistributions
         }
 
 
-#endregion
+        #endregion
 
-#region Power
+        #region Power
+        public double[] power(double oa, long size = 0)
+        {
+            return power(new double[] { oa }, size);
+        }
         public double[] power(double[] oa, long size = 0)
         {
             ValidateSize(size);
@@ -1530,10 +1542,13 @@ namespace RandomDistributions
 
             return cont1_array(internal_state, RandomDistributions.rk_power, size, oa);
         }
-#endregion
+        #endregion
 
-#region rayleigh
-
+        #region rayleigh
+        public double[] rayleigh(double oscale, long size = 0)
+        {
+            return rayleigh(new double[] { oscale }, size);
+        }
         public double[] rayleigh(double[] oscale, long size = 0)
         {
             ValidateSize(size);
@@ -1582,9 +1597,14 @@ namespace RandomDistributions
             return rndArray;
         }
 
-#endregion
+        #endregion
 
-#region standard_gamma
+        #region standard_gamma
+
+        public double[] standard_gamma(double oshape, long size = 0)
+        {
+            return standard_gamma(new double[] { oshape }, size);
+        }
 
         public double[] standard_gamma(double[] oshape, long size = 0)
         {
@@ -1617,9 +1637,14 @@ namespace RandomDistributions
             return rndArray;
         }
 
-#endregion
+        #endregion
 
-#region standard_t
+        #region standard_t
+
+        public double[] standard_t(double odf, long size = 0)
+        {
+            return standard_t(new double[] { odf }, size);
+        }
 
         public double[] standard_t(double[] odf, long size = 0)
         {
@@ -1636,10 +1661,21 @@ namespace RandomDistributions
             return cont1_array(internal_state, RandomDistributions.rk_standard_t, size, odf);
         }
 
-#endregion
+        #endregion
 
-#region triangular
-
+        #region triangular
+        public double[] triangular(double oleft, double omode, double oright, long size = 0)
+        {
+            return triangular(new double[] { oleft }, new double[] { omode }, new double[] { oright }, size);
+        }
+        public double[] triangular(double[] oleft, double omode, double oright, long size = 0)
+        {
+            return triangular(oleft, new double[] { omode }, new double[] { oright }, size);
+        }
+        public double[] triangular(double[] oleft, double[] omode, double oright, long size = 0)
+        {
+            return triangular(oleft, omode, new double[] { oright }, size);
+        }
         public double[] triangular(double[] oleft, double[] omode, double[] oright, long size = 0)
         {
             ValidateSize(size);
@@ -1677,7 +1713,7 @@ namespace RandomDistributions
             ValidateSize(size);
 
             double[] odiff = subtract(ohigh, olow);
-            if (all_isfinite(odiff))
+            if (any_isfinite(odiff))
                 throw new ArgumentOutOfRangeException("Range exceeds valid bounds");
 
             if (olow.Length == 1 && ohigh.Length == 1)
@@ -2211,17 +2247,6 @@ namespace RandomDistributions
             return false;
         }
 
-        private bool any_less(long[] array, long[] value)
-        {
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] < value[i])
-                    return true;
-            }
-   
-            return false;
-        }
-
         private bool any_less(long[] array, int value)
         {
             foreach (long v in array)
@@ -2231,6 +2256,9 @@ namespace RandomDistributions
             }
             return false;
         }
+
+   
+   
 
         private bool any_nan(double[] array)
         {
@@ -2252,23 +2280,42 @@ namespace RandomDistributions
             return false;
         }
 
+        private bool any_less(long[] arr1, long[] arr2)
+        {
+            int arr2_index = 0;
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (arr1[i] < arr2[arr2_index++])
+                    return true;
+                if (arr2_index >= arr2.Length)
+                    arr2_index = 0;
+            }
+
+            return false;
+        }
 
         private bool any_equal(double[] arr1, double[] arr2)
         {
+            int arr2_index = 0;
             for (int i = 0; i < arr1.Length; i++)
             {
-                if (arr1[i] == arr2[i])
+                if (arr1[i] == arr2[arr2_index++])
                     return true;
+                if (arr2_index >= arr2.Length)
+                    arr2_index = 0;
             }
             return false;
         }
 
         private bool any_greater(double[] arr1, double[] arr2)
         {
+            int arr2_index = 0;
             for (int i = 0; i < arr1.Length; i++)
             {
-                if (arr1[i] > arr2[i])
+                if (arr1[i] > arr2[arr2_index++])
                     return true;
+                if (arr2_index >= arr2.Length)
+                    arr2_index = 0;
             }
             return false;
         }
@@ -2292,21 +2339,24 @@ namespace RandomDistributions
         {
             double[] sub = new double[arr1.Length];
 
+            int arr2_index = 0;
             for (int i = 0; i < arr1.Length; i++)
             {
-                sub[i] = arr1[i] - arr2[i];
+                sub[i] = arr1[i] - arr2[arr2_index++];
+                if (arr2_index >= arr2.Length)
+                    arr2_index = 0;
             }
 
             return sub;
         }
-        private bool all_isfinite(double[] array)
+        private bool any_isfinite(double[] array)
         {
             foreach (double v in array)
             {
-                if (double.IsNaN(v) || double.IsNaN(v))
-                    return false;
+                if (double.IsInfinity(v) || double.IsNaN(v))
+                    return true;
             }
-            return true;
+            return false;
         }
 
 
