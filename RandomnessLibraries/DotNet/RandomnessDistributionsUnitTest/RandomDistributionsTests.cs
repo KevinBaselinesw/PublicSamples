@@ -608,7 +608,7 @@ namespace RandomnessDistributionsUnitTest
 
         }
 
-        [Ignore]
+        [Ignore("This requires multi-dimensional arrays.  Use numpydotnet if you need this function")]
         [TestMethod]
         public void test_rand_dirichlet_1()
         {
