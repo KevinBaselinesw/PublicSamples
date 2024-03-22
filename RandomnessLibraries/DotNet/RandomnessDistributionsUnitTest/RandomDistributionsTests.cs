@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RandomDistributions;
 using System.Linq;
+using NumpyDotNet;
 
 namespace RandomnessDistributionsUnitTest
 {
@@ -466,12 +467,12 @@ namespace RandomnessDistributionsUnitTest
         {
             var random = new RandomDistributions.random();
             random.seed(1964);
-            var arr = arangeInt32(10);
+            var arr = np.arange(10).AsInt32Array();
             random.shuffle(arr);
             print(arr);
             AssertArray(arr, new Int32[] { 2, 9, 3, 6, 1, 7, 5, 0, 4, 8 });
 
-            arr = arangeInt32(10);
+            arr = np.arange(10).AsInt32Array();
             print(arr);
 
             random.shuffle(arr);
@@ -489,12 +490,72 @@ namespace RandomnessDistributionsUnitTest
             print(arr);
             AssertArray(arr, new Int32[] { 6, 7, 4, 5, 1, 2, 9, 0, 8, 3 });
 
-            arr = random.permutation(arangeInt32(5));
+            arr = random.permutation(np.arange(5).AsInt32Array());
             print(arr);
             AssertArray(arr, new Int32[] { 2, 3, 1, 0, 4 });
 
         }
 
         #endregion
+
+        [TestMethod]
+        public void test_rand_beta_1()
+        {
+            var random = new RandomDistributions.random();
+            random.seed(5566);
+
+            var a = np.arange(1, 11, dtype: np.Float64);
+            var b = np.arange(1, 11, dtype: np.Float64);
+
+            var arr = random.beta(b.AsDoubleArray(), b.AsDoubleArray(), size:10);
+            Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
+            print(arr);
+
+            var ExpectedData = new double[]
+                { 0.890517356256563, 0.532484155787344, 0.511396509650771, 0.862418837558698, 0.492458004172681,
+                  0.504662615187708, 0.621477223753938, 0.41702032419038, 0.492984829781569, 0.47847289036676 };
+
+            AssertArray(arr, ExpectedData);
+        }
+
+        [TestMethod]
+        public void test_rand_binomial_1()
+        {
+            var random = new RandomDistributions.random();
+            random.seed(123);
+
+            var arr = random.binomial(9, 0.1, size:20);
+            AssertArray(arr, new Int64[] { 1, 0, 0, 1, 1, 1, 3, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1 });
+            Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
+
+            var s = np.sum(np.array(arr) == 0);
+            Assert.AreEqual(6, s.GetItem(0));
+
+
+            arr = random.binomial(9, 0.1, size: 20000);
+            s = np.sum(np.array(arr) == 0);
+            Assert.AreEqual(7711, s.GetItem(0));
+            print(s);
+        }
+
+        [TestMethod]
+        public void test_rand_negative_binomial_1()
+        {
+            var random = new RandomDistributions.random();
+            random.seed(123);
+
+            var arr = random.negative_binomial(1, 0.1, size: 20);
+            AssertArray(arr, new Int64[] { 8, 9, 4, 10, 8, 5, 11, 7, 21, 0, 8, 1, 7, 3, 1, 17, 4, 5, 6, 8, });
+            Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
+
+            var s = np.sum(np.array(arr) == 0);
+            Assert.AreEqual(1, s.GetItem(0));
+
+
+            arr = random.negative_binomial(1, 0.1, size: 20000);
+            s = np.sum(np.array(arr) == 0);
+            Assert.AreEqual(1992, s.GetItem(0));
+            print(s);
+        }
     }
 }

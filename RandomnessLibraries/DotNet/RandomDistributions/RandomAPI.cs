@@ -888,11 +888,16 @@ namespace RandomDistributions
 
         }
 
-  
+
 
         #endregion
 
         #region binomial
+
+        public long[] binomial(long n, double p, long size = 0)
+        {
+            return binomial(new long[] { n }, new double[] { p }, size);
+        }
 
         public long[] binomial(long[] on, double[] op, long size = 0)
         {
@@ -920,8 +925,11 @@ namespace RandomDistributions
 
             return discnp_array(internal_state, RandomDistributions.rk_binomial, size, on, op);
         }
- 
 
+        public long[] negative_binomial(long n, double p, long size = 0)
+        {
+            return negative_binomial(new long[] { n }, new double[] { p }, size);
+        }
         public long[] negative_binomial(long[] on, double[] op, long size = 0)
         {
             ValidateSize(size);

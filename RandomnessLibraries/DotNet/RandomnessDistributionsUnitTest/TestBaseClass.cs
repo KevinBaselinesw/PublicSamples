@@ -62,17 +62,22 @@ namespace RandomnessDistributionsUnitTest
                 Assert.AreEqual(E1, A1);
             }
         }
-
-        internal Int32[] arangeInt32(Int32 m)
+        internal void AssertArray(double[] arrayData, double[] expectedData)
         {
-            Int32[] output = new Int32[m];
+            int length = expectedData.Length;
 
-            for (Int32 i = 0; i < m; i++)
+            for (int i = 0; i < length; i++)
             {
-                output[i] = i;
-            }
+                double E1 = expectedData[i];
+                double A1 = (double)arrayData[i];
 
-            return output;
+                if (double.IsNaN(E1) && double.IsNaN(A1))
+                    continue;
+                if (double.IsInfinity(E1) && double.IsInfinity(A1))
+                    continue;
+
+                Assert.AreEqual(E1, A1, 0.00000001);
+            }
         }
 
     }
