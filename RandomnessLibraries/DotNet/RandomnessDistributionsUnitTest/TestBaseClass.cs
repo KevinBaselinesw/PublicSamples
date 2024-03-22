@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NumpyDotNet;
 using System;
 
 
@@ -249,84 +248,234 @@ namespace RandomnessDistributionsUnitTest
 
         internal double GetMin(double[] arr)
         {
-            return (double)np.min(arr).GetItem(0);
+            double lowNum = double.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal long GetMin(long[] arr)
         {
-            return (long)np.min(arr).GetItem(0);
+            long lowNum = long.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal ulong GetMin(ulong[] arr)
         {
-            return (ulong)np.min(arr).GetItem(0);
+            ulong lowNum = ulong.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal int GetMin(int[] arr)
         {
-            return (int)np.min(arr).GetItem(0);
+            int lowNum = int.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal uint GetMin(uint[] arr)
         {
-            return (uint)np.min(arr).GetItem(0);
+            uint lowNum = uint.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal short GetMin(short[] arr)
         {
-            return (short)np.min(arr).GetItem(0);
+            short lowNum = short.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal ushort GetMin(ushort[] arr)
         {
-            return (ushort)np.min(arr).GetItem(0);
+            ushort lowNum = ushort.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal sbyte GetMin(sbyte[] arr)
         {
-            return (sbyte)np.min(arr).GetItem(0);
+            sbyte lowNum = sbyte.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal byte GetMin(byte[] arr)
         {
-            return (byte)np.min(arr).GetItem(0);
+            byte lowNum = byte.MaxValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < lowNum)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
         internal bool GetMin(bool[] arr)
         {
-            return (bool)np.min(arr).GetItem(0);
+            bool lowNum = true;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == false)
+                    lowNum = arr[i];
+            }
+            return lowNum;
         }
 
-        internal double GetAverage(double[] arr)
+        internal double GetAverage(double[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(long[] arr)
+        internal double GetAverage(long[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(ulong[] arr)
+        internal double GetAverage(ulong[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(int[] arr)
+        internal double GetAverage(int[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(uint[] arr)
+        internal double GetAverage(uint[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(short[] arr)
+        internal double GetAverage(short[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(ushort[] arr)
+        internal double GetAverage(ushort[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(sbyte[] arr)
+        internal double GetAverage(sbyte[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(byte[] arr)
+        internal double GetAverage(byte[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a;
+            }
+
+            return total / array.Length;
         }
-        internal double GetAverage(bool[] arr)
+        internal double GetAverage(bool[] array)
         {
-            return (double)np.average(arr).GetItem(0);
+            double total = 0;
+
+            foreach (var a in array)
+            {
+                total += a == true ? 1 : 0;
+            }
+
+            return total / array.Length;
         }
 
     }
@@ -334,73 +483,6 @@ namespace RandomnessDistributionsUnitTest
 
     public static class Extensions
     {
-        private static double Average(this sbyte[] array)
-        {
-            double total = 0;
-
-            foreach (var a in array)
-            {
-                total += a;
-            }
-
-            return total / array.Length;
-        }
-        private static double Average(this byte[] array)
-        {
-            double total = 0;
-
-            foreach (var a in array)
-            {
-                total += a;
-            }
-
-            return total / array.Length;
-        }
-        private static double Average(this Int16[] array)
-        {
-            double total = 0;
-
-            foreach (var a in array)
-            {
-                total += a;
-            }
-
-            return total / array.Length;
-        }
-        private static double Average(this UInt16[] array)
-        {
-            double total = 0;
-
-            foreach (var a in array)
-            {
-                total += a;
-            }
-
-            return total / array.Length;
-        }
-        private static double Average(this UInt32[] array)
-        {
-            double total = 0;
-
-            foreach (var a in array)
-            {
-                total += a;
-            }
-
-            return total / array.Length;
-        }
-        private static double Average(this UInt64[] array)
-        {
-            double total = 0;
-
-            foreach (var a in array)
-            {
-                total += a;
-            }
-
-            return total / array.Length;
-        }
-
         public static sbyte[] FirstTen(this sbyte[] array)
         {
             sbyte[] firstTen = new sbyte[Math.Min(10, array.Length)];
