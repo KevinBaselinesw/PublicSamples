@@ -80,6 +80,30 @@ namespace RandomnessDistributionsUnitTest
             }
         }
 
+        internal Int32[] arange_Int32(int start, int end)
+        {
+            Int32[] buffer = new int[end - start];
+
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = i + start;
+            }
+
+            return buffer;
+        }
+
+        internal double[] arange_Float64(int start, int end)
+        {
+            double[] buffer = new double[end - start];
+
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = (double)(i + start);
+            }
+
+            return buffer;
+        }
+
 
     }
 

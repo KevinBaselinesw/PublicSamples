@@ -467,12 +467,12 @@ namespace RandomnessDistributionsUnitTest
         {
             var random = new RandomDistributions.random();
             random.seed(1964);
-            var arr = np.arange(10).AsInt32Array();
+            var arr = arange_Int32(0, 10);
             random.shuffle(arr);
             print(arr);
             AssertArray(arr, new Int32[] { 2, 9, 3, 6, 1, 7, 5, 0, 4, 8 });
 
-            arr = np.arange(10).AsInt32Array();
+            arr = arange_Int32(0, 10);
             print(arr);
 
             random.shuffle(arr);
@@ -490,7 +490,7 @@ namespace RandomnessDistributionsUnitTest
             print(arr);
             AssertArray(arr, new Int32[] { 6, 7, 4, 5, 1, 2, 9, 0, 8, 3 });
 
-            arr = random.permutation(np.arange(5).AsInt32Array());
+            arr = random.permutation(arange_Int32(0, 5));
             print(arr);
             AssertArray(arr, new Int32[] { 2, 3, 1, 0, 4 });
 
@@ -504,10 +504,10 @@ namespace RandomnessDistributionsUnitTest
             var random = new RandomDistributions.random();
             random.seed(5566);
 
-            var a = np.arange(1, 11, dtype: np.Float64);
-            var b = np.arange(1, 11, dtype: np.Float64);
+            var a = arange_Float64(1, 11);
+            var b = arange_Float64(1, 11);
 
-            var arr = random.beta(b.AsDoubleArray(), b.AsDoubleArray(), size:10);
+            var arr = random.beta(b, b, size:10);
             Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
             print(arr);
 
@@ -586,7 +586,7 @@ namespace RandomnessDistributionsUnitTest
               3.7142340997291, 0.137140658434128, 1.69505253573874, 1.5675310912308, 3.1550000636764 });
 
 
-            arr = random.chisquare(np.arange(1, (25 * 25) + 1, dtype: np.Float64).AsDoubleArray(), (25 * 25));
+            arr = random.chisquare(arange_Float64(1, (25 * 25) + 1), (25 * 25));
 
             amax = arr.Max();
             print(amax);
@@ -608,7 +608,7 @@ namespace RandomnessDistributionsUnitTest
 
         }
 
-        [Ignore("This requires multi-dimensional arrays.  Use numpydotnet if you need this function")]
+        [Ignore("This requires multi-dimensional arrays.  Use numpydotnet if you need this function.")]
         [TestMethod]
         public void test_rand_dirichlet_1()
         {
@@ -1575,7 +1575,7 @@ namespace RandomnessDistributionsUnitTest
               22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
 
 
-            arr = random.noncentral_chisquare(np.arange(1, (25 * 25) + 1, dtype: np.Float64).AsDoubleArray(), 25 * 25);
+            arr = random.noncentral_chisquare(arange_Float64(1, (25 * 25) + 1), 25 * 25);
 
             amax = np.amax(arr);
             print(amax);
@@ -2582,7 +2582,7 @@ namespace RandomnessDistributionsUnitTest
             //  22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
 
 
-            arr = random.vonmises(np.arange(1, (25 * 25) + 1, dtype:np.Float64).AsDoubleArray(), 25 * 25);
+            arr = random.vonmises(arange_Float64(1, (25 * 25) + 1), 25 * 25);
 
             amax = np.amax(arr);
             print(amax);
@@ -2632,7 +2632,7 @@ namespace RandomnessDistributionsUnitTest
               5.25349661810997, 4.0632949031683, 3.43307360806721, 5.10604488857464, 2.87984364192777  });
 
 
-            arr = random.wald(np.arange(1, (25 * 25) + 1, dtype: np.Float64).AsDoubleArray(), 25 * 25);
+            arr = random.wald(arange_Float64(1, (25 * 25) + 1), 25 * 25);
 
             amax = np.amax(arr);
             print(amax);
@@ -2682,7 +2682,7 @@ namespace RandomnessDistributionsUnitTest
               0.936599096578893, 0.798344330459658, 0.870912076415209, 1.05590855634161, 1.08944476675504 });
 
 
-            arr = random.weibull(np.arange(1, (25 * 25) + 1, dtype: np.Float64).AsDoubleArray(), (25 * 25));
+            arr = random.weibull(arange_Float64(1, (25 * 25) + 1), (25 * 25));
 
             amax = np.amax(arr);
             print(amax);
@@ -2730,7 +2730,7 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(first10, new long[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
 
 
-            arr = random.zipf(np.arange(2, (25 * 25) + 2, dtype: np.Float64).AsDoubleArray(), (25 * 25));
+            arr = random.zipf(arange_Float64(2, (25 * 25) + 2), (25 * 25));
 
             amax = np.amax(arr);
             print(amax);
