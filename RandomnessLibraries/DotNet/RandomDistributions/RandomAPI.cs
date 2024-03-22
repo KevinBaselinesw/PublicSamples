@@ -950,11 +950,16 @@ namespace RandomDistributions
    
             return discdd_array(internal_state, RandomDistributions.rk_negative_binomial, size, on, op);
         }
- 
+
 
         #endregion
 
         #region chisquare
+
+        public double[] chisquare(double df, long size = 0)
+        {
+            return chisquare(new double[] { df }, size);
+        }
 
         public double[] chisquare(double []odf, long size = 0)
         {
@@ -1076,6 +1081,10 @@ namespace RandomDistributions
         #endregion
 
         #region f distribution
+        public double[] f(double dfnum, double dfden, long size = 0)
+        {
+            return f(new double[] {dfnum}, new double[]{ dfden}, size);
+        }
 
         public double[] f(double[] odfnum, double[] odfden, long size = 0)
         {
@@ -1769,10 +1778,10 @@ namespace RandomDistributions
         {
             double[] array_data;
 
-            if (oa.Length != ob.Length)
-            {
-                throw new ArgumentException("oa and ob must be the same length array");
-            }
+            //if (oa.Length != ob.Length)
+            //{
+            //    throw new ArgumentException("oa and ob must be the same length array");
+            //}
 
             if (size == 0)
             {
@@ -1788,10 +1797,17 @@ namespace RandomDistributions
 
                 array_data = new double[size];
             }
-             
+
+
+            int oa_index = 0;
+            int ob_index = 0;
             for (int i = 0; i < size; i++)
             {
-                array_data[i] = func(state, oa[i], ob[i]);
+                array_data[i] = func(state, oa[oa_index++], ob[ob_index++]);
+                if (oa_index >= oa.Length)
+                    oa_index = 0;
+                if (ob_index >= ob.Length)
+                    ob_index = 0;
             }
 
             return array_data;

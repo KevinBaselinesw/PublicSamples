@@ -80,6 +80,7 @@ namespace RandomnessDistributionsUnitTest
             }
         }
 
+
     }
 
 
@@ -154,62 +155,62 @@ namespace RandomnessDistributionsUnitTest
 
         public static sbyte[] FirstTen(this sbyte[] array)
         {
-            sbyte[] firstTen = new sbyte[10];
-            Array.Copy(array, firstTen, 10);
+            sbyte[] firstTen = new sbyte[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static byte[] FirstTen(this byte[] array)
         {
-            byte[] firstTen = new byte[10];
-            Array.Copy(array, firstTen, 10);
+            byte[] firstTen = new byte[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static Int16[] FirstTen(this Int16[] array)
         {
-            Int16[] firstTen = new Int16[10];
-            Array.Copy(array, firstTen, 10);
+            Int16[] firstTen = new Int16[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static UInt16[] FirstTen(this UInt16[] array)
         {
-            UInt16[] firstTen = new UInt16[10];
-            Array.Copy(array, firstTen, 10);
+            UInt16[] firstTen = new UInt16[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static Int32[] FirstTen(this Int32[] array)
         {
-            Int32[] firstTen = new Int32[10];
-            Array.Copy(array, firstTen, 10);
+            Int32[] firstTen = new Int32[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static UInt32[] FirstTen(this UInt32[] array)
         {
-            UInt32[] firstTen = new UInt32[10];
-            Array.Copy(array, firstTen, 10);
+            UInt32[] firstTen = new UInt32[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static Int64[] FirstTen(this Int64[] array)
         {
-            Int64[] firstTen = new Int64[10];
-            Array.Copy(array, firstTen, 10);
+            Int64[] firstTen = new Int64[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static UInt64[] FirstTen(this UInt64[] array)
         {
-            UInt64[] firstTen = new UInt64[10];
-            Array.Copy(array, firstTen, 10);
+            UInt64[] firstTen = new UInt64[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static float[] FirstTen(this float[] array)
         {
-            float[] firstTen = new float[10];
-            Array.Copy(array, firstTen, 10);
+            float[] firstTen = new float[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
         public static double[] FirstTen(this double[] array)
         {
-            double[] firstTen = new double[10];
-            Array.Copy(array, firstTen, 10);
+            double[] firstTen = new double[Math.Min(10, array.Length)];
+            Array.Copy(array, firstTen, firstTen.Length);
             return firstTen;
         }
 
