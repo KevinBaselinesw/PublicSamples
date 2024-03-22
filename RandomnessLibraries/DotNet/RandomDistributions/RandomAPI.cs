@@ -979,6 +979,16 @@ namespace RandomDistributions
             return cont1_array(internal_state, RandomDistributions.rk_chisquare, size, odf);
         }
 
+        public double[] noncentral_chisquare(double []odf, double ononc, long size = 0)
+        {
+            return noncentral_chisquare( odf, new double[] { ononc }, size);
+        }
+
+        public double[] noncentral_chisquare(double odf, double ononc, long size = 0)
+        {
+            return noncentral_chisquare(new double[] { odf }, new double[] { ononc }, size);
+        } 
+
         public double[] noncentral_chisquare(double[] odf, double[] ononc, long size = 0)
         {
             ValidateSize(size);
@@ -1103,9 +1113,14 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_f, size, odfnum, odfden);
         }
 
-#endregion
+        #endregion
 
-#region gamma
+        #region gamma
+
+        public double[] gamma(double shape, double scale, long size = 0)
+        {
+            return gamma(new double[] { shape }, new double[] { scale }, size);
+        }
 
         public double[] gamma(double[] oshape, double[] oscale, long size = 0)
         {
@@ -1125,9 +1140,14 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_gamma, size, oshape, oscale);
         }
 
-#endregion
+        #endregion
 
-#region geometric
+        #region geometric
+
+        public long[] geometric(double op, long size = 0)
+        {
+            return geometric(new double[] { op }, size);
+        }
 
         public long[] geometric(double[] op, long size = 0)
         {
@@ -1149,9 +1169,24 @@ namespace RandomDistributions
 
 
 
-#endregion
+        #endregion
 
-#region gumbel
+        #region gumbel
+
+        public double[] gumbel(double[] oloc, double oscale, long size = 0)
+        {
+            return gumbel(oloc, new double[] { oscale }, size);
+        }
+
+        public double[] gumbel(double oloc, double[] oscale = null, long size = 0)
+        {
+            return gumbel(new double[] { oloc }, oscale, size);
+        }
+
+        public double[] gumbel(double oloc, double oscale, long size = 0)
+        {
+            return gumbel(new double[] { oloc }, new double[] { oscale }, size);
+        }
 
         public double[] gumbel(double[] oloc, double[] oscale = null, long size = 0)
         {
@@ -1172,9 +1207,14 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_gumbel, size, oloc, oscale);
         }
 
-#endregion
+        #endregion
 
-#region hypergeometric
+        #region hypergeometric
+
+        public long[] hypergeometric(long ongood, long onbad, long onsample, long size = 0)
+        {
+            return hypergeometric(new long[] { ongood }, new long[] { onbad }, new long[] { onsample }, size);
+        }
 
         public long[] hypergeometric(long[] ongood, long[] onbad, long[] onsample, long size = 0)
         {
@@ -1189,17 +1229,31 @@ namespace RandomDistributions
 
             if (ongood.Length == 1 && onbad.Length == 1 && onsample.Length == 1)
             {
-  
                 return discnmN_array_sc(internal_state, RandomDistributions.rk_hypergeometric, size, ongood[0], onbad[0], onsample[0]);
             }
 
             return discnmN_array(internal_state, RandomDistributions.rk_hypergeometric, size, ongood, onbad, onsample);
         }
 
-  
+
         #endregion
 
         #region laplace
+
+        public double[] laplace(double oloc, double oscale, long size = 0)
+        {
+            return laplace(new double[] { oloc }, new double[] { oscale }, size);
+        }
+
+        public double[] laplace(double []oloc, double oscale, long size = 0)
+        {
+            return laplace(oloc, new double[] { oscale }, size);
+        }
+
+        public double[] laplace(double oloc, double[] oscale = null, long size = 0)
+        {
+            return laplace(new double[] { oloc }, oscale, size);
+        }
 
         public double[] laplace(double []oloc, double[]oscale = null, long size = 0)
         {
@@ -1217,9 +1271,24 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_laplace, size, oloc, oscale);
         }
 
-#endregion
+        #endregion
 
-#region logistic
+        #region logistic
+
+        public double[] logistic(double oloc, double oscale, long size = 0)
+        {
+            return logistic(new double[] { oloc }, new double[] { oscale }, size);
+        }
+
+        public double[] logistic(double[] oloc, double oscale, long size = 0)
+        {
+            return logistic(oloc, new double[] { oscale }, size);
+        }
+
+        public double[] logistic(double oloc)
+        {
+            return logistic(new double[] { oloc }, null, 0);
+        }
 
         public double[] logistic(double[] oloc, double[] oscale = null, long size = 0)
         {
@@ -1238,9 +1307,19 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_logistic, size, oloc, oscale);
         }
 
-#endregion
+        #endregion
 
-#region lognormal
+        #region lognormal
+
+        public double[] lognormal(double omean, double osigma, long size = 0)
+        {
+            return lognormal(new double[] { omean }, new double[] { osigma }, size);
+        }
+
+        public double[] lognormal(double[] omean, double osigma, long size = 0)
+        {
+            return lognormal(omean, new double[] { osigma }, size);
+        }
 
         public double[] lognormal(double[] omean, double[] osigma, long size = 0)
         {
@@ -1257,9 +1336,14 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_lognormal, size, omean, osigma);
         }
 
-#endregion
+        #endregion
 
-#region logseries
+        #region logseries
+
+        public long[] logseries(double op, long size = 0)
+        {
+            return logseries(new double[] { op }, size);
+        }
 
         public long[] logseries(double[] op, long size = 0)
         {
@@ -1273,7 +1357,7 @@ namespace RandomDistributions
 
             if (op.Length == 1)
             {
-                  return discd_array_sc(internal_state, RandomDistributions.rk_logseries, size, op[0]);
+                return discd_array_sc(internal_state, RandomDistributions.rk_logseries, size, op[0]);
             }
 
             return discd_array(internal_state, RandomDistributions.rk_logseries, size, op);
@@ -1294,7 +1378,7 @@ namespace RandomDistributions
                 throw new ArgumentOutOfRangeException("sum(pvals[:-1]) > 1.0");
             }
 
-            var multin = new long[size];
+            var multin = new long[size != 0 ? size*d : d];
             long[] mnix = multin;
             long sz = multin.Length;
 
@@ -1322,9 +1406,21 @@ namespace RandomDistributions
             return multin;
         }
 
-#endregion
+        #endregion
 
-#region noncentral_f
+        #region noncentral_f
+
+        public double[] noncentral_f(double odfnum, double odfden, double ononc, long size = 0)
+        {
+            return noncentral_f(new double[] { odfnum }, new double[] { odfden }, new double[] { ononc }, size);
+        }
+
+
+        public double[] noncentral_f(double[] odfnum, double odfden, double ononc, long size = 0)
+        {
+            return noncentral_f(odfnum, new double[] { odfden}, new double[] { ononc}, size);
+        }
+
         public double[] noncentral_f(double[] odfnum, double[] odfden, double[] ononc, long size = 0)
         {
 
@@ -1346,9 +1442,19 @@ namespace RandomDistributions
         }
 
 
-#endregion
+        #endregion
 
-#region normal
+        #region normal
+
+        public double[] normal(double oloc, double oscale, long size = 0)
+        {
+            return normal(new double[] { oloc }, new double[] { oscale }, size);
+        }
+
+        public double[] normal(double[] oloc, double oscale, long size = 0)
+        {
+            return normal(oloc, new double[] { oscale }, size);
+        }
 
         public double[] normal(double[] oloc, double[] oscale, long size = 0)
         {
@@ -1777,12 +1883,7 @@ namespace RandomDistributions
         private double[] cont2_array(rk_state state, Func<rk_state, double, double, double> func, long size, double[] oa, double[] ob)
         {
             double[] array_data;
-
-            //if (oa.Length != ob.Length)
-            //{
-            //    throw new ArgumentException("oa and ob must be the same length array");
-            //}
-
+  
             if (size == 0)
             {
                 array_data = new double[oa.Length];
@@ -1837,50 +1938,32 @@ namespace RandomDistributions
 
         private double[] cont3_array(rk_state state, Func<rk_state, double, double, double, double> func, long size, double[] oa, double[] ob, double[] oc)
         {
-            return new double[size];
-            //broadcast multi;
-            //ndarray array;
-            //double[] array_data;
+            double[] array_data;
 
-            //if (size == null)
-            //{
-            //    multi = np.broadcast(oa, ob, oc);
-            //    array = np.empty(multi.shape, dtype: np.Float64);
-            //}
-            //else
-            //{
-            //    array = np.empty(new shape(size), dtype: np.Float64);
-            //    multi = np.broadcast(oa, ob, oc, array);
-            //    if (multi.shape != array.shape)
-            //    {
-            //        throw new ValueError("size is not compatible with inputs");
-            //    }
-            //}
+            if (size == 0)
+            {
+                array_data = new double[oa.Length];
+            }
+            else
+            {
+                array_data = new double[size];
+            }
 
-            //array_data = array.Array.data.datap as double[];
+            int oa_index = 0;
+            int ob_index = 0;
+            int oc_index = 0;
+            for (int i = 0; i < array_data.Length; i++)
+            {
+                array_data[i] = func(state, oa[oa_index++], ob[ob_index++], oc[oc_index++]);
+                if (oa_index >= oa.Length)
+                    oa_index = 0;
+                if (ob_index >= ob.Length)
+                    ob_index = 0;
+                if (oc_index >= oc.Length)
+                    oc_index = 0;
+            }
 
-            //VoidPtr vpoa = multi.IterData(0);
-            //VoidPtr vpob = multi.IterData(1);
-            //VoidPtr vpoc = multi.IterData(2);
-
-
-            //double[] oa_data = multi.IterData(0).datap as double[];
-            //double[] ob_data = multi.IterData(1).datap as double[];
-            //double[] oc_data = multi.IterData(2).datap as double[];
-
-            //for (int i = 0; i < multi.size; i++)
-            //{
-            //    vpoa = multi.IterData(0);
-            //    vpob = multi.IterData(1);
-            //    vpoc = multi.IterData(2);
-
-            //    array_data[i] = func(state, oa_data[vpoa.data_offset >> double_divsize],
-            //                                ob_data[vpob.data_offset >> double_divsize],
-            //                                oc_data[vpoc.data_offset >> double_divsize]);
-            //    multi.IterNext();
-            //}
-
-            //return np.array(array_data);
+            return array_data;
         }
 
 
@@ -1892,25 +1975,21 @@ namespace RandomDistributions
             if (size == 0)
             {
                 array_data = new long[oa.Length];
-
-                for (int i = 0; i < oa.Length; i++)
-                {
-                    array_data[i] = func(state, oa[i]);
-                }
-
-                return array_data;
             }
             else
             {
                 array_data = new long[size];
-
-                for (int i = 0; i < oa.Length; i++)
-                {
-                    array_data[i] = func(state, oa[i]);
-                }
-
-                return array_data;
             }
+
+            int oa_index = 0;
+            for (int i = 0; i < array_data.Length; i++)
+            {
+                array_data[i] = func(state, oa[oa_index++]);
+                if (oa_index >= oa.Length)
+                    oa_index = 0;
+            }
+
+            return array_data;
 
         }
 
@@ -1934,45 +2013,31 @@ namespace RandomDistributions
 
         private long[] discnp_array(rk_state state, Func<rk_state, long, double, long> func, long size, long[] on, double[] op)
         {
-            return new long[size];
-
-            //broadcast multi;
-            //ndarray array;
-            //long[] array_data;
-
-            //if (size == null)
-            //{
-            //    multi = np.broadcast(on, op);
-            //    array = np.empty(multi.shape, dtype: np.long);
-            //}
-            //else
-            //{
-            //    array = np.empty(new shape(size), dtype: np.long);
-            //    multi = np.broadcast(on, op, array);
-            //    if (multi.shape != array.shape)
-            //    {
-            //        throw new ValueError("size is not compatible with inputs");
-            //    }
-            //}
-
-            //array_data = array.AsInt64Array();
-
-            //VoidPtr vpon = multi.IterData(0);
-            //VoidPtr vpop = multi.IterData(1);
+            long[] array_data;
 
 
-            //long[] on_data = multi.IterData(0).datap as long[];
-            //double[] op_data = multi.IterData(1).datap as double[];
+            if (size == 0)
+            {
+                array_data = new long[on.Length];
+            }
+            else
+            {
+                array_data = new long[size];
+            }
 
-            //for (int i = 0; i < multi.size; i++)
-            //{
-            //    vpon = multi.IterData(0);
-            //    vpop = multi.IterData(1);
-            //    array_data[i] = func(state, on_data[vpon.data_offset >> long_divsize], op_data[vpop.data_offset >> double_divsize]);
-            //    multi.IterNext();
-            //}
+            int on_index = 0;
+            int op_index = 0;
+            for (int i = 0; i < array_data.Length; i++)
+            {
+                array_data[i] = func(state, on[on_index++], op[op_index++]);
+                if (on_index >= on.Length)
+                    on_index = 0;
+                if (op_index >= op.Length)
+                    op_index = 0;
+            }
 
-            //return np.array(array_data);
+            return array_data;
+
         }
 
         private long[] discnp_array_sc(rk_state state, Func<rk_state, long, double, long> func, long size, long n, double p)
@@ -1995,44 +2060,30 @@ namespace RandomDistributions
 
         private long[] discdd_array(rk_state state, Func<rk_state, double, double, long> func, long size, long[] on, double[] op)
         {
-            return new long[size];
-            //broadcast multi;
-            //ndarray array;
-            //long[] array_data;
+            long[] array_data;
 
-            //if (size == null)
-            //{
-            //    multi = np.broadcast(on, op);
-            //    array = np.empty(multi.shape, dtype: np.long);
-            //}
-            //else
-            //{
-            //    array = np.empty(new shape(size), dtype: np.long);
-            //    multi = np.broadcast(on, op, array);
-            //    if (multi.shape != array.shape)
-            //    {
-            //        throw new ValueError("size is not compatible with inputs");
-            //    }
-            //}
+            if (size == 0)
+            {
+                array_data = new long[on.Length];
+            }
+            else
+            {
+                array_data = new long[size];
+            }
 
-            //array_data = array.AsInt64Array();
+            int on_index = 0;
+            int op_index = 0;
+            for (int i = 0; i < array_data.Length; i++)
+            {
+                array_data[i] = func(state, on[on_index++], op[op_index++]);
+                if (on_index >= on.Length)
+                    on_index = 0;
+                if (op_index >= op.Length)
+                    op_index = 0;
+            }
 
-            //VoidPtr vpon = multi.IterData(0);
-            //VoidPtr vpop = multi.IterData(1);
+            return array_data;
 
-
-            //long[] on_data = multi.IterData(0).datap as long[];
-            //double[] op_data = multi.IterData(1).datap as double[];
-
-            //for (int i = 0; i < multi.size; i++)
-            //{
-            //    vpon = multi.IterData(0);
-            //    vpop = multi.IterData(1);
-            //    array_data[i] = func(state, on_data[vpon.data_offset >> long_divsize], op_data[vpop.data_offset >> double_divsize]);
-            //    multi.IterNext();
-            //}
-
-            //return np.array(array_data);
         }
 
         private long [] discdd_array_sc(rk_state state, Func<rk_state, double, double, long> func, long size, long n, double p)
@@ -2054,54 +2105,34 @@ namespace RandomDistributions
         }
 
 
-
-
         private long[] discnmN_array(rk_state state, Func<rk_state, long, long, long, long> func, long size, long[] on, long[] om, long[] oN)
         {
-            return new long[size];
-            //broadcast multi;
-            //ndarray array;
-            //long[] array_data;
+            long[] array_data;
 
-            //if (size == null)
-            //{
-            //    multi = np.broadcast(on, om, oN);
-            //    array = np.empty(multi.shape, dtype: np.Int32);
-            //}
-            //else
-            //{
-            //    array = np.empty(new shape(size), dtype: np.Int32);
-            //    multi = np.broadcast(on, om, oN, array);
-            //    if (multi.shape != array.shape)
-            //    {
-            //        throw new ValueError("size is not compatible with inputs");
-            //    }
-            //}
+            if (size == 0)
+            {
+                array_data = new long[on.Length];
+            }
+            else
+            {
+                array_data = new long[size];
+            }
 
-            //array_data = array.AsInt64Array();
+            int on_index = 0;
+            int om_index = 0;
+            int oN_index = 0;
+            for (int i = 0; i < array_data.Length; i++)
+            {
+                array_data[i] = func(state, on[on_index++], om[om_index++], oN[oN_index++]);
+                if (on_index >= on.Length)
+                    on_index = 0;
+                if (om_index >= om.Length)
+                    om_index = 0;
+                if (oN_index >= oN.Length)
+                    oN_index = 0;
+            }
 
-            //VoidPtr vpon = multi.IterData(0);
-            //VoidPtr vpom = multi.IterData(1);
-            //VoidPtr vpoN = multi.IterData(2);
-
-
-            //long[] on_data = multi.IterData(0).datap as long[];
-            //long[] om_data = multi.IterData(1).datap as long[];
-            //long[] oN_data = multi.IterData(2).datap as long[];
-
-            //for (int i = 0; i < multi.size; i++)
-            //{
-            //    vpon = multi.IterData(0);
-            //    vpom = multi.IterData(1);
-            //    vpoN = multi.IterData(2);
-
-            //    array_data[i] = func(state, on_data[vpon.data_offset >> long_divsize],
-            //                                om_data[vpom.data_offset >> long_divsize],
-            //                                oN_data[vpoN.data_offset >> long_divsize]);
-            //    multi.IterNext();
-            //}
-
-            //return np.array(array_data);
+            return array_data;
         }
 
         private long[] discnmN_array_sc(rk_state state, Func<rk_state, long, long, long, long> func, long size, long n, long m, long N)
@@ -2246,9 +2277,12 @@ namespace RandomDistributions
         {
             long[] sum = new long[arr1.Length];
 
+            int arr2_index = 0;
             for (int i = 0; i < arr1.Length; i++)
             {
-                sum[i] = arr1[i] + arr2[i];
+                sum[i] = arr1[i] + arr2[arr2_index++];
+                if (arr2_index >= arr2.Length)
+                    arr2_index = 0;
             }
 
             return sum;
