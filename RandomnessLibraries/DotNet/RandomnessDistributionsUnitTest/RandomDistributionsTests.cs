@@ -2554,5 +2554,202 @@ namespace RandomnessDistributionsUnitTest
 
         }
 
+        [TestMethod]
+        public void test_rand_vonmises_1()
+        {
+            var random = new RandomDistributions.random();
+
+            random.seed(909);
+
+            var arr = random.vonmises(0.0, 4.0, (100000));
+
+            var amax = np.amax(arr);
+            print(amax);
+            //Assert.AreEqual(2.966642390532069, amax.GetItem(0));
+
+            var amin = np.amin(arr);
+            print(amin);
+            //Assert.AreEqual(-3.1288073003877273, amin.GetItem(0));
+
+            var avg = np.average(arr);
+            print(avg);
+            //Assert.AreEqual(0.001468156147666098, avg.GetItem(0));
+
+            var first10 = arr.FirstTen();
+            print(first10);
+            //AssertArray(first10, new double[]
+            //{ 32.507966101474, 29.5670038054405, 35.4646231172001, 48.8509128727834, 13.8878542193038,
+            //  22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
+
+
+            arr = random.vonmises(np.arange(1, (25 * 25) + 1, dtype:np.Float64).AsDoubleArray(), 25 * 25);
+
+            amax = np.amax(arr);
+            print(amax);
+            //Assert.AreEqual(3.1128949170937865, amax.GetItem(0));
+
+            amin = np.amin(arr);
+            print(amin);
+            //Assert.AreEqual(-3.141056472523122, amin.GetItem(0));
+
+            avg = np.average(arr);
+            print(avg);
+            //Assert.AreEqual(0.004769515035667695, avg.GetItem(0));
+
+            first10 = arr.FirstTen();
+            print(first10);
+            //AssertArray(first10, new double[]
+            //{ 693.625713231652, 667.317783374469, 628.424318152006, 585.208004459504, 758.222190671585,
+            //  611.122162793199, 659.549979398019, 611.408655748793, 689.18666064001, 657.624462137622 });
+
+        }
+
+        [TestMethod]
+        public void test_rand_wald_1()
+        {
+            var random = new RandomDistributions.random();
+
+            random.seed(964);
+
+            var arr = random.wald(3, 20, (100000));
+
+            var amax = np.amax(arr);
+            print(amax);
+            Assert.AreEqual(12.349279351617012, amax.GetItem(0));
+
+            var amin = np.amin(arr);
+            print(amin);
+            Assert.AreEqual(0.6001989474303744, amin.GetItem(0));
+
+            var avg = np.average(arr);
+            print(avg);
+            Assert.AreEqual(3.0025012751386755, avg.GetItem(0));
+
+            var first10 = arr.FirstTen();
+            print(first10);
+            AssertArray(first10, new double[]
+            { 5.03038470107277, 2.90812891815563, 1.80122277240371, 2.88227044267389, 2.36018483421244,
+              5.25349661810997, 4.0632949031683, 3.43307360806721, 5.10604488857464, 2.87984364192777  });
+
+
+            arr = random.wald(np.arange(1, (25 * 25) + 1, dtype: np.Float64).AsDoubleArray(), 25 * 25);
+
+            amax = np.amax(arr);
+            print(amax);
+            Assert.AreEqual(2928.8874732379727, amax.GetItem(0));
+
+            amin = np.amin(arr);
+            print(amin);
+            Assert.AreEqual(0.9848685492507449, amin.GetItem(0));
+
+            avg = np.average(arr);
+            print(avg);
+            Assert.AreEqual(309.35420489337906, avg.GetItem(0));
+
+            first10 = arr.FirstTen();
+            print(first10);
+            AssertArray(first10, new double[]
+            { 0.984868549250745, 1.96127772419652, 2.99050918468426, 4.17290733434684, 5.07438725183429,
+              6.01195019448229, 7.48340958133606, 8.07272756076527, 11.1740022984504, 11.024796322117});
+
+        }
+
+        [TestMethod]
+        public void test_rand_weibull_1()
+        {
+            var random = new RandomDistributions.random();
+
+            random.seed(974);
+
+            var arr = random.weibull(5, (100000));
+
+            var amax = np.amax(arr);
+            print(amax);
+            Assert.AreEqual(1.6435302608550746, amax.GetItem(0));
+
+            var amin = np.amin(arr);
+            print(amin);
+            Assert.AreEqual(0.07812030376364504, amin.GetItem(0));
+
+            var avg = np.average(arr);
+            print(avg);
+            Assert.AreEqual(0.91828955683190416, avg.GetItem(0));
+
+            var first10 = arr.FirstTen();
+            print(first10);
+            AssertArray(first10, new double[]
+            { 0.802382756919613, 0.846126922902903, 0.849922504835084, 1.00496226793646, 1.24355344592726,
+              0.936599096578893, 0.798344330459658, 0.870912076415209, 1.05590855634161, 1.08944476675504 });
+
+
+            arr = random.weibull(np.arange(1, (25 * 25) + 1, dtype: np.Float64).AsDoubleArray(), (25 * 25));
+
+            amax = np.amax(arr);
+            print(amax);
+            Assert.AreEqual(1.13239084970226, amax.GetItem(0));
+
+            amin = np.amin(arr);
+            print(amin);
+            Assert.AreEqual(0.3435024689351767, amin.GetItem(0));
+
+            avg = np.average(arr);
+            print(avg);
+            Assert.AreEqual(0.99456850758012483, avg.GetItem(0));
+
+            first10 = arr.FirstTen();
+            print(first10);
+            AssertArray(first10, new double[]
+            { 0.343502468935177, 1.07141491719323, 1.11355099054115, 0.599151817962907, 0.745122210078631,
+              1.13239084970226, 0.897388933089434, 0.945279231187368, 0.915902530093467, 1.13094361305955 });
+
+        }
+
+        [TestMethod]
+        public void test_rand_zipf_1()
+        {
+            var random = new RandomDistributions.random();
+
+            random.seed(979);
+
+            var arr = random.zipf(5.2, (100000));
+
+            var amax = np.amax(arr);
+            print(amax);
+            Assert.AreEqual((long)9, amax.GetItem(0));
+
+            var amin = np.amin(arr);
+            print(amin);
+            Assert.AreEqual((long)1, amin.GetItem(0));
+
+            var avg = np.average(arr);
+            print(avg);
+            Assert.AreEqual(1.03708, avg.GetItem(0));
+
+            var first10 = arr.FirstTen();
+            print(first10);
+            AssertArray(first10, new long[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
+
+
+            arr = random.zipf(np.arange(2, (25 * 25) + 2, dtype: np.Float64).AsDoubleArray(), (25 * 25));
+
+            amax = np.amax(arr);
+            print(amax);
+            Assert.AreEqual((long)2, amax.GetItem(0));
+
+            amin = np.amin(arr);
+            print(amin);
+            Assert.AreEqual((long)1, amin.GetItem(0));
+
+            avg = np.average(arr);
+            print(avg);
+            Assert.AreEqual(1.0016, avg.GetItem(0));
+
+            first10 = arr.FirstTen();
+            print(first10);
+            AssertArray(first10, new long[] { 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
+
+
+        }
+
     }
 }

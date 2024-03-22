@@ -1728,7 +1728,14 @@ namespace RandomDistributions
         #endregion
 
         #region vonmises
-
+        public double[] vonmises(double omu, double okappa, long size = 0)
+        {
+            return vonmises(new double[] { omu }, new double[] { okappa }, size);
+        }
+        public double[] vonmises(double[] omu, double okappa, long size = 0)
+        {
+            return vonmises(omu, new double[] { okappa }, size);
+        }
         public double [] vonmises(double [] omu, double[] okappa, long size = 0)
         {
             if (any_less(okappa, 0.0))
@@ -1742,10 +1749,17 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_vonmises, size, omu, okappa);
         }
 
-#endregion
+        #endregion
 
-#region wald
-
+        #region wald
+        public double[] wald(double omean, double oscale, long size = 0)
+        {
+            return wald(new double[] { omean }, new double[] { oscale }, size);
+        }
+        public double[] wald(double[] omean, double oscale, long size = 0)
+        {
+            return wald(omean, new double[] { oscale }, size);
+        }
         public double [] wald(double [] omean, double[] oscale, long size = 0)
         {
             if (any_less_equal(omean, 0.0))
@@ -1762,10 +1776,14 @@ namespace RandomDistributions
             return cont2_array(internal_state, RandomDistributions.rk_wald, size, omean, oscale);
         }
 
-#endregion
+        #endregion
 
-#region weibull
+        #region weibull
 
+        public double[] weibull(double oa, long size = 0)
+        {
+            return weibull(new double[] { oa }, size);
+        }
         public double[] weibull(double [] oa, long size = 0)
         {
             if (any_signbit(oa))
@@ -1780,14 +1798,19 @@ namespace RandomDistributions
         }
 
 
-#endregion
+        #endregion
 
-#region zipf
+        #region zipf
+
+        public long[] zipf(double oa, long size = 0)
+        {
+            return zipf(new double[] { oa }, size);
+        }
 
         public long[] zipf(double[] oa, long size = 0)
         {
             // use logic that ensures NaN is rejected.
-            if (any_greater(oa, 1.0))
+            if (!any_greater(oa, 1.0))
                 throw new ArgumentOutOfRangeException("'a' must contain valid floats > 1.0");
 
             if (oa.Length == 1)
