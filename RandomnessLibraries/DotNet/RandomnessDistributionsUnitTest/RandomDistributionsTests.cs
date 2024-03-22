@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RandomDistributions;
-using System.Linq;
-using NumpyDotNet;
 
 namespace RandomnessDistributionsUnitTest
 {
@@ -24,16 +22,16 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.rand(5000000);
 
-            arr.Max();
-            var amax = arr.Max();
+            GetMax(arr);
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual(0.99999999331246381, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual(7.223258213784334e-08, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(0.49987999522694609, avg);
         }
@@ -56,15 +54,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randn(5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual(5.19094054905629, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual(-5.387212036872835, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(-0.00028345468151361842, avg);
         }
@@ -86,9 +84,9 @@ namespace RandomnessDistributionsUnitTest
             print(arr);
 
             arr = random.randbool(-2, 3, size: 5000000);
-            print(arr.Max());
-            print(arr.Min());
-            //print(arr.Average());
+            print(GetMax(arr));
+            print(GetMin(arr));
+            //print(GetAverage(arr));
         }
 
         [TestMethod]
@@ -106,15 +104,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint8(2, 8, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((sbyte)7, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((sbyte)2, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(4.4994078, avg);
 
@@ -126,15 +124,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint8(-2, 3, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
 
-            amax = arr.Max();
+            amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((sbyte)2, amax);
 
-            amin = arr.Min();
+            amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((sbyte)(-2), amin);
 
-            avg = arr.Average();
+            avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(-0.0003146, avg);
 
@@ -160,15 +158,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randuint8(2, 128, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Byte[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((byte)127, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((byte)2, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(64.5080776, avg);
 
@@ -193,15 +191,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint16(2, 2478, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Int16[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((Int16)2477, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((Int16)2, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(1239.6188784, avg);
 
@@ -213,15 +211,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint16(-2067, 3000, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Int16[]));
 
-            amax = arr.Max();
+            amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((Int16)2999, amax);
 
-            amin = arr.Min();
+            amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((Int16)(-2067), amin);
 
-            avg = arr.Average();
+            avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(466.3735356, avg);
 
@@ -246,15 +244,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randuint16(23, 12801, 5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.UInt16[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((UInt16)12800, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((UInt16)23, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(6411.5873838, avg);
 
@@ -278,15 +276,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint32(9, 128000, 5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Int32[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((Int32)127999, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((Int32)9, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(64017.8102496, avg);
 
@@ -298,15 +296,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint32(-20000, 300000, 5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Int32[]));
 
-            amax = arr.Max();
+            amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((Int32)299999, amax);
 
-            amin = arr.Min();
+            amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((Int32)(-20000), amin);
 
-            avg = arr.Average();
+            avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(139952.5096864, avg);
 
@@ -330,15 +328,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randuint32(29, 13000, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.UInt32[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((UInt32)12999, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((UInt32)29, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(6512.7336774, avg);
 
@@ -362,15 +360,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint64(20, 9999999, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((Int64)9999995, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((Int64)24, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(5000256.718873, avg);
 
@@ -382,15 +380,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randint64(-9999999, 9999999, size:5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
 
-            amax = arr.Max();
+            amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((Int64)9999994, amax);
 
-            amin = arr.Min();
+            amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((Int64)(-9999994), amin);
 
-            avg = arr.Average();
+            avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(-3134.7668014, avg);
 
@@ -415,15 +413,15 @@ namespace RandomnessDistributionsUnitTest
             arr = random.randuint64(64, 64000, 5000000);
             Assert.AreEqual(arr.GetType(), typeof(System.UInt64[]));
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual((UInt64)63999, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual((UInt64)64, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(32014.4591844, avg);
 
@@ -528,15 +526,16 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(arr, new Int64[] { 1, 0, 0, 1, 1, 1, 3, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1 });
             Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
 
-            var s = np.sum(np.array(arr) == 0);
-            Assert.AreEqual(6, s.GetItem(0));
+            var s = CountTrues(CompareArray(arr, 0));
+            Assert.AreEqual(6, s);
 
 
             arr = random.binomial(9, 0.1, size: 20000);
-            s = np.sum(np.array(arr) == 0);
-            Assert.AreEqual(7711, s.GetItem(0));
+            s = CountTrues(CompareArray(arr, 0));
+            Assert.AreEqual(7711, s);
             print(s);
         }
+
 
         [TestMethod]
         public void test_rand_negative_binomial_1()
@@ -548,13 +547,13 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(arr, new Int64[] { 8, 9, 4, 10, 8, 5, 11, 7, 21, 0, 8, 1, 7, 3, 1, 17, 4, 5, 6, 8, });
             Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
 
-            var s = np.sum(np.array(arr) == 0);
-            Assert.AreEqual(1, s.GetItem(0));
+            var s = CountTrues(CompareArray(arr, 0));
+            Assert.AreEqual(1, s);
 
 
             arr = random.negative_binomial(1, 0.1, size: 20000);
-            s = np.sum(np.array(arr) == 0);
-            Assert.AreEqual(1992, s.GetItem(0));
+            s = CountTrues(CompareArray(arr, 0));
+            Assert.AreEqual(1992, s);
             print(s);
         }
 
@@ -567,15 +566,15 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.chisquare(2, 40);
 
-            var amax = arr.Max();
+            var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual(5.375544801685989, amax);
 
-            var amin = arr.Min();
+            var amin = GetMin(arr);
             print(amin);
             Assert.AreEqual(0.08589992390559097, amin);
 
-            var avg = arr.Average();
+            var avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(1.7501237764369322, avg);
 
@@ -588,15 +587,15 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.chisquare(arange_Float64(1, (25 * 25) + 1), (25 * 25));
 
-            amax = arr.Max();
+            amax = GetMax(arr);
             print(amax);
             Assert.AreEqual(686.8423283498724, amax);
 
-            amin = arr.Min();
+            amin = GetMin(arr);
             print(amin);
             Assert.AreEqual(0.5907891154976891, amin);
 
-            avg = arr.Average();
+            avg = GetAverage(arr);
             print(avg);
             Assert.AreEqual(313.32691732965679, avg);
 
@@ -618,17 +617,17 @@ namespace RandomnessDistributionsUnitTest
 
             //var arr = random.dirichlet(new int[] { 2, 20 }, 40);
 
-            //var amax = np.amax(arr);
+            //var amax = GetMax(arr);
             //print(amax);
-            //Assert.AreEqual(0.9840840815128786, amax.GetItem(0));
+            //Assert.AreEqual(0.9840840815128786, amax);
 
-            //var amin = np.amin(arr);
+            //var amin = GetMin(arr);
             //print(amin);
-            //Assert.AreEqual(0.01591591848712132, amin.GetItem(0));
+            //Assert.AreEqual(0.01591591848712132, amin);
 
-            //var avg = np.average(arr);
+            //var avg = GetAverage(arr);
             //print(avg);
-            //Assert.AreEqual(0.5, avg.GetItem(0));
+            //Assert.AreEqual(0.5, avg);
 
             //var first10 = arr["0:10:1"] as ndarray;
             //print(first10);
@@ -652,17 +651,17 @@ namespace RandomnessDistributionsUnitTest
 
             //arr = random.dirichlet(new int[] { 25, 1, 25 }, 25 * 25);
 
-            //amax = np.amax(arr);
+            //amax = GetMax(arr);
             //print(amax);
-            //Assert.AreEqual(0.7045960873403417, amax.GetItem(0));
+            //Assert.AreEqual(0.7045960873403417, amax);
 
-            //amin = np.amin(arr);
+            //amin = GetMin(arr);
             //print(amin);
-            //Assert.AreEqual(2.6249646396377578e-05, amin.GetItem(0));
+            //Assert.AreEqual(2.6249646396377578e-05, amin);
 
-            //avg = np.average(arr);
+            //avg = GetAverage(arr);
             //print(avg);
-            //Assert.AreEqual(0.33333333333333354, avg.GetItem(0));
+            //Assert.AreEqual(0.33333333333333354, avg);
 
             //first10 = arr["0:10:1"] as ndarray;
             //print(first10);
@@ -692,17 +691,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.exponential(2.0, 40);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(9.197509067464914, amax.GetItem(0));
+            Assert.AreEqual(9.197509067464914, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.0029207069544253516, amin.GetItem(0));
+            Assert.AreEqual(0.0029207069544253516, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(2.2703450760147272, avg.GetItem(0));
+            Assert.AreEqual(2.2703450760147272, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -717,17 +716,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.exponential(new double[] { 1.75, 2.25, 3.5, 4.1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(6.4389292872403, amax.GetItem(0));
+            Assert.AreEqual(6.4389292872403, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.8405196701524901, amin.GetItem(0));
+            Assert.AreEqual(0.8405196701524901, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(2.3954160266720965, avg.GetItem(0));
+            Assert.AreEqual(2.3954160266720965, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -740,17 +739,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.exponential(1.75, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(21.318986653331216, amax.GetItem(0));
+            Assert.AreEqual(21.318986653331216, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(3.55593171092486e-06, amin.GetItem(0));
+            Assert.AreEqual(3.55593171092486e-06, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.7531454665721702, avg.GetItem(0));
+            Assert.AreEqual(1.7531454665721702, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -763,6 +762,7 @@ namespace RandomnessDistributionsUnitTest
 
         }
 
+   
         [TestMethod]
         public void test_rand_exponential_2()
         {
@@ -784,17 +784,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.f(1, 48, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(19.14437059096128, amax.GetItem(0));
+            Assert.AreEqual(19.14437059096128, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(5.680490866939581e-07, amin.GetItem(0));
+            Assert.AreEqual(5.680490866939581e-07, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.0515442503540988, avg.GetItem(0));
+            Assert.AreEqual(1.0515442503540988, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -809,17 +809,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.f(new double[] { 1.75, 2.25, 3.5, 4.1 }, new double[] { 48 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.2732463363388247, amax.GetItem(0));
+            Assert.AreEqual(1.2732463363388247, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.546310315192394, amin.GetItem(0));
+            Assert.AreEqual(0.546310315192394, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.9827519798898189, avg.GetItem(0));
+            Assert.AreEqual(0.9827519798898189, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -832,17 +832,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.f(1.75, 53, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(15.625089837222493, amax.GetItem(0));
+            Assert.AreEqual(15.625089837222493, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(8.535252347895407e-07, amin.GetItem(0));
+            Assert.AreEqual(8.535252347895407e-07, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.0363937363959668, avg.GetItem(0));
+            Assert.AreEqual(1.0363937363959668, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -864,17 +864,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.gamma(new double[] { 4, 4 }, new double[] { 2 });
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(18.370134973057713, amax.GetItem(0));
+            Assert.AreEqual(18.370134973057713, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(6.801539561549457, amin.GetItem(0));
+            Assert.AreEqual(6.801539561549457, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(12.585837267303585, avg.GetItem(0));
+            Assert.AreEqual(12.585837267303585, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -887,17 +887,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.gamma(new double[] { 1.75, 2.25, 3.5, 4.1 }, new double[] { 48 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(269.13817401122844, amax.GetItem(0));
+            Assert.AreEqual(269.13817401122844, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(85.50090380856885, amin.GetItem(0));
+            Assert.AreEqual(85.50090380856885, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(198.09580609835598, avg.GetItem(0));
+            Assert.AreEqual(198.09580609835598, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -910,17 +910,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.gamma(1.75, 53, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(845.754380588075, amax.GetItem(0));
+            Assert.AreEqual(845.754380588075, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.04372693615388623, amin.GetItem(0));
+            Assert.AreEqual(0.04372693615388623, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(92.505472695434207, avg.GetItem(0));
+            Assert.AreEqual(92.505472695434207, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -941,17 +941,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.geometric(0.35);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)2, amax.GetItem(0));
+            Assert.AreEqual((long)2, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)2, amin.GetItem(0));
+            Assert.AreEqual((long)2, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(2.0, avg.GetItem(0));
+            Assert.AreEqual(2.0, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -964,17 +964,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.geometric(new double[] { .75, .25, .5, .1 }, 400);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)47, amax.GetItem(0));
+            Assert.AreEqual((long)47, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(4.42, avg.GetItem(0));
+            Assert.AreEqual(4.42, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -989,17 +989,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.geometric(.75, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)10, amax.GetItem(0));
+            Assert.AreEqual((long)10, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.332595, avg.GetItem(0));
+            Assert.AreEqual(1.332595, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1008,6 +1008,7 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(first10, ExpectedData);
         }
 
+ 
         [TestMethod]
         public void test_rand_gumbel_1()
         {
@@ -1017,17 +1018,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.gumbel(0.32);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.76573325397214, amax.GetItem(0));
+            Assert.AreEqual(1.76573325397214, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(1.76573325397214, amin.GetItem(0));
+            Assert.AreEqual(1.76573325397214, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.76573325397214, avg.GetItem(0));
+            Assert.AreEqual(1.76573325397214, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1040,17 +1041,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.gumbel(new double[] { .75, .25, .5, .1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(7.625593114379172, amax.GetItem(0));
+            Assert.AreEqual(7.625593114379172, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-2.48113529309385, amin.GetItem(0));
+            Assert.AreEqual(-2.48113529309385, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.319780095180179, avg.GetItem(0));
+            Assert.AreEqual(3.319780095180179, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1063,17 +1064,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.gumbel(.75, 0.5, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(7.205833825082223, amax.GetItem(0));
+            Assert.AreEqual(7.205833825082223, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-0.5506620623963436, amin.GetItem(0));
+            Assert.AreEqual(-0.5506620623963436, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.0376445397766865, avg.GetItem(0));
+            Assert.AreEqual(1.0376445397766865, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1093,17 +1094,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.hypergeometric(100, 2, 10, size: 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)10, amax.GetItem(0));
+            Assert.AreEqual((long)10, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)8, amin.GetItem(0));
+            Assert.AreEqual((long)8, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(9.827, avg.GetItem(0));
+            Assert.AreEqual(9.827, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1116,17 +1117,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.hypergeometric(new long[] { 75, 25, 5, 1 }, new long[] { 5 }, new long[] { 80, 30, 10, 6 });
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)75, amax.GetItem(0));
+            Assert.AreEqual((long)75, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(26.5, avg.GetItem(0));
+            Assert.AreEqual(26.5, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1139,17 +1140,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.hypergeometric(15, 15, 15, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)13, amax.GetItem(0));
+            Assert.AreEqual((long)13, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)2, amin.GetItem(0));
+            Assert.AreEqual((long)2, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(7.500615, avg.GetItem(0));
+            Assert.AreEqual(7.500615, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1167,17 +1168,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.laplace(0.32);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(-1.0764218589534678, amax.GetItem(0));
+            Assert.AreEqual(-1.0764218589534678, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-1.0764218589534678, amin.GetItem(0));
+            Assert.AreEqual(-1.0764218589534678, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-1.0764218589534678, avg.GetItem(0));
+            Assert.AreEqual(-1.0764218589534678, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1190,17 +1191,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.laplace(new double[] { .75, .25, .5, .1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(0.8742419694128964, amax.GetItem(0));
+            Assert.AreEqual(0.8742419694128964, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-4.635588148164478, amin.GetItem(0));
+            Assert.AreEqual(-4.635588148164478, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-1.6171201483154878, avg.GetItem(0));
+            Assert.AreEqual(-1.6171201483154878, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1213,17 +1214,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.laplace(.75, 0.5, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(6.432291394535725, amax.GetItem(0));
+            Assert.AreEqual(6.432291394535725, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-5.141321026441119, amin.GetItem(0));
+            Assert.AreEqual(-5.141321026441119, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.75284129642070252, avg.GetItem(0));
+            Assert.AreEqual(0.75284129642070252, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1243,17 +1244,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.logistic(0.32);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(-1.6374760957412662, amax.GetItem(0));
+            Assert.AreEqual(-1.6374760957412662, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-1.6374760957412662, amin.GetItem(0));
+            Assert.AreEqual(-1.6374760957412662, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-1.6374760957412662, avg.GetItem(0));
+            Assert.AreEqual(-1.6374760957412662, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1266,17 +1267,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.logistic(new double[] { .75, .25, .5, .1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.2164458169982604, amax.GetItem(0));
+            Assert.AreEqual(1.2164458169982604, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-6.850724032638232, amin.GetItem(0));
+            Assert.AreEqual(-6.850724032638232, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-2.5541489883857613, avg.GetItem(0));
+            Assert.AreEqual(-2.5541489883857613, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1289,17 +1290,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.logistic(.75, 0.5, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(6.77886208503632, amax.GetItem(0));
+            Assert.AreEqual(6.77886208503632, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-5.487892707727758, amin.GetItem(0));
+            Assert.AreEqual(-5.487892707727758, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.75353194203189111, avg.GetItem(0));
+            Assert.AreEqual(0.75353194203189111, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1319,17 +1320,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.lognormal(new double[] { 4, 4 }, 2);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(39.029797845778916, amax.GetItem(0));
+            Assert.AreEqual(39.029797845778916, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(9.323290074349073, amin.GetItem(0));
+            Assert.AreEqual(9.323290074349073, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(24.176543960063995, avg.GetItem(0));
+            Assert.AreEqual(24.176543960063995, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1342,17 +1343,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.lognormal(new double[] { 1.75, 2.25, 3.5, 4.1 }, 48, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.4424793885444833E+23, amax.GetItem(0));
+            Assert.AreEqual(1.4424793885444833E+23, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(3.95031874515845e-18, amin.GetItem(0));
+            Assert.AreEqual(3.95031874515845e-18, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.6061984713612083E+22, avg.GetItem(0));
+            Assert.AreEqual(3.6061984713612083E+22, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1365,17 +1366,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.lognormal(1.75, 53, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.7279293118875759e+100, amax.GetItem(0));
+            Assert.AreEqual(1.7279293118875759e+100, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(1.937968152068317e-111, amin.GetItem(0));
+            Assert.AreEqual(1.937968152068317e-111, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(8.7801786884914109E+94, avg.GetItem(0));
+            Assert.AreEqual(8.7801786884914109E+94, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1396,17 +1397,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.logseries(new double[] { 0.1, 0.99 }, 40);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)184, amax.GetItem(0));
+            Assert.AreEqual((long)184, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(13.925, avg.GetItem(0));
+            Assert.AreEqual(13.925, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1418,17 +1419,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.logseries(new double[] { .75, .25, .5, .1 }, 1600);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)14, amax.GetItem(0));
+            Assert.AreEqual((long)14, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.466875, avg.GetItem(0));
+            Assert.AreEqual(1.466875, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1442,17 +1443,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.logseries(.334455, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)10, amax.GetItem(0));
+            Assert.AreEqual((long)10, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.2335, avg.GetItem(0));
+            Assert.AreEqual(1.2335, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1472,17 +1473,17 @@ namespace RandomnessDistributionsUnitTest
             double dv = 1.0 / 6.0;
             var arr = random.multinomial(20, new double[] { dv, dv, dv, dv, dv, dv }, size: 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)10, amax.GetItem(0));
+            Assert.AreEqual((long)10, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)0, amin.GetItem(0));
+            Assert.AreEqual((long)0, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.3333333333333335, avg.GetItem(0));
+            Assert.AreEqual(3.3333333333333335, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1496,17 +1497,17 @@ namespace RandomnessDistributionsUnitTest
             dv = 1.0 / 7.0;
             arr = random.multinomial(100, new double[] { dv, dv, dv, dv, dv, 2 / 7 });
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)33, amax.GetItem(0));
+            Assert.AreEqual((long)33, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)12, amin.GetItem(0));
+            Assert.AreEqual((long)12, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(16.666666666666668, avg.GetItem(0));
+            Assert.AreEqual(16.666666666666668, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1520,17 +1521,17 @@ namespace RandomnessDistributionsUnitTest
             dv = 1.0 / 6.0;
             arr = random.multinomial(20, new double[] { dv, dv, dv, dv, dv, dv }, 20000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)12, amax.GetItem(0));
+            Assert.AreEqual((long)12, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)0, amin.GetItem(0));
+            Assert.AreEqual((long)0, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.3333333333333335, avg.GetItem(0));
+            Assert.AreEqual(3.3333333333333335, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1556,17 +1557,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.noncentral_chisquare(3, 20, 100000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(78.04001829193612, amax.GetItem(0));
+            Assert.AreEqual(78.04001829193612, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.6572503967444088, amin.GetItem(0));
+            Assert.AreEqual(0.6572503967444088, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(22.999416481542255, avg.GetItem(0));
+            Assert.AreEqual(22.999416481542255, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1577,17 +1578,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.noncentral_chisquare(arange_Float64(1, (25 * 25) + 1), 25 * 25);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1393.919486168914, amax.GetItem(0));
+            Assert.AreEqual(1393.919486168914, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(526.5979763470843, amin.GetItem(0));
+            Assert.AreEqual(526.5979763470843, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(938.60218769525386, avg.GetItem(0));
+            Assert.AreEqual(938.60218769525386, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1606,17 +1607,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.noncentral_f(1, 20, 48, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(166.41578272134745, amax.GetItem(0));
+            Assert.AreEqual(166.41578272134745, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(10.185919423402394, amin.GetItem(0));
+            Assert.AreEqual(10.185919423402394, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(54.230679084788719, avg.GetItem(0));
+            Assert.AreEqual(54.230679084788719, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1631,17 +1632,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.noncentral_f(new double[] { 1.75, 2.25, 3.5, 4.1 }, 20, 48, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(32.707452977686614, amax.GetItem(0));
+            Assert.AreEqual(32.707452977686614, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(7.906607829343024, amin.GetItem(0));
+            Assert.AreEqual(7.906607829343024, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(20.832891192705823, avg.GetItem(0));
+            Assert.AreEqual(20.832891192705823, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1654,17 +1655,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.noncentral_f(1.75, 3, 53, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(195494.05842774129, amax.GetItem(0));
+            Assert.AreEqual(195494.05842774129, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(1.7899396924741655, amin.GetItem(0));
+            Assert.AreEqual(1.7899396924741655, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(90.217557446706948, avg.GetItem(0));
+            Assert.AreEqual(90.217557446706948, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1686,17 +1687,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.normal(1, 48, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(174.27339866101488, amax.GetItem(0));
+            Assert.AreEqual(174.27339866101488, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-184.13383136259313, amin.GetItem(0));
+            Assert.AreEqual(-184.13383136259313, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.3384280414551479, avg.GetItem(0));
+            Assert.AreEqual(1.3384280414551479, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1711,17 +1712,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.normal(new double[] { 1.75, 2.25, 3.5, 4.1 }, 48, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(8.4980511462390664, amax.GetItem(0));
+            Assert.AreEqual(8.4980511462390664, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-11.788045757012442, amin.GetItem(0));
+            Assert.AreEqual(-11.788045757012442, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-0.6369144011832439, avg.GetItem(0));
+            Assert.AreEqual(-0.6369144011832439, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1734,17 +1735,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.normal(1.75, 53, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(244.03504143481928, amax.GetItem(0));
+            Assert.AreEqual(244.03504143481928, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-219.87697184024597, amin.GetItem(0));
+            Assert.AreEqual(-219.87697184024597, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.6568977790583879, avg.GetItem(0));
+            Assert.AreEqual(1.6568977790583879, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1766,17 +1767,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.pareto(3.0, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(24.96518603159547, amax.GetItem(0));
+            Assert.AreEqual(24.96518603159547, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.00036157241516243666, amin.GetItem(0));
+            Assert.AreEqual(0.00036157241516243666, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.477574229815943, avg.GetItem(0));
+            Assert.AreEqual(0.477574229815943, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1791,17 +1792,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.pareto(new double[] { 1.75, 2.25, 3.5, 4.1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(0.6528914455240786, amax.GetItem(0));
+            Assert.AreEqual(0.6528914455240786, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.21118736038282426, amin.GetItem(0));
+            Assert.AreEqual(0.21118736038282426, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.3502539908521613, avg.GetItem(0));
+            Assert.AreEqual(0.3502539908521613, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1814,17 +1815,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.pareto(1.75, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(3859.2400626168223, amax.GetItem(0));
+            Assert.AreEqual(3859.2400626168223, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(4.668377588057382e-06, amin.GetItem(0));
+            Assert.AreEqual(4.668377588057382e-06, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.3040180422148346, avg.GetItem(0));
+            Assert.AreEqual(1.3040180422148346, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1846,17 +1847,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.poisson(3.0, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)10, amax.GetItem(0));
+            Assert.AreEqual((long)10, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)0, amin.GetItem(0));
+            Assert.AreEqual((long)0, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(2.971, avg.GetItem(0));
+            Assert.AreEqual(2.971, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1869,17 +1870,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.poisson(new double[] { 1.75, 2.25, 3.5, 4.1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)8, amax.GetItem(0));
+            Assert.AreEqual((long)8, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)2, amin.GetItem(0));
+            Assert.AreEqual((long)2, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(4.0, avg.GetItem(0));
+            Assert.AreEqual(4.0, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1892,17 +1893,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.poisson(1.75, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)10, amax.GetItem(0));
+            Assert.AreEqual((long)10, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)0, amin.GetItem(0));
+            Assert.AreEqual((long)0, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.750835, avg.GetItem(0));
+            Assert.AreEqual(1.750835, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1921,17 +1922,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.power(3.0, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(0.9997291715154072, amax.GetItem(0));
+            Assert.AreEqual(0.9997291715154072, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.0796295209657556, amin.GetItem(0));
+            Assert.AreEqual(0.0796295209657556, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.736198803204049, avg.GetItem(0));
+            Assert.AreEqual(0.736198803204049, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -1946,17 +1947,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.power(new double[] { 1.75, 2.25, 3.5, 4.1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(0.9395632737653083, amax.GetItem(0));
+            Assert.AreEqual(0.9395632737653083, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.22030398605902315, amin.GetItem(0));
+            Assert.AreEqual(0.22030398605902315, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.66946509635916251, avg.GetItem(0));
+            Assert.AreEqual(0.66946509635916251, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -1969,17 +1970,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.power(1.75, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(0.999997969432272, amax.GetItem(0));
+            Assert.AreEqual(0.999997969432272, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.0015667150072222488, amin.GetItem(0));
+            Assert.AreEqual(0.0015667150072222488, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.63524484726740371, avg.GetItem(0));
+            Assert.AreEqual(0.63524484726740371, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2000,17 +2001,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.rayleigh(3.0, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(12.655472555426252, amax.GetItem(0));
+            Assert.AreEqual(12.655472555426252, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.03751339800630575, amin.GetItem(0));
+            Assert.AreEqual(0.03751339800630575, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.7877220061900312, avg.GetItem(0));
+            Assert.AreEqual(3.7877220061900312, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2025,17 +2026,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.rayleigh(new double[] { 1.75, 2.25, 3.5, 4.1 }, 4);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(6.167496650864407, amax.GetItem(0));
+            Assert.AreEqual(6.167496650864407, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(2.1822268243240774, amin.GetItem(0));
+            Assert.AreEqual(2.1822268243240774, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.6682412908284565, avg.GetItem(0));
+            Assert.AreEqual(3.6682412908284565, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2048,17 +2049,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.rayleigh(1.75, 200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(9.652865073262221, amax.GetItem(0));
+            Assert.AreEqual(9.652865073262221, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.001193901667090907, amin.GetItem(0));
+            Assert.AreEqual(0.001193901667090907, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(2.1895198415066424, avg.GetItem(0));
+            Assert.AreEqual(2.1895198415066424, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2079,17 +2080,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.standard_cauchy(1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(119.96347941712416, amax.GetItem(0));
+            Assert.AreEqual(119.96347941712416, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-1762.3426492479496, amin.GetItem(0));
+            Assert.AreEqual(-1762.3426492479496, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-2.3636040352933994, avg.GetItem(0));
+            Assert.AreEqual(-2.3636040352933994, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2104,17 +2105,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_cauchy((40 * 40 * 40));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(6790.0984049732115, amax.GetItem(0));
+            Assert.AreEqual(6790.0984049732115, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-7960.846314730899, amin.GetItem(0));
+            Assert.AreEqual(-7960.846314730899, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-0.082440258910342012, avg.GetItem(0));
+            Assert.AreEqual(-0.082440258910342012, avg);
 
             first10 = arr.FirstTen();
             //print(first10);
@@ -2127,17 +2128,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_cauchy(200000);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(339868.595567882931, amax.GetItem(0));
+            Assert.AreEqual(339868.595567882931, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-531632.9516028948, amin.GetItem(0));
+            Assert.AreEqual(-531632.9516028948, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-1.1522703389124869, avg.GetItem(0));
+            Assert.AreEqual(-1.1522703389124869, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2158,17 +2159,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.standard_exponential((1000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(7.845450080613971, amax.GetItem(0));
+            Assert.AreEqual(7.845450080613971, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.000957677168862067, amin.GetItem(0));
+            Assert.AreEqual(0.000957677168862067, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.95747448591944373, avg.GetItem(0));
+            Assert.AreEqual(0.95747448591944373, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2183,17 +2184,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_exponential((40 * 40 * 40));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(14.670851706894148, amax.GetItem(0));
+            Assert.AreEqual(14.670851706894148, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(3.2483019803437364e-06, amin.GetItem(0));
+            Assert.AreEqual(3.2483019803437364e-06, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.0005051554345421, avg.GetItem(0));
+            Assert.AreEqual(1.0005051554345421, avg);
 
             first10 = arr.FirstTen();
             //print(first10);
@@ -2206,17 +2207,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_exponential((200000));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(13.182081709247655, amax.GetItem(0));
+            Assert.AreEqual(13.182081709247655, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(2.027596493697772e-06, amin.GetItem(0));
+            Assert.AreEqual(2.027596493697772e-06, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.99718696494509074, avg.GetItem(0));
+            Assert.AreEqual(0.99718696494509074, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2236,17 +2237,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.standard_gamma(2, (1000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(8.487881881997914, amax.GetItem(0));
+            Assert.AreEqual(8.487881881997914, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.02703203845745107, amin.GetItem(0));
+            Assert.AreEqual(0.02703203845745107, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(2.0664892234714194, avg.GetItem(0));
+            Assert.AreEqual(2.0664892234714194, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2261,17 +2262,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_gamma(4, (40 * 40 * 40));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(20.303635939520916, amax.GetItem(0));
+            Assert.AreEqual(20.303635939520916, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.13958581729156325, amin.GetItem(0));
+            Assert.AreEqual(0.13958581729156325, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.9903202322714604, avg.GetItem(0));
+            Assert.AreEqual(3.9903202322714604, avg);
 
             first10 = arr.FirstTen();
             //print(first10);
@@ -2284,17 +2285,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_gamma(.25, (200000));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(10.220104410232194, amax.GetItem(0));
+            Assert.AreEqual(10.220104410232194, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(3.1679769713465744e-27, amin.GetItem(0));
+            Assert.AreEqual(3.1679769713465744e-27, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.25077723866032581, avg.GetItem(0));
+            Assert.AreEqual(0.25077723866032581, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2313,17 +2314,17 @@ namespace RandomnessDistributionsUnitTest
             random.seed(8877);
             var arr = random.standard_normal((5000000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(5.1189159770119135, amax.GetItem(0));
+            Assert.AreEqual(5.1189159770119135, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-5.151481557636637, amin.GetItem(0));
+            Assert.AreEqual(-5.151481557636637, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            //Assert.AreEqual(-0.00054225209998402292, avg.GetItem(0));
+            //Assert.AreEqual(-0.00054225209998402292, avg);
 
 
             var first10 = arr.FirstTen();
@@ -2343,17 +2344,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.standard_t(10, 1000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(3.6181129587245118, amax.GetItem(0));
+            Assert.AreEqual(3.6181129587245118, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-4.331442584542253, amin.GetItem(0));
+            Assert.AreEqual(-4.331442584542253, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.008243788245885007, avg.GetItem(0));
+            Assert.AreEqual(0.008243788245885007, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2368,17 +2369,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_t(40, (40 * 40 * 40));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(4.8492343665605855, amax.GetItem(0));
+            Assert.AreEqual(4.8492343665605855, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-4.830322764567837, amin.GetItem(0));
+            Assert.AreEqual(-4.830322764567837, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(-0.0013889376393183856, avg.GetItem(0));
+            Assert.AreEqual(-0.0013889376393183856, avg);
 
             first10 = arr.FirstTen();
             //print(first10);
@@ -2391,17 +2392,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.standard_t(20000, (200000));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(4.79681839607772, amax.GetItem(0));
+            Assert.AreEqual(4.79681839607772, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-4.509851741097332, amin.GetItem(0));
+            Assert.AreEqual(-4.509851741097332, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.0034736156950519494, avg.GetItem(0));
+            Assert.AreEqual(0.0034736156950519494, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2422,17 +2423,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.triangular(1, 20, 48, (1000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(47.283590040731276, amax.GetItem(0));
+            Assert.AreEqual(47.283590040731276, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(1.3745444760000458, amin.GetItem(0));
+            Assert.AreEqual(1.3745444760000458, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(22.84033382253185, avg.GetItem(0));
+            Assert.AreEqual(22.84033382253185, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2447,17 +2448,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.triangular(new double[] { 1.75, 2.25, 3.5, 4.1 }, 20, 48, (4));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(36.98020459545957, amax.GetItem(0));
+            Assert.AreEqual(36.98020459545957, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(11.377646176644985, amin.GetItem(0));
+            Assert.AreEqual(11.377646176644985, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(21.71455146888546, avg.GetItem(0));
+            Assert.AreEqual(21.71455146888546, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2470,17 +2471,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.triangular(1.75, 3, 53, (200000));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(52.898787213103205, amax.GetItem(0));
+            Assert.AreEqual(52.898787213103205, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(1.769502136707926, amin.GetItem(0));
+            Assert.AreEqual(1.769502136707926, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(19.270976111586553, avg.GetItem(0));
+            Assert.AreEqual(19.270976111586553, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2502,17 +2503,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.uniform(-1, 1, 5000000);
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(0.9999998733604805, amax.GetItem(0));
+            Assert.AreEqual(0.9999998733604805, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(-0.999999696666168, amin.GetItem(0));
+            Assert.AreEqual(-0.999999696666168, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(6.643562403733275E-05, avg.GetItem(0));
+            Assert.AreEqual(6.643562403733275E-05, avg);
 
 
             var first10 = arr.FirstTen();
@@ -2534,17 +2535,17 @@ namespace RandomnessDistributionsUnitTest
             var high = new double[] { 30.0, 22.0, 10.0, 3.0 };
             var arr = random.uniform(low, high, (4));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(18.594950452027874, amax.GetItem(0));
+            Assert.AreEqual(18.594950452027874, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(1.803431063349904, amin.GetItem(0));
+            Assert.AreEqual(1.803431063349904, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(9.7381078582861171, avg.GetItem(0));
+            Assert.AreEqual(9.7381078582861171, avg);
 
 
             var first10 = arr.FirstTen();
@@ -2563,17 +2564,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.vonmises(0.0, 4.0, (100000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            //Assert.AreEqual(2.966642390532069, amax.GetItem(0));
+            //Assert.AreEqual(2.966642390532069, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            //Assert.AreEqual(-3.1288073003877273, amin.GetItem(0));
+            //Assert.AreEqual(-3.1288073003877273, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            //Assert.AreEqual(0.001468156147666098, avg.GetItem(0));
+            //Assert.AreEqual(0.001468156147666098, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2584,17 +2585,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.vonmises(arange_Float64(1, (25 * 25) + 1), 25 * 25);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            //Assert.AreEqual(3.1128949170937865, amax.GetItem(0));
+            //Assert.AreEqual(3.1128949170937865, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            //Assert.AreEqual(-3.141056472523122, amin.GetItem(0));
+            //Assert.AreEqual(-3.141056472523122, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            //Assert.AreEqual(0.004769515035667695, avg.GetItem(0));
+            //Assert.AreEqual(0.004769515035667695, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2613,17 +2614,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.wald(3, 20, (100000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(12.349279351617012, amax.GetItem(0));
+            Assert.AreEqual(12.349279351617012, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.6001989474303744, amin.GetItem(0));
+            Assert.AreEqual(0.6001989474303744, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(3.0025012751386755, avg.GetItem(0));
+            Assert.AreEqual(3.0025012751386755, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2634,17 +2635,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.wald(arange_Float64(1, (25 * 25) + 1), 25 * 25);
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(2928.8874732379727, amax.GetItem(0));
+            Assert.AreEqual(2928.8874732379727, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.9848685492507449, amin.GetItem(0));
+            Assert.AreEqual(0.9848685492507449, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(309.35420489337906, avg.GetItem(0));
+            Assert.AreEqual(309.35420489337906, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2663,17 +2664,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.weibull(5, (100000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.6435302608550746, amax.GetItem(0));
+            Assert.AreEqual(1.6435302608550746, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.07812030376364504, amin.GetItem(0));
+            Assert.AreEqual(0.07812030376364504, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.91828955683190416, avg.GetItem(0));
+            Assert.AreEqual(0.91828955683190416, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2684,17 +2685,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.weibull(arange_Float64(1, (25 * 25) + 1), (25 * 25));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual(1.13239084970226, amax.GetItem(0));
+            Assert.AreEqual(1.13239084970226, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual(0.3435024689351767, amin.GetItem(0));
+            Assert.AreEqual(0.3435024689351767, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(0.99456850758012483, avg.GetItem(0));
+            Assert.AreEqual(0.99456850758012483, avg);
 
             first10 = arr.FirstTen();
             print(first10);
@@ -2713,17 +2714,17 @@ namespace RandomnessDistributionsUnitTest
 
             var arr = random.zipf(5.2, (100000));
 
-            var amax = np.amax(arr);
+            var amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)9, amax.GetItem(0));
+            Assert.AreEqual((long)9, amax);
 
-            var amin = np.amin(arr);
+            var amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            var avg = np.average(arr);
+            var avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.03708, avg.GetItem(0));
+            Assert.AreEqual(1.03708, avg);
 
             var first10 = arr.FirstTen();
             print(first10);
@@ -2732,17 +2733,17 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.zipf(arange_Float64(2, (25 * 25) + 2), (25 * 25));
 
-            amax = np.amax(arr);
+            amax = GetMax(arr);
             print(amax);
-            Assert.AreEqual((long)2, amax.GetItem(0));
+            Assert.AreEqual((long)2, amax);
 
-            amin = np.amin(arr);
+            amin = GetMin(arr);
             print(amin);
-            Assert.AreEqual((long)1, amin.GetItem(0));
+            Assert.AreEqual((long)1, amin);
 
-            avg = np.average(arr);
+            avg = GetAverage(arr);
             print(avg);
-            Assert.AreEqual(1.0016, avg.GetItem(0));
+            Assert.AreEqual(1.0016, avg);
 
             first10 = arr.FirstTen();
             print(first10);
