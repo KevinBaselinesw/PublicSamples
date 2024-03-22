@@ -93,7 +93,7 @@ namespace RandomnessDistributionsUnitTest
             return buffer;
         }
 
-        internal double[] arange_Float64(int start, int end)
+        internal double[] arange_Double(int start, int end)
         {
             double[] buffer = new double[end - start];
 

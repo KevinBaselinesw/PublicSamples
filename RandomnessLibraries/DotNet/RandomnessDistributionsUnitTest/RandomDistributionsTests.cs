@@ -502,8 +502,8 @@ namespace RandomnessDistributionsUnitTest
             var random = new RandomDistributions.random();
             random.seed(5566);
 
-            var a = arange_Float64(1, 11);
-            var b = arange_Float64(1, 11);
+            var a = arange_Double(1, 11);
+            var b = arange_Double(1, 11);
 
             var arr = random.beta(b, b, size:10);
             Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
@@ -585,7 +585,7 @@ namespace RandomnessDistributionsUnitTest
               3.7142340997291, 0.137140658434128, 1.69505253573874, 1.5675310912308, 3.1550000636764 });
 
 
-            arr = random.chisquare(arange_Float64(1, (25 * 25) + 1), (25 * 25));
+            arr = random.chisquare(arange_Double(1, (25 * 25) + 1), (25 * 25));
 
             amax = GetMax(arr);
             print(amax);
@@ -1576,7 +1576,7 @@ namespace RandomnessDistributionsUnitTest
               22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
 
 
-            arr = random.noncentral_chisquare(arange_Float64(1, (25 * 25) + 1), 25 * 25);
+            arr = random.noncentral_chisquare(arange_Double(1, (25 * 25) + 1), 25 * 25);
 
             amax = GetMax(arr);
             print(amax);
@@ -2583,7 +2583,7 @@ namespace RandomnessDistributionsUnitTest
             //  22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
 
 
-            arr = random.vonmises(arange_Float64(1, (25 * 25) + 1), 25 * 25);
+            arr = random.vonmises(arange_Double(1, (25 * 25) + 1), 25 * 25);
 
             amax = GetMax(arr);
             print(amax);
@@ -2633,7 +2633,7 @@ namespace RandomnessDistributionsUnitTest
               5.25349661810997, 4.0632949031683, 3.43307360806721, 5.10604488857464, 2.87984364192777  });
 
 
-            arr = random.wald(arange_Float64(1, (25 * 25) + 1), 25 * 25);
+            arr = random.wald(arange_Double(1, (25 * 25) + 1), 25 * 25);
 
             amax = GetMax(arr);
             print(amax);
@@ -2683,7 +2683,7 @@ namespace RandomnessDistributionsUnitTest
               0.936599096578893, 0.798344330459658, 0.870912076415209, 1.05590855634161, 1.08944476675504 });
 
 
-            arr = random.weibull(arange_Float64(1, (25 * 25) + 1), (25 * 25));
+            arr = random.weibull(arange_Double(1, (25 * 25) + 1), (25 * 25));
 
             amax = GetMax(arr);
             print(amax);
@@ -2731,7 +2731,7 @@ namespace RandomnessDistributionsUnitTest
             AssertArray(first10, new long[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
 
 
-            arr = random.zipf(arange_Float64(2, (25 * 25) + 2), (25 * 25));
+            arr = random.zipf(arange_Double(2, (25 * 25) + 2), (25 * 25));
 
             amax = GetMax(arr);
             print(amax);
