@@ -22,7 +22,6 @@ namespace RandomnessDistributionsUnitTest
 
             arr = random.rand(5000000);
 
-            GetMax(arr);
             var amax = GetMax(arr);
             print(amax);
             Assert.AreEqual(0.99999999331246381, amax);

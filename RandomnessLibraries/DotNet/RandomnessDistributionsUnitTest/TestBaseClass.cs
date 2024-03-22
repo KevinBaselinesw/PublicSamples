@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NumpyDotNet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RandomnessDistributionsUnitTest
 {
@@ -107,56 +104,147 @@ namespace RandomnessDistributionsUnitTest
 
         internal bool[] CompareArray(long[] arr, int c)
         {
-            ndarray a = np.array(arr) == c;
-            return a.AsBoolArray();
+            bool[] output = new bool[arr.Length];
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                output[i] = arr[i] == c;
+            }
+            return output;
         }
 
 
         internal int CountTrues(bool[] v)
         {
-            ndarray a = np.sum(np.array(v));
-            return (Int32)a.GetItem(0);
+            int count = 0;
+
+            foreach (var b in v)
+            {
+                count += b == true ? 1 : 0;
+            }
+
+            return count;
         }
 
         internal double GetMax(double[] arr)
         {
-            return (double)np.max(arr).GetItem(0);   
+            double highNum = double.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal long GetMax(long[] arr)
         {
-            return (long)np.max(arr).GetItem(0);
+            long highNum = long.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal ulong GetMax(ulong[] arr)
         {
-            return (ulong)np.max(arr).GetItem(0);
+            ulong highNum = ulong.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal int GetMax(int[] arr)
         {
-            return (int)np.max(arr).GetItem(0);
+            int highNum = int.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal uint GetMax(uint[] arr)
         {
-            return (uint)np.max(arr).GetItem(0);
+            uint highNum = uint.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal short GetMax(short[] arr)
         {
-            return (short)np.max(arr).GetItem(0);
+            short highNum = short.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal ushort GetMax(ushort[] arr)
         {
-            return (ushort)np.max(arr).GetItem(0);
+            ushort highNum = ushort.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal sbyte GetMax(sbyte[] arr)
         {
-            return (sbyte)np.max(arr).GetItem(0);
+            sbyte highNum = sbyte.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal byte GetMax(byte[] arr)
         {
-            return (byte)np.max(arr).GetItem(0);
+            byte highNum = byte.MinValue;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] > highNum)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
         internal bool GetMax(bool[] arr)
         {
-            return (bool)np.max(arr).GetItem(0);
+            bool highNum = false;
+            int i;
+
+            for (i = 0; i < arr.Length; i++) 
+            {
+                if (arr[i] == true)
+                    highNum = arr[i];
+            }
+            return highNum;
         }
 
         internal double GetMin(double[] arr)
