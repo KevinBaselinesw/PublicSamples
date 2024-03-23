@@ -5,6 +5,11 @@ namespace Calc;
 
 class Program
 {
+    /// <summary>
+    /// Demo application for this MS library https://learn.microsoft.com/en-us/dotnet/standard/commandline/
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
     static async Task<int> Main(string[] args)
     {
         var rootCommand = new RootCommand("Sample app for System.CommandLine");
@@ -14,8 +19,7 @@ class Program
         rootCommand.AddCommand(new SubCommand());
         rootCommand.AddCommand(new MultiplyCommand());
         rootCommand.AddCommand(new DivideCommand());
-
-        
+        rootCommand.AddCommand(new ExitCommand());
 
         try
         {
