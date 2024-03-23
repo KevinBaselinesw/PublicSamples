@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ConsoleApp1": {
+    "Calc": {
       "commandName": "Project",
       "commandLineArgs": "Add 2 4"
     }

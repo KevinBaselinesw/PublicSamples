@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsoleApp1.Properties {
+namespace Calc.Properties {
     using System;
     
     
