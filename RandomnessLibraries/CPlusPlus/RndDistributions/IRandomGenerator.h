@@ -29,62 +29,64 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "pch.h"
-#include "framework.h"
-#include "RandomAPI.h"
-#include "IRandomGenerator.h"
-#include "RandomState.h"
 
-// This is the constructor of a class that has been exported.
-Random::Random(IRandomGenerator *rndGenerator)
+#pragma once
+
+#define ulong unsigned long
+
+class IRandomGenerator;
+
+class rk_state
 {
-	if (rndGenerator == NULL)
+public:
+
+	rk_state(IRandomGenerator *rndGenerator)
 	{
-		rndGenerator = new RandomState();
+		this->rndGenerator = rndGenerator;
 	}
-	internal_state = new rk_state(rndGenerator);
-	seed(NULL);
-	_rndGenerator = rndGenerator;
 
-    return;
-}
+	IRandomGenerator *rndGenerator;
 
-bool Random::seed()
+	int pos;
+	bool has_gauss; /* !=0: gauss contains a gaussian deviate */
+	double gauss;
+
+	///* The rk_state structure has been extended to store the following
+	// * information for the binomial generator. If the input values of n or p
+	// * are different than nsave and psave, then the other parameters will be
+	// * recomputed. RTK 2005-09-02 */
+
+	bool has_binomial; /* !=0: following parameters initialized for binomial */
+	double psave;
+	long nsave;
+	double r;
+	double q;
+	double fm;
+	long m;
+	double p1;
+	double xm;
+	double xl;
+	double xr;
+	double c;
+	double laml;
+	double lamr;
+	double p2;
+	double p3;
+	double p4;
+
+};
+
+class IRandomGenerator
 {
-	return true;
-}
+public:
+	
+	IRandomGenerator()
+	{
+	
+	}
 
-bool Random::seed(long seed)
-{
-	internal_state->rndGenerator->Seed(seed, internal_state);
-	return true;
-}
+	virtual void Seed(unsigned long seedValue, rk_state *state) = 0;
+	virtual unsigned long getNextUInt64(rk_state *state) = 0;
+	virtual double getNextDouble(rk_state *state) = 0;
+};
 
-void ValidateSize(long size)
-{
-	if (size < 0)
-		throw "size must not be less than 0";
-}
-
-
-double Random::rand()
-{
-	return random_sample();
-}
-double* Random::rand(long size)
-{
-	ValidateSize(size);
-	//return random_sample(size);
-}
-
-double random_sample()
-{
-	double[] rndArray = cont0_array(internal_state, RandomDistributions.rk_double, 0);
-	return rndArray[0];
-}
-
-double[] random_sample(long size)
-{
-	double[] rndArray = cont0_array(internal_state, RandomDistributions.rk_double, size);
-	return rndArray;
-}

@@ -29,62 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "pch.h"
-#include "framework.h"
-#include "RandomAPI.h"
-#include "IRandomGenerator.h"
-#include "RandomState.h"
 
-// This is the constructor of a class that has been exported.
-Random::Random(IRandomGenerator *rndGenerator)
-{
-	if (rndGenerator == NULL)
-	{
-		rndGenerator = new RandomState();
-	}
-	internal_state = new rk_state(rndGenerator);
-	seed(NULL);
-	_rndGenerator = rndGenerator;
-
-    return;
-}
-
-bool Random::seed()
-{
-	return true;
-}
-
-bool Random::seed(long seed)
-{
-	internal_state->rndGenerator->Seed(seed, internal_state);
-	return true;
-}
-
-void ValidateSize(long size)
-{
-	if (size < 0)
-		throw "size must not be less than 0";
-}
+#pragma once
 
 
-double Random::rand()
-{
-	return random_sample();
-}
-double* Random::rand(long size)
-{
-	ValidateSize(size);
-	//return random_sample(size);
-}
-
-double random_sample()
-{
-	double[] rndArray = cont0_array(internal_state, RandomDistributions.rk_double, 0);
-	return rndArray[0];
-}
-
-double[] random_sample(long size)
-{
-	double[] rndArray = cont0_array(internal_state, RandomDistributions.rk_double, size);
-	return rndArray;
-}

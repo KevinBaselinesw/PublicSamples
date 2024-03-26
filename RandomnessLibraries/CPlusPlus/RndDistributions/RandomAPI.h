@@ -10,11 +10,21 @@
 #define RANDOM_API __declspec(dllimport)
 #endif
 
-// This class is exported from the dll
-class RANDOM_API CRandom {
-public:
-	CRandom(void);
+#include "IRandomGenerator.h"
 
+// This class is exported from the dll
+class RANDOM_API Random 
+{
+
+private:
+
+	rk_state *internal_state;
+	IRandomGenerator *_rndGenerator;
+
+public:
+	Random(IRandomGenerator *rndGenerator = NULL);
+
+	bool seed();
 	bool seed(long seed);
 
 	double rand();
@@ -23,6 +33,3 @@ public:
 	// TODO: add your methods here.
 };
 
-extern RANDOM_API int nRndDistributions;
-
-RANDOM_API int fnRndDistributions(void);

@@ -27,6 +27,15 @@
     <ClInclude Include="RandomAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IRandomGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rk_state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -36,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RandomAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
