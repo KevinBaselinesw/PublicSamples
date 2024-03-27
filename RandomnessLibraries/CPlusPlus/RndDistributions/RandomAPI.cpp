@@ -372,6 +372,302 @@ double* Random::random_sample(long size)
 
 #pragma endregion
 
+#pragma region bytes
+
+char Random::getbyte()
+{
+	char b[1];
+
+	RandomDistributions::rk_fill(&b[0], 1, internal_state);
+	return b[0];
+}
+
+
+char * Random::bytes(int size)
+{
+	char* b = new char[size];
+
+	RandomDistributions::rk_fill(b, size, internal_state);
+	return b;
+}
+#pragma endregion
+
+#pragma region shuffle / permutation
+
+#if false
+
+public void shuffle<T>(T x)
+{
+	shuffle(new T[]{ x });
+}
+
+public void shuffle<T>(T[] x)
+{
+	int n = x.Length;
+
+	T buf = default(T);
+
+	for (ulong i = (ulong)n - 1; i >= 1; i--)
+	{
+		ulong j = RandomDistributions.rk_interval(i, internal_state);
+		buf = x[j];
+		x[j] = x[i];
+		x[i] = buf;
+	}
+	return;
+}
+
+public T[] permutation<T>(T arr)
+{
+	return permutation(new T[]{ arr });
+}
+
+public T[] permutation<T>(T[] arr)
+{
+	if (arr.Length == 1 && IsInteger(arr))
+	{
+		arr = arange<T>(Convert.ToInt32(arr[0]));
+	}
+
+	shuffle(arr);
+	return arr;
+}
+
+private bool IsInteger<T>(T[] arr)
+{
+	if (arr[0] is System.Byte)
+		return true;
+	if (arr[0] is System.SByte)
+		return true;
+	if (arr[0] is System.Int16)
+		return true;
+	if (arr[0] is System.UInt16)
+		return true;
+	if (arr[0] is System.Int32)
+		return true;
+	if (arr[0] is System.UInt32)
+		return true;
+	if (arr[0] is System.Int64)
+		return true;
+	if (arr[0] is System.UInt64)
+		return true;
+	return false;
+}
+
+private T[] arange<T>(int length)
+{
+	T[] arr = new T[length];
+
+	if (arr[0] is System.Byte)
+	{
+		System.Byte[] _arr = arr as System.Byte[];
+		for (System.Byte i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.SByte)
+	{
+		System.SByte[] _arr = arr as System.SByte[];
+		for (System.SByte i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.Int16)
+	{
+		System.Int16[] _arr = arr as System.Int16[];
+		for (System.Int16 i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.UInt16)
+	{
+		System.UInt16[] _arr = arr as System.UInt16[];
+		for (System.UInt16 i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.Int32)
+	{
+		System.Int32[] _arr = arr as System.Int32[];
+		for (System.Int32 i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.UInt32)
+	{
+		System.UInt32[] _arr = arr as System.UInt32[];
+		for (System.UInt32 i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.Int64)
+	{
+		System.Int64[] _arr = arr as System.Int64[];
+		for (System.Int64 i = 0; i < length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+	if (arr[0] is System.Int64)
+	{
+		System.UInt64[] _arr = arr as System.UInt64[];
+		for (System.UInt64 i = 0; i < (UInt64)length; i++)
+		{
+			_arr[i] = i;
+		}
+	}
+
+	return arr;
+}
+#endif
+#pragma endregion
+
+
+#pragma region beta
+
+double* Random::beta(double *a, int asize, double* b, int bsize, long size)
+{
+
+	if (any_less_equal(a, asize, 0))
+	{
+		throw "a <= 0";
+	}
+	if (any_less_equal(b, bsize, 0))
+	{
+		throw "b <= 0";
+	}
+
+	return cont2_array(internal_state, RandomDistributions::rk_beta, size, a, asize, b, bsize);
+
+}
+
+#pragma endregion
+
+#pragma region binomial
+
+long* Random::binomial(long n, double p, long size)
+{
+	return binomial(new long[1] { n }, 1, new double[1] { p }, 1, size);
+}
+
+long* Random::binomial(long* on, int onsize, double* op, int opsize, long size)
+{
+	long ln;
+	double fp;
+
+	ValidateSize(size);
+
+	if (any_less(on,onsize, 0))
+		throw "on < 0";
+	if (any_less(op, opsize, 0))
+		throw "op < 0";
+	if (any_greater(op, opsize, 1))
+		throw "op > 1";
+	if (any_nan(op, opsize))
+		throw "op is NAN";
+
+	if (onsize == 1 && opsize == 1)
+	{
+		ln = on[0];
+		fp = op[0];
+
+		return discnp_array_sc(internal_state, RandomDistributions::rk_binomial, size, ln, fp);
+	}
+
+	return discnp_array(internal_state, RandomDistributions::rk_binomial, size, on, onsize, op, opsize);
+}
+
+long* Random::negative_binomial(long n, double p, long size)
+{
+	return negative_binomial(new long[1] { n }, 1, new double[1] { p }, 1, size);
+}
+long* Random::negative_binomial(long* on, int onsize, double* op, int opsize, long size)
+{
+	ValidateSize(size);
+
+	if (any_less(on, onsize, 0))
+		throw "on < 0";
+	if (any_less(op, opsize, 0))
+		throw "op < 0";
+	if (any_greater(op, opsize, 1))
+		throw "op > 1";
+	if (any_nan(op, opsize))
+		throw "op is NAN";
+
+	if (onsize == 1 && opsize == 1)
+	{
+		return discdd_array_sc(internal_state, RandomDistributions::rk_negative_binomial, size, on[0], op[0]);
+	}
+
+	return discdd_array(internal_state, RandomDistributions::rk_negative_binomial, size, on, onsize, op, opsize);
+}
+
+#pragma endregion
+
+#pragma region chisquare
+
+double* Random::chisquare(double df, long size)
+{
+	return chisquare(new double[1] { df }, 1, size);
+}
+
+double * Random::chisquare(double *odf, int odfsize, long size)
+{
+	ValidateSize(size);
+
+
+	if (any_less_equal(odf,odfsize, 0.0))
+	{
+		throw "odf <= 0.0";
+	}
+
+	if (odfsize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_chisquare, size, odf[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_chisquare, size, odf, odfsize);
+}
+
+double* Random::noncentral_chisquare(double* odf, int odfsize, double ononc, long size)
+{
+	return noncentral_chisquare(odf, odfsize, new double[1] { ononc }, 1, size);
+}
+
+double* Random::noncentral_chisquare(double odf, double ononc, long size)
+{
+	return noncentral_chisquare(new double[1] { odf }, 1, new double[1] { ononc }, 1, size);
+}
+
+double* Random::noncentral_chisquare(double* odf, int odfsize, double* ononc, int ononcsize, long size)
+{
+	ValidateSize(size);
+
+	if (any_less_equal(odf, odfsize, 0.0))
+	{
+		throw "odf <= 0.0";
+	}
+	if (any_less_equal(ononc, ononcsize, 0.0))
+	{
+		throw "ononc <= 0.0";
+	}
+
+	if (odfsize == 1 && ononcsize == 1)
+	{
+		return cont2_array_sc(internal_state, RandomDistributions::rk_noncentral_chisquare, size, odf[0], ononc[0]);
+	}
+
+	return cont2_array(internal_state, RandomDistributions::rk_noncentral_chisquare, size, odf, odfsize, ononc, ononcsize);
+}
+
+#pragma endregion
+
 #pragma region standard_normal
 
 
@@ -420,17 +716,17 @@ double* Random::cont0_array(rk_state *state, double(*func)(rk_state *state), lon
 
 }
 
-double* Random::cont1_array(rk_state *state, double(*func)(rk_state *state, double), long size, double* oa)
+double* Random::cont1_array(rk_state *state, double(*func)(rk_state *state, double), long size, double* oa, int oasize)
 {
 	double* array_data;
 	double* oa_data;
 
 	if (size == 0)
 	{
-		array_data = new double[size];
+		array_data = new double[oasize];
 
 		oa_data = oa;
-		for (long i = 0; i < size; i++)
+		for (long i = 0; i < oasize; i++)
 		{
 			array_data[i] = func(state, oa_data[i]);
 		}

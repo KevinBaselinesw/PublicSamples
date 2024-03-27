@@ -46,6 +46,22 @@ public:
 	double random_sample();
 	double* random_sample(long size);
 
+	char getbyte();
+	char * bytes(int size);
+	
+	double* beta(double *a, int asize, double* b, int bsize, long size = 0);
+
+	long* binomial(long n, double p, long size = 0);
+	long* binomial(long* on, int onsize, double* op, int opsize, long size);
+	long* negative_binomial(long n, double p, long size = 0);
+	long* negative_binomial(long* on, int onsize, double* op, int opsize, long size = 0);
+
+	double* chisquare(double df, long size = 0);
+	double* chisquare(double *odf, int odfsize, long size = 0);
+	double* noncentral_chisquare(double* odf, int odfsize, double ononc, long size = 0);
+	double* noncentral_chisquare(double odf, double ononc, long size = 0);
+	double* noncentral_chisquare(double* odf, int odfsize, double* ononc, int ononcsize, long size = 0);
+
 	// TODO: add your methods here.
 
 private:
@@ -56,7 +72,7 @@ private:
 
 	// array generation functions
 	double* cont0_array(rk_state *state, double(*func)(rk_state *state), long size);
-	double* cont1_array(rk_state *state, double(*func)(rk_state *state, double), long size, double* oa);
+	double* cont1_array(rk_state *state, double(*func)(rk_state *state, double), long size, double* oa, int oasize);
 	double* cont1_array_sc(rk_state *state, double(*func)(rk_state *state, double), long size, double a);
 	double* cont2_array_sc(rk_state *state, double(*func)(rk_state *state, double, double), long size, double a, double b);
 	double* cont2_array(rk_state *state, double(*func)(rk_state *state, double, double), long size, double* oa, int oasize, double* ob, int obsize);
