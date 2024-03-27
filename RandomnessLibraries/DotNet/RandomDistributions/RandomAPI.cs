@@ -524,7 +524,7 @@ namespace RandomDistributions
 
         #endregion
 
-#region choice
+        #region choice
 #if false
         public ndarray choice(long a, shape size = null, bool replace = true, double[] p = null)
         {
@@ -694,6 +694,8 @@ namespace RandomDistributions
 
         }
 #endif
+#endregion
+
         private double kahan_sum(double[] darr)
         {
             double c, y, t, sum;
@@ -733,7 +735,7 @@ namespace RandomDistributions
         }
 
 
-        #endregion
+
         #endregion
 
         #region shuffle/permutation
