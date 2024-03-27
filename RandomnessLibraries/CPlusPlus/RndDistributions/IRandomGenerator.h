@@ -33,6 +33,9 @@
 #pragma once
 
 #define ulong unsigned long
+#define uint unsigned int
+#define ushort unsigned short
+#define uchar unsigned char
 
 class IRandomGenerator;
 
