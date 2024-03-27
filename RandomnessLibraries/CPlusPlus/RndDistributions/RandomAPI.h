@@ -62,6 +62,31 @@ public:
 	double* noncentral_chisquare(double odf, double ononc, long size = 0);
 	double* noncentral_chisquare(double* odf, int odfsize, double* ononc, int ononcsize, long size = 0);
 
+	double* exponential(double scale = 1.0, long size = 0);
+	double* exponential(double* oscale, int oscalesize, long size = 0);
+
+	double* f(double dfnum, double dfden, long size = 0);
+	double* f(double *odfnum, int odfnumsize, double* odfden, int odfdensize, long size = 0);
+
+	double* gamma(double shape, double scale, long size = 0);
+	double* gamma(double* oshape, int oshapesize, double* oscale, int oscalesize, long size = 0);
+
+	long* geometric(double op, long size = 0);
+	long* geometric(double* op, int opsize, long size = 0);
+
+	double* gumbel(double* oloc, int olocsize, double oscale, long size = 0);
+	double* gumbel(double oloc, double* oscale = NULL, int oscalesize = 0, long size = 0);
+	double* gumbel(double oloc, double oscale, long size = 0);
+	double* gumbel(double* oloc, int olocsize, double *oscale = NULL, int oscalesize = 0, long size = 0);
+
+	long* hypergeometric(long ongood, long onbad, long onsample, long size = 0);
+	long* hypergeometric(long* ongood, int ongoodsize, long* onbad, int onbadsize, long* onsample, int onsamplesize, long size = 0);
+
+	double* laplace(double oloc, double oscale, long size = 0);
+	double* laplace(double *oloc, int olecsize, double oscale, long size = 0);
+	double* laplace(double oloc, double* oscale = NULL, int oscalesize = 0, long size = 0);
+	double* laplace(double *oloc, int olocsize, double *oscale = NULL, int oscalsize = 0, long size = 0);
+
 	// TODO: add your methods here.
 
 private:
