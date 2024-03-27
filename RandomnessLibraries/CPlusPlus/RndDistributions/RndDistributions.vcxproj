@@ -166,6 +166,7 @@
     <ClInclude Include="IRandomGenerator.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RandomAPI.h" />
+    <ClInclude Include="RandomDistributions.h" />
     <ClInclude Include="RandomState.h" />
     <ClInclude Include="rk_state.h" />
   </ItemGroup>
@@ -178,6 +179,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RandomAPI.cpp" />
+    <ClCompile Include="RandomDistributions.cpp" />
     <ClCompile Include="RandomState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
