@@ -30,11 +30,28 @@ public:
 	double rand();
 	double* rand(long size);
 
+	double randn();
+	double* randn(long size);
+
+	bool* randbool(long low, ulong high, long size);
+	char* randint8(long low, long high, long size);
+	uchar *randuint8(long low, ulong high, long size);
+	short * randint16(long low, ulong high, long size);
+	ushort * randuint16(long low, ulong high, long size);
+	int * randint32(long low, ulong high, long size);
+	uint *randuint32(long low, ulong high, long size);
+	long* randint64(long low, ulong high, long size);
+	ulong * randuint64(long low, ulong high, long size);
+	int *random_integers(long low, ulong high, long size = 0);
+	double random_sample();
+	double* random_sample(long size);
+
 	// TODO: add your methods here.
 
 private:
-	double random_sample();
-	double* random_sample(long size);
+
+	double standard_normal();
+	double* standard_normal(long size);
 
 
 	// array generation functions

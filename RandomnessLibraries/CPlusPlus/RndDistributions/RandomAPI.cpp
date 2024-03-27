@@ -37,6 +37,7 @@
 #include "RandomDistributions.h"
 #include <math.h>
 #include <time.h>
+#include <limits.h>
 
 // This is the constructor of a class that has been exported.
 Random::Random(IRandomGenerator *rndGenerator)
@@ -104,9 +105,260 @@ double* Random::rand(long size)
 
 #pragma endregion
 
+#pragma region randn
+
+double Random::randn()
+{
+	return standard_normal();
+}
+
+double* Random::randn(long size)
+{
+	ValidateSize(size);
+
+	return standard_normal(size);
+}
+
+#pragma endregion
+
+
+#pragma region randbool
+
+bool* Random::randbool(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	bool* randomData = new bool[size];
+
+	RandomDistributions::rk_random_bool(false, true, size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randint8
+
+char* Random::randint8(long low, long high, long size)
+{
+	ValidateSize(size);
+
+	if (low < -SCHAR_MIN)
+		throw "low is out of bounds for Int8";
+	if (high > SCHAR_MAX)
+		throw "high is out of bounds for Int8";
+
+	char * randomData = new char[size];
+
+	char _low = (char)low;
+	char _high = (char)high;
+
+	
+	char rng = _high - _low;
+	char off = _low;
+
+	RandomDistributions::rk_random_int8(off, (char)(rng - 1), size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randuint8
+
+uchar *Random::randuint8(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < 0)
+		throw "low is out of bounds for UInt8";
+	if (high > UCHAR_MAX)
+		throw "high is out of bounds for UInt8";
+
+	uchar* randomData = new uchar[size];
+
+	uchar _low = (uchar)low;
+	uchar _high = (uchar)high;
+	uchar rng = _high - _low;
+	uchar off = _low;
+
+	RandomDistributions::rk_random_uint8(off, (uchar)(rng - 1), size, randomData, internal_state);
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randint16
+
+short * Random::randint16(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < SHRT_MIN)
+		throw "low is out of bounds for Int16";
+	if (high > SHRT_MAX)
+		throw "high is out of bounds for Int16";
+
+	short* randomData = new short[size];
+
+	short _low = (short)low;
+	short _high = (short)high;
+
+	short rng = _high - _low;
+	short off = _low;
+
+	RandomDistributions::rk_random_int16(off, (short)(rng - 1), size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randuint16
+
+ushort * Random::randuint16(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < 0)
+		throw "low is out of bounds for UInt16";
+	if (high > USHRT_MAX)
+		throw "high is out of bounds for UInt16";
+
+	ushort * randomData = new ushort[size];
+
+	ushort _low = (ushort)low;
+	ushort _high = (ushort)high;
+
+
+	ushort rng = _high - _low;
+	ushort off = _low;
+
+	RandomDistributions::rk_random_uint16(off, (ushort)(rng - 1), size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randint
+
+int * Random::randint32(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < INT_MIN)
+		throw "low is out of bounds for Int32";
+	if (high > INT_MAX)
+		throw "high is out of bounds for Int32";
+
+	int *randomData = new int[size];
+
+	int _low = (int)low;
+	int _high = (int)high;
+
+	int rng = _high - _low;
+	int off = _low;
+	RandomDistributions::rk_random_int32(off, rng - 1, size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randuint
+
+uint *Random::randuint32(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < 0)
+		throw "low is out of bounds for UInt32";
+	if (high > UINT_MAX)
+		throw "high is out of bounds for UInt32";
+
+	uint *randomData = new uint[size];
+
+	uint _low = (uint)low;
+	uint _high = (uint)high;
+
+
+	uint rng = _high - _low;
+	uint off = _low;
+
+	RandomDistributions::rk_random_uint32(off, rng - 1, size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randint64
+
+long* Random::randint64(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < LLONG_MIN)
+		throw "low is out of bounds for long";
+	if (high > LLONG_MAX)
+		throw "high is out of bounds for long";
+
+	long* randomData = new long[size];
+
+	long _low = (long)low;
+	long _high = (long)high;
+
+	long rng = _high - _low;
+	long off = _low;
+
+	RandomDistributions::rk_random_int64(off, rng - 1, size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region randuint64
+
+ulong * Random::randuint64(long low, ulong high, long size)
+{
+	ValidateSize(size);
+
+	if (low < 0)
+		throw "low is out of bounds for UInt64";
+	if (high > ULLONG_MAX)
+		throw "high is out of bounds for UInt64";
+
+	ulong* randomData = new ulong[size];
+
+	ulong _low = (ulong)low;
+	ulong _high = (ulong)high;
+
+	ulong rng = _high - _low;
+	ulong off = _low;
+
+	RandomDistributions::rk_random_uint64(off, rng - 1, size, randomData, internal_state);
+
+	return randomData;
+}
+
+#pragma endregion
+
+#pragma region random_integers
+
+int *Random::random_integers(long low, ulong high, long size)
+{
+	return randint32(low, high + 1, size);
+}
+
+#pragma endregion
+
+#pragma region random_sample
+
 double Random::random_sample()
 {
-	double *rndArray = cont0_array(internal_state, RandomDistributions::rk_double, 0);
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_double, 0);
 	double retVal = rndArray[0];
 	delete rndArray;
 	return retVal;
@@ -117,6 +369,26 @@ double* Random::random_sample(long size)
 	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_double, size);
 	return rndArray;
 }
+
+#pragma endregion
+
+#pragma region standard_normal
+
+
+double Random::standard_normal()
+{
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_gauss, 0);
+	return rndArray[0];
+}
+
+double* Random::standard_normal(long size)
+{
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_gauss, size);
+	return rndArray;
+}
+
+#pragma endregion
+
 
 #pragma region array builders
 
