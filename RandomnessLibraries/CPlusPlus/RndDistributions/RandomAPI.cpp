@@ -878,6 +878,364 @@ double* Random::laplace(double *oloc, int olocsize, double *oscale, int oscalsiz
 
 #pragma endregion
 
+#pragma region logistic
+
+double* Random::logistic(double oloc, double oscale, long size)
+{
+	return logistic(new double[1] { oloc }, 1, new double[1] { oscale }, 1, size);
+}
+
+double* Random::logistic(double* oloc, int olocsize, double oscale, long size)
+{
+	return logistic(oloc, olocsize, new double[1] { oscale }, 1, size);
+}
+
+double* Random::logistic(double oloc)
+{
+	return logistic(new double[1] { oloc }, 1, NULL, 0, 0);
+}
+
+double* Random::logistic(double *oloc, int olocsize, double *oscale, int oscalesize, long size)
+{
+
+	if (oscale == NULL)
+	{
+		oscale = new double[1]{ 1.0 };
+		oscalesize = 1;
+	}
+
+	if (any_signbit(oscale, oscalesize))
+		throw "oscale < 0";
+
+	if (olocsize == 1 && oscalesize == 1)
+	{
+		return cont2_array_sc(internal_state, RandomDistributions::rk_logistic, size, oloc[0], oscale[0]);
+	}
+
+	return cont2_array(internal_state, RandomDistributions::rk_logistic, size, oloc, olocsize, oscale, oscalesize);
+}
+
+#pragma endregion
+
+#pragma region lognormal
+
+double* Random::lognormal(double omean, double osigma, long size)
+{
+	return lognormal(new double[1] { omean }, 1, new double[1] { osigma }, 1, size);
+}
+
+double* Random::lognormal(double* omean, int omeansize, double osigma, long size)
+{
+	return lognormal(omean, omeansize, new double[1] { osigma }, 1, size);
+}
+
+double* Random::lognormal(double* omean, int omeansize, double* osigma, int osigmansize, long size)
+{
+	if (any_signbit(osigma, osigmansize))
+		throw "osigma < 0";
+
+
+	if (omeansize == 1 && osigmansize == 1)
+	{
+		return cont2_array_sc(internal_state, RandomDistributions::rk_lognormal, size, omean[0], osigma[0]);
+	}
+
+
+	return cont2_array(internal_state, RandomDistributions::rk_lognormal, size, omean, omeansize, osigma, osigmansize);
+}
+
+#pragma endregion
+
+#pragma region logseries
+
+long* Random::logseries(double op, long size)
+{
+	return logseries(new double[1] { op }, 1, size);
+}
+
+long* Random::logseries(double* op, int opsize, long size)
+{
+
+	ValidateSize(size);
+
+	if (any_less_equal(op, opsize, 0.0))
+		throw "op <= 0";
+	if (any_greater_equal(op, opsize, 1.0))
+		throw "op >= 1.0";
+
+	if (opsize == 1)
+	{
+		return discd_array_sc(internal_state, RandomDistributions::rk_logseries, size, op[0]);
+	}
+
+	return discd_array(internal_state, RandomDistributions::rk_logseries, size, op, opsize);
+}
+
+#pragma endregion
+
+#pragma region multinomial
+
+
+long* Random::multinomial(int n, double* pvals, int pvalsize, long size)
+{
+	long d = pvalsize;
+
+	if (kahan_sum(pvals, d - 1) > (1.0 + 1e-12))
+	{
+		throw "sum(pvals[:-1]) > 1.0";
+	}
+
+	int multinLength = size != 0 ? size * d : d;
+	long *multin = new long[multinLength];
+	long *mnix = multin;
+	long sz = multinLength;
+
+	long i = 0;
+	while (i < sz)
+	{
+		double Sum = 1.0;
+		long dn = n;
+		for (long j = 0; j < d - 1; j++)
+		{
+			mnix[i + j] = RandomDistributions::rk_binomial(internal_state, dn, pvals[j] / Sum);
+			dn = dn - mnix[i + j];
+			if (dn <= 0)
+				break;
+			Sum = Sum - pvals[j];
+		}
+
+		if (dn > 0)
+			mnix[i + d - 1] = dn;
+
+		i = i + d;
+
+	}
+
+	return multin;
+}
+
+#pragma endregion
+
+#pragma region noncentral_f
+
+double* Random::noncentral_f(double odfnum, double odfden, double ononc, long size)
+{
+	return noncentral_f(new double[1] { odfnum },1, new double[1] { odfden },1, new double[1] { ononc }, 1, size);
+}
+
+
+double* Random::noncentral_f(double* odfnum, int odfnumsize, double odfden, double ononc, long size)
+{
+	return noncentral_f(odfnum, odfnumsize, new double[1] { odfden}, 1, new double[1] { ononc}, 1, size);
+}
+
+double* Random::noncentral_f(double* odfnum, int odfnumsize, double* odfden, int odfdensize, double* ononc, int ononcsize, long size)
+{
+
+	ValidateSize(size);
+
+	if (any_less_equal(odfnum, odfnumsize, 0.0))
+		throw "odfnum < 0";
+	if (any_less_equal(odfden, odfdensize, 0.0))
+		throw "odfden < 0";
+	if (any_less_equal(ononc, ononcsize, 0.0))
+		throw "ononc < 0";
+
+	if (odfnumsize == 1 && odfdensize == 1 && ononcsize == 1)
+	{
+		return cont3_array_sc(internal_state, RandomDistributions::rk_noncentral_f, size, odfnum[0], odfden[0], ononc[0]);
+	}
+
+	return cont3_array(internal_state, RandomDistributions::rk_noncentral_f, size, odfnum, odfnumsize, odfden, odfdensize, ononc, ononcsize);
+}
+
+#pragma endregion
+
+#pragma region normal
+
+double* Random::normal(double oloc, double oscale, long size)
+{
+	return normal(new double[1] { oloc }, 1, new double[1] { oscale }, 1, size);
+}
+
+double* Random::normal(double* oloc, int olecsize, double oscale, long size)
+{
+	return normal(oloc, olecsize, new double[1] { oscale }, 1, size);
+}
+
+double* Random::normal(double* oloc, int olecsize, double* oscale, int oscalsize, long size)
+{
+	ValidateSize(size);
+
+	if (any_signbit(oscale, oscalsize))
+		throw "oscale < 0";
+
+	if (olecsize == 1 && oscalsize == 1)
+	{
+		return cont2_array_sc(internal_state, RandomDistributions::rk_normal, size, oloc[0], oscale[0]);
+	}
+
+	return cont2_array(internal_state, RandomDistributions::rk_normal, size, oloc, olecsize, oscale, oscalsize);
+}
+
+#pragma endregion
+
+#pragma region pareto
+
+double* Random::pareto(double oa, long size)
+{
+	return pareto(new double[1] { oa }, 1, size);
+}
+
+double* Random::pareto(double* oa, int oasize, long size)
+{
+	ValidateSize(size);
+
+	if (any_less_equal(oa, oasize, 0.0))
+		throw "oa < 0";
+
+	if (oasize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_pareto, size, oa[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_pareto, size, oa, oasize);
+}
+
+#pragma endregion
+
+#pragma region Poisson
+
+long* Random::poisson(double olam, long size)
+{
+	return poisson(new double[1] { olam }, 1, size);
+}
+long* Random::poisson(double* olam, int olamsize, long size)
+{
+	const double poisson_lam_max = 9.223372006484771e+18;
+
+	if (any_less(olam, olamsize, 0.0))
+		throw "olam < 0";
+	if (any_greater(olam, olamsize, poisson_lam_max))
+		throw "lam value too large";
+
+	if (olamsize == 1)
+	{
+		return discd_array_sc(internal_state, RandomDistributions::rk_poisson, size, olam[0]);
+	}
+
+	return discd_array(internal_state, RandomDistributions::rk_poisson, size, olam, olamsize);
+}
+
+#pragma endregion
+
+#pragma region Power
+
+double* Random::power(double oa, long size)
+{
+	return power(new double[1] { oa }, 1, size);
+}
+double* Random::power(double* oa, int oasize, long size)
+{
+	ValidateSize(size);
+
+	if (any_signbit(oa, oasize))
+		throw "oa < 0";
+
+	if (oasize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_power, size, oa[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_power, size, oa, oasize);
+}
+
+#pragma endregion
+
+#pragma region rayleigh
+
+double* Random::rayleigh(double oscale, long size)
+{
+	return rayleigh(new double[1] { oscale }, 1, size);
+}
+double* Random::rayleigh(double* oscale, int oscalesize, long size)
+{
+	ValidateSize(size);
+
+	if (any_signbit(oscale, oscalesize))
+		throw "oscale < 0";
+
+	if (oscalesize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_rayleigh, size, oscale[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_rayleigh, size, oscale, oscalesize);
+}
+#pragma endregion
+
+#pragma region standard_cauchy
+
+double Random::standard_cauchy()
+{
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_standard_cauchy, 0);
+	double retVal = rndArray[0];
+	delete rndArray;
+	return retVal;
+}
+
+
+double* Random::standard_cauchy(long size)
+{
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_standard_cauchy, size);
+	return rndArray;
+}
+
+#pragma endregion
+
+#pragma region standard_exponential
+
+double Random::standard_exponential()
+{
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_standard_exponential, 0);
+	double retVal = rndArray[0];
+	delete rndArray;
+	return retVal;
+}
+
+
+double* Random::standard_exponential(long size)
+{
+	double* rndArray = cont0_array(internal_state, RandomDistributions::rk_standard_exponential, size);
+	return rndArray;
+}
+
+#pragma endregion
+
+#pragma region standard_gamma
+
+double* Random::standard_gamma(double oshape, long size)
+{
+	return standard_gamma(new double[1] { oshape }, 1, size);
+}
+
+double* Random::standard_gamma(double* oshape, int oshapesize, long size)
+{
+	ValidateSize(size);
+
+	if (any_signbit(oshape, oshapesize))
+		throw "oshape < 0";
+
+	if (oshapesize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_standard_gamma, size, oshape[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_standard_gamma, size, oshape, oshapesize);
+}
+
+#pragma endregion
+
 #pragma region standard_normal
 
 
@@ -895,6 +1253,198 @@ double* Random::standard_normal(long size)
 
 #pragma endregion
 
+#pragma region standard_t
+
+double* Random::standard_t(double odf, long size)
+{
+	return standard_t(new double[1] { odf }, 1, size);
+}
+
+double* Random::standard_t(double* odf, int odfsize, long size)
+{
+	ValidateSize(size);
+
+	if (any_less_equal(odf, odfsize, 0.0))
+		throw "odf < 0";
+
+	if (odfsize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_standard_t, size, odf[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_standard_t, size, odf, odfsize);
+}
+
+#pragma endregion
+
+#pragma region triangular
+
+double* Random::triangular(double oleft, double omode, double oright, long size)
+{
+	return triangular(new double[1] { oleft },1, new double[1] { omode }, 1, new double[1] { oright }, 1, size);
+}
+double* Random::triangular(double *oleft, int oleftsize, double omode, double oright, long size)
+{
+	return triangular(oleft, oleftsize, new double[1] { omode }, 1, new double[1] { oright }, 1, size);
+}
+double* Random::triangular(double *oleft, int oleftsize, double* omode, int omodesize, double oright, long size)
+{
+	return triangular( oleft, oleftsize, omode, omodesize, new double[1]{ oright }, 1, size);
+}
+double* Random::triangular(double* oleft, int oleftsize, double* omode, int omodesize, double* oright, int orightsize, long size)
+{
+	ValidateSize(size);
+
+	if (any_greater(oleft, oleftsize, omode, omodesize))
+		throw "left > mode";
+	if (any_greater(omode, omodesize, oright, orightsize))
+		throw "mode > right";
+	if (any_equal(oleft, oleftsize, oright, orightsize))
+		throw "left == right";
+
+	if (oleftsize == 1 && omodesize == 1 && orightsize == 1)
+	{
+		return cont3_array_sc(internal_state, RandomDistributions::rk_triangular, size, oleft[0], omode[0], oright[0]);
+	}
+
+	return cont3_array(internal_state, RandomDistributions::rk_triangular, size, oleft, oleftsize, omode, omodesize, oright, orightsize);
+}
+
+#pragma endregion
+
+#pragma region uniform
+
+double* Random::uniform(double low, double high, long size)
+{
+	ValidateSize(size);
+
+	double* lowarr = new double[1] { low };
+	double* higharr = new double[1] { high };
+
+	return uniform(lowarr, 1,higharr, 1, size);
+}
+
+double* Random::uniform(double* olow, int olowsize, double* ohigh, int ohighsize, long size)
+{
+	ValidateSize(size);
+
+	int odiffsize = ohighsize;
+	double* odiff = subtract(ohigh, ohighsize, olow, olowsize);
+	if (any_isfinite(odiff, odiffsize))
+	{
+		delete odiff;
+		throw "Range exceeds valid bounds";
+	}
+
+	if (olowsize == 1 && ohighsize == 1)
+	{
+		delete odiff;
+		return cont2_array_sc(internal_state, RandomDistributions::rk_uniform, size, olow[0], ohigh[0] - olow[0]);
+	}
+
+	double *retval= cont2_array(internal_state, RandomDistributions::rk_uniform, size, olow, olowsize, odiff, odiffsize);
+	delete odiff;
+	return retval;
+}
+
+#pragma endregion
+
+#pragma region vonmises
+
+double* Random::vonmises(double omu, double okappa, long size)
+{
+	return vonmises(new double[1] { omu }, 1, new double[1] { okappa }, 1, size);
+}
+double* Random::vonmises(double* omu, int omusize, double okappa, long size)
+{
+	return vonmises(omu, omusize, new double[1] { okappa }, 1, size);
+}
+double* Random::vonmises(double* omu, int omusize, double* okappa, int okappasize, long size)
+{
+	if (any_less(okappa, okappasize, 0.0))
+		throw "okappa < 0";
+
+	if (omusize == 1 && okappasize == 1)
+	{
+		return cont2_array_sc(internal_state, RandomDistributions::rk_vonmises, size, omu[0], okappa[0]);
+	}
+
+	return cont2_array(internal_state, RandomDistributions::rk_vonmises, size, omu, omusize, okappa, okappasize);
+}
+
+#pragma endregion
+
+#pragma region wald
+
+double* Random::wald(double omean, double oscale, long size)
+{
+	return wald(new double[1] { omean },1, new double[1] { oscale }, 1, size);
+}
+double* Random::wald(double* omean, int omeansize, double oscale, long size)
+{
+	return wald(omean, omeansize, new double[1] { oscale }, 1, size);
+}
+double* Random::wald(double* omean, int omeansize, double* oscale, int oscalesize, long size)
+{
+	if (any_less_equal(omean, omeansize, 0.0))
+		throw "omean <= 0";
+
+	if (any_less_equal(oscale, oscalesize, 0.0))
+		throw "oscale <= 0";
+
+	if (omeansize == 1 && oscalesize == 1)
+	{
+		return cont2_array_sc(internal_state, RandomDistributions::rk_wald, size, omean[0], oscale[0]);
+	}
+
+	return cont2_array(internal_state, RandomDistributions::rk_wald, size, omean, omeansize, oscale, oscalesize);
+}
+
+#pragma endregion
+
+#pragma region weibull
+
+double* Random::weibull(double oa, long size)
+{
+	return weibull(new double[1] { oa }, 1, size);
+}
+double* Random::weibull(double* oa, int oasize, long size)
+{
+	if (any_signbit(oa, oasize))
+		throw "oa <= 0";
+
+	if (oasize == 1)
+	{
+		return cont1_array_sc(internal_state, RandomDistributions::rk_weibull, size, oa[0]);
+	}
+
+	return cont1_array(internal_state, RandomDistributions::rk_weibull, size, oa, oasize);
+}
+
+#pragma endregion
+
+#pragma region zipf
+
+long* Random::zipf(double oa, long size)
+{
+	return zipf(new double[1] { oa }, 1, size);
+}
+
+long* Random::zipf(double* oa, int oasize, long size)
+{
+	// use logic that ensures NaN is rejected.
+	if (!any_greater(oa, oasize, 1.0))
+		throw "'a' must contain valid floats > 1.0";
+
+	if (oasize == 1)
+	{
+		return discd_array_sc(internal_state, RandomDistributions::rk_zipf, size, oa[0]);
+	}
+
+	return discd_array(internal_state, RandomDistributions::rk_zipf, size, oa, oasize);
+}
+
+#pragma endregion
 
 #pragma region array builders
 

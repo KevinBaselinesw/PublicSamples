@@ -87,6 +87,74 @@ public:
 	double* laplace(double oloc, double* oscale = NULL, int oscalesize = 0, long size = 0);
 	double* laplace(double *oloc, int olocsize, double *oscale = NULL, int oscalsize = 0, long size = 0);
 
+	double* logistic(double oloc, double oscale, long size = 0);
+	double* logistic(double* oloc, int olocsize, double oscale, long size = 0);
+	double* logistic(double oloc);
+	double* logistic(double *oloc, int olocsize, double *oscale = NULL, int oscalesize = 0, long size = 0);
+
+	double* lognormal(double omean, double osigma, long size = 0);
+	double* lognormal(double* omean, int omeansize, double osigma, long size = 0);
+	double* lognormal(double* omean, int omeansize, double* osigma, int osigmansize, long size = 0);
+
+	long* logseries(double op, long size = 0);
+	long* logseries(double* op, int opsize, long size = 0);
+
+	long* multinomial(int n, double* pvals, int pvalsize, long size = 0);
+
+	double* noncentral_f(double odfnum, double odfden, double ononc, long size = 0);
+	double* noncentral_f(double* odfnum, int odfnumsize, double odfden, double ononc, long size = 0);
+	double* noncentral_f(double* odfnum, int odfnumsize, double* odfden, int odfdensize, double* ononc, int ononcsize, long size = 0);
+	
+	double* normal(double oloc, double oscale, long size = 0);
+	double* normal(double* oloc, int olecsize, double oscale, long size = 0);
+	double* normal(double* oloc, int olecsize, double* oscale, int oscalsize, long size = 0);
+
+	double* pareto(double oa, long size = 0);
+	double* pareto(double* oa, int oasize, long size = 0);
+
+	long* poisson(double olam, long size = 0);
+	long* poisson(double* olam, int olamsize, long size = 0);
+
+	double* power(double oa, long size = 0);
+	double* power(double* oa, int oasize, long size = 0);
+
+	double* rayleigh(double oscale, long size = 0);
+	double* rayleigh(double* oscale, int oscalesize, long size = 0);
+
+	double standard_cauchy();
+	double* standard_cauchy(long size);
+
+	double standard_exponential();
+	double* standard_exponential(long size);
+
+	double* standard_gamma(double oshape, long size = 0);
+	double* standard_gamma(double* oshape, int oshapesize, long size = 0);
+
+	double* standard_t(double odf, long size = 0);
+	double* standard_t(double* odf, int odfsize, long size = 0);
+
+	double* triangular(double oleft, double omode, double oright, long size = 0);
+	double* triangular(double *oleft, int oleftsize, double omode, double oright, long size = 0);
+	double* triangular(double *oleft, int oleftsize, double* omode, int omodesize, double oright, long size = 0);
+	double* triangular(double* oleft, int oleftsize, double* omode, int omodesize, double* oright, int orightsize, long size = 0);
+	
+	double* uniform(double low = 0.0, double high = 1.0, long size = 0);
+	double* uniform(double* olow, int olowsize, double* ohigh, int ohighsize, long size = 0);
+
+	double* vonmises(double omu, double okappa, long size = 0);
+	double* vonmises(double* omu, int omusize, double okappa, long size = 0);
+	double* vonmises(double* omu, int omusize, double* okappa, int okappasize, long size = 0);
+
+	double* wald(double omean, double oscale, long size = 0);
+	double* wald(double* omean, int omeansize, double oscale, long size = 0);
+	double* wald(double* omean, int omeansize, double* oscale, int oscalesize, long size = 0);
+
+	double* weibull(double oa, long size = 0);
+	double* weibull(double* oa, int oasize, long size = 0);
+
+	long* zipf(double oa, long size = 0);
+	long* zipf(double* oa, int oasize, long size = 0);
+
 	// TODO: add your methods here.
 
 private:
