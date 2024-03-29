@@ -44,7 +44,6 @@ namespace RndDistributionsUnitTest
 	public:
 
 		const double doubleTolerance = .00000000001;
-		TestBaseClass *bc = new TestBaseClass();
 		
 		TEST_METHOD(test_rand_1)
 		{
