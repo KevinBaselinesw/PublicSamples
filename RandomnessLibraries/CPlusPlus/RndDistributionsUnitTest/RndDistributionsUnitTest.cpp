@@ -43,7 +43,6 @@ namespace RndDistributionsUnitTest
 	{
 	public:
 
-		const double doubleTolerance = .00000000001;
 		
 		TEST_METHOD(test_rand_1)
 		{

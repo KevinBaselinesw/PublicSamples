@@ -652,3 +652,70 @@ void TestBaseClass::AssertArray(char *a, char *b, int size)
 		Assert::AreEqual(a[i], b[i]);
 	}
 }
+
+void TestBaseClass::AssertArray(uchar *a, uchar *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i]);
+	}
+}
+
+void TestBaseClass::AssertArray(short *a, short *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i]);
+	}
+}
+
+//void TestBaseClass::AssertArray(ushort *a, ushort *b, int size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		Assert::AreEqual(a[i], b[i]);
+//	}
+//}
+
+void TestBaseClass::AssertArray(int *a, int *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i]);
+	}
+}
+
+void TestBaseClass::AssertArray(uint *a, uint *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i]);
+	}
+}
+
+void TestBaseClass::AssertArray(long *a, long *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i]);
+	}
+}
+
+void TestBaseClass::AssertArray(ulong *a, ulong *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i]);
+	}
+}
+
+void TestBaseClass::AssertArray(double *a, double *b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		Assert::AreEqual(a[i], b[i], doubleTolerance);
+	}
+}
+
+
+

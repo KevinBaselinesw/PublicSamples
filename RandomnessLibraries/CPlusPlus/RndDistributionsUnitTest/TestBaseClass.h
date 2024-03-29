@@ -8,6 +8,7 @@
 #define ushort unsigned short
 #define uchar unsigned char
 
+const double doubleTolerance = .00000000001;
 
 class TestBaseClass
 {
@@ -87,6 +88,14 @@ public:
 
 	void AssertArray(bool *a, bool *b, int size);
 	void AssertArray(char *a, char *b, int size);
+	void AssertArray(uchar *a, uchar *b, int size);
+	void AssertArray(short *a, short *b, int size);
+	//void AssertArray(ushort *a, ushort *b, int size);
+	void AssertArray(int *a, int *b, int size);
+	void AssertArray(uint *a, uint *b, int size);
+	void AssertArray(long *a, long *b, int size);
+	void AssertArray(ulong *a, ulong *b, int size);
+	void AssertArray(double *a, double *b, int size);
 
 };
 
