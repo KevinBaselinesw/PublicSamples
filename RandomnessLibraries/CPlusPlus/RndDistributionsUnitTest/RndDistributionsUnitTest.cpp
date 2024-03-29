@@ -276,5 +276,137 @@ namespace RndDistributionsUnitTest
 			AssertArray(first10, Expected2, 10);
 		}
 
+		TEST_METHOD(test_randuint16_1)
+		{
+			Random *random = new Random();
+
+			random->seed(5555);
+
+			ushort* arr = random->randuint16(2, 3, 4);
+			//Assert.AreEqual(arr.GetType(), typeof(System.UInt16[]));
+			print(arr);
+
+			ushort ExpectedData[4]{ 2, 2, 2, 2 };
+			//AssertArray(arr, ExpectedData, 4);
+
+			int size = 5000000;
+			arr = random->randuint16(23, 12801, size);
+			//Assert.AreEqual(arr.GetType(), typeof(System.UInt16[]));
+
+			ushort amax = GetMax(arr,size);
+			print(amax);
+			//Assert::AreEqual((ushort)12800, amax);
+
+			ushort amin = GetMin(arr, size);
+			print(amin);
+			//Assert::AreEqual((ushort)23, amin);
+
+			double avg = GetAverage(arr,size);
+			print(avg);
+			Assert::AreEqual(6411.5873838, avg);
+
+			ushort first10[10];
+			ushort Expected1[10] = { 3781, 11097, 4916, 2759, 12505, 827, 12017, 3982, 7669, 11128 };
+			FirstTen(arr, first10);
+			print(first10);
+			//AssertArray(first10, Expected1, 10);
+		}
+
+		TEST_METHOD(test_randint32_1)
+		{
+			Random *random = new Random();
+
+			random->seed(701);
+
+			int * arr = random->randint32(2, 3, 4);
+			//Assert.AreEqual(arr.GetType(), typeof(System.Int32[]));
+			print(arr);
+
+			int ExpectedData[4] = { 2, 2, 2, 2 };
+			AssertArray(arr, ExpectedData, 4);
+
+			int size = 5000000;
+			arr = random->randint32(9, 128000, size);
+			//Assert::AreEqual(arr.GetType(), typeof(System.Int32[]));
+
+			int amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((int)127999, amax);
+
+			int amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((int)9, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(64017.8102496, avg,doubleTolerance);
+
+
+			int first10[10];
+			int Expected1[10] = { 116207, 47965, 90333, 86510, 49239, 115311, 100417, 99653, 14878, 92386 };
+			FirstTen(arr, first10);
+			print(first10);
+			AssertArray(first10, Expected1, 10);
+
+			size = 5000000;
+			arr = random->randint32(-20000, 300000, size);
+			//Assert.AreEqual(arr.GetType(), typeof(System.Int32[]));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((int)299999, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((int)(-20000), amin);
+
+			avg = GetAverage(arr,size);
+			print(avg);
+			Assert::AreEqual(139952.5096864, avg, doubleTolerance);
+
+			int Expected2[10] = { 211742, 98578, 96618, 50714, 285136, 270233, 186899, 278442, 215280, 268431 };
+			FirstTen(arr, first10);
+			print(first10);
+			AssertArray(first10, Expected2, 10);
+		}
+
+		TEST_METHOD(test_randuint_1)
+		{
+			Random *random = new Random();
+
+			random->seed(8357);
+
+			uint* arr = random->randuint32(2, 3, 4);
+			//Assert.AreEqual(arr.GetType(), typeof(System.UInt32[]));
+			print(arr);
+
+			uint ExpectedData[4] = { 2, 2, 2, 2 };
+			AssertArray(arr, ExpectedData, 4);
+
+			int size = 5000000;
+			arr = random->randuint32(29, 13000, 5000000);
+			//Assert.AreEqual(arr.GetType(), typeof(System.UInt32[]));
+
+			uint amax = GetMax(arr,size);
+			print(amax);
+			Assert::AreEqual((uint)12999, amax);
+
+			uint amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((uint)29, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(6512.7336774, avg, doubleTolerance);
+
+			uint first10[10];
+			uint Expected1[10] = { 6511, 10414, 12909, 5962, 353, 8634, 8330, 1452, 5009, 5444 };
+			FirstTen(arr, first10);
+			print(first10);
+			AssertArray(first10, Expected1, 10);
+		}
+
+	
+
 	};
 }
