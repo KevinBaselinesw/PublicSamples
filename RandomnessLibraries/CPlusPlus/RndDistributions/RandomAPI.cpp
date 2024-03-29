@@ -143,7 +143,7 @@ char* Random::randint8(long low, long high, long size)
 {
 	ValidateSize(size);
 
-	if (low < -SCHAR_MIN)
+	if (low < SCHAR_MIN)
 		throw "low is out of bounds for Int8";
 	if (high > SCHAR_MAX)
 		throw "high is out of bounds for Int8";
