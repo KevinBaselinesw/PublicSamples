@@ -43,13 +43,17 @@ class Program
     /// <returns></returns>
     static async Task<int> Main(string[] args)
     {
+        // TODO: Get this information from a login screen
+        string session = "SessionDataString";
+        SessionData sessionData = new SessionData("Shemp", "Howard", session);
+
         var rootCommand = new RootCommand("Sample app for System.CommandLine");
 
-        rootCommand.AddCommand(new OptionExampleCommand());
-        rootCommand.AddCommand(new AddCommand());
-        rootCommand.AddCommand(new SubCommand());
-        rootCommand.AddCommand(new MultiplyCommand());
-        rootCommand.AddCommand(new DivideCommand());
+        rootCommand.AddCommand(new OptionExampleCommand(sessionData));
+        rootCommand.AddCommand(new AddCommand(sessionData));
+        rootCommand.AddCommand(new SubCommand(sessionData));
+        rootCommand.AddCommand(new MultiplyCommand(sessionData));
+        rootCommand.AddCommand(new DivideCommand(sessionData));
         rootCommand.AddCommand(new ExitCommand());
 
         try

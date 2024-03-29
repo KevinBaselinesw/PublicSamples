@@ -36,8 +36,12 @@ namespace Calc.Commands
 {
     internal class DivideCommand : Command
     {
-        public DivideCommand() : base("Divide", "Command to divide two numbers together")
+        SessionData sessionData;
+
+        public DivideCommand(SessionData sessionData) : base("Divide", "Command to divide two numbers together")
         {
+            this.sessionData = sessionData;
+
             var DivArgument1 = new Argument<double>(name: "d1", description: "");
             var DivArgument2 = new Argument<double>(name: "d2", description: "");
 
@@ -55,10 +59,12 @@ namespace Calc.Commands
             }, DivArgument1, DivArgument2);
         }
 
-        static void DivideCommandHandler(double p1, double p2)
+        void DivideCommandHandler(double p1, double p2)
         {
             double total = p1 / p2;
             Console.WriteLine(string.Format($"{p1} * {p2} = {total}"));
+
+            Console.WriteLine(sessionData.ToString());
         }
 
 

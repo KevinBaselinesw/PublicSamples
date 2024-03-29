@@ -36,8 +36,12 @@ namespace Calc.Commands
 {
     internal class SubCommand : Command
     {
-        public SubCommand() : base("Sub", "Command to subtract two numbers from each other")
+        SessionData sessionData;
+
+        public SubCommand(SessionData sessionData) : base("Sub", "Command to subtract two numbers from each other")
         {
+            this.sessionData = sessionData;
+
             var SubArgument1 = new Argument<double>(name: "s1", description: "");
             var SubArgument2 = new Argument<double>(name: "s2", description: "");
 
@@ -55,10 +59,12 @@ namespace Calc.Commands
             }, SubArgument1, SubArgument2);
         }
 
-        static void SubCommandHandler(double p1, double p2)
+        void SubCommandHandler(double p1, double p2)
         {
             double sum = p1 - p2;
             Console.WriteLine(string.Format($"{p1} - {p2} = {sum}"));
+
+            Console.WriteLine(sessionData.ToString());
         }
 
 

@@ -36,8 +36,12 @@ namespace Calc.Commands
 {
     internal class MultiplyCommand : Command
     {
-        public MultiplyCommand() : base("Mult", "Command to multiply two numbers together")
+        SessionData sessionData;
+
+        public MultiplyCommand(SessionData sessionData) : base("Mult", "Command to multiply two numbers together")
         {
+            this.sessionData = sessionData;
+
             var MultArgument1 = new Argument<double>(name: "m1", description: "");
             var MultArgument2 = new Argument<double>(name: "m2", description: "");
 
@@ -55,10 +59,12 @@ namespace Calc.Commands
             }, MultArgument1, MultArgument2);
         }
 
-        static void MultiplyCommandHandler(double p1, double p2)
+        void MultiplyCommandHandler(double p1, double p2)
         {
             double total = p1 * p2;
             Console.WriteLine(string.Format($"{p1} * {p2} = {total}"));
+
+            Console.WriteLine(sessionData.ToString());
         }
 
 

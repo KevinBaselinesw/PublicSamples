@@ -36,8 +36,11 @@ namespace Calc.Commands
 {
     internal class AddCommand : Command
     {
-        public AddCommand() : base("Add", "Command to add two numbers together")
+        SessionData sessionData;
+        public AddCommand(SessionData sessionData) : base("Add", "Command to add two numbers together")
         {
+            this.sessionData = sessionData;
+
             var AddArgument1 = new Argument<double>(name: "a1", description: "");
             var AddArgument2 = new Argument<double>(name: "a2", description: "");
 
@@ -51,13 +54,16 @@ namespace Calc.Commands
             Cmd.SetHandler((AddArgument1Value, AddArgument2Value) =>
             {
                 AddCommandHandler(AddArgument1Value, AddArgument2Value);
-            }, AddArgument1, AddArgument2);
+            },  AddArgument1, AddArgument2);
+            this.sessionData = sessionData;
         }
 
-        static void AddCommandHandler(double p1, double p2)
+        void AddCommandHandler(double p1, double p2)
         {
             double sum = p1 + p2;
             Console.WriteLine(string.Format($"{p1} + {p2} = {sum}"));
+
+            Console.WriteLine(sessionData.ToString());
         }
 
 

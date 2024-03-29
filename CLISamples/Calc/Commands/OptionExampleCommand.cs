@@ -36,8 +36,12 @@ namespace Calc.Commands
 {
     internal class OptionExampleCommand : Command
     {
-        public OptionExampleCommand() : base("OptionExample", "Command to demo usage of options")
+        SessionData sessionData;
+
+        public OptionExampleCommand(SessionData sessionData) : base("OptionExample", "Command to demo usage of options")
         {
+            this.sessionData = sessionData;
+
             var x1option = new Option<string?>(name: "--x1", description: "x1 option.");
             x1option.AddAlias("-x1");
 
@@ -65,7 +69,7 @@ namespace Calc.Commands
 
         }
 
-        static void OptionExampleCommandHandler(string x1, string x2, string x3)
+        void OptionExampleCommandHandler(string x1, string x2, string x3)
         {
             if (!string.IsNullOrEmpty(x1))
                 Console.WriteLine("x1 = " + x1);
@@ -81,6 +85,8 @@ namespace Calc.Commands
                 Console.WriteLine("x3 = " + x3);
             else
                 Console.WriteLine("x3 option not specified");
+
+            Console.WriteLine(sessionData.ToString());
 
         }
 
