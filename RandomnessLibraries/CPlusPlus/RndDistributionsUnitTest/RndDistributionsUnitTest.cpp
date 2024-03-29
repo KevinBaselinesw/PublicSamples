@@ -105,5 +105,84 @@ namespace RndDistributionsUnitTest
 
 		}
 
+		TEST_METHOD(test_randbool_1)
+		{
+			Random *random = new Random();
+
+			bool *arr = random->randbool(2, 3, 4);
+			//Assert.AreEqual(arr.GetType(), typeof(System.Boolean[]));
+			print(arr);
+			//AssertArray(arr, new bool[] { false, false, false, true });
+
+			arr = random->randbool(20, 0, 20);
+			print(arr);
+
+			arr = random->randbool(20, 21, 6);
+			print(arr);
+
+			int size = 5000000;
+			arr = random->randbool(-2, 3, size);
+			print(GetMax(arr, size));
+			print(GetMin(arr, size));
+			//print(GetAverage(arr));
+
+		}
+
+		TEST_METHOD(test_randint8_1)
+		{
+			Random *random = new Random();
+
+			random->seed(9292);
+
+			char *arr = random->randint8(2, 3, 4);
+			//Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
+			print(arr);
+			AssertArray(arr, new char[4]{ 2, 2, 2, 2 }, 4);
+
+			int size = 5000000;
+			arr = random->randint8(2, 8, size);
+			//Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
+
+			char amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((char)7, amax);
+
+			char amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((char)2, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(4.4994078, avg);
+
+			char first10[10];
+			char Expected1[10] = { 3, 6, 7, 5, 5, 5, 7, 7, 4, 2 };
+			FirstTen(arr, first10);
+			print(first10);
+			AssertArray(first10, Expected1, 10);
+
+
+			arr = random->randint8(-2, 3, size);
+			//Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((char)2, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((char)(-2), amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(-0.0003146, avg);
+
+			char Expected2[10] = { 0, 1, -1, -2, -2, -1, 2, -1, -2, -2 };
+			FirstTen(arr, first10);
+			print(first10);
+			AssertArray(first10, Expected2, 10);
+
+		}
+
 	};
 }
