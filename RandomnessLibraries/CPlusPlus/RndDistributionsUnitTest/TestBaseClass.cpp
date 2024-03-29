@@ -39,6 +39,129 @@ void TestBaseClass::print(char *b, int dsize)
 	}
 }
 
+void TestBaseClass::print(uchar b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(uchar *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+
+void TestBaseClass::print(short b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(short *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+
+void TestBaseClass::print(ushort b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(ushort *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+void TestBaseClass::print(int b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(int *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+void TestBaseClass::print(uint b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(uint *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+void TestBaseClass::print(long b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(long *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+void TestBaseClass::print(ulong b)
+{
+	char buffer[256];
+
+	sprintf_s(buffer, sizeof(buffer), "%d", b);
+	Logger::WriteMessage(buffer);
+}
+void TestBaseClass::print(ulong *b, int dsize)
+{
+	char buffer[256];
+
+	for (int i = 0; i < dsize; i++)
+	{
+		sprintf_s(buffer, sizeof(buffer), "%d", b[i]);
+		Logger::WriteMessage(buffer);
+	}
+}
+
+
 void TestBaseClass::print(bool b)
 {
 	char buffer[256];
@@ -106,6 +229,41 @@ void TestBaseClass::FirstTen(double *arr, double *firstTen)
 }
 //////////////////////////////
 
+
+bool TestBaseClass::GetMax(bool *arr, int size)
+{
+	double highNum = true;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+bool TestBaseClass::GetMin(bool *arr, int size)
+{
+	double lowNum = false;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+void TestBaseClass::FirstTen(bool *arr, bool *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
+////////////////////////////
+
 char TestBaseClass::GetMax(char *arr, int size)
 {
 	char highNum = CHAR_MIN;
@@ -152,9 +310,10 @@ void TestBaseClass::FirstTen(char *arr, char *firstTen)
 }
 
 ////////////////////////////
-bool TestBaseClass::GetMax(bool *arr, int size)
+
+uchar TestBaseClass::GetMax(uchar *arr, int size)
 {
-	double highNum = true;
+	uchar highNum = 0;
 	int i;
 
 	for (i = 0; i < size; i++)
@@ -165,9 +324,9 @@ bool TestBaseClass::GetMax(bool *arr, int size)
 	return highNum;
 }
 
-bool TestBaseClass::GetMin(bool *arr, int size)
+uchar TestBaseClass::GetMin(uchar *arr, int size)
 {
-	double lowNum = false;
+	uchar lowNum = UCHAR_MAX;
 	int i;
 
 	for (i = 0; i < size; i++)
@@ -177,7 +336,19 @@ bool TestBaseClass::GetMin(bool *arr, int size)
 	}
 	return lowNum;
 }
-void TestBaseClass::FirstTen(bool *arr, bool *firstTen)
+
+double TestBaseClass::GetAverage(uchar *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(uchar *arr, uchar *firstTen)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -185,7 +356,287 @@ void TestBaseClass::FirstTen(bool *arr, bool *firstTen)
 	}
 }
 
-//////////////////////////
+////////////////////////////
+
+short TestBaseClass::GetMax(short *arr, int size)
+{
+	short highNum = SHRT_MIN;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+short TestBaseClass::GetMin(short *arr, int size)
+{
+	short lowNum = SHRT_MAX;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+
+double TestBaseClass::GetAverage(short *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(short *arr, short *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
+
+////////////////////////////
+
+ushort TestBaseClass::GetMax(ushort *arr, int size)
+{
+	ushort highNum = 0;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+ushort TestBaseClass::GetMin(ushort *arr, int size)
+{
+	ushort lowNum = USHRT_MAX;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+
+double TestBaseClass::GetAverage(ushort *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(ushort *arr, ushort *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
+
+////////////////////////////
+
+int TestBaseClass::GetMax(int *arr, int size)
+{
+	int highNum = INT_MIN;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+int TestBaseClass::GetMin(int *arr, int size)
+{
+	int lowNum = INT_MAX;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+
+double TestBaseClass::GetAverage(int *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(int *arr, int *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
+
+////////////////////////////
+
+uint TestBaseClass::GetMax(uint *arr, int size)
+{
+	uint highNum = 0;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+uint TestBaseClass::GetMin(uint *arr, int size)
+{
+	uint lowNum = UINT_MAX;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+
+double TestBaseClass::GetAverage(uint *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(uint *arr, uint *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
+
+////////////////////////////
+
+long TestBaseClass::GetMax(long *arr, int size)
+{
+	long highNum = LLONG_MIN;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+long TestBaseClass::GetMin(long *arr, int size)
+{
+	long lowNum = LLONG_MAX;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+
+double TestBaseClass::GetAverage(long *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(long *arr, long *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
+
+////////////////////////////
+
+ulong TestBaseClass::GetMax(ulong *arr, int size)
+{
+	ulong highNum = 0;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] > highNum)
+			highNum = arr[i];
+	}
+	return highNum;
+}
+
+ulong TestBaseClass::GetMin(ulong *arr, int size)
+{
+	ulong lowNum = ULLONG_MAX;
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		if (arr[i] < lowNum)
+			lowNum = arr[i];
+	}
+	return lowNum;
+}
+
+double TestBaseClass::GetAverage(ulong *arr, int size)
+{
+	double total = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+
+	return total / size;
+}
+void TestBaseClass::FirstTen(ulong *arr, ulong *firstTen)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		firstTen[i] = arr[i];
+	}
+}
 
 void TestBaseClass::AssertArray(bool *a, bool *b, int size)
 {
