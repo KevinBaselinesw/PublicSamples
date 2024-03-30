@@ -88,7 +88,7 @@ namespace SimpleCLI.CliClasses
 
         private void DisplayCommandNotFoundMessage(string cmdString)
         {
-            Console.WriteLine($"The entered command '{cmdString}' is not found");
+            Console.WriteLine($"The entered command '{cmdString}' is not found!  Enter --help for a list of commands!");
         }
 
         private void DisplayHighLevelCommandHelp()
