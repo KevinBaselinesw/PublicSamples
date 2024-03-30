@@ -535,7 +535,7 @@ namespace RandomnessDistributionsUnitTest
             var a = arange_Double(1, 11);
             var b = arange_Double(1, 11);
 
-            var arr = random.beta(b, b, size:10);
+            var arr = random.beta(a, b, size:10);
             Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
             print(arr);
 
