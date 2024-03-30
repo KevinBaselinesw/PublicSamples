@@ -16,7 +16,7 @@ namespace SimpleCLI.CliClasses
 
         private string? _description;
         private string _commandName;
-        private List<string> _commandAliases;
+        private List<string>? _commandAliases;
 
         /// <summary>
         /// Initializes a new instance of the Command class.
@@ -34,10 +34,13 @@ namespace SimpleCLI.CliClasses
             if (this._commandName == commandName)
                 return true;
 
-            foreach (var alias in  this._commandAliases) 
-            { 
-                if (alias == commandName)
-                    return true;
+            if (this._commandAliases != null)
+            {
+                foreach (var alias in this._commandAliases)
+                {
+                    if (alias == commandName)
+                        return true;
+                }
             }
 
             return false;
