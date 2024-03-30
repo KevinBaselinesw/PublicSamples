@@ -16,37 +16,73 @@ namespace SimpleCLI.CliClasses
 
         public async Task<int> ProcessCommandLine(string[] args)
         {
-            await Task.Delay(1);
-
             string CmdString = args[0];
 
-            switch (CmdString)
+            // if this is top level help request
+            if (IsHelpOption(CmdString))
             {
-                case "--help":
-                case "-help":
-                case "--?":
-                case "-?":
-                case "?":
-                    DisplayHighLevelCommandHelp();
-                    return 0;
-                default:
-                    break;
+                DisplayHighLevelCommandHelp();
+                return 0;
             }
 
+            // find the matching command. Else display error
+            Command? command = FindMatchingCommand(commands, CmdString);
+            if (command == null)
+            {
+                DisplayCommandNotFoundMessage(CmdString);
+                return 1;
+            }    
+
+            // if this is a command specific help request
+            if (IsCommandSpecificHelpOption(args))
+            {
+                DisplayCommandSpecificHelp(command);
+                return 0;   
+            }
+
+            await NotifyCommand(command, args);
+            return 0;
+        }
+
+  
+
+        private Command? FindMatchingCommand(List<Command> commands, string CmdString)
+        {
             foreach (var command in commands)
             {
                 if (command.IsCommandMatch(CmdString))
                 {
-                    NotifyCommand(command, args);
-                    return 0;
+                    return command;
                 }
             }
-
-            DisplayCommandNotFoundMessage(CmdString);
-
-            return 1;
+            return null;
         }
 
+        private bool IsCommandSpecificHelpOption(string[] args)
+        {
+            foreach (var arg in args)
+            {
+                if (IsHelpOption(arg))
+                    return true;
+            }
+            return false;
+        }
+
+        private bool IsHelpOption(string option) 
+        {
+            string[] HelpOptions = new string[] { "--help", "-help", "--?", "-?", "?" };
+
+            option = option.ToLower();
+
+            foreach (string optionOption in HelpOptions) 
+            { 
+                if (optionOption == option)
+                    return true;
+            }
+
+            return false;
+
+        }
    
 
         private void DisplayCommandNotFoundMessage(string cmdString)
@@ -63,8 +99,12 @@ namespace SimpleCLI.CliClasses
 
             Console.WriteLine("");
         }
+        private void DisplayCommandSpecificHelp(Command command)
+        {
+            Console.WriteLine($"todo: implement specific command help {command.Name}");
+        }
 
-        private void NotifyCommand(Command command, string[] args)
+        private async Task NotifyCommand(Command command, string[] args)
         {
             Dictionary<string,string> Arguments = new Dictionary<string,string>();
             Dictionary<string, string> Options = new Dictionary<string,string>();
@@ -90,7 +130,10 @@ namespace SimpleCLI.CliClasses
 
             if (command.Handler != null) 
             {
-                command.Handler(Arguments, Options);
+                await Task.Run(() =>
+                {
+                    command.Handler(Arguments, Options);
+                });
             }
             else
             {
