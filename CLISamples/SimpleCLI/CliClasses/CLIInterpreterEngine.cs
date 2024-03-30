@@ -129,12 +129,9 @@ namespace SimpleCLI.CliClasses
                 Options.Add(argument.Name, argument.Description);
             }
 
-            if (command.Handler != null) 
+            if (command.CommandHandlerAsync != null) 
             {
-                await Task.Run(() =>
-                {
-                    command.Handler(Arguments, Options);
-                });
+                await command.CommandHandlerAsync(Arguments, Options);
             }
             else
             {

@@ -27,11 +27,13 @@ namespace SimpleCLI.Commands
             this.AddOption(x2option);
             this.AddOption(x3option);
 
-            this.Handler = OptionHandler;
+            this.CommandHandlerAsync = OptionHandler;
 
         }
-        public int OptionHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> OptionHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(1));
+
             foreach (var kv in options)
             {
                 Console.WriteLine(string.Format($"Key:{kv.Key}, Val:{kv.Value}"));

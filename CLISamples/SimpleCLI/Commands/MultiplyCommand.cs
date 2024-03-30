@@ -24,10 +24,10 @@ namespace SimpleCLI.Commands
             this.AddArgument(MultArgument1);
             this.AddArgument(MultArgument2);
 
-            this.Handler = MultiplyHandler;
+            this.CommandHandlerAsync = MultiplyHandler;
 
         }
-        public int MultiplyHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> MultiplyHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("m1") && argument.ContainsKey("m2"))
             {
@@ -35,6 +35,8 @@ namespace SimpleCLI.Commands
                 {
                     double sum = a1 * a2;
                     Console.WriteLine(string.Format($"{a1} * {a2} = {sum}"));
+
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
                 }
             }
 

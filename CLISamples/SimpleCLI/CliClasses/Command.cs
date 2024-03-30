@@ -88,7 +88,7 @@ namespace SimpleCLI.CliClasses
         /// <summary>
         /// 
         /// </summary>
-        public Func<Dictionary<string, string>, Dictionary<string, string>, int>? Handler { get; set; }
+        public Func<Dictionary<string, string>, Dictionary<string, string>, Task<int>>? CommandHandlerAsync { get; set; }
 
         
     }

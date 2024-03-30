@@ -24,10 +24,10 @@ namespace SimpleCLI.Commands
             this.AddArgument(AddArgument1);
             this.AddArgument(AddArgument2);
 
-            this.Handler = AddHandler;
-
+            this.CommandHandlerAsync = AddHandler;
         }
-        public int AddHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+    
+        public async Task<int> AddHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("a1") && argument.ContainsKey("a2"))
             {
@@ -36,8 +36,7 @@ namespace SimpleCLI.Commands
                     double sum = a1 + a2;
                     Console.WriteLine(string.Format($"{a1} + {a2} = {sum}"));
 
-                    Task.Delay(TimeSpan.FromSeconds(Math.Max(sum, 10))).Wait();
-
+                    await Task.Delay(TimeSpan.FromSeconds(Math.Max(sum,10)));
                 }
             }
 

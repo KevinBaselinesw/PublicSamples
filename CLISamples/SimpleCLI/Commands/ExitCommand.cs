@@ -18,11 +18,13 @@ namespace SimpleCLI.Commands
             this.AddAlias("QUIT");
             this.AddAlias("quit");
 
-            this.Handler = AddHandler;
+            this.CommandHandlerAsync = AddHandler;
 
         }
-        public int AddHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> AddHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(1));
+
             Console.WriteLine("Do you really want to exit this application?  (Y/N)");
 
             string? Response = Console.ReadLine();

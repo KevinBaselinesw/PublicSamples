@@ -24,10 +24,10 @@ namespace SimpleCLI.Commands
             this.AddArgument(SubtractArgument1);
             this.AddArgument(SubtractArgument2);
 
-            this.Handler = SubtractHandler;
+            this.CommandHandlerAsync = SubtractHandler;
 
         }
-        public int SubtractHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> SubtractHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("s1") && argument.ContainsKey("s2"))
             {
@@ -35,6 +35,8 @@ namespace SimpleCLI.Commands
                 {
                     double sum = s1 - s2;
                     Console.WriteLine(string.Format($"{s1} - {s2} = {sum}"));
+
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
                 }
             }
 

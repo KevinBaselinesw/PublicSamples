@@ -24,10 +24,10 @@ namespace SimpleCLI.Commands
             this.AddArgument(DivArgument1);
             this.AddArgument(DivArgument2);
 
-            this.Handler = DivideHandler;
+            this.CommandHandlerAsync = DivideHandler;
 
         }
-        public int DivideHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> DivideHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("d1") && argument.ContainsKey("d2"))
             {
@@ -35,6 +35,8 @@ namespace SimpleCLI.Commands
                 {
                     double sum = a1 / a2;
                     Console.WriteLine(string.Format($"{a1} / {a2} = {sum}"));
+
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
                 }
             }
 
