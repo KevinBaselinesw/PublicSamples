@@ -36,6 +36,9 @@ namespace SimpleCLI.Commands
                 {
                     double sum = a1 + a2;
                     Console.WriteLine(string.Format($"{a1} + {a2} = {sum}"));
+
+                    Task.Delay(TimeSpan.FromSeconds(Math.Max(sum, 10))).Wait();
+
                 }
             }
 
