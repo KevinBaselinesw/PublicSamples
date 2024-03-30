@@ -651,6 +651,155 @@ namespace RndDistributionsUnitTest
 
 		}
 
+		TEST_METHOD(test_rand_chisquare_1)
+		{
+			Random *random = new Random();
+
+			random->seed(904);
+
+			int size = 40;
+			double *arr = random->chisquare(2, size);
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(5.375544801685989, amax, doubleTolerance);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.08589992390559097, amin, doubleTolerance);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.7501237764369322, avg, doubleTolerance);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double Expected1[10] = { 0.449839203939145, 1.92402228590093, 3.34447894813104, 5.34660224752626, 1.15307500835178,
+				3.7142340997291, 0.137140658434128, 1.69505253573874, 1.5675310912308, 3.1550000636764 };
+
+			AssertArray(first10, Expected1, 10);
+
+			size = 25 * 25;
+			arr = random->chisquare(arange_Double(1, (size) + 1), (size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(686.8423283498724, amax, doubleTolerance);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.5907891154976891, amin, doubleTolerance);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(313.32691732965679, avg, doubleTolerance);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double Expected2[10] = { 0.590789115497689, 6.66144890165653, 4.3036608098316, 3.81142549081703, 3.43184119361682,
+				7.72738961829532, 8.62984666080682, 7.93816304470877, 4.58662123588299, 10.139304988442 };
+
+			AssertArray(first10, Expected2, 10);
+		}
+
+		//TEST_METHOD(test_rand_dirichlet_1)
+		//{
+		//	// "This requires multi-dimensional arrays.  Use numpydotnet if you need this function."
+		//}
+
+		TEST_METHOD(test_rand_exponential_1)
+		{
+			Random *random = new Random();
+
+			random->seed(914);
+
+			int size = 40;
+			double *arr = random->exponential(2.0, size);
+
+			double amax = GetMax(arr,size);
+			print(amax);
+			Assert::AreEqual(9.197509067464914, amax, doubleTolerance);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.0029207069544253516, amin, doubleTolerance);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(2.2703450760147272, avg, doubleTolerance);
+
+			double first10[10];
+			FirstTen(arr, first10);
+
+			double ExpectedData1[10] = { 0.747521091531369, 2.07455044402581, 0.266251619077963, 0.853502719631811, 6.17373567708619,
+				9.19750906746491, 0.716019724979618, 0.00292070695442535, 1.07083473949392, 2.71744206583613 };
+	
+			AssertArray(first10, ExpectedData1, 10);
+
+			//////////////
+
+			size = 4;
+			arr = random->exponential(new double[size] { 1.75, 2.25, 3.5, 4.1 },4, size);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(6.4389292872403, amax, doubleTolerance);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.8405196701524901, amin, doubleTolerance);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(2.3954160266720965, avg, doubleTolerance);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData2[4] = { 0.84051967015249, 1.41367329358207, 0.888541855713523, 6.4389292872403 };
+
+			AssertArray(first10, ExpectedData2, 4);
+
+			//////////////
+
+			size = 200000;
+			arr = random->exponential(1.75, 200000);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(21.318986653331216, amax, doubleTolerance);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(3.55593171092486e-06, amin, doubleTolerance);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.7531454665721702, avg, doubleTolerance);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData3[10] = { 1.36762201783298, 2.8658070450868, 0.624351703816035, 0.968550532587695, 4.27788701329609,
+				0.366187067053844, 1.8701491040941, 0.322938134269804, 1.77904860176968, 0.311565039308104 };
+
+
+			AssertArray(first10, ExpectedData3, 10);
+		}
+
+		TEST_METHOD(test_rand_exponential_2)
+		{
+			Random *random = new Random();
+
+			random->seed(914);
+
+			double *arr = random->exponential();
+			Assert::AreEqual(0.37376054576568468, arr[0], doubleTolerance);
+			print(arr);
+		}
 
 	};
 }
