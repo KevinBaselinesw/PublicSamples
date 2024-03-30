@@ -34,7 +34,7 @@ using SimpleCLI.CliClasses;
 using SimpleCLI.Commands;
 using System.ComponentModel;
 
-namespace Calc;
+namespace SimpleCLI;
 
 class Program
 {
@@ -49,14 +49,14 @@ class Program
         string session = "SessionDataString";
         SessionData sessionData = new SessionData("Shemp", "Howard", session);
 
-        var rootCommand = new RootCommand("Sample app for command line testing");
+        var interpreterEngine = new CLIInterpreterEngine("Sample app for command line testing");
 
-        rootCommand.AddCommand(new OptionExampleCommand(sessionData));
-        rootCommand.AddCommand(new AddCommand(sessionData));
-        rootCommand.AddCommand(new SubCommand(sessionData));
-        rootCommand.AddCommand(new MultiplyCommand(sessionData));
-        rootCommand.AddCommand(new DivideCommand(sessionData));
-        rootCommand.AddCommand(new ExitCommand(sessionData));
+        interpreterEngine.AddCommand(new OptionExampleCommand(sessionData));
+        interpreterEngine.AddCommand(new AddCommand(sessionData));
+        interpreterEngine.AddCommand(new SubCommand(sessionData));
+        interpreterEngine.AddCommand(new MultiplyCommand(sessionData));
+        interpreterEngine.AddCommand(new DivideCommand(sessionData));
+        interpreterEngine.AddCommand(new ExitCommand(sessionData));
 
         try
         {
@@ -69,7 +69,7 @@ class Program
                 {
                     string[] parts = input.Split(' ');
 
-                    await rootCommand.ProcessCommandLine(parts);
+                    await interpreterEngine.ProcessCommandLine(parts);
                 }
 
             }

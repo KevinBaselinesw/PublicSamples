@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SimpleCLI.CliClasses
 {
-    internal class RootCommand
+    internal class CLIInterpreterEngine
     {
         private List<Command> commands = new List<Command>();
-        public RootCommand(string Description) 
+        public CLIInterpreterEngine(string Description) 
         { 
         }
 

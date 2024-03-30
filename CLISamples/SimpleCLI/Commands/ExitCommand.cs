@@ -1,5 +1,4 @@
-﻿using Calc;
-using SimpleCLI.CliClasses;
+﻿using SimpleCLI.CliClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -12,13 +12,14 @@ namespace SimpleCLI.CliClasses
 
         private string name;
         private string description;
-        private List<string> _optionAliases;
+        private List<string>? _optionAliases;
 
 
         public Option(string name, string description)
         {
             this.name = name;
             this.description = description;
+            _optionAliases = null;
         }
 
         public string Name { get { return name; } }
