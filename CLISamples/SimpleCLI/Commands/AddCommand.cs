@@ -36,7 +36,8 @@ namespace SimpleCLI.Commands
                     double sum = a1 + a2;
                     Console.WriteLine(string.Format($"{a1} + {a2} = {sum}"));
 
-                    await Task.Delay(TimeSpan.FromSeconds(Math.Max(sum,10)));
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
+
                 }
             }
 

@@ -10,7 +10,7 @@ namespace SimpleCLI.Commands
     internal class DivideCommand : Command
     {
         private SessionData _sessionData;
-        public DivideCommand(SessionData sessionData) : base("Div", "Command to add two numbers together")
+        public DivideCommand(SessionData sessionData) : base("Div", "Command to divide two numbers together")
         {
             this._sessionData = sessionData;
 

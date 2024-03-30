@@ -56,6 +56,7 @@ class Program
         interpreterEngine.AddCommand(new SubCommand(sessionData));
         interpreterEngine.AddCommand(new MultiplyCommand(sessionData));
         interpreterEngine.AddCommand(new DivideCommand(sessionData));
+        interpreterEngine.AddCommand(new WaitSecondsCommand(sessionData));
         interpreterEngine.AddCommand(new ExitCommand(sessionData));
 
         try
