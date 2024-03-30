@@ -40,6 +40,7 @@ namespace SimpleCLI.CliClasses
                 return 0;   
             }
 
+            // we have a valid command with no help request!  Wait for it to finish.
             await NotifyCommand(command, args);
             return 0;
         }
