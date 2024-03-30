@@ -80,6 +80,11 @@ public:
 
 	char getbyte();
 	char * bytes(int size);
+
+	void shuffle(int x);
+	void shuffle(int * x, int xsize);
+	int * permutation(int arr);
+	int * permutation(int * arr, int arrsize);
 	
 	double* beta(double *a, int asize, double* b, int bsize, long size = 0);
 

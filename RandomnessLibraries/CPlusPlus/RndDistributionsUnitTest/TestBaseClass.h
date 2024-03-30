@@ -97,5 +97,8 @@ public:
 	void AssertArray(ulong *a, ulong *b, int size);
 	void AssertArray(double *a, double *b, int size);
 
+	int * arange_Int32(int start, int end);
+	double* arange_Double(int start, int end);
+
 };
 

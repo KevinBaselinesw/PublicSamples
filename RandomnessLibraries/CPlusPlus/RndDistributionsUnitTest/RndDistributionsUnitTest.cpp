@@ -43,7 +43,9 @@ namespace RndDistributionsUnitTest
 	{
 	public:
 
-		
+#pragma region Simple Random Data
+
+
 		TEST_METHOD(test_rand_1)
 		{
 			Random *random = new Random();
@@ -528,6 +530,58 @@ namespace RndDistributionsUnitTest
 			AssertArray(arr, ExpectedData, 24);
 
 		}
+
+#pragma endregion
+
+#pragma region shuffle/permutation
+
+		TEST_METHOD(test_rand_shuffle_1)
+		{
+			Random *random = new Random();
+
+			random->seed(1964);
+
+			int *arr = arange_Int32(0, 10);
+			random->shuffle(arr, 10);
+			print(arr);
+
+			int ExpectedData1[10] = { 2, 9, 3, 6, 1, 7, 5, 0, 4, 8 };
+			AssertArray(arr, ExpectedData1, 10);
+
+			arr = arange_Int32(0, 10);
+			print(arr);
+
+			random->shuffle(arr, 10);
+			print(arr);
+
+			int ExpectedData2[10] = { 0 , 3 ,  7 ,  8 ,  5 ,  9 ,  4 ,  6 ,  1 ,  2 };
+			AssertArray(arr, ExpectedData2, 10);
+
+		}
+
+		TEST_METHOD(test_rand_permutation_1)
+		{
+			Random *random = new Random();
+
+			random->seed(1963);
+
+			int *arr = random->permutation(10);
+			print(arr);
+
+			int ExpectedData1[10] = { 6, 7, 4, 5, 1, 2, 9, 0, 8, 3 };
+			AssertArray(arr, ExpectedData1, 10);
+
+			arr = random->permutation(arange_Int32(0, 5), 5);
+			print(arr);
+
+			int ExpectedData2[5] = { 2, 3, 1, 0, 4 };
+			AssertArray(arr, ExpectedData2, 5);
+
+		}
+
+
+#pragma endregion
+
 
 	};
 }

@@ -394,22 +394,21 @@ char * Random::bytes(int size)
 
 #pragma region shuffle / permutation
 
-#if false
 
-public void shuffle<T>(T x)
+void Random::shuffle(int x)
 {
-	shuffle(new T[]{ x });
+	shuffle(new int[1]{ x }, 1);
 }
 
-public void shuffle<T>(T[] x)
+void Random::shuffle(int * x, int xsize)
 {
-	int n = x.Length;
+	int n = xsize;
 
-	T buf = default(T);
+	int buf = 0;
 
 	for (ulong i = (ulong)n - 1; i >= 1; i--)
 	{
-		ulong j = RandomDistributions.rk_interval(i, internal_state);
+		ulong j = RandomDistributions::rk_interval(i, internal_state);
 		buf = x[j];
 		x[j] = x[i];
 		x[i] = buf;
@@ -417,115 +416,31 @@ public void shuffle<T>(T[] x)
 	return;
 }
 
-public T[] permutation<T>(T arr)
+int * Random::permutation(int arr)
 {
-	return permutation(new T[]{ arr });
+	return permutation(new int[1]{ arr }, 1);
 }
 
-public T[] permutation<T>(T[] arr)
+int * Random::permutation(int * arr, int arrsize)
 {
-	if (arr.Length == 1 && IsInteger(arr))
+	if (arrsize == 1)
 	{
-		arr = arange<T>(Convert.ToInt32(arr[0]));
+		arrsize = arr[0];
+		arr = new int[arrsize];
+		for (int i = 0; i < arrsize; i++)
+		{
+			arr[i] = i;
+		}
 	}
 
-	shuffle(arr);
+	shuffle(arr, arrsize);
 	return arr;
 }
 
-private bool IsInteger<T>(T[] arr)
-{
-	if (arr[0] is System.Byte)
-		return true;
-	if (arr[0] is System.SByte)
-		return true;
-	if (arr[0] is System.Int16)
-		return true;
-	if (arr[0] is System.UInt16)
-		return true;
-	if (arr[0] is System.Int32)
-		return true;
-	if (arr[0] is System.UInt32)
-		return true;
-	if (arr[0] is System.Int64)
-		return true;
-	if (arr[0] is System.UInt64)
-		return true;
-	return false;
-}
 
-private T[] arange<T>(int length)
-{
-	T[] arr = new T[length];
 
-	if (arr[0] is System.Byte)
-	{
-		System.Byte[] _arr = arr as System.Byte[];
-		for (System.Byte i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.SByte)
-	{
-		System.SByte[] _arr = arr as System.SByte[];
-		for (System.SByte i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.Int16)
-	{
-		System.Int16[] _arr = arr as System.Int16[];
-		for (System.Int16 i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.UInt16)
-	{
-		System.UInt16[] _arr = arr as System.UInt16[];
-		for (System.UInt16 i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.Int32)
-	{
-		System.Int32[] _arr = arr as System.Int32[];
-		for (System.Int32 i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.UInt32)
-	{
-		System.UInt32[] _arr = arr as System.UInt32[];
-		for (System.UInt32 i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.Int64)
-	{
-		System.Int64[] _arr = arr as System.Int64[];
-		for (System.Int64 i = 0; i < length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
-	if (arr[0] is System.Int64)
-	{
-		System.UInt64[] _arr = arr as System.UInt64[];
-		for (System.UInt64 i = 0; i < (UInt64)length; i++)
-		{
-			_arr[i] = i;
-		}
-	}
 
-	return arr;
-}
-#endif
+
 #pragma endregion
 
 

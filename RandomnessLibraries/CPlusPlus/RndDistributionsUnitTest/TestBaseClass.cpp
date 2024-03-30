@@ -718,4 +718,31 @@ void TestBaseClass::AssertArray(double *a, double *b, int size)
 }
 
 
+int * TestBaseClass::arange_Int32(int start, int end)
+{
+	int bufLength = end - start;
+	int * buffer = new int[bufLength];
+
+	for (int i = 0; i < bufLength; i++)
+	{
+		buffer[i] = i + start;
+	}
+
+	return buffer;
+}
+
+double* TestBaseClass::arange_Double(int start, int end)
+{
+	int bufLength = end - start;
+	double* buffer = new double[bufLength];
+
+	for (int i = 0; i < bufLength; i++)
+	{
+		buffer[i] = (double)(i + start);
+	}
+
+	return buffer;
+}
+
+
 
