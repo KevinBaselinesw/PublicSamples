@@ -548,7 +548,7 @@ void TestBaseClass::FirstTen(uint *arr, uint *firstTen)
 
 long TestBaseClass::GetMax(long *arr, int size)
 {
-	long highNum = LLONG_MIN;
+	long highNum = LONG_MIN;
 	int i;
 
 	for (i = 0; i < size; i++)
@@ -561,7 +561,7 @@ long TestBaseClass::GetMax(long *arr, int size)
 
 long TestBaseClass::GetMin(long *arr, int size)
 {
-	long lowNum = LLONG_MAX;
+	long lowNum = LONG_MAX;
 	int i;
 
 	for (i = 0; i < size; i++)
