@@ -744,5 +744,29 @@ double* TestBaseClass::arange_Double(int start, int end)
 	return buffer;
 }
 
+bool* TestBaseClass::CompareArray(long* arr, int arrlen, int c)
+{
+	bool* output = new bool[arrlen];
+
+	for (int i = 0; i < arrlen; i++)
+	{
+		output[i] = arr[i] == c;
+	}
+	return output;
+}
+
+
+int TestBaseClass::CountTrues(bool* v, int vlength)
+{
+	int count = 0;
+
+	for (int i = 0; i < vlength; i++)
+	{
+		count += v[i] == true ? 1 : 0;
+	}
+
+	return count;
+}
+
 
 

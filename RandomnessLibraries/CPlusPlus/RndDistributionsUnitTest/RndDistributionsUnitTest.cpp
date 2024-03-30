@@ -603,6 +603,54 @@ namespace RndDistributionsUnitTest
 
 		}
 
+		TEST_METHOD(test_rand_binomial_1)
+		{
+			Random *random = new Random();
+
+			random->seed(123);
+
+			int size = 20;
+			long*arr = random->binomial(9, 0.1, size);
+
+			long ExpectedData[20] = { 1, 0, 0, 1, 1, 1, 3, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1 };
+			AssertArray(arr, ExpectedData, 20);
+			//Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
+
+			int s = CountTrues(CompareArray(arr, size, 0), size);
+			Assert::AreEqual(6, s);
+
+			size = 20000;
+			arr = random->binomial(9, 0.1, size);
+			s = CountTrues(CompareArray(arr, size, 0), size);
+			Assert::AreEqual(7711, s);
+			print(s);
+
+		}
+
+		TEST_METHOD(test_rand_negative_binomial_1)
+		{
+			Random *random = new Random();
+
+			random->seed(123);
+
+			int size = 20;
+			long*arr = random->negative_binomial(1, 0.1, size);
+
+			long ExpectedData[20] = { 8, 9, 4, 10, 8, 5, 11, 7, 21, 0, 8, 1, 7, 3, 1, 17, 4, 5, 6, 8 };
+			AssertArray(arr, ExpectedData, 20);
+			//Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
+
+			int s = CountTrues(CompareArray(arr, size, 0), size);
+			Assert::AreEqual(1, s);
+
+			size = 20000;
+			arr = random->negative_binomial(1, 0.1, size);
+			s = CountTrues(CompareArray(arr, size, 0), size);
+			Assert::AreEqual(1992, s);
+			print(s);
+
+		}
+
 
 	};
 }

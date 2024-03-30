@@ -99,6 +99,8 @@ public:
 
 	int * arange_Int32(int start, int end);
 	double* arange_Double(int start, int end);
+	bool* CompareArray(long* arr, int arrlen, int c);
+	int CountTrues(bool* v, int vlength);
 
 };
 
