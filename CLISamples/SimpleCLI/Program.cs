@@ -39,7 +39,7 @@ namespace Calc;
 class Program
 {
     /// <summary>
-    /// Demo application for this tetris command line application
+    /// Demo application for this command line application
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
@@ -49,7 +49,7 @@ class Program
         string session = "SessionDataString";
         SessionData sessionData = new SessionData("Shemp", "Howard", session);
 
-        var rootCommand = new RootCommand("Sample app for tetris command line");
+        var rootCommand = new RootCommand("Sample app for command line testing");
 
         rootCommand.AddCommand(new OptionExampleCommand(sessionData));
         rootCommand.AddCommand(new AddCommand(sessionData));
