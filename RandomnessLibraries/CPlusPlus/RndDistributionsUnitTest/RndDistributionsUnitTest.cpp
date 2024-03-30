@@ -582,6 +582,27 @@ namespace RndDistributionsUnitTest
 
 #pragma endregion
 
+		TEST_METHOD(test_rand_beta_1)
+		{
+			Random *random = new Random();
+
+			random->seed(5566);
+
+			double *a = arange_Double(1, 11);
+			double *b = arange_Double(1, 11);
+
+			double *arr = random->beta(a, 10, b, 10, 10);
+			//Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
+			print(arr);
+
+			double ExpectedData[]
+			{ 0.890517356256563, 0.532484155787344, 0.511396509650771, 0.862418837558698, 0.492458004172681,
+				0.504662615187708, 0.621477223753938, 0.41702032419038, 0.492984829781569, 0.47847289036676 };
+
+			AssertArray(arr, ExpectedData, 10);
+
+		}
+
 
 	};
 }
