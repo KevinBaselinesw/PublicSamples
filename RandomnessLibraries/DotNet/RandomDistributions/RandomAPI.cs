@@ -1381,6 +1381,8 @@ namespace RandomDistributions
             }
 
             var multin = new long[size != 0 ? size*d : d];
+            Array.Clear(multin, 0, multin.Length);
+
             long[] mnix = multin;
             long sz = multin.Length;
 

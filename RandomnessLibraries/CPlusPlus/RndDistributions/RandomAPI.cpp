@@ -902,6 +902,8 @@ long* Random::multinomial(int n, double* pvals, int pvalsize, long size)
 
 	int multinLength = size != 0 ? size * d : d;
 	long *multin = new long[multinLength];
+	memset(multin, 0, multinLength * sizeof(long));
+
 	long *mnix = multin;
 	long sz = multinLength;
 
