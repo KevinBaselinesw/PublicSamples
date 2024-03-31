@@ -959,5 +959,242 @@ namespace RndDistributionsUnitTest
 
 	
 		}
+
+		TEST_METHOD(test_rand_geometric_1)
+		{
+			Random *random = new Random();
+
+			random->seed(101);
+
+			int size = 1;
+			long *arr = random->geometric(0.35);
+
+			long amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)2, amax);
+
+			long amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)2, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(2.0, avg);
+
+			long first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+					
+			long ExpectedData[1] = { 2 };
+
+			AssertArray(first10, ExpectedData, 1);
+
+			//////////////
+
+			size = 400;
+			arr = random->geometric(new double[4] { .75, .25, .5, .1 }, 4, size);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)47, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)1, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(4.42, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+	/*		var ExpectedData2 = new long[, ]
+			{ { 1, 1, 1, 11 }, { 2, 2, 4, 13 }, { 1, 3, 1, 2 }, { 2, 12, 1, 1 }, { 1, 5, 1, 11 },
+			  { 1, 1, 1, 2 },  { 4, 3, 2, 13 }, { 1, 9, 3, 5 }, { 1, 11, 1, 20 }, { 2, 3, 4, 1 } };*/
+
+			//AssertArray(first10, ExpectedData2);
+
+			//////////////
+
+			size = 200000;
+			arr = random->geometric(.75, size);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)10, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)1, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.332595, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			long ExpectedData2[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
+			AssertArray(first10, ExpectedData2, 10);
+		}
+
+		TEST_METHOD(test_rand_gumbel_1)
+		{
+			Random *random = new Random();
+
+			random->seed(1431);
+
+			double *arr = random->gumbel(0.32);
+
+			int size = 1;
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(1.76573325397214, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(1.76573325397214, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.76573325397214, avg);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData[] = { 1.76573325397214 };
+
+			AssertArray(first10, ExpectedData, size);
+
+			//////////////
+
+			size = 4;
+			arr = random->gumbel(new double[4] { .75, .25, .5, .1 }, 4, size);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(7.625593114379172, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(-2.48113529309385, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(3.319780095180179, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData2[4] { 4.79769794330828, -2.48113529309385, 3.33696461612712, 7.62559311437917 };
+
+			AssertArray(first10, ExpectedData2, 4);
+
+			//////////////
+
+			size = 200000;
+			arr = random->gumbel(.75, 0.5, 200000);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(7.205833825082223, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(-0.5506620623963436, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.0376445397766865, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData3[10]
+			{ 1.21622910498044, 3.00226498101696, 0.475407027157304, 1.65190860500953, 1.57140421867578,
+				0.93864144637321, -0.200732799247397, 0.242196470741022, 0.0803181023284516, 1.52710248786222 };
+			AssertArray(first10, ExpectedData3, 10);
+
+		}
+
+		TEST_METHOD(test_rand_hypergeometric_1)
+		{
+			Random *random = new Random();
+	
+			random->seed(1631);
+
+			int size = 1000;
+			long* arr = random->hypergeometric(100, 2, 10, size);
+
+			long amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)10, amax);
+
+			long amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)8, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(9.827, avg);
+
+			long first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			long ExpectedData[10] { 10, 10, 10, 8, 9, 10, 10, 10, 10, 9 };
+
+			AssertArray(first10, ExpectedData, 10);
+
+			//////////////
+
+			size = 4;
+			arr = random->hypergeometric(new long[4] { 75, 25, 5, 1 }, 4, new long[1] { 5 }, 1, new long[4] { 80, 30, 10, 6 }, 4);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)75, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)1, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(26.5, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			long ExpectedData2[4] { 75, 25, 5, 1 };
+
+			AssertArray(first10, ExpectedData2, size);
+
+			//////////////
+
+			size = 200000;
+			arr = random->hypergeometric(15, 15, 15, 200000);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)13, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)2, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(7.500615, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			long ExpectedData3[10] = { 7, 10, 7, 7, 6, 9, 9, 8, 7, 8 };
+			AssertArray(first10, ExpectedData3, 10);
+
+		}
 	};
 }
