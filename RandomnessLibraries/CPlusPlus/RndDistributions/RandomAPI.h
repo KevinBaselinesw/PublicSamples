@@ -192,13 +192,10 @@ public:
 	long* zipf(double oa, long size = 0);
 	long* zipf(double* oa, int oasize, long size = 0);
 
-	// TODO: add your methods here.
-
-private:
-
 	double standard_normal();
 	double* standard_normal(long size);
 
+private:
 
 	// array generation functions
 	double* cont0_array(rk_state *state, double(*func)(rk_state *state), long size);
