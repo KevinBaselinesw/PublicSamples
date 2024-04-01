@@ -608,7 +608,7 @@ ulong TestBaseClass::GetMax(ulong *arr, int size)
 
 ulong TestBaseClass::GetMin(ulong *arr, int size)
 {
-	ulong lowNum = ULLONG_MAX;
+	ulong lowNum = ULONG_MAX;
 	int i;
 
 	for (i = 0; i < size; i++)

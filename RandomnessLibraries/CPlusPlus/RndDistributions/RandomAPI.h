@@ -52,9 +52,11 @@ private:
 
 	rk_state *internal_state;
 	IRandomGenerator *_rndGenerator;
+	bool allocatedDefaultGenerator;
 
 public:
 	Random(IRandomGenerator *rndGenerator = NULL);
+	~Random();
 
 	bool seed();
 	bool seed(long seed);

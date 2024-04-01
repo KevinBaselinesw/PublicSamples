@@ -42,16 +42,32 @@
 // This is the constructor of a class that has been exported.
 Random::Random(IRandomGenerator *rndGenerator)
 {
+	allocatedDefaultGenerator = false;
 	if (rndGenerator == NULL)
 	{
 		rndGenerator = new RandomState();
+		allocatedDefaultGenerator = true;
 	}
+	rk_lock = (void *)(new char[1]);
 	internal_state = new rk_state(rndGenerator);
-	seed(NULL);
+	(void)seed(NULL);
 	_rndGenerator = rndGenerator;
 
     return;
 }
+
+Random::~Random()
+{
+	delete []rk_lock;
+	delete internal_state;
+
+	if (allocatedDefaultGenerator)
+	{
+		delete _rndGenerator;
+	}
+}
+
+
 #pragma region seed
 
 
@@ -61,18 +77,18 @@ bool Random::seed()
 
 	long _seed = (long)now;
 	
-	seed(_seed);
+	(void)seed(_seed);
 
 	double tmp1 = rand();
 
 	_seed += (long)tmp1;
-	seed(_seed);
+	(void)seed(_seed);
 	tmp1 = rand();
 	tmp1 = rand();
 
 	_seed ^= (long)tmp1;
 
-	seed(_seed);
+	(void)seed(_seed);
 
 	return true;
 }
@@ -299,9 +315,9 @@ long* Random::randint64(long low, ulong high, long size)
 {
 	ValidateSize(size);
 
-	if (low < LLONG_MIN)
+	if (low < LONG_MIN)
 		throw "low is out of bounds for long";
-	if (high > LLONG_MAX)
+	if (high > LONG_MAX)
 		throw "high is out of bounds for long";
 
 	long* randomData = new long[size];
@@ -327,7 +343,7 @@ ulong * Random::randuint64(long low, ulong high, long size)
 
 	if (low < 0)
 		throw "low is out of bounds for UInt64";
-	if (high > ULLONG_MAX)
+	if (high > ULONG_MAX)
 		throw "high is out of bounds for UInt64";
 
 	ulong* randomData = new ulong[size];
@@ -397,7 +413,10 @@ char * Random::bytes(int size)
 
 void Random::shuffle(int x)
 {
-	shuffle(new int[1]{ x }, 1);
+	int _data[1];
+	_data[0] = x;
+
+	shuffle(_data, 1);
 }
 
 void Random::shuffle(int * x, int xsize)
@@ -418,7 +437,9 @@ void Random::shuffle(int * x, int xsize)
 
 int * Random::permutation(int arr)
 {
-	return permutation(new int[1]{ arr }, 1);
+	int _data[1];
+	_data[0] = arr;
+	return permutation(_data, 1);
 }
 
 int * Random::permutation(int * arr, int arrsize)
@@ -468,7 +489,9 @@ double* Random::beta(double *a, int asize, double* b, int bsize, long size)
 
 long* Random::binomial(long n, double p, long size)
 {
-	return binomial(new long[1] { n }, 1, new double[1] { p }, 1, size);
+	long on[1]; on[0] = n;
+	double op[1]; op[0] = p;
+	return binomial(on, 1, op, 1, size);
 }
 
 long* Random::binomial(long* on, int onsize, double* op, int opsize, long size)
@@ -500,7 +523,9 @@ long* Random::binomial(long* on, int onsize, double* op, int opsize, long size)
 
 long* Random::negative_binomial(long n, double p, long size)
 {
-	return negative_binomial(new long[1] { n }, 1, new double[1] { p }, 1, size);
+	long on[1]; on[0] = n;
+	double op[1]; op[0] = p;
+	return negative_binomial(on, 1, op, 1, size);
 }
 long* Random::negative_binomial(long* on, int onsize, double* op, int opsize, long size)
 {
@@ -529,7 +554,8 @@ long* Random::negative_binomial(long* on, int onsize, double* op, int opsize, lo
 
 double* Random::chisquare(double df, long size)
 {
-	return chisquare(new double[1] { df }, 1, size);
+	double _df[1]; _df[0] = df;
+	return chisquare(_df, 1, size);
 }
 
 double * Random::chisquare(double *odf, int odfsize, long size)
@@ -552,12 +578,15 @@ double * Random::chisquare(double *odf, int odfsize, long size)
 
 double* Random::noncentral_chisquare(double* odf, int odfsize, double ononc, long size)
 {
-	return noncentral_chisquare(odf, odfsize, new double[1] { ononc }, 1, size);
+	double _ononc[1]; _ononc[0] = ononc;
+	return noncentral_chisquare(odf, odfsize, _ononc, 1, size);
 }
 
 double* Random::noncentral_chisquare(double odf, double ononc, long size)
 {
-	return noncentral_chisquare(new double[1] { odf }, 1, new double[1] { ononc }, 1, size);
+	double _odf[1]; _odf[0] = odf;
+	double _ononc[1]; _ononc[0] = ononc;
+	return noncentral_chisquare(_odf, 1, _ononc, 1, size);
 }
 
 double* Random::noncentral_chisquare(double* odf, int odfsize, double* ononc, int ononcsize, long size)
@@ -587,7 +616,8 @@ double* Random::noncentral_chisquare(double* odf, int odfsize, double* ononc, in
 
 double* Random::exponential(double scale, long size)
 {
-	return exponential(new double[1] { scale }, 1, size);
+	double _scale[1]; _scale[0] = scale;
+	return exponential(_scale, 1, size);
 }
 
 double* Random::exponential(double* oscale, int oscalesize, long size)
@@ -616,7 +646,10 @@ double* Random::exponential(double* oscale, int oscalesize, long size)
 
 double* Random::f(double dfnum, double dfden, long size)
 {
-	return f(new double[1] {dfnum}, 1, new double[1] { dfden}, 1, size);
+	double _dfnum[1]; _dfnum[0] = dfnum;
+	double _dfden[1]; _dfden[0] = dfden;
+
+	return f(_dfnum, 1, _dfden, 1, size);
 }
 
 double* Random::f(double *odfnum, int odfnumsize, double* odfden, int odfdensize, long size)
@@ -642,7 +675,9 @@ double* Random::f(double *odfnum, int odfnumsize, double* odfden, int odfdensize
 
 double* Random::gamma(double shape, double scale, long size)
 {
-	return gamma(new double[1] { shape }, 1, new double[1] { scale }, 1, size);
+	double _shape[1]; _shape[0] = shape;
+	double _scale[1]; _scale[0] = scale;
+	return gamma(_shape, 1, _scale, 1, size);
 }
 
 double* Random::gamma(double* oshape, int oshapesize, double* oscale, int oscalesize, long size)
@@ -669,7 +704,8 @@ double* Random::gamma(double* oshape, int oshapesize, double* oscale, int oscale
 
 long* Random::geometric(double op, long size)
 {
-	return geometric(new double[1] { op }, 1, size);
+	double _op[1]; _op[0] = op;
+	return geometric(_op, 1, size);
 }
 
 long* Random::geometric(double* op, int opsize, long size)
@@ -696,25 +732,31 @@ long* Random::geometric(double* op, int opsize, long size)
 
 double* Random::gumbel(double* oloc, int olocsize, double oscale, long size)
 {
-	return gumbel(oloc, olocsize, new double[1] { oscale }, 1,size);
+	double _oscale[1]; _oscale[0] = oscale;
+	return gumbel(oloc, olocsize, _oscale, 1,size);
 }
 
 double* Random::gumbel(double oloc, double* oscale, int oscalesize, long size)
 {
-	return gumbel(new double[1] { oloc }, 1, oscale, oscalesize, size);
+	double _oloc[1]; _oloc[0] = oloc;
+	return gumbel(_oloc, 1, oscale, oscalesize, size);
 }
 
 double* Random::gumbel(double oloc, double oscale, long size)
 {
-	return gumbel(new double[1] { oloc }, 1, new double[1] { oscale }, 1, size);
+	double _oloc[1]; _oloc[0] = oloc;
+	double _oscale[1]; _oscale[0] = oscale;
+	return gumbel(_oloc, 1, _oscale, 1, size);
 }
 
 double* Random::gumbel(double* oloc, int olocsize, double *oscale, int oscalesize, long size)
 {
 	ValidateSize(size);
 
+	double _default_oscale[1] = { 1.0 };
+
 	if (oscale == NULL)
-		oscale = new double[1] { 1.0 };
+		oscale = _default_oscale;
 
 	if (any_signbit(oscale, oscalesize))
 		throw "oscale < 0";
@@ -734,7 +776,11 @@ double* Random::gumbel(double* oloc, int olocsize, double *oscale, int oscalesiz
 
 long* Random::hypergeometric(long ongood, long onbad, long onsample, long size)
 {
-	return hypergeometric(new long[1] { ongood }, 1, new long[1] { onbad }, 1, new long[1] { onsample }, 1, size);
+	long _ongood[1] = { ongood };
+	long _onbad[1] = { onbad };
+	long _onsample[1] = { onsample };
+
+	return hypergeometric(_ongood, 1, _onbad, 1, _onsample, 1, size);
 }
 
 long* Random::hypergeometric(long* ongood, int ongoodsize, long* onbad, int onbadsize, long* onsample, int onsamplesize, long size)
@@ -762,23 +808,29 @@ long* Random::hypergeometric(long* ongood, int ongoodsize, long* onbad, int onba
 
 double* Random::laplace(double oloc, double oscale, long size)
 {
-	return laplace(new double[1] { oloc }, 1, new double[1] { oscale }, 1, size);
+	double _oloc[1] = { oloc };
+	double _oscale[1] = { oscale };
+	return laplace(_oloc, 1, _oscale, 1, size);
 }
 
 double* Random::laplace(double *oloc, int olecsize, double oscale, long size)
 {
-	return laplace(oloc, olecsize, new double[1] { oscale }, 1, size);
+	double _oscale[1] = { oscale };
+	return laplace(oloc, olecsize, _oscale, 1, size);
 }
 
 double* Random::laplace(double oloc, double* oscale, int oscalesize, long size)
 {
-	return laplace(new double[1] { oloc }, 1, oscale, oscalesize, size);
+	double _oloc[1] = { oloc };
+	return laplace(_oloc, 1, oscale, oscalesize, size);
 }
 
 double* Random::laplace(double *oloc, int olocsize, double *oscale, int oscalsize, long size)
 {
+	double _default_oscale[1] = { 1.0 };
+
 	if (oscale == NULL)
-		oscale = new double[1] { 1.0 };
+		oscale = _default_oscale;
 
 	if (any_signbit(oscale, oscalsize))
 		throw "oscale < 0";
@@ -797,25 +849,34 @@ double* Random::laplace(double *oloc, int olocsize, double *oscale, int oscalsiz
 
 double* Random::logistic(double oloc, double oscale, long size)
 {
-	return logistic(new double[1] { oloc }, 1, new double[1] { oscale }, 1, size);
+	double _oloc[1] = { oloc };
+	double _oscale[1] = { oscale };
+
+	return logistic(_oloc, 1, _oscale, 1, size);
 }
 
 double* Random::logistic(double* oloc, int olocsize, double oscale, long size)
 {
-	return logistic(oloc, olocsize, new double[1] { oscale }, 1, size);
+	double _oscale[1] = { oscale };
+
+	return logistic(oloc, olocsize, _oscale, 1, size);
 }
 
 double* Random::logistic(double oloc)
 {
-	return logistic(new double[1] { oloc }, 1, NULL, 0, 0);
+	double _oloc[1] = { oloc };
+
+	return logistic(_oloc, 1, NULL, 0, 0);
 }
 
 double* Random::logistic(double *oloc, int olocsize, double *oscale, int oscalesize, long size)
 {
 
+	double _default_scale[1] = { 1.0 };
+
 	if (oscale == NULL)
 	{
-		oscale = new double[1]{ 1.0 };
+		oscale = _default_scale;
 		oscalesize = 1;
 	}
 
@@ -836,12 +897,17 @@ double* Random::logistic(double *oloc, int olocsize, double *oscale, int oscales
 
 double* Random::lognormal(double omean, double osigma, long size)
 {
-	return lognormal(new double[1] { omean }, 1, new double[1] { osigma }, 1, size);
+	double _omean[1] = { omean };
+	double _osigma[1] = { osigma };
+
+	return lognormal(_omean, 1, _osigma, 1, size);
 }
 
 double* Random::lognormal(double* omean, int omeansize, double osigma, long size)
 {
-	return lognormal(omean, omeansize, new double[1] { osigma }, 1, size);
+	double _osigma[1] = { osigma };
+
+	return lognormal(omean, omeansize, _osigma, 1, size);
 }
 
 double* Random::lognormal(double* omean, int omeansize, double* osigma, int osigmansize, long size)
@@ -865,7 +931,8 @@ double* Random::lognormal(double* omean, int omeansize, double* osigma, int osig
 
 long* Random::logseries(double op, long size)
 {
-	return logseries(new double[1] { op }, 1, size);
+	double _op[1] = { op };
+	return logseries(_op, 1, size);
 }
 
 long* Random::logseries(double* op, int opsize, long size)
@@ -937,13 +1004,20 @@ long* Random::multinomial(int n, double* pvals, int pvalsize, long size)
 
 double* Random::noncentral_f(double odfnum, double odfden, double ononc, long size)
 {
-	return noncentral_f(new double[1] { odfnum },1, new double[1] { odfden },1, new double[1] { ononc }, 1, size);
+	double _odfnum[1] = { odfnum };
+	double _odfden[1] = { odfden };
+	double _ononc[1] = { ononc };
+
+	return noncentral_f(_odfnum,1, _odfden,1, _ononc, 1, size);
 }
 
 
 double* Random::noncentral_f(double* odfnum, int odfnumsize, double odfden, double ononc, long size)
 {
-	return noncentral_f(odfnum, odfnumsize, new double[1] { odfden}, 1, new double[1] { ononc}, 1, size);
+	double _odfden[1] = { odfden };
+	double _ononc[1] = { ononc };
+
+	return noncentral_f(odfnum, odfnumsize, _odfden, 1, _ononc, 1, size);
 }
 
 double* Random::noncentral_f(double* odfnum, int odfnumsize, double* odfden, int odfdensize, double* ononc, int ononcsize, long size)
@@ -972,12 +1046,17 @@ double* Random::noncentral_f(double* odfnum, int odfnumsize, double* odfden, int
 
 double* Random::normal(double oloc, double oscale, long size)
 {
-	return normal(new double[1] { oloc }, 1, new double[1] { oscale }, 1, size);
+	double _oloc[1] = { oloc };
+	double _oscale[1] = { oscale };
+
+	return normal(_oloc, 1, _oscale, 1, size);
 }
 
 double* Random::normal(double* oloc, int olecsize, double oscale, long size)
 {
-	return normal(oloc, olecsize, new double[1] { oscale }, 1, size);
+	double _oscale[1] = { oscale };
+
+	return normal(oloc, olecsize, _oscale, 1, size);
 }
 
 double* Random::normal(double* oloc, int olecsize, double* oscale, int oscalsize, long size)
@@ -1001,7 +1080,9 @@ double* Random::normal(double* oloc, int olecsize, double* oscale, int oscalsize
 
 double* Random::pareto(double oa, long size)
 {
-	return pareto(new double[1] { oa }, 1, size);
+	double _oa[1] = { oa };
+
+	return pareto(_oa, 1, size);
 }
 
 double* Random::pareto(double* oa, int oasize, long size)
@@ -1025,7 +1106,9 @@ double* Random::pareto(double* oa, int oasize, long size)
 
 long* Random::poisson(double olam, long size)
 {
-	return poisson(new double[1] { olam }, 1, size);
+	double _olam[1] = { olam };
+
+	return poisson(_olam, 1, size);
 }
 long* Random::poisson(double* olam, int olamsize, long size)
 {
@@ -1050,7 +1133,9 @@ long* Random::poisson(double* olam, int olamsize, long size)
 
 double* Random::power(double oa, long size)
 {
-	return power(new double[1] { oa }, 1, size);
+	double _oa[1] = { oa };
+
+	return power(_oa, 1, size);
 }
 double* Random::power(double* oa, int oasize, long size)
 {
@@ -1073,7 +1158,9 @@ double* Random::power(double* oa, int oasize, long size)
 
 double* Random::rayleigh(double oscale, long size)
 {
-	return rayleigh(new double[1] { oscale }, 1, size);
+	double _oscale[1] = { oscale };
+
+	return rayleigh(_oscale, 1, size);
 }
 double* Random::rayleigh(double* oscale, int oscalesize, long size)
 {
@@ -1133,7 +1220,8 @@ double* Random::standard_exponential(long size)
 
 double* Random::standard_gamma(double oshape, long size)
 {
-	return standard_gamma(new double[1] { oshape }, 1, size);
+	double _oshape[1] = { oshape };
+	return standard_gamma(_oshape, 1, size);
 }
 
 double* Random::standard_gamma(double* oshape, int oshapesize, long size)
@@ -1174,7 +1262,9 @@ double* Random::standard_normal(long size)
 
 double* Random::standard_t(double odf, long size)
 {
-	return standard_t(new double[1] { odf }, 1, size);
+	double _odf[1] = { odf };
+
+	return standard_t(_odf, 1, size);
 }
 
 double* Random::standard_t(double* odf, int odfsize, long size)
@@ -1198,15 +1288,24 @@ double* Random::standard_t(double* odf, int odfsize, long size)
 
 double* Random::triangular(double oleft, double omode, double oright, long size)
 {
-	return triangular(new double[1] { oleft },1, new double[1] { omode }, 1, new double[1] { oright }, 1, size);
+	double _oleft[1] = { oleft };
+	double _omode[1] = { omode };
+	double _oright[1] = { oright };
+
+	return triangular(_oleft,1, _omode, 1, _oright, 1, size);
 }
 double* Random::triangular(double *oleft, int oleftsize, double omode, double oright, long size)
 {
-	return triangular(oleft, oleftsize, new double[1] { omode }, 1, new double[1] { oright }, 1, size);
+	double _omode[1] = { omode };
+	double _oright[1] = { oright };
+
+	return triangular(oleft, oleftsize, _omode, 1, _oright, 1, size);
 }
 double* Random::triangular(double *oleft, int oleftsize, double* omode, int omodesize, double oright, long size)
 {
-	return triangular( oleft, oleftsize, omode, omodesize, new double[1]{ oright }, 1, size);
+	double _oright[1] = { oright };
+
+	return triangular( oleft, oleftsize, omode, omodesize, _oright, 1, size);
 }
 double* Random::triangular(double* oleft, int oleftsize, double* omode, int omodesize, double* oright, int orightsize, long size)
 {
@@ -1235,8 +1334,8 @@ double* Random::uniform(double low, double high, long size)
 {
 	ValidateSize(size);
 
-	double* lowarr = new double[1] { low };
-	double* higharr = new double[1] { high };
+	double lowarr[1] = { low };
+	double higharr[1] = { high };
 
 	return uniform(lowarr, 1,higharr, 1, size);
 }
@@ -1270,11 +1369,16 @@ double* Random::uniform(double* olow, int olowsize, double* ohigh, int ohighsize
 
 double* Random::vonmises(double omu, double okappa, long size)
 {
-	return vonmises(new double[1] { omu }, 1, new double[1] { okappa }, 1, size);
+	double _omu[1] = { omu };
+	double _okappa[1] = { okappa };
+
+	return vonmises(_omu, 1, _okappa, 1, size);
 }
 double* Random::vonmises(double* omu, int omusize, double okappa, long size)
 {
-	return vonmises(omu, omusize, new double[1] { okappa }, 1, size);
+	double _okappa[1] = { okappa };
+
+	return vonmises(omu, omusize, _okappa, 1, size);
 }
 double* Random::vonmises(double* omu, int omusize, double* okappa, int okappasize, long size)
 {
@@ -1295,11 +1399,16 @@ double* Random::vonmises(double* omu, int omusize, double* okappa, int okappasiz
 
 double* Random::wald(double omean, double oscale, long size)
 {
-	return wald(new double[1] { omean },1, new double[1] { oscale }, 1, size);
+	double _omean[1] = { omean };
+	double _oscale[1] = { oscale };
+
+	return wald(_omean,1, _oscale, 1, size);
 }
 double* Random::wald(double* omean, int omeansize, double oscale, long size)
 {
-	return wald(omean, omeansize, new double[1] { oscale }, 1, size);
+	double _oscale[1] = { oscale };
+
+	return wald(omean, omeansize, _oscale, 1, size);
 }
 double* Random::wald(double* omean, int omeansize, double* oscale, int oscalesize, long size)
 {
@@ -1323,7 +1432,9 @@ double* Random::wald(double* omean, int omeansize, double* oscale, int oscalesiz
 
 double* Random::weibull(double oa, long size)
 {
-	return weibull(new double[1] { oa }, 1, size);
+	double _oa[1] = { oa };
+
+	return weibull(_oa, 1, size);
 }
 double* Random::weibull(double* oa, int oasize, long size)
 {
@@ -1344,7 +1455,9 @@ double* Random::weibull(double* oa, int oasize, long size)
 
 long* Random::zipf(double oa, long size)
 {
-	return zipf(new double[1] { oa }, 1, size);
+	double _oa[1] = { oa };
+
+	return zipf(_oa, 1, size);
 }
 
 long* Random::zipf(double* oa, int oasize, long size)
@@ -1375,7 +1488,9 @@ double* Random::cont0_array(rk_state *state, double(*func)(rk_state *state), lon
 		lock(rk_lock);
 		{
 			double rv = func(state);
-			return new double[1]{ rv };
+			array_data = new double[1];
+			array_data[0] = rv;
+			return array_data;
 		}
 	}
 	else
@@ -1432,7 +1547,9 @@ double* Random::cont1_array_sc(rk_state *state, double(*func)(rk_state *state, d
 	if (size == 0)
 	{
 		double rv = func(state, a);
-		return new double[1] { rv };
+		double *array_data = new double[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 	else
 	{
@@ -1453,7 +1570,9 @@ double* Random::cont2_array_sc(rk_state *state, double(*func)(rk_state *state, d
 	if (size == 0)
 	{
 		double rv = func(state, a, b);
-		return new double[1] { rv };
+		double *array_data = new double[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 	else
 	{
@@ -1510,7 +1629,9 @@ double* Random::cont3_array_sc(rk_state *state, double(*func)(rk_state *state, d
 	if (size == 0)
 	{
 		double rv = func(state, a, b, c);
-		return new double[1] { rv };
+		double *array_data = new double[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 	else
 	{
@@ -1592,7 +1713,9 @@ long* Random::discd_array_sc(rk_state *state, long(*func)(rk_state *state, doubl
 	if (size == 0)
 	{
 		long rv = func(state, a);
-		return new long[1] { rv };
+		long *array_data = new long[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 
 	long *array_data = new long[size];
@@ -1641,7 +1764,9 @@ long* Random::discnp_array_sc(rk_state *state, long(*func)(rk_state *state, long
 	if (size == 0)
 	{
 		long rv = func(state, n, p);
-		return new long[1] { rv };
+		long *array_data = new long[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 
 	long* array_data = new long[size];
@@ -1690,7 +1815,9 @@ long* Random::discdd_array_sc(rk_state *state, long(*func)(rk_state *state, doub
 	if (size == 0)
 	{
 		long rv = func(state, n, p);
-		return new long[1] { rv };
+		long *array_data = new long[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 
 	long* array_data = new long[size];
@@ -1741,7 +1868,9 @@ long* Random::discnmN_array_sc(rk_state *state, long(*func)(rk_state *state, lon
 	if (size == 0)
 	{
 		long rv = func(state, n, m, N);
-		return new long[1] { rv };
+		long *array_data = new long[1];
+		array_data[0] = rv;
+		return array_data;
 	}
 
 	long* array_data = new long[size];
@@ -1934,8 +2063,4 @@ void Random::lock(void *l)
 
 
 #pragma endregion
-
-
-
-
 

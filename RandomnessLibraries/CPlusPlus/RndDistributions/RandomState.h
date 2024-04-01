@@ -46,7 +46,7 @@ public:
 
 	RandomState()
 	{
-
+		memset(key, 0, sizeof(key));
 	}
 
 	void Seed(unsigned long seedValue, rk_state *state);
