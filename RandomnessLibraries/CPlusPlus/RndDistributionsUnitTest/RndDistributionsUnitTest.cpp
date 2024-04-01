@@ -2441,5 +2441,449 @@ namespace RndDistributionsUnitTest
 
 
 		}
+
+		TEST_METHOD(test_rand_standard_t_1)
+		{
+			Random *random = new Random();
+
+			random->seed(344);
+
+			int size = 1000;
+			double *arr = random->standard_t(10, size);
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(3.6181129587245118, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(-4.331442584542253, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(0.008243788245885007, avg);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData1[10]
+			{ 1.32919988910514, 1.41988054853764, -0.350014562835158, -0.491530274577331, -0.560206293757909,
+				-0.414149339849108, -0.117540851340351, 0.536494981378295, 0.555551140675012, 0.97583215939303  };
+
+			AssertArray(first10, ExpectedData1, 10);
+
+			//////////////
+
+			size = 40 * 40 * 40;
+			arr = random->standard_t(40, (size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(4.8492343665605855, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(-4.830322764567837, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(-0.0013889376393183856, avg);
+
+			FirstTen(arr, first10);
+			//print(first10);
+
+			//ExpectedData = new double[] { 2.18222682432408, 6.16749665086441, 4.02795272869782, 2.29528895942752 };
+
+			//AssertArray(first10, ExpectedData);
+
+			//////////////
+
+			size = 200000;
+			arr = random->standard_t(20000, (size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(4.79681839607772, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(-4.509851741097332, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(0.0034736156950519494, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData2[10]
+			{ 1.59719945912947, 0.588822724180777, 2.46314177327573, 1.21826362909316, 0.891175891085618,
+				1.04841765769683, 0.272819255529087, -0.750835572730511, 0.166532753161041, 0.120173214909434};
+			AssertArray(first10, ExpectedData2, 10);
+
+
+		}
+
+		TEST_METHOD(test_rand_triangular_1)
+		{
+			Random *random = new Random();
+
+			random->seed(967);
+
+			int size = 1000;
+			double *arr = random->triangular(1, 20, 48, (size));
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(47.283590040731276, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(1.3745444760000458, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(22.84033382253185, avg);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData1[10]
+			{  9.50587777489781, 31.0858101320923, 24.4425252216325, 26.4386740158624, 23.2596363787258,
+				18.4928025305063, 34.0429111775129, 35.5906768428026, 26.6387923344804, 13.1207671453104   };
+
+			AssertArray(first10, ExpectedData1, 10);
+
+			//////////////
+
+			size = 4;
+			arr = random->triangular(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, 20, 48, (size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(36.98020459545957, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(11.377646176644985, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(21.71455146888546, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData2[4] { 11.377646176645, 14.7556728019968, 23.7446823014404, 36.9802045954596 };
+
+			AssertArray(first10, ExpectedData2, 4);
+
+			//////////////
+			size = 200000;
+			arr = random->triangular(1.75, 3, 53, (size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(52.898787213103205, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(1.769502136707926, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(19.270976111586553, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData3[10]
+			{ 7.49338977326848, 30.4470685970528, 7.42130797027446, 22.4573572092656, 11.1780179210463,
+				32.2198352230619, 21.1615117904956, 22.2143198349095, 4.23809367722936, 42.6411462335993 };
+
+			AssertArray(first10, ExpectedData3, 10);
+		}
+
+		TEST_METHOD(test_rand_uniform_1)
+		{
+			Random *random = new Random();
+
+			random->seed(5461);
+
+			int size = 5000000;
+			double *arr = random->uniform(-1, 1, 5000000);
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(0.9999998733604805, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(-0.999999696666168, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(6.643562403733275E-05, avg);
+
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData[10]{ -0.0861951950449646, -0.916354322633752, 0.979020117468637,
+				-0.196568936650096, -0.875996989224622, 0.106127858765562, 0.143469747306076, 0.375363669127145,
+				-0.590520508804662, -0.18455495968856 };
+
+			AssertArray(first10, ExpectedData, 10);
+
+		}
+
+		TEST_METHOD(test_rand_uniform_2)
+		{
+			Random *random = new Random();
+
+			random->seed(5461);
+
+			double low[4] { 9.0, 8.0, 7.0, 1.0 };
+			double high[4] { 30.0, 22.0, 10.0, 3.0 };
+			
+			int size = 4;
+			double *arr = random->uniform(low, 4, high, 4, (size));
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(18.594950452027874, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(1.803431063349904, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(9.7381078582861171, avg);
+
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData[4]{ 18.594950452027874, 8.5855197415637328, 9.9685301762029539, 1.803431063349904 };
+			AssertArray(first10, ExpectedData, 4);
+
+
+		}
+
+		TEST_METHOD(test_rand_vonmises_1)
+		{
+			Random *random = new Random();
+
+			random->seed(909);
+
+			int size = 100000;
+			double *arr = random->vonmises(0.0, 4.0, (size));
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			//Assert.AreEqual(2.966642390532069, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			//Assert.AreEqual(-3.1288073003877273, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			//Assert.AreEqual(0.001468156147666098, avg);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+			//AssertArray(first10, new double[]
+			//{ 32.507966101474, 29.5670038054405, 35.4646231172001, 48.8509128727834, 13.8878542193038,
+			//  22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
+
+			size = 25 * 25;
+			arr = random->vonmises(arange_Double(1, (25 * 25) + 1), size, size);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			//Assert.AreEqual(3.1128949170937865, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			//Assert.AreEqual(-3.141056472523122, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			//Assert.AreEqual(0.004769515035667695, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+			//AssertArray(first10, new double[]
+			//{ 693.625713231652, 667.317783374469, 628.424318152006, 585.208004459504, 758.222190671585,
+			//  611.122162793199, 659.549979398019, 611.408655748793, 689.18666064001, 657.624462137622 });
+
+
+		}
+
+		TEST_METHOD(test_rand_wald_1)
+		{
+			Random *random = new Random();
+
+			random->seed(964);
+
+			int size = 100000;
+			double *arr = random->wald(3, 20, (size));
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(12.349279351617012, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.6001989474303744, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(3.0025012751386755, avg);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData1[10]{ 5.03038470107277, 2.90812891815563, 1.80122277240371, 2.88227044267389, 2.36018483421244,
+				5.25349661810997, 4.0632949031683, 3.43307360806721, 5.10604488857464, 2.87984364192777 };
+			AssertArray(first10, ExpectedData1, 10);
+
+			size = 25 * 25;
+			arr = random->wald(arange_Double(1, (25 * 25) + 1), size, size);
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(2928.8874732379727, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.9848685492507449, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(309.35420489337906, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData2[10]{ 0.984868549250745, 1.96127772419652, 2.99050918468426, 4.17290733434684, 5.07438725183429,
+				6.01195019448229, 7.48340958133606, 8.07272756076527, 11.1740022984504, 11.024796322117 };
+			AssertArray(first10, ExpectedData2, 10);
+
+		}
+
+		TEST_METHOD(test_rand_weibull_1)
+		{
+			Random *random = new Random();
+
+			random->seed(974);
+
+			int size = 100000;
+			double *arr = random->weibull(5, (size));
+
+			double amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(1.6435302608550746, amax);
+
+			double amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.07812030376364504, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(0.91828955683190416, avg);
+
+			double first10[10];
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData1[10]{ 0.802382756919613, 0.846126922902903, 0.849922504835084, 1.00496226793646, 1.24355344592726,
+				0.936599096578893, 0.798344330459658, 0.870912076415209, 1.05590855634161, 1.08944476675504 };
+
+			AssertArray(first10, ExpectedData1, 10);
+
+			size = 25 * 25;
+			arr = random->weibull(arange_Double(1, (25 * 25) + 1), size,(size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual(1.13239084970226, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual(0.3435024689351767, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(0.99456850758012483, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			double ExpectedData2[10]{ 0.343502468935177, 1.07141491719323, 1.11355099054115, 0.599151817962907, 0.745122210078631,
+				1.13239084970226, 0.897388933089434, 0.945279231187368, 0.915902530093467, 1.13094361305955 };
+
+			AssertArray(first10, ExpectedData2, 10);
+
+		}
+
+		TEST_METHOD(test_rand_zipf_1)
+		{
+			Random *random = new Random();
+
+			random->seed(979);
+
+			int size = 100000;
+			long *arr = random->zipf(5.2, (100000));
+
+			long amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)9, amax);
+
+			long amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)1, amin);
+
+			double avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.03708, avg);
+
+			long first10[10];
+			FirstTen(arr, first10);
+			long ExpectedData1[10]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
+			AssertArray(first10, ExpectedData1, 10);
+
+			size = 25 * 25;
+			arr = random->zipf(arange_Double(2, (25 * 25) + 2), size, (size));
+
+			amax = GetMax(arr, size);
+			print(amax);
+			Assert::AreEqual((long)2, amax);
+
+			amin = GetMin(arr, size);
+			print(amin);
+			Assert::AreEqual((long)1, amin);
+
+			avg = GetAverage(arr, size);
+			print(avg);
+			Assert::AreEqual(1.0016, avg);
+
+			FirstTen(arr, first10);
+			print(first10);
+
+			long ExpectedData2[]{ 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+			AssertArray(first10, ExpectedData2, 10);
+
+		}
+
 	};
 }
