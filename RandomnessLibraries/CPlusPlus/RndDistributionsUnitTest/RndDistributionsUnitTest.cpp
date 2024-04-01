@@ -34,6 +34,7 @@
 #include "CppUnitTest.h"
 #include "..\RndDistributions\RandomAPI.h"
 #include "TestBaseClass.h"
+#include <memory>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -53,7 +54,7 @@ namespace RndDistributionsUnitTest
 			double *arr = random->rand(2);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
 
-			random->seed(8765);
+			(void)random->seed(8765);
 			double f = random->rand();
 			print(f);
 			Assert::AreEqual(0.032785430047761466, f, doubleTolerance);
@@ -72,6 +73,8 @@ namespace RndDistributionsUnitTest
 			double avg = GetAverage(arr, size);
 			print(avg);
 			Assert::AreEqual(0.49987999522694609, avg, doubleTolerance);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_randn_1)
@@ -82,7 +85,7 @@ namespace RndDistributionsUnitTest
 			double *arr = random->randn(2 * 3 * 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
 
-			random->seed(1234);
+			(void)random->seed(1234);
 
 			fr = random->randn();
 			print(fr);
@@ -103,6 +106,8 @@ namespace RndDistributionsUnitTest
 			double avg = GetAverage(arr, size);
 			print(avg);
 			Assert::AreEqual(-0.00028345468151361842, avg);
+
+			delete random;
 
 		}
 
@@ -127,13 +132,15 @@ namespace RndDistributionsUnitTest
 			print(GetMin(arr, size));
 			//print(GetAverage(arr));
 
+			delete random;
+
 		}
 
 		TEST_METHOD(test_randint8_1)
 		{
 			Random *random = new Random();
 
-			random->seed(9292);
+			(void)random->seed(9292);
 
 			char *arr = random->randint8(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
@@ -184,13 +191,14 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected2, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_randuint8_1)
 		{
 			Random *random = new Random();
 
-			random->seed(1313);
+			(void)random->seed(1313);
 
 			uchar *arr = random->randuint8(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
@@ -219,13 +227,15 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			AssertArray(first10, Expected1, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_randint16_1)
 		{
 			Random *random = new Random();
 
-			random->seed(8381);
+			(void)random->seed(8381);
 
 			short *arr = random->randint16(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Int16[]));
@@ -276,13 +286,15 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			AssertArray(first10, Expected2, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_randuint16_1)
 		{
 			Random *random = new Random();
 
-			random->seed(5555);
+			(void)random->seed(5555);
 
 			ushort* arr = random->randuint16(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.UInt16[]));
@@ -312,13 +324,15 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			//AssertArray(first10, Expected1, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_randint32_1)
 		{
 			Random *random = new Random();
 
-			random->seed(701);
+			(void)random->seed(701);
 
 			int * arr = random->randint32(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Int32[]));
@@ -370,13 +384,15 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			AssertArray(first10, Expected2, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_randuint_1)
 		{
 			Random *random = new Random();
 
-			random->seed(8357);
+			(void)random->seed(8357);
 
 			uint* arr = random->randuint32(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.UInt32[]));
@@ -406,6 +422,8 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			AssertArray(first10, Expected1, 10);
+
+			delete random;
 		}
 
 
@@ -413,7 +431,7 @@ namespace RndDistributionsUnitTest
 		{
 			Random *random = new Random();
 
-			random->seed(10987);
+			(void)random->seed(10987);
 
 			long* arr = random->randint64(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
@@ -465,6 +483,7 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected2, 10);
 
+			delete random;
 		}
 
 	
@@ -472,7 +491,7 @@ namespace RndDistributionsUnitTest
 		{
 			Random *random = new Random();
 
-			random->seed(1990);
+			(void)random->seed(1990);
 
 			ulong *arr = random->randuint64(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.UInt64[]));
@@ -502,13 +521,14 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected1, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_bytes_1)
 		{
 			Random *random = new Random();
 
-			random->seed(6432);
+			(void)random->seed(6432);
 
 			char br = random->getbyte();
 
@@ -529,6 +549,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(arr, ExpectedData, 24);
 
+			delete random;
 		}
 
 #pragma endregion
@@ -539,7 +560,7 @@ namespace RndDistributionsUnitTest
 		{
 			Random *random = new Random();
 
-			random->seed(1964);
+			(void)random->seed(1964);
 
 			int *arr = arange_Int32(0, 10);
 			random->shuffle(arr, 10);
@@ -557,13 +578,14 @@ namespace RndDistributionsUnitTest
 			int ExpectedData2[10] = { 0 , 3 ,  7 ,  8 ,  5 ,  9 ,  4 ,  6 ,  1 ,  2 };
 			AssertArray(arr, ExpectedData2, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_permutation_1)
 		{
 			Random *random = new Random();
 
-			random->seed(1963);
+			(void)random->seed(1963);
 
 			int *arr = random->permutation(10);
 			print(arr);
@@ -577,6 +599,7 @@ namespace RndDistributionsUnitTest
 			int ExpectedData2[5] = { 2, 3, 1, 0, 4 };
 			AssertArray(arr, ExpectedData2, 5);
 
+			delete random;
 		}
 
 
@@ -586,7 +609,7 @@ namespace RndDistributionsUnitTest
 		{
 			Random *random = new Random();
 
-			random->seed(5566);
+			(void)random->seed(5566);
 
 			double *a = arange_Double(1, 11);
 			double *b = arange_Double(1, 11);
@@ -595,19 +618,20 @@ namespace RndDistributionsUnitTest
 			//Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
 			print(arr);
 
-			double ExpectedData[]
+			double ExpectedData[10]
 			{ 0.890517356256563, 0.532484155787344, 0.511396509650771, 0.862418837558698, 0.492458004172681,
 				0.504662615187708, 0.621477223753938, 0.41702032419038, 0.492984829781569, 0.47847289036676 };
 
 			AssertArray(arr, ExpectedData, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_binomial_1)
 		{
 			Random *random = new Random();
 
-			random->seed(123);
+			(void)random->seed(123);
 
 			int size = 20;
 			long*arr = random->binomial(9, 0.1, size);
@@ -625,13 +649,14 @@ namespace RndDistributionsUnitTest
 			Assert::AreEqual(7711, s);
 			print(s);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_negative_binomial_1)
 		{
 			Random *random = new Random();
 
-			random->seed(123);
+			(void)random->seed(123);
 
 			int size = 20;
 			long*arr = random->negative_binomial(1, 0.1, size);
@@ -649,13 +674,14 @@ namespace RndDistributionsUnitTest
 			Assert::AreEqual(1992, s);
 			print(s);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_chisquare_1)
 		{
 			Random *random = new Random();
 
-			random->seed(904);
+			(void)random->seed(904);
 
 			int size = 40;
 			double *arr = random->chisquare(2, size);
@@ -703,6 +729,8 @@ namespace RndDistributionsUnitTest
 				7.72738961829532, 8.62984666080682, 7.93816304470877, 4.58662123588299, 10.139304988442 };
 
 			AssertArray(first10, Expected2, 10);
+
+			delete random;
 		}
 
 		//TEST_METHOD(test_rand_dirichlet_1)
@@ -714,7 +742,7 @@ namespace RndDistributionsUnitTest
 		{
 			Random *random = new Random();
 
-			random->seed(914);
+			(void)random->seed(914);
 
 			int size = 40;
 			double *arr = random->exponential(2.0, size);
@@ -788,24 +816,28 @@ namespace RndDistributionsUnitTest
 
 
 			AssertArray(first10, ExpectedData3, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_exponential_2)
 		{
 			Random *random = new Random();
 
-			random->seed(914);
+			(void)random->seed(914);
 
 			double *arr = random->exponential();
 			Assert::AreEqual(0.37376054576568468, arr[0], doubleTolerance);
 			print(arr);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_f_1)
 		{
 			Random *random = new Random();
 
-			random->seed(94);
+			(void)random->seed(94);
 
 			int size = 1000;
 			double *arr = random->f(1, 48, size);
@@ -878,13 +910,15 @@ namespace RndDistributionsUnitTest
 			double ExpectedData3[10] = { 0.00532782005062579, 0.864448569799127, 4.62790636498241, 0.0383338245858999, 0.0484018547471839,
 				0.351354338193848, 0.178901619826393, 1.16925307162684, 2.99295008429782, 0.0505560091503879 };
 			AssertArray(first10, ExpectedData3, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_gamma_1)
 		{
 			Random *random = new Random();
 
-			random->seed(99);
+			(void)random->seed(99);
 
 			int size = 2;
 			double *arr = random->gamma(new double[2] { 4, 4 }, 2, new double[1] { 2 }, 1);
@@ -957,14 +991,14 @@ namespace RndDistributionsUnitTest
 	
 			AssertArray(first10, ExpectedData2, 10);
 
-	
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_geometric_1)
 		{
 			Random *random = new Random();
 
-			random->seed(101);
+			(void)random->seed(101);
 
 			int size = 1;
 			long *arr = random->geometric(0.35);
@@ -1037,13 +1071,15 @@ namespace RndDistributionsUnitTest
 
 			long ExpectedData2[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 			AssertArray(first10, ExpectedData2, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_gumbel_1)
 		{
 			Random *random = new Random();
 
-			random->seed(1431);
+			(void)random->seed(1431);
 
 			double *arr = random->gumbel(0.32);
 
@@ -1117,13 +1153,14 @@ namespace RndDistributionsUnitTest
 				0.93864144637321, -0.200732799247397, 0.242196470741022, 0.0803181023284516, 1.52710248786222 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_hypergeometric_1)
 		{
 			Random *random = new Random();
 	
-			random->seed(1631);
+			(void)random->seed(1631);
 
 			int size = 1000;
 			long* arr = random->hypergeometric(100, 2, 10, size);
@@ -1195,13 +1232,14 @@ namespace RndDistributionsUnitTest
 			long ExpectedData3[10] = { 7, 10, 7, 7, 6, 9, 9, 8, 7, 8 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_laplace_1)
 		{
 			Random *random = new Random();
 
-			random->seed(1400);
+			(void)random->seed(1400);
 
 			int size = 1;
 			double *arr = random->laplace(0.32);
@@ -1275,14 +1313,14 @@ namespace RndDistributionsUnitTest
 				0.57540806081121, 0.213861746932043, 0.714426358585987, 0.518993828675387, 0.54266874996464 };
 			AssertArray(first10, ExpectedData3, 10);
 		
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_logistic_1)
 		{
 			Random *random = new Random();
 
-			random->seed(1400);
+			(void)random->seed(1400);
 
 			int size = 1;
 			double *arr = random->logistic(0.32);
@@ -1303,7 +1341,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData[] { -1.6374760957412662 };
+			double ExpectedData[1] { -1.6374760957412662 };
 
 			AssertArray(first10, ExpectedData, 1);
 
@@ -1327,7 +1365,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData2[] { -6.85072403263823, -4.17461033521845, 1.21644581699826, -0.407707402684622 };
+			double ExpectedData2[4] { -6.85072403263823, -4.17461033521845, 1.21644581699826, -0.407707402684622 };
 
 			AssertArray(first10, ExpectedData2, size);
 
@@ -1351,19 +1389,19 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData3[]
+			double ExpectedData3[10]
 			{ 0.501664104949021, 1.02428778459822, 2.21967826633745, 0.689692463292968, 0.409628150582071,
 				0.446254436188489, -0.0388753549104508, 0.68121644303921, 0.361593774055577, 0.39654413010928 };
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_lognormal_1)
 		{
 			Random *random = new Random();
 
-			random->seed(990);
+			(void)random->seed(990);
 
 			int size = 2;
 			double *arr = random->lognormal(new double[2] { 4, 4 },2, size);
@@ -1384,7 +1422,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData[] { 39.0297978457789, 9.32329007434907 };
+			double ExpectedData[2] { 39.0297978457789, 9.32329007434907 };
 
 			AssertArray(first10, ExpectedData, 2);
 
@@ -1438,14 +1476,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_logseries_1)
 		{
 			Random *random = new Random();
 
-			random->seed(9909);
+			(void)random->seed(9909);
 
 			int size = 40;
 			long *arr = random->logseries(new double[2] { 0.1, 0.99 }, 2, size);
@@ -1518,14 +1556,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_multinomial_1)
 		{
 			Random *random = new Random();
 
-			random->seed(9909);
+			(void)random->seed(9909);
 
 			int size = 6000;
 			double dv = 1.0 / 6.0;
@@ -1548,7 +1586,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			long ExpectedData[]
+			long ExpectedData[10]
 			{ 3, 1, 4, 6, 5, 1, 4, 7, 1, 3 };
 
 			AssertArray(first10, ExpectedData, 10);
@@ -1604,6 +1642,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_multivariate_normal_1)
@@ -1614,7 +1653,7 @@ namespace RndDistributionsUnitTest
 		{
 			Random *random = new Random();
 
-			random->seed(904);
+			(void)random->seed(904);
 
 			int size = 100000;
 			double *arr = random->noncentral_chisquare(3, 20, size);
@@ -1662,13 +1701,14 @@ namespace RndDistributionsUnitTest
 				611.122162793199, 659.549979398019, 611.408655748793, 689.18666064001, 657.624462137622 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_noncentral_f_1)
 		{
 			Random *random = new Random();
 
-			random->seed(95);
+			(void)random->seed(95);
 
 			int size = 1000;
 			double *arr = random->noncentral_f(1, 20, 48, size);
@@ -1715,7 +1755,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData2[] { 32.7074529776866, 21.9051515376809, 20.8123524261127, 7.90660782934302 };
+			double ExpectedData2[4] { 32.7074529776866, 21.9051515376809, 20.8123524261127, 7.90660782934302 };
 
 			AssertArray(first10, ExpectedData2, 4);
 
@@ -1739,18 +1779,20 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData3[]
+			double ExpectedData3[10]
 			{  27.8838758530967, 15.3064263302261, 19.9558173630626, 79.9200280113332, 20.6836524868276, 30.6831175354627,
 				5.30452049710313, 26.3487042626856, 68.0419650815286, 33.3860982701053 };
 
 			AssertArray(first10, ExpectedData3, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_normal_1)
 		{
 			Random *random = new Random();
 
-			random->seed(96);
+			(void)random->seed(96);
 
 			int size = 1000;
 			double *arr = random->normal(1, 48, size);
@@ -1771,7 +1813,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			double ExpectedData1[]
+			double ExpectedData1[10]
 			{  4.35269318876786, -1.3359262138713, -30.667818087132, 18.1537231001315, 7.33791680475021, -40.6840900065982,
 				-23.9673401331787, 4.86724597788797, -56.7059911346956, -46.8495243913698 };
 
@@ -1827,14 +1869,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_pareto_1)
 		{
 			Random *random = new Random();
 
-			random->seed(993);
+			(void)random->seed(993);
 
 			int size = 1000;
 			double *arr = random->pareto(3.0, size);
@@ -1911,14 +1953,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 	
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_poisson_1)
 		{
 			Random *random = new Random();
 
-			random->seed(993);
+			(void)random->seed(993);
 
 			int size = 1000;
 			long *arr = random->poisson(3.0, size);
@@ -1990,13 +2032,14 @@ namespace RndDistributionsUnitTest
 			long ExpectedData3[10] { 1, 2, 1, 2, 1, 1, 3, 1, 0, 1 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_power_1)
 		{
 			Random *random = new Random();
 
-			random->seed(339);
+			(void)random->seed(339);
 
 			int size = 1000;
 			double *arr = random->power(3.0,size);
@@ -2072,14 +2115,14 @@ namespace RndDistributionsUnitTest
 				0.473016685638606, 0.269503426405144, 0.618646989401598, 0.689636449821986, 0.968887821301467 };
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_rayleigh_1)
 		{
 			Random *random = new Random();
 
-			random->seed(340);
+			(void)random->seed(340);
 
 			int size = 1000;
 			double *arr = random->rayleigh(3.0, size);
@@ -2155,14 +2198,14 @@ namespace RndDistributionsUnitTest
 				2.17148238882592, 1.51452779296601, 1.5852297946265, 1.34314761271206, 1.7460907476427 };
 			AssertArray(first10, ExpectedData3, 10);
 	
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_standard_cauchy_1)
 		{
 			Random *random = new Random();
 
-			random->seed(341);
+			(void)random->seed(341);
 
 			int size = 1000;
 			double *arr = random->standard_cauchy(size);
@@ -2238,14 +2281,14 @@ namespace RndDistributionsUnitTest
 				-0.693882237673906, -1.58555557371248, 0.0288085451238071, 0.223559949952255, -0.491252720933577};
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_standard_exponential_1)
 		{
 			Random *random = new Random();
 
-			random->seed(342);
+			(void)random->seed(342);
 
 			int size = 1000;
 			double *arr = random->standard_exponential((size));
@@ -2321,14 +2364,14 @@ namespace RndDistributionsUnitTest
 				0.33887126547427, 3.22401306826448, 0.0166442087394634, 0.388772583086659, 1.66698190745057};
 			AssertArray(first10, ExpectedData3, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_standard_gamma_1)
 		{
 			Random *random = new Random();
 
-			random->seed(343);
+			(void)random->seed(343);
 
 			int size = 1000;
 			double *arr = random->standard_gamma(2, (size));
@@ -2405,14 +2448,14 @@ namespace RndDistributionsUnitTest
 			AssertArray(first10, ExpectedData2, 10);
 	
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_standard_normal_1)
 		{
 			Random *random = new Random();
 
-			random->seed(8877);
+			(void)random->seed(8877);
 
 			int size = 5000000;
 			double *arr = random->standard_normal((size));
@@ -2439,14 +2482,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_standard_t_1)
 		{
 			Random *random = new Random();
 
-			random->seed(344);
+			(void)random->seed(344);
 
 			int size = 1000;
 			double *arr = random->standard_t(10, size);
@@ -2522,14 +2565,14 @@ namespace RndDistributionsUnitTest
 				1.04841765769683, 0.272819255529087, -0.750835572730511, 0.166532753161041, 0.120173214909434};
 			AssertArray(first10, ExpectedData2, 10);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_triangular_1)
 		{
 			Random *random = new Random();
 
-			random->seed(967);
+			(void)random->seed(967);
 
 			int size = 1000;
 			double *arr = random->triangular(1, 20, 48, (size));
@@ -2604,13 +2647,15 @@ namespace RndDistributionsUnitTest
 				32.2198352230619, 21.1615117904956, 22.2143198349095, 4.23809367722936, 42.6411462335993 };
 
 			AssertArray(first10, ExpectedData3, 10);
+
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_uniform_1)
 		{
 			Random *random = new Random();
 
-			random->seed(5461);
+			(void)random->seed(5461);
 
 			int size = 5000000;
 			double *arr = random->uniform(-1, 1, 5000000);
@@ -2638,13 +2683,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_uniform_2)
 		{
 			Random *random = new Random();
 
-			random->seed(5461);
+			(void)random->seed(5461);
 
 			double low[4] { 9.0, 8.0, 7.0, 1.0 };
 			double high[4] { 30.0, 22.0, 10.0, 3.0 };
@@ -2672,14 +2718,14 @@ namespace RndDistributionsUnitTest
 			double ExpectedData[4]{ 18.594950452027874, 8.5855197415637328, 9.9685301762029539, 1.803431063349904 };
 			AssertArray(first10, ExpectedData, 4);
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_vonmises_1)
 		{
 			Random *random = new Random();
 
-			random->seed(909);
+			(void)random->seed(909);
 
 			int size = 100000;
 			double *arr = random->vonmises(0.0, 4.0, (size));
@@ -2724,14 +2770,14 @@ namespace RndDistributionsUnitTest
 			//{ 693.625713231652, 667.317783374469, 628.424318152006, 585.208004459504, 758.222190671585,
 			//  611.122162793199, 659.549979398019, 611.408655748793, 689.18666064001, 657.624462137622 });
 
-
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_wald_1)
 		{
 			Random *random = new Random();
 
-			random->seed(964);
+			(void)random->seed(964);
 
 			int size = 100000;
 			double *arr = random->wald(3, 20, (size));
@@ -2778,13 +2824,14 @@ namespace RndDistributionsUnitTest
 				6.01195019448229, 7.48340958133606, 8.07272756076527, 11.1740022984504, 11.024796322117 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_weibull_1)
 		{
 			Random *random = new Random();
 
-			random->seed(974);
+			(void)random->seed(974);
 
 			int size = 100000;
 			double *arr = random->weibull(5, (size));
@@ -2833,13 +2880,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete random;
 		}
 
 		TEST_METHOD(test_rand_zipf_1)
 		{
 			Random *random = new Random();
 
-			random->seed(979);
+			(void)random->seed(979);
 
 			int size = 100000;
 			long *arr = random->zipf(5.2, (100000));
@@ -2880,9 +2928,10 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			long ExpectedData2[]{ 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+			long ExpectedData2[10]{ 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete random;
 		}
 
 	};
