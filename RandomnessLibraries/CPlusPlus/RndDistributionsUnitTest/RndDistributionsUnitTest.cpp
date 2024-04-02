@@ -591,6 +591,7 @@ namespace RndDistributionsUnitTest
 #pragma endregion
 
 #pragma region shuffle/permutation
+		
 
 		TEST_METHOD(test_rand_shuffle_1)
 		{
@@ -605,6 +606,8 @@ namespace RndDistributionsUnitTest
 			int ExpectedData1[10] = { 2, 9, 3, 6, 1, 7, 5, 0, 4, 8 };
 			AssertArray(arr, ExpectedData1, 10);
 
+			delete arr;
+
 			arr = arange_Int32(0, 10);
 			print(arr);
 
@@ -614,6 +617,7 @@ namespace RndDistributionsUnitTest
 			int ExpectedData2[10] = { 0 , 3 ,  7 ,  8 ,  5 ,  9 ,  4 ,  6 ,  1 ,  2 };
 			AssertArray(arr, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -628,13 +632,17 @@ namespace RndDistributionsUnitTest
 
 			int ExpectedData1[10] = { 6, 7, 4, 5, 1, 2, 9, 0, 8, 3 };
 			AssertArray(arr, ExpectedData1, 10);
+			delete arr;
 
-			arr = random->permutation(arange_Int32(0, 5), 5);
+			int *i1 = arange_Int32(0, 5);
+			arr = random->permutation(i1, 5);
 			print(arr);
 
 			int ExpectedData2[5] = { 2, 3, 1, 0, 4 };
 			AssertArray(arr, ExpectedData2, 5);
 
+			//delete i1;  i1 is the same pointer as arr
+			delete arr;
 			delete random;
 		}
 
@@ -660,6 +668,10 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(arr, ExpectedData, 10);
 
+			delete a;
+			delete b;
+			delete arr;
+
 			delete random;
 		}
 
@@ -679,12 +691,15 @@ namespace RndDistributionsUnitTest
 			int s = CountTrues(CompareArray(arr, size, 0), size);
 			Assert::AreEqual(6, s);
 
+			delete arr;
+
 			size = 20000;
 			arr = random->binomial(9, 0.1, size);
 			s = CountTrues(CompareArray(arr, size, 0), size);
 			Assert::AreEqual(7711, s);
 			print(s);
 
+			delete arr;
 			delete random;
 		}
 
@@ -703,6 +718,7 @@ namespace RndDistributionsUnitTest
 
 			int s = CountTrues(CompareArray(arr, size, 0), size);
 			Assert::AreEqual(1, s);
+			delete arr;
 
 			size = 20000;
 			arr = random->negative_binomial(1, 0.1, size);
@@ -710,6 +726,7 @@ namespace RndDistributionsUnitTest
 			Assert::AreEqual(1992, s);
 			print(s);
 
+			delete arr;
 			delete random;
 		}
 
@@ -743,8 +760,12 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, Expected1, 10);
 
+			delete arr;
+
 			size = 25 * 25;
-			arr = random->chisquare(arange_Double(1, (size) + 1), (size));
+			double *dd = arange_Double(1, (size)+1);
+			arr = random->chisquare(dd, (size));
+			delete dd;
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -766,6 +787,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, Expected2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -803,10 +825,13 @@ namespace RndDistributionsUnitTest
 	
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->exponential(new double[size] { 1.75, 2.25, 3.5, 4.1 },4, size);
+			double dd[4]{ 1.75, 2.25, 3.5, 4.1 };
+			arr = random->exponential(dd ,4, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -826,6 +851,8 @@ namespace RndDistributionsUnitTest
 			double ExpectedData2[4] = { 0.84051967015249, 1.41367329358207, 0.888541855713523, 6.4389292872403 };
 
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -853,6 +880,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -866,6 +894,7 @@ namespace RndDistributionsUnitTest
 			Assert::AreEqual(0.37376054576568468, arr[0], doubleTolerance);
 			print(arr);
 
+			delete arr;
 			delete random;
 		}
 
@@ -899,11 +928,15 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
 
 			//////////////
 
 			size = 4;
-			arr = random->f(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, new double[1] { 48 }, 1, 4);
+
+			double d1[4]{ 1.75, 2.25, 3.5, 4.1 };
+			double d2[1]{ 48 };
+			arr = random->f(d1 , 4, d2, 1, 4);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -922,6 +955,8 @@ namespace RndDistributionsUnitTest
 
 			double ExpectedData2[4] = { 1.05458800808553, 1.05686325994253, 1.27324633633882, 0.546310315192394 };
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -947,6 +982,7 @@ namespace RndDistributionsUnitTest
 				0.351354338193848, 0.178901619826393, 1.16925307162684, 2.99295008429782, 0.0505560091503879 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -957,7 +993,9 @@ namespace RndDistributionsUnitTest
 			(void)random->seed(99);
 
 			int size = 2;
-			double *arr = random->gamma(new double[2] { 4, 4 }, 2, new double[1] { 2 }, 1);
+			double d1[2]{ 4, 4 };
+			double d2[1]{ 2 };
+			double *arr = random->gamma(d1 , 2, d2, 1);
 
 			double amax = GetMax(arr, size);
 			print(amax);
@@ -978,10 +1016,14 @@ namespace RndDistributionsUnitTest
 			double ExpectedData[] = { 6.80153956154946, 18.3701349730577 };
 			AssertArray(first10, ExpectedData, 2);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->gamma(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, new double[1] { 48 }, 1, 4);
+			double d3[4]{ 1.75, 2.25, 3.5, 4.1 };
+			double d4[1]{ 48 };
+			arr = random->gamma(d3, 4, d4, 1, 4);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1001,6 +1043,8 @@ namespace RndDistributionsUnitTest
 			double ExpectedData1[] = { 85.5009038085689, 211.684158840965, 226.059987732662, 269.138174011228 };
 
 			AssertArray(first10, ExpectedData1, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -1027,6 +1071,7 @@ namespace RndDistributionsUnitTest
 	
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1059,10 +1104,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 1);
 
+			delete arr;
+
 			//////////////
 
 			size = 400;
-			arr = random->geometric(new double[4] { .75, .25, .5, .1 }, 4, size);
+
+			double d1[4]{ .75, .25, .5, .1 };
+			arr = random->geometric(d1 , 4, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1084,6 +1133,8 @@ namespace RndDistributionsUnitTest
 			  { 1, 1, 1, 2 },  { 4, 3, 2, 13 }, { 1, 9, 3, 5 }, { 1, 11, 1, 20 }, { 2, 3, 4, 1 } };*/
 
 			//AssertArray(first10, ExpectedData2);
+
+			delete arr;
 
 			//////////////
 
@@ -1108,6 +1159,7 @@ namespace RndDistributionsUnitTest
 			long ExpectedData2[] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1140,10 +1192,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, size);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->gumbel(new double[4] { .75, .25, .5, .1 }, 4, size);
+			double d1[4]{ .75, .25, .5, .1 };
+			arr = random->gumbel(d1 , 4, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1163,6 +1218,8 @@ namespace RndDistributionsUnitTest
 			double ExpectedData2[4] { 4.79769794330828, -2.48113529309385, 3.33696461612712, 7.62559311437917 };
 
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -1189,6 +1246,7 @@ namespace RndDistributionsUnitTest
 				0.93864144637321, -0.200732799247397, 0.242196470741022, 0.0803181023284516, 1.52710248786222 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1221,10 +1279,17 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->hypergeometric(new long[4] { 75, 25, 5, 1 }, 4, new long[1] { 5 }, 1, new long[4] { 80, 30, 10, 6 }, 4);
+
+			long l1[4] { 75, 25, 5, 1 };
+			long l2[1] { 5 };
+			long l3[4] { 80, 30, 10, 6 };
+
+			arr = random->hypergeometric(l1 , 4, l2, 1, l3 , 4);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1244,6 +1309,8 @@ namespace RndDistributionsUnitTest
 			long ExpectedData2[4] { 75, 25, 5, 1 };
 
 			AssertArray(first10, ExpectedData2, size);
+
+			delete arr;
 
 			//////////////
 
@@ -1268,6 +1335,7 @@ namespace RndDistributionsUnitTest
 			long ExpectedData3[10] = { 7, 10, 7, 7, 6, 9, 9, 8, 7, 8 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1300,10 +1368,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 1);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->laplace(new double[4] { .75, .25, .5, .1 },4, 4);
+			double d1[4]{ .75, .25, .5, .1 };
+			arr = random->laplace(d1 ,4, 4);
 
 			amax = GetMax(arr,size);
 			print(amax);
@@ -1323,6 +1394,8 @@ namespace RndDistributionsUnitTest
 			double ExpectedData2[4] { -4.63558814816448, -2.54523090186133, 0.874241969412896, -0.16190351264904 };
 
 			AssertArray(first10, ExpectedData2, size);
+
+			delete arr;
 
 			//////////////
 
@@ -1349,6 +1422,7 @@ namespace RndDistributionsUnitTest
 				0.57540806081121, 0.213861746932043, 0.714426358585987, 0.518993828675387, 0.54266874996464 };
 			AssertArray(first10, ExpectedData3, 10);
 		
+			delete arr;
 			delete random;
 		}
 
@@ -1381,10 +1455,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 1);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->logistic(new double[4] { .75, .25, .5, .1 },4, 4);
+			double d1[4] { .75, .25, .5, .1 };
+			arr = random->logistic(d1,4, 4);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1404,6 +1481,7 @@ namespace RndDistributionsUnitTest
 			double ExpectedData2[4] { -6.85072403263823, -4.17461033521845, 1.21644581699826, -0.407707402684622 };
 
 			AssertArray(first10, ExpectedData2, size);
+			delete arr;
 
 			//////////////
 
@@ -1430,6 +1508,7 @@ namespace RndDistributionsUnitTest
 				0.446254436188489, -0.0388753549104508, 0.68121644303921, 0.361593774055577, 0.39654413010928 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1440,7 +1519,8 @@ namespace RndDistributionsUnitTest
 			(void)random->seed(990);
 
 			int size = 2;
-			double *arr = random->lognormal(new double[2] { 4, 4 },2, size);
+			double d1[2]{ 4, 4 };
+			double *arr = random->lognormal(d1, 2, size);
 
 			double amax = GetMax(arr, size);
 			print(amax);
@@ -1462,10 +1542,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 2);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->lognormal(new double[4] { 1.75, 2.25, 3.5, 4.1 },4, 48, 4);
+
+			double d2[4]{ 1.75, 2.25, 3.5, 4.1 };
+			arr = random->lognormal(d2 ,4, 48, 4);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1485,6 +1569,8 @@ namespace RndDistributionsUnitTest
 			double ExpectedData2[4] { 2413869.9068035507, 3.95031874515845E-18, 75047.424505237665, 1.4424793885444833E+23 };
 
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -1512,6 +1598,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1522,7 +1609,8 @@ namespace RndDistributionsUnitTest
 			(void)random->seed(9909);
 
 			int size = 40;
-			long *arr = random->logseries(new double[2] { 0.1, 0.99 }, 2, size);
+			double d1[2]{ 0.1, 0.99 };
+			long *arr = random->logseries(d1 , 2, size);
 
 			long amax = GetMax(arr,size);
 			print(amax);
@@ -1543,10 +1631,13 @@ namespace RndDistributionsUnitTest
 			long ExpectedData[10] { 1, 26, 1, 3, 1, 26, 1, 23, 1, 3 };
 			AssertArray(first10, ExpectedData, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 1600;
-			arr = random->logseries(new double[4] { .75, .25, .5, .1 }, 4, 1600);
+			double d2[4]{ .75, .25, .5, .1 };
+			arr = random->logseries(d2 , 4, 1600);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1567,6 +1658,8 @@ namespace RndDistributionsUnitTest
 			{ 5, 1, 4, 1, 1, 1, 1, 1, 5, 1 };
 
 			AssertArray(first10, ExpectedData2, 10);
+
+			delete arr;
 
 			//////////////
 
@@ -1592,6 +1685,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1603,7 +1697,8 @@ namespace RndDistributionsUnitTest
 
 			int size = 6000;
 			double dv = 1.0 / 6.0;
-			long *arr = random->multinomial(20, new double[6] { dv, dv, dv, dv, dv, dv },6,1000);
+			double d1[6]{ dv, dv, dv, dv, dv, dv };
+			long *arr = random->multinomial(20, d1 ,6,1000);
 
 
 			long amax = GetMax(arr, size);
@@ -1627,11 +1722,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 6;
 			dv = 1.0 / 7.0;
-			arr = random->multinomial(100, new double[6] { dv, dv, dv, dv, dv, 2 / 7 }, 6);
+			double d2[6]{ dv, dv, dv, dv, dv, 2 / 7 };
+			arr = random->multinomial(100, d2 , 6);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1649,14 +1747,15 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			long ExpectedData2[6] { 17, 12, 12, 12, 14, 33 };
-
-
 			AssertArray(first10, ExpectedData2, 6);
+
+			delete arr;
 
 			//////////////
 			size = 20000;
 			dv = 1.0 / 6.0;
-			arr = random->multinomial(20, new double[6] { dv, dv, dv, dv, dv, dv }, 6, size);
+			double d3[6]{ dv, dv, dv, dv, dv, dv };
+			arr = random->multinomial(20, d3, 6, size);
 
 			amax = GetMax(arr, size*6);
 			print(amax);
@@ -1673,11 +1772,10 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 
-			long ExpectedData3[10]
-			{ 4, 3, 4, 0, 1, 8, 5, 1, 1, 4 };
-
+			long ExpectedData3[10]{ 4, 3, 4, 0, 1, 8, 5, 1, 1, 4 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1715,8 +1813,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
+			/////////////////////
+
 			size = 25 * 25;
-			arr = random->noncentral_chisquare(arange_Double(1, (25 * 25) + 1),size, size);
+			double *d1 = arange_Double(1, (25 * 25) + 1);
+			arr = random->noncentral_chisquare(d1,size, size);
+			delete d1;
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1737,6 +1841,7 @@ namespace RndDistributionsUnitTest
 				611.122162793199, 659.549979398019, 611.408655748793, 689.18666064001, 657.624462137622 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1771,10 +1876,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->noncentral_f(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, 20, 48, size);
+			double d1[4]{ 1.75, 2.25, 3.5, 4.1 };
+			arr = random->noncentral_f(d1 , 4, 20, 48, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1792,8 +1900,9 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			double ExpectedData2[4] { 32.7074529776866, 21.9051515376809, 20.8123524261127, 7.90660782934302 };
-
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -1821,6 +1930,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1855,10 +1965,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->normal(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, 48, size);
+			double d1[4]{ 1.75, 2.25, 3.5, 4.1 };
+			arr = random->normal(d1, 4, 48, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1878,6 +1991,8 @@ namespace RndDistributionsUnitTest
 			double ExpectedData2[4] { 8.49805114623907, 4.5687120247507, -3.8263750187103, -11.7880457570124 };
 
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -1905,6 +2020,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -1939,10 +2055,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->pareto(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, size);
+			double d1[4] { 1.75, 2.25, 3.5, 4.1 };
+			arr = random->pareto(d1, 4, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -1960,8 +2079,9 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			double ExpectedData2[4] { 0.211187360382824, 0.281760708780893, 0.652891445524079, 0.255176448720849 };
-
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -1989,6 +2109,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 	
+			delete arr;
 			delete random;
 		}
 
@@ -2021,10 +2142,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->poisson(new double[4] { 1.75, 2.25, 3.5, 4.1 },4,  size);
+			double d1[4] { 1.75, 2.25, 3.5, 4.1 };
+			arr = random->poisson(d1 ,4,  size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2042,8 +2166,9 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			long ExpectedData2[4] { 3, 2, 3, 8 };
-
 			AssertArray(first10, ExpectedData2, size);
+
+			delete arr;
 
 			//////////////
 
@@ -2068,6 +2193,7 @@ namespace RndDistributionsUnitTest
 			long ExpectedData3[10] { 1, 2, 1, 2, 1, 1, 3, 1, 0, 1 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2102,10 +2228,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->power(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, size);
+			double d1[4] { 1.75, 2.25, 3.5, 4.1 };
+			arr = random->power(d1, 4, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2123,8 +2252,9 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			double ExpectedData2[4] { 0.220303986059023, 0.584420028685334, 0.939563273765308, 0.933573096926984 };
-
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -2151,6 +2281,7 @@ namespace RndDistributionsUnitTest
 				0.473016685638606, 0.269503426405144, 0.618646989401598, 0.689636449821986, 0.968887821301467 };
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2185,10 +2316,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->rayleigh(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, size);
+			double d1[4]{ 1.75, 2.25, 3.5, 4.1 };
+			arr = random->rayleigh(d1 , 4, size);
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2206,8 +2340,9 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			double ExpectedData2[4] { 2.18222682432408, 6.16749665086441, 4.02795272869782, 2.29528895942752 };
-
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -2234,6 +2369,7 @@ namespace RndDistributionsUnitTest
 				2.17148238882592, 1.51452779296601, 1.5852297946265, 1.34314761271206, 1.7460907476427 };
 			AssertArray(first10, ExpectedData3, 10);
 	
+			delete arr;
 			delete random;
 		}
 
@@ -2268,6 +2404,8 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 40 * 40 * 40;
@@ -2291,6 +2429,8 @@ namespace RndDistributionsUnitTest
 			//double ExpectedData2[4] { 2.18222682432408, 6.16749665086441, 4.02795272869782, 2.29528895942752 };
 
 			//AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 
@@ -2317,6 +2457,7 @@ namespace RndDistributionsUnitTest
 				-0.693882237673906, -1.58555557371248, 0.0288085451238071, 0.223559949952255, -0.491252720933577};
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2351,6 +2492,8 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 40 * 40 * 40;
@@ -2374,6 +2517,8 @@ namespace RndDistributionsUnitTest
 			//ExpectedData = new double[] { 2.18222682432408, 6.16749665086441, 4.02795272869782, 2.29528895942752 };
 
 			//AssertArray(first10, ExpectedData);
+
+			delete arr;
 
 			//////////////
 
@@ -2400,6 +2545,7 @@ namespace RndDistributionsUnitTest
 				0.33887126547427, 3.22401306826448, 0.0166442087394634, 0.388772583086659, 1.66698190745057};
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2434,6 +2580,8 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 40 * 40 * 40;
@@ -2457,6 +2605,8 @@ namespace RndDistributionsUnitTest
 			//ExpectedData = new double[] { 2.18222682432408, 6.16749665086441, 4.02795272869782, 2.29528895942752 };
 
 			//AssertArray(first10, ExpectedData);
+
+			delete arr;
 
 			//////////////
 
@@ -2483,7 +2633,7 @@ namespace RndDistributionsUnitTest
 				0.0433768892245009, 0.102277516573177, 0.124627645927922, 0.00189026208743131, 0.000392554971650297};
 			AssertArray(first10, ExpectedData2, 10);
 	
-
+			delete arr;
 			delete random;
 		}
 
@@ -2518,6 +2668,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2551,6 +2702,8 @@ namespace RndDistributionsUnitTest
 				-0.414149339849108, -0.117540851340351, 0.536494981378295, 0.555551140675012, 0.97583215939303  };
 
 			AssertArray(first10, ExpectedData1, 10);
+			
+			delete arr;
 
 			//////////////
 
@@ -2575,6 +2728,8 @@ namespace RndDistributionsUnitTest
 			//ExpectedData = new double[] { 2.18222682432408, 6.16749665086441, 4.02795272869782, 2.29528895942752 };
 
 			//AssertArray(first10, ExpectedData);
+
+			delete arr;
 
 			//////////////
 
@@ -2601,6 +2756,7 @@ namespace RndDistributionsUnitTest
 				1.04841765769683, 0.272819255529087, -0.750835572730511, 0.166532753161041, 0.120173214909434};
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2635,10 +2791,13 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
 			//////////////
 
 			size = 4;
-			arr = random->triangular(new double[4] { 1.75, 2.25, 3.5, 4.1 }, 4, 20, 48, (size));
+			double d1[4]{ 1.75, 2.25, 3.5, 4.1 };
+			arr = random->triangular(d1, 4, 20, 48, (size));
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2656,8 +2815,9 @@ namespace RndDistributionsUnitTest
 			print(first10);
 
 			double ExpectedData2[4] { 11.377646176645, 14.7556728019968, 23.7446823014404, 36.9802045954596 };
-
 			AssertArray(first10, ExpectedData2, 4);
+
+			delete arr;
 
 			//////////////
 			size = 200000;
@@ -2684,6 +2844,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData3, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2719,6 +2880,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2754,6 +2916,7 @@ namespace RndDistributionsUnitTest
 			double ExpectedData[4]{ 18.594950452027874, 8.5855197415637328, 9.9685301762029539, 1.803431063349904 };
 			AssertArray(first10, ExpectedData, 4);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2785,8 +2948,14 @@ namespace RndDistributionsUnitTest
 			//{ 32.507966101474, 29.5670038054405, 35.4646231172001, 48.8509128727834, 13.8878542193038,
 			//  22.5887773956417, 18.8177210998047, 6.62646485637076, 14.7716354200521, 17.592124636122  });
 
+			delete arr;
+
+			////////////////////////////////////
+
 			size = 25 * 25;
-			arr = random->vonmises(arange_Double(1, (25 * 25) + 1), size, size);
+			double *d1 = arange_Double(1, (25 * 25) + 1);
+			arr = random->vonmises(d1, size, size);
+			delete d1;
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2806,6 +2975,7 @@ namespace RndDistributionsUnitTest
 			//{ 693.625713231652, 667.317783374469, 628.424318152006, 585.208004459504, 758.222190671585,
 			//  611.122162793199, 659.549979398019, 611.408655748793, 689.18666064001, 657.624462137622 });
 
+			delete arr;
 			delete random;
 		}
 
@@ -2838,8 +3008,14 @@ namespace RndDistributionsUnitTest
 				5.25349661810997, 4.0632949031683, 3.43307360806721, 5.10604488857464, 2.87984364192777 };
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
+			///////////////////
+
 			size = 25 * 25;
-			arr = random->wald(arange_Double(1, (25 * 25) + 1), size, size);
+			double *d1 = arange_Double(1, (25 * 25) + 1);
+			arr = random->wald(d1, size, size);
+			delete d1;
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2860,6 +3036,7 @@ namespace RndDistributionsUnitTest
 				6.01195019448229, 7.48340958133606, 8.07272756076527, 11.1740022984504, 11.024796322117 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2893,8 +3070,15 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
+			//////////////////////
+
 			size = 25 * 25;
-			arr = random->weibull(arange_Double(1, (25 * 25) + 1), size,(size));
+
+			double *d1 = arange_Double(1, (25 * 25) + 1);
+			arr = random->weibull(d1, size,(size));
+			delete d1;
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2916,6 +3100,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -2946,8 +3131,14 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(first10, ExpectedData1, 10);
 
+			delete arr;
+
+			//////////////////
+
 			size = 25 * 25;
-			arr = random->zipf(arange_Double(2, (25 * 25) + 2), size, (size));
+			double *d1 = arange_Double(2, (25 * 25) + 2);
+			arr = random->zipf(d1, size, (size));
+			delete d1;
 
 			amax = GetMax(arr, size);
 			print(amax);
@@ -2967,6 +3158,7 @@ namespace RndDistributionsUnitTest
 			long ExpectedData2[10]{ 2, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 			AssertArray(first10, ExpectedData2, 10);
 
+			delete arr;
 			delete random;
 		}
 
