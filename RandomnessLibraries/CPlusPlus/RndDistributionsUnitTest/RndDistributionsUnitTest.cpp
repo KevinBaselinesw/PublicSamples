@@ -59,6 +59,8 @@ namespace RndDistributionsUnitTest
 			print(f);
 			Assert::AreEqual(0.032785430047761466, f, doubleTolerance);
 
+			delete arr;
+
 			int size = 5000000;
 			arr = random->rand(size);
 
@@ -74,6 +76,7 @@ namespace RndDistributionsUnitTest
 			print(avg);
 			Assert::AreEqual(0.49987999522694609, avg, doubleTolerance);
 
+			delete arr;
 			delete random;
 		}
 
@@ -91,6 +94,8 @@ namespace RndDistributionsUnitTest
 			print(fr);
 			Assert::AreEqual(0.47143516373249306, fr);
 
+			delete arr;
+
 			int size = 5000000;
 			arr = random->randn(size);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Double[]));
@@ -107,6 +112,7 @@ namespace RndDistributionsUnitTest
 			print(avg);
 			Assert::AreEqual(-0.00028345468151361842, avg);
 
+			delete arr;
 			delete random;
 
 		}
@@ -118,13 +124,16 @@ namespace RndDistributionsUnitTest
 			bool *arr = random->randbool(2, 3, 4);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Boolean[]));
 			print(arr);
+			delete arr;
 			//AssertArray(arr, new bool[] { false, false, false, true });
 
 			arr = random->randbool(20, 0, 20);
 			print(arr);
+			delete arr;
 
 			arr = random->randbool(20, 21, 6);
 			print(arr);
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randbool(-2, 3, size);
@@ -132,6 +141,7 @@ namespace RndDistributionsUnitTest
 			print(GetMin(arr, size));
 			//print(GetAverage(arr));
 
+			delete arr;
 			delete random;
 
 		}
@@ -147,6 +157,8 @@ namespace RndDistributionsUnitTest
 			print(arr);
 			char ExpectedArray[4] = { 2, 2, 2, 2 };
 			AssertArray(arr, ExpectedArray, 4);
+
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randint8(2, 8, size);
@@ -169,7 +181,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			AssertArray(first10, Expected1, 10);
-
+			delete arr;
 
 			arr = random->randint8(-2, 3, size);
 			//Assert.AreEqual(arr.GetType(), typeof(System.SByte[]));
@@ -191,6 +203,7 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -205,6 +218,7 @@ namespace RndDistributionsUnitTest
 			print(arr);
 			uchar ExpectedArray[4] = { 2, 2, 2, 2 };
 			AssertArray(arr, ExpectedArray, 4);
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randuint8(2, 128, size);
@@ -228,6 +242,7 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected1, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -302,6 +317,7 @@ namespace RndDistributionsUnitTest
 
 			ushort ExpectedData[4]{ 2, 2, 2, 2 };
 			//AssertArray(arr, ExpectedData, 4);
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randuint16(23, 12801, size);
@@ -324,7 +340,7 @@ namespace RndDistributionsUnitTest
 			FirstTen(arr, first10);
 			print(first10);
 			//AssertArray(first10, Expected1, 10);
-
+			delete arr;
 			delete random;
 		}
 
@@ -340,6 +356,8 @@ namespace RndDistributionsUnitTest
 
 			int ExpectedData[4] = { 2, 2, 2, 2 };
 			AssertArray(arr, ExpectedData, 4);
+
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randint32(9, 128000, size);
@@ -364,6 +382,8 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected1, 10);
 
+			delete arr;
+
 			size = 5000000;
 			arr = random->randint32(-20000, 300000, size);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Int32[]));
@@ -385,6 +405,7 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected2, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -400,6 +421,8 @@ namespace RndDistributionsUnitTest
 
 			uint ExpectedData[4] = { 2, 2, 2, 2 };
 			AssertArray(arr, ExpectedData, 4);
+
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randuint32(29, 13000, 5000000);
@@ -423,6 +446,7 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected1, 10);
 
+			delete arr;
 			delete random;
 		}
 
@@ -438,6 +462,8 @@ namespace RndDistributionsUnitTest
 			print(arr);
 			long ExpectedData[4] = { 2, 2, 2, 2 };
 			AssertArray(arr, ExpectedData, 4);
+
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randint64(20, 9999999, 5000000);
@@ -462,6 +488,8 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected1, 10);
 
+			delete arr;
+
 			size = 5000000;
 			arr = random->randint64(-9999999, 9999999, 5000000);
 			//Assert.AreEqual(arr.GetType(), typeof(System.Int64[]));
@@ -483,6 +511,8 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected2, 10);
 
+			delete arr;
+
 			delete random;
 		}
 
@@ -498,6 +528,8 @@ namespace RndDistributionsUnitTest
 			print(arr);
 			ulong ExpectedData[4] = { 2, 2, 2, 2 };
 			AssertArray(arr, ExpectedData, 4);
+
+			delete arr;
 
 			int size = 5000000;
 			arr = random->randuint64(64, 64000, size);
@@ -521,6 +553,8 @@ namespace RndDistributionsUnitTest
 			print(first10);
 			AssertArray(first10, Expected1, 10);
 
+			delete arr;
+
 			delete random;
 		}
 
@@ -534,6 +568,7 @@ namespace RndDistributionsUnitTest
 
 			char *bytes = random->bytes(24);
 			//Assert.AreEqual(bytes.Length, 24);
+			delete bytes;
 
 			br = random->getbyte();
 			char *arr = random->bytes(24);
@@ -549,6 +584,7 @@ namespace RndDistributionsUnitTest
 
 			AssertArray(arr, ExpectedData, 24);
 
+			delete arr;
 			delete random;
 		}
 
