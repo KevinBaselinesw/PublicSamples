@@ -17,7 +17,11 @@ We also have some slick animations of windows loading and unloading.
 
 ***- WCFSampleClient*** This WPF based GUI application serves as the client application that displays data from the WCFSampleService.  The GUI is almost identical to the WPFSample application.  The difference is that this application retrieves the data over WCF SOAP and REST connections.  Two different windows allow access the web service via SOAP and REST.
 
-**RandomnessLibraries** - This library is a C# based implementation of random number generators and common statistical distributions of those random numbers. This library has been ported from the open source https://github.com/Quansight-Labs/numpy.net which was also developed by Kevin McKenna.  This version does not have a numpy dependency.
+**RandomnessLibraries** - This directory contains two libraries of random number generator and common statistical distributions of those random numbers. Each library has an associated collection of unit tests for the statistical distributions. 
+
+One library is written in C# and the other in C++. 
+
+These libraries have been ported from the open source https://github.com/Quansight-Labs/numpy.net which was also developed by Kevin McKenna.  These versions do not have a numpy dependency.
 
 **CLISamples** - (Requires VS2022) This console application demonstrates the usage of the Microsoft command line library found here: https://learn.microsoft.com/en-us/dotnet/standard/commandline/
 
