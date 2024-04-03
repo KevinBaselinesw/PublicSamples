@@ -10,8 +10,11 @@ namespace SimpleCLI.CliClasses
     internal class CLIInterpreterEngine
     {
         private List<Command> commands = new List<Command>();
+
+        private string Description;
         public CLIInterpreterEngine(string Description) 
         { 
+            this.Description = Description;
         }
 
         public async Task<int> ProcessCommandLine(string[] args)
@@ -19,9 +22,14 @@ namespace SimpleCLI.CliClasses
             string CmdString = args[0];
 
             // if this is top level help request
-            if (IsHelpOption(CmdString))
+            if (Help.IsHelpOption(CmdString))
             {
-                DisplayHighLevelCommandHelp();
+                Help.DisplayHighLevelCommandHelp(this.Description, this.commands);
+                return 0;
+            }
+            if (Help.IsVersionOption(CmdString))
+            {
+                Help.DisplayHighLevelVersionHelp();
                 return 0;
             }
 
@@ -63,43 +71,17 @@ namespace SimpleCLI.CliClasses
         {
             foreach (var arg in args)
             {
-                if (IsHelpOption(arg))
+                if (Help.IsHelpOption(arg))
                     return true;
             }
             return false;
         }
-
-        private bool IsHelpOption(string option) 
-        {
-            string[] HelpOptions = new string[] { "--help", "-help", "--?", "-?", "?" };
-
-            option = option.ToLower();
-
-            foreach (string optionOption in HelpOptions) 
-            { 
-                if (optionOption == option)
-                    return true;
-            }
-
-            return false;
-
-        }
-   
 
         private void DisplayCommandNotFoundMessage(string cmdString)
         {
             Console.WriteLine($"The entered command '{cmdString}' is not found!  Enter --help for a list of commands!");
         }
 
-        private void DisplayHighLevelCommandHelp()
-        {
-            foreach (var command in commands) 
-            {
-                Console.WriteLine($"{command.Name}   {command.HelpSummary}");
-            }
-
-            Console.WriteLine("");
-        }
         private void DisplayCommandSpecificHelp(Command command)
         {
             Console.WriteLine($"todo: implement specific command help {command.Name}");
@@ -145,5 +127,6 @@ namespace SimpleCLI.CliClasses
         {
             commands.Add(Command);
         }
+
     }
 }
