@@ -37,14 +37,14 @@ namespace SimpleCLI.CliClasses
             Command? command = FindMatchingCommand(commands, CmdString);
             if (command == null)
             {
-                DisplayCommandNotFoundMessage(CmdString);
+                Help.DisplayCommandNotFoundMessage(CmdString);
                 return 1;
             }    
 
             // if this is a command specific help request
             if (IsCommandSpecificHelpOption(args))
             {
-                DisplayCommandSpecificHelp(command);
+                Help.DisplayCommandSpecificHelp(command);
                 return 0;   
             }
 
@@ -75,16 +75,6 @@ namespace SimpleCLI.CliClasses
                     return true;
             }
             return false;
-        }
-
-        private void DisplayCommandNotFoundMessage(string cmdString)
-        {
-            Console.WriteLine($"The entered command '{cmdString}' is not found!  Enter --help for a list of commands!");
-        }
-
-        private void DisplayCommandSpecificHelp(Command command)
-        {
-            Console.WriteLine($"todo: implement specific command help {command.Name}");
         }
 
         private async Task NotifyCommand(Command command, string[] args)

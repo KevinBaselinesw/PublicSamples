@@ -82,6 +82,92 @@ namespace SimpleCLI
             Console.WriteLine("1.0.demo");
         }
 
+        internal static void DisplayCommandSpecificHelp(Command command)
+        {
+            // description section
+            Console.WriteLine(GetDescriptionText());
+            Console.WriteLine(IndentSpacer + command.HelpSummary);
+            Console.WriteLine("");
+
+            // description details section
+            if (command.HasHelpDetails)
+            {
+                foreach (var helpDetail in command.HelpDetails)
+                {
+                    Console.WriteLine(IndentSpacer + helpDetail);
+                }
+                Console.WriteLine("");
+            }
+
+            // alias section
+            if (command.HasAliases)
+            {
+                Console.WriteLine(GetAliasText());
+
+                string AliasString = string.Empty;
+                foreach (var alias in command.Aliases)
+                {
+                    AliasString += alias + ", ";
+                }
+                Console.WriteLine(IndentSpacer + AliasString.Trim().TrimEnd(','));
+                Console.WriteLine("");
+            }
+     
+
+            // usage section
+            if (command.HasUsageMessages) 
+            {
+                Console.WriteLine(GetUsageText());
+                foreach (var UsageMessage in command.UsageMessages)
+                {
+                    Console.WriteLine(IndentSpacer + UsageMessage);
+                }
+                Console.WriteLine("");
+            }
+        
+
+            // arguments section
+            if (command.HasArguments)
+            {
+                Console.WriteLine(GetArgumentsText());
+                foreach (var argument in command.Arguments)
+                {
+                    Console.WriteLine(string.Format($"{IndentSpacer} {argument.Name} : {argument.Description}"));
+                }
+                Console.WriteLine("");
+            }
+
+            // options section
+            if (command.HasOptions)
+            {
+                Console.WriteLine(GetOptionsText());
+                foreach (var options in command.Options)
+                {
+                    Console.WriteLine(string.Format($"{IndentSpacer} {options.Name} : {options.Description}"));
+                }
+                Console.WriteLine("");
+            }
+
+
+            // example section
+            if (command.HasExampleMessages)
+            {
+                Console.WriteLine(GetExampleText());
+                foreach (var ExampleMessage in command.ExampleMessages)
+                {
+                    Console.WriteLine(IndentSpacer + ExampleMessage);
+                }
+                Console.WriteLine("");
+            }
+
+        }
+
+        internal static void DisplayCommandNotFoundMessage(string cmdString)
+        {
+            Console.WriteLine($"The entered command '{cmdString}' is not found!  Enter --help for a list of commands!");
+        }
+
+
 
         private static void WriteTwoColumnMessages(List<TwoColumnHelpMessage> optionMessages, int columnSpacing)
         {
@@ -125,6 +211,19 @@ namespace SimpleCLI
         private static string GetUsageText()
         {
             return "Usage:";
+        }
+        private static string GetExampleText()
+        {
+            return "Examples:";
+        }
+
+        private static string GetArgumentsText()
+        {
+            return "Arguments:";
+        }
+        private static string GetAliasText()
+        {
+            return "Alias:";
         }
         private static string GetUsageDescriptionText()
         {
