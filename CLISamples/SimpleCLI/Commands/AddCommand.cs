@@ -17,12 +17,21 @@ namespace SimpleCLI.Commands
             this.AddAlias("add");
             this.AddAlias("+");
 
+            this.AddHelpDetails("Use this command to add two numbers together.");
+            this.AddHelpDetails("It will work for integers or floating point numbers.");
+            this.AddHelpDetails("The sum of the two numbers will be displayed.");
+
 
             var AddArgument1 = new Argument(name: "a1", description: "this is a1 argument");
             var AddArgument2 = new Argument(name: "a2", description: "this is a2 argument");
 
             this.AddArgument(AddArgument1);
             this.AddArgument(AddArgument2);
+
+            this.AddUsageMessage("Add <a1> <a2>");
+
+            this.AddExampleMessage("Add 2 3");
+            this.AddExampleMessage("Add 2.99667 -3.3345");
 
             this.CommandHandlerAsync = AddHandler;
         }

@@ -17,12 +17,20 @@ namespace SimpleCLI.Commands
             this.AddAlias("div");
             this.AddAlias("divide");
 
+            this.AddHelpDetails("Use this command to divide two numbers together.");
+            this.AddHelpDetails("It will work for integers or floating point numbers.");
+            this.AddHelpDetails("The result of the two numbers will be displayed.");
 
             var DivArgument1 = new Argument(name: "d1", description: "this is d1 argument");
             var DivArgument2 = new Argument(name: "d2", description: "this is d2 argument");
 
             this.AddArgument(DivArgument1);
             this.AddArgument(DivArgument2);
+
+            this.AddUsageMessage("Div <d1> <d2>");
+
+            this.AddExampleMessage("Div 2 3");
+            this.AddExampleMessage("Div 2.99667 -3.3345");
 
             this.CommandHandlerAsync = DivideHandler;
 

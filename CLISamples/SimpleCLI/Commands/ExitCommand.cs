@@ -18,6 +18,9 @@ namespace SimpleCLI.Commands
             this.AddAlias("QUIT");
             this.AddAlias("quit");
 
+            this.AddHelpDetails("These commands will cause the application to terminate.");
+        
+
             this.CommandHandlerAsync = AddHandler;
 
         }

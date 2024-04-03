@@ -14,6 +14,8 @@ namespace SimpleCLI.Commands
         {
             this._sessionData = sessionData;
 
+            this.AddHelpDetails("This command demos the use of options which start with -- typically.");
+
             var x1option = new Option(name: "--x1", description: "x1 option.");
             x1option.AddAlias("-x1");
 
@@ -26,6 +28,11 @@ namespace SimpleCLI.Commands
             this.AddOption(x1option);
             this.AddOption(x2option);
             this.AddOption(x3option);
+
+            this.AddUsageMessage("OptionExample <--x1> <--x2> <--x3>");
+
+            this.AddExampleMessage("OptionExample --x1 hello --x3 goodbye");
+            this.AddExampleMessage("OptionExample --x1 hello --x3 goodbye  -x2 usingAlias");
 
             this.CommandHandlerAsync = OptionHandler;
 

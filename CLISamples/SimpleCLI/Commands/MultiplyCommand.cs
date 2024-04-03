@@ -24,6 +24,11 @@ namespace SimpleCLI.Commands
             this.AddArgument(MultArgument1);
             this.AddArgument(MultArgument2);
 
+            this.AddUsageMessage("Mult <m1> <m2>");
+
+            this.AddExampleMessage("Mult 2 3");
+            this.AddExampleMessage("Mult 2.99667 -3.3345");
+
             this.CommandHandlerAsync = MultiplyHandler;
 
         }
