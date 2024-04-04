@@ -36,7 +36,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = AddHandler;
         }
     
-        public async Task<int> AddHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> AddHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("a1") && argument.ContainsKey("a2"))
             {

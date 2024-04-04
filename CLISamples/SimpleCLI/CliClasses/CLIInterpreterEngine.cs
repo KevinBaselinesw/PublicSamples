@@ -17,7 +17,7 @@ namespace SimpleCLI.CliClasses
             this.Description = Description;
         }
 
-        public async Task<int> ProcessCommandLine(string[] args)
+        public async Task<int> ProcessCommandLine(string CommandLine, string[] args)
         {
             string CmdString = args[0];
 
@@ -49,7 +49,7 @@ namespace SimpleCLI.CliClasses
             }
 
             // we have a valid command with no help request!  Wait for it to finish.
-            await NotifyCommand(command, args);
+            await NotifyCommand(command, CommandLine, args);
             return 0;
         }
 
@@ -77,7 +77,7 @@ namespace SimpleCLI.CliClasses
             return false;
         }
 
-        private async Task NotifyCommand(Command command, string[] args)
+        private async Task NotifyCommand(Command command, string CmdLine, string[] args)
         {
             Dictionary<string,string> Arguments = new Dictionary<string,string>();
             Dictionary<string, string> Options = new Dictionary<string,string>();
@@ -103,7 +103,7 @@ namespace SimpleCLI.CliClasses
 
             if (command.CommandHandlerAsync != null) 
             {
-                await command.CommandHandlerAsync(Arguments, Options);
+                await command.CommandHandlerAsync(CmdLine, Arguments, Options);
             }
             else
             {

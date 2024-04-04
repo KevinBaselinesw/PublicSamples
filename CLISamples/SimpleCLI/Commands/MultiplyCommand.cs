@@ -32,7 +32,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = MultiplyHandler;
 
         }
-        public async Task<int> MultiplyHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> MultiplyHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("m1") && argument.ContainsKey("m2"))
             {

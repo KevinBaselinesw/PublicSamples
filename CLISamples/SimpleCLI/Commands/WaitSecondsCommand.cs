@@ -23,7 +23,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = WaitSecondsHandler;
         }
     
-        public async Task<int> WaitSecondsHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> WaitSecondsHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("w1"))
             {

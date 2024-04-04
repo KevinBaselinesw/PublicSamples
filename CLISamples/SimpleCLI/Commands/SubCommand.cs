@@ -27,7 +27,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = SubtractHandler;
 
         }
-        public async Task<int> SubtractHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> SubtractHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("s1") && argument.ContainsKey("s2"))
             {

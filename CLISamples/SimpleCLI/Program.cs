@@ -71,7 +71,7 @@ class Program
                     string[] parts = CreateTokensFromCommandLineInput(input);
                     if (parts != null && parts.Length > 0) 
                     {
-                        await interpreterEngine.ProcessCommandLine(parts);
+                        await interpreterEngine.ProcessCommandLine(input, parts);
                     }
                 }
 

@@ -39,7 +39,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = OptionHandler;
 
         }
-        public async Task<int> OptionHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> OptionHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1));
 

@@ -35,7 +35,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = DivideHandler;
 
         }
-        public async Task<int> DivideHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> DivideHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             if (argument.ContainsKey("d1") && argument.ContainsKey("d2"))
             {

@@ -24,7 +24,7 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = AddHandler;
 
         }
-        public async Task<int> AddHandler(Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> AddHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1));
 
