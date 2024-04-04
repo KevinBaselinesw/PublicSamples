@@ -68,9 +68,11 @@ class Program
                 string? input = Console.ReadLine();
                 if (input != null)
                 {
-                    string[] parts = input.Split(' ');
-
-                    await interpreterEngine.ProcessCommandLine(parts);
+                    string[] parts = CreateTokensFromCommandLineInput(input);
+                    if (parts != null && parts.Length > 0) 
+                    {
+                        await interpreterEngine.ProcessCommandLine(parts);
+                    }
                 }
 
             }
@@ -82,6 +84,52 @@ class Program
         }
 
         return 0;
+    }
+
+
+    static string[] CreateTokensFromCommandLineInput(string input)
+    {
+        List<string> tokens = new List<string>();   
+
+        int inputLen = input.Length;
+
+        for (int i = 0; i < inputLen; i++) 
+        {
+            if (char.IsWhiteSpace(input[i]))
+                continue;
+
+            if (input[i] == '"')
+            {
+                int StartQuoteIndex = i;
+                int EndQuoteIndex = input.IndexOf('"', StartQuoteIndex + 1);
+                if (EndQuoteIndex == -1) 
+                {
+                    Console.WriteLine("Mismatched Quote within the command line at offset {i}");
+                    return new string[] { };
+                }
+                else 
+                {
+                    tokens.Add(input.Substring(StartQuoteIndex+1, (EndQuoteIndex-StartQuoteIndex-1)));
+                    i = EndQuoteIndex+1;
+                    continue;
+                }
+            }
+
+            // we have a non white space/non quote section of code
+
+            int StartTokenIndex = i;
+            while (i < inputLen) 
+            {
+                if (char.IsWhiteSpace(input[i]))
+                    break;
+
+                i++;
+            }
+            int EndTokenIndex = i;
+            tokens.Add(input.Substring(StartTokenIndex, EndTokenIndex-StartTokenIndex));
+        }
+
+        return tokens.ToArray();
     }
 
 
