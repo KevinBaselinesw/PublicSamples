@@ -14,9 +14,7 @@ namespace SimpleCLI.CliClasses
         private string description;
         private List<string>? _optionAliases;
 
-        public int MinimumNumberOfArguments { get; set; }
-        public int MaximumNumberOfArguments { get; set; }
-
+        public int ExpectedNumberOfArguments { get; set; }
 
         public Option(string name, string description)
         {
@@ -24,8 +22,7 @@ namespace SimpleCLI.CliClasses
             this.description = description;
             _optionAliases = null;
 
-            MinimumNumberOfArguments = 0;  
-            MaximumNumberOfArguments = 0;  
+            ExpectedNumberOfArguments = 0;  
         }
 
         public bool IsOptionMatch(string optionName)

@@ -17,14 +17,15 @@ namespace SimpleCLI.Commands
             this.AddHelpDetails("This command demos the use of options which start with -- typically.");
 
             var x1option = new Option(name: "--x1", description: "x1 option.");
-            x1option.MinimumNumberOfArguments = 1;
-            x1option.MaximumNumberOfArguments = 1;
+            x1option.ExpectedNumberOfArguments = 1;
             x1option.AddAlias("-x1");
 
             var x2option = new Option(name: "--x2", description: "x2 option.");
+            x2option.ExpectedNumberOfArguments = 2;
             x2option.AddAlias("-x2");
 
             var x3option = new Option(name: "--x3", description: "x3 option.");
+            x3option.ExpectedNumberOfArguments = 3;
             x3option.AddAlias("-x3");
 
             this.AddOption(x1option);

@@ -82,24 +82,32 @@ namespace SimpleCLI.CliClasses
             Dictionary<string,string> Arguments = new Dictionary<string,string>();
             Dictionary<string, string> Options = new Dictionary<string,string>();
 
-            int argsOffset = 1;
-
-            foreach (var argument in command.Arguments) 
+            // skip the first arg as that is the command
+            for (int i = 1; i < args.Length; i++) 
             {
-                if (argsOffset < args.Length)
+                bool ArgIsOption = false;
+                foreach (var option in command.Options)
                 {
-                    Arguments.Add(argument.Name, args[argsOffset++]);
+                    if (option.IsOptionMatch(args[i])) 
+                    {
+                        i = AddOptions(Options, option, args, i);
+                        ArgIsOption = true;
+                        break;
+                    }
                 }
-                else
+
+                // if the arg is not an option for this command, it must be an argument
+                if (ArgIsOption == false)
                 {
-                    Arguments.Add(argument.Name, argument.Description);
+                    if (Arguments.Count < command.Arguments.Count)
+                    {
+                        var NextArgument = command.Arguments[Arguments.Count];
+                        Arguments.Add(NextArgument.Name, args[i]);
+                    }
                 }
             }
 
-            foreach (var argument in command.Options)
-            {
-                Options.Add(argument.Name, argument.Description);
-            }
+
 
             if (command.CommandHandlerAsync != null) 
             {
@@ -112,6 +120,46 @@ namespace SimpleCLI.CliClasses
 
         }
 
+        private int AddOptions(Dictionary<string, string> options, Option option, string[] args, int i)
+        {
+            if (option.ExpectedNumberOfArguments == 0)
+            {
+                options.Add(option.Name, string.Empty);
+                return i;
+            }
+
+            if (option.ExpectedNumberOfArguments == 1)
+            {
+                if (args.Length > i+1)
+                {
+                    options.Add(option.Name, args[i + 1]);
+                    return i + 1;
+                }
+  
+            }
+
+            if (option.ExpectedNumberOfArguments == 2)
+            {
+                if (args.Length > i + 2)
+                {
+                    options.Add(option.Name, string.Format($"{args[i+1]}::{args[i+2]}"));
+                    return i + 2;
+                }
+
+            }
+
+            if (option.ExpectedNumberOfArguments == 3)
+            {
+                if (args.Length > i + 3)
+                {
+                    options.Add(option.Name, string.Format($"{args[i + 1]}::{args[i + 2]}::{args[i + 3]}"));
+                    return i + 3;
+                }
+
+            }
+
+            return i;
+        }
 
         internal void AddCommand(Command Command)
         {
