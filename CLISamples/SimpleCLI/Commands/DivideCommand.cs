@@ -35,16 +35,27 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = DivideHandler;
 
         }
-        public async Task<int> DivideHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
+
+        public async Task<int> DivideHandler(string CmdLine, IEnumerable<CLIParameterInfo> parameters)
         {
-            if (argument.ContainsKey("d1") && argument.ContainsKey("d2"))
+            if (parameters == null)
             {
-                if (double.TryParse(argument["d1"], out  var a1) && double.TryParse(argument["d2"], out var a2))
+                Console.WriteLine("no parameters found in the command");
+                return -1;
+            }
+
+            CLIParameterInfo? d1param = parameters.FirstOrDefault(t => t.Name == "d1");
+            CLIParameterInfo? d2param = parameters.FirstOrDefault(t => t.Name == "d2");
+
+            if (d1param != null && d2param != null)
+            {
+                if (double.TryParse(d1param.Value, out var d1) && double.TryParse(d2param.Value, out var d2))
                 {
-                    double sum = a1 / a2;
-                    Console.WriteLine(string.Format($"{a1} / {a2} = {sum}"));
+                    double sum = d1 / d2;
+                    Console.WriteLine(string.Format($"{d1} + {d2} = {sum}"));
 
                     await Task.Delay(TimeSpan.FromMilliseconds(1));
+
                 }
             }
 

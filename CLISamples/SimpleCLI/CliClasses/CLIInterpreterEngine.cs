@@ -79,8 +79,8 @@ namespace SimpleCLI.CliClasses
 
         private async Task NotifyCommand(Command command, string CmdLine, string[] args)
         {
-            Dictionary<string,string> Arguments = new Dictionary<string,string>();
-            Dictionary<string, string> Options = new Dictionary<string,string>();
+
+            List<CLIParameterInfo> notificationInfos = new List<CLIParameterInfo>();
 
             // skip the first arg as that is the command
             for (int i = 1; i < args.Length; i++) 
@@ -90,7 +90,13 @@ namespace SimpleCLI.CliClasses
                 {
                     if (option.IsOptionMatch(args[i])) 
                     {
-                        i = AddOptions(Options, option, args, i);
+                        CLIParameterInfo notificationInfo = new CLIParameterInfo();
+                        notificationInfo.ParameterType = CLIParameterType.Option;
+
+                        i = AddOptions(notificationInfo, option, args, i);
+
+                        notificationInfos.Add(notificationInfo);
+
                         ArgIsOption = true;
                         break;
                     }
@@ -99,10 +105,17 @@ namespace SimpleCLI.CliClasses
                 // if the arg is not an option for this command, it must be an argument
                 if (ArgIsOption == false)
                 {
-                    if (Arguments.Count < command.Arguments.Count)
+                    int ArgumentsCount = notificationInfos.Count(t => t.ParameterType == CLIParameterType.Argument);
+                    if (ArgumentsCount < command.Arguments.Count)
                     {
-                        var NextArgument = command.Arguments[Arguments.Count];
-                        Arguments.Add(NextArgument.Name, args[i]);
+                        var NextArgument = command.Arguments[ArgumentsCount];
+
+                        CLIParameterInfo notificationInfo = new CLIParameterInfo();
+                        notificationInfo.ParameterType = CLIParameterType.Argument;
+                        notificationInfo.Name = NextArgument.Name;
+                        notificationInfo.Value = args[i];
+
+                        notificationInfos.Add(notificationInfo);    
                     }
                 }
             }
@@ -111,7 +124,7 @@ namespace SimpleCLI.CliClasses
 
             if (command.CommandHandlerAsync != null) 
             {
-                await command.CommandHandlerAsync(CmdLine, Arguments, Options);
+                await command.CommandHandlerAsync(CmdLine, notificationInfos);
             }
             else
             {
@@ -120,11 +133,12 @@ namespace SimpleCLI.CliClasses
 
         }
 
-        private int AddOptions(Dictionary<string, string> options, Option option, string[] args, int i)
+        private int AddOptions(CLIParameterInfo notificationInfo, Option option, string[] args, int i)
         {
             if (option.ExpectedNumberOfArguments == 0)
             {
-                options.Add(option.Name, string.Empty);
+                notificationInfo.Name = option.Name;
+                notificationInfo.Value = string.Empty;
                 return i;
             }
 
@@ -132,7 +146,8 @@ namespace SimpleCLI.CliClasses
             {
                 if (args.Length > i+1)
                 {
-                    options.Add(option.Name, args[i + 1]);
+                    notificationInfo.Name = option.Name;
+                    notificationInfo.Value = args[i + 1];
                     return i + 1;
                 }
   
@@ -142,7 +157,8 @@ namespace SimpleCLI.CliClasses
             {
                 if (args.Length > i + 2)
                 {
-                    options.Add(option.Name, string.Format($"{args[i+1]}::{args[i+2]}"));
+                    notificationInfo.Name = option.Name;
+                    notificationInfo.Value = string.Format($"{args[i + 1]}::{args[i + 2]}");
                     return i + 2;
                 }
 
@@ -152,7 +168,8 @@ namespace SimpleCLI.CliClasses
             {
                 if (args.Length > i + 3)
                 {
-                    options.Add(option.Name, string.Format($"{args[i + 1]}::{args[i + 2]}::{args[i + 3]}"));
+                    notificationInfo.Name = option.Name;
+                    notificationInfo.Value = string.Format($"{args[i + 1]}::{args[i + 2]}::{args[i + 3]}");
                     return i + 3;
                 }
 

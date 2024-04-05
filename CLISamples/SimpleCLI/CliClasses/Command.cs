@@ -115,7 +115,7 @@ namespace SimpleCLI.CliClasses
         /// <summary>
         /// 
         /// </summary>
-        public Func<string, Dictionary<string, string>, Dictionary<string, string>, Task<int>>? CommandHandlerAsync { get; set; }
+        public Func<string, IEnumerable<CLIParameterInfo>, Task<int>>? CommandHandlerAsync { get; set; }
 
         
     }

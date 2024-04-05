@@ -36,11 +36,20 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = AddHandler;
         }
     
-        public async Task<int> AddHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
+        public async Task<int> AddHandler(string CmdLine, IEnumerable<CLIParameterInfo> parameters)
         {
-            if (argument.ContainsKey("a1") && argument.ContainsKey("a2"))
+            if (parameters == null) 
             {
-                if (double.TryParse(argument["a1"], out  var a1) && double.TryParse(argument["a2"], out var a2))
+                Console.WriteLine("no parameters found in the command");
+                return -1;
+            }
+
+            CLIParameterInfo? a1param = parameters.FirstOrDefault(t => t.Name == "a1" && t.ParameterType == CLIParameterType.Argument);
+            CLIParameterInfo? a2param = parameters.FirstOrDefault(t => t.Name == "a2" && t.ParameterType == CLIParameterType.Argument);
+
+            if (a1param != null && a2param != null)
+            {
+                if (double.TryParse(a1param.Value, out  var a1) && double.TryParse(a2param.Value, out var a2))
                 {
                     double sum = a1 + a2;
                     Console.WriteLine(string.Format($"{a1} + {a2} = {sum}"));

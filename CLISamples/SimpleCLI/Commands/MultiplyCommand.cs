@@ -32,22 +32,34 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = MultiplyHandler;
 
         }
-        public async Task<int> MultiplyHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
+
+        public async Task<int> MultiplyHandler(string CmdLine, IEnumerable<CLIParameterInfo> parameters)
         {
-            if (argument.ContainsKey("m1") && argument.ContainsKey("m2"))
+            if (parameters == null)
             {
-                if (double.TryParse(argument["m1"], out  var a1) && double.TryParse(argument["m2"], out var a2))
+                Console.WriteLine("no parameters found in the command");
+                return -1;
+            }
+
+            CLIParameterInfo? m1param = parameters.FirstOrDefault(t => t.Name == "m1" && t.ParameterType == CLIParameterType.Argument);
+            CLIParameterInfo? m2param = parameters.FirstOrDefault(t => t.Name == "m2" && t.ParameterType == CLIParameterType.Argument);
+
+            if (m1param != null && m2param != null)
+            {
+                if (double.TryParse(m1param.Value, out var m1) && double.TryParse(m2param.Value, out var m2))
                 {
-                    double sum = a1 * a2;
-                    Console.WriteLine(string.Format($"{a1} * {a2} = {sum}"));
+                    double sum = m1 * m2;
+                    Console.WriteLine(string.Format($"{m1} * {m2} = {sum}"));
 
                     await Task.Delay(TimeSpan.FromMilliseconds(1));
+
                 }
             }
 
 
             return 0;
         }
+ 
 
     }
 }

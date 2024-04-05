@@ -22,12 +22,20 @@ namespace SimpleCLI.Commands
 
             this.CommandHandlerAsync = WaitSecondsHandler;
         }
-    
-        public async Task<int> WaitSecondsHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
+
+        public async Task<int> WaitSecondsHandler(string CmdLine, IEnumerable<CLIParameterInfo> parameters)
         {
-            if (argument.ContainsKey("w1"))
+            if (parameters == null)
             {
-                if (double.TryParse(argument["w1"], out  var waitSeconds))
+                Console.WriteLine("no parameters found in the command");
+                return -1;
+            }
+
+            CLIParameterInfo? w1param = parameters.FirstOrDefault(t => t.Name == "w1" && t.ParameterType == CLIParameterType.Argument);
+
+            if (w1param != null)
+            {
+                if (double.TryParse(w1param.Value, out var waitSeconds))
                 {
                     if (waitSeconds > 30 || waitSeconds < 1)
                     {
@@ -35,9 +43,9 @@ namespace SimpleCLI.Commands
                         waitSeconds = 30;
                     }
 
-                    for (int i = 0; i < waitSeconds; i++) 
+                    for (int i = 0; i < waitSeconds; i++)
                     {
-                        Console.WriteLine($"seconds remaining: {waitSeconds-i}");
+                        Console.WriteLine($"seconds remaining: {waitSeconds - i}");
                         await Task.Delay(TimeSpan.FromSeconds(1));
                     }
 

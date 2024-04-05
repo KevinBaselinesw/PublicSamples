@@ -27,22 +27,34 @@ namespace SimpleCLI.Commands
             this.CommandHandlerAsync = SubtractHandler;
 
         }
-        public async Task<int> SubtractHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
+
+        public async Task<int> SubtractHandler(string CmdLine, IEnumerable<CLIParameterInfo> parameters)
         {
-            if (argument.ContainsKey("s1") && argument.ContainsKey("s2"))
+            if (parameters == null)
             {
-                if (double.TryParse(argument["s1"], out  var s1) && double.TryParse(argument["s2"], out var s2))
+                Console.WriteLine("no parameters found in the command");
+                return -1;
+            }
+
+            CLIParameterInfo? s1param = parameters.FirstOrDefault(t => t.Name == "s1" && t.ParameterType == CLIParameterType.Argument);
+            CLIParameterInfo? s2param = parameters.FirstOrDefault(t => t.Name == "s2" && t.ParameterType == CLIParameterType.Argument);
+
+            if (s1param != null && s2param != null)
+            {
+                if (double.TryParse(s1param.Value, out var s1) && double.TryParse(s2param.Value, out var s2))
                 {
                     double sum = s1 - s2;
                     Console.WriteLine(string.Format($"{s1} - {s2} = {sum}"));
 
                     await Task.Delay(TimeSpan.FromMilliseconds(1));
+
                 }
             }
 
 
             return 0;
         }
+  
 
     }
 }

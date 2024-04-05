@@ -21,10 +21,11 @@ namespace SimpleCLI.Commands
             this.AddHelpDetails("These commands will cause the application to terminate.");
         
 
-            this.CommandHandlerAsync = AddHandler;
+            this.CommandHandlerAsync = ExitHandler;
 
         }
-        public async Task<int> AddHandler(string CmdLine, Dictionary<string, string> argument, Dictionary<string,string> options)
+
+        public async Task<int> ExitHandler(string CmdLine, IEnumerable<CLIParameterInfo> parameters)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1));
 
@@ -39,8 +40,10 @@ namespace SimpleCLI.Commands
                 }
             }
 
+ 
             return 0;
         }
+  
 
     }
 }
