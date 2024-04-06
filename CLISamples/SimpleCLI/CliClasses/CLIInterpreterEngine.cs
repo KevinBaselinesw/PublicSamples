@@ -90,12 +90,20 @@ namespace SimpleCLI.CliClasses
                 {
                     if (option.IsOptionMatch(args[i])) 
                     {
-                        CLIParameterInfo notificationInfo = new CLIParameterInfo();
-                        notificationInfo.ParameterType = CLIParameterType.Option;
+                        string? optionValue;
 
-                        i = AddOptions(notificationInfo, option, args, i);
+                        (i, optionValue) = GenerateOptionValue(option.ExpectedNumberOfArguments, args, i);
 
-                        notificationInfos.Add(notificationInfo);
+                        // if found a matching option value, add it to the list
+                        if (optionValue != null)
+                        {
+                            CLIParameterInfo notificationInfo = new CLIParameterInfo();
+                            notificationInfo.ParameterType = CLIParameterType.Option;
+                            notificationInfo.Name = option.Name;
+                            notificationInfo.Value = optionValue;
+
+                            notificationInfos.Add(notificationInfo);
+                        }
 
                         ArgIsOption = true;
                         break;
@@ -133,49 +141,48 @@ namespace SimpleCLI.CliClasses
 
         }
 
-        private int AddOptions(CLIParameterInfo notificationInfo, Option option, string[] args, int i)
+        private (int, string?) GenerateOptionValue(int ExpectedNumberOfArguments, string[] args, int arg_index)
         {
-            if (option.ExpectedNumberOfArguments == 0)
+            int return_arg_index = arg_index;
+            string? return_value = null;
+
+            if (ExpectedNumberOfArguments == 0)
             {
-                notificationInfo.Name = option.Name;
-                notificationInfo.Value = string.Empty;
-                return i;
+                return_value = string.Empty;
+                return_arg_index = arg_index;
             }
 
-            if (option.ExpectedNumberOfArguments == 1)
+            if (ExpectedNumberOfArguments == 1)
             {
-                if (args.Length > i+1)
+                if (args.Length > arg_index+1)
                 {
-                    notificationInfo.Name = option.Name;
-                    notificationInfo.Value = args[i + 1];
-                    return i + 1;
+                    return_value = args[arg_index + 1];
+                    return_arg_index = arg_index + 1;
                 }
   
             }
 
-            if (option.ExpectedNumberOfArguments == 2)
+            if (ExpectedNumberOfArguments == 2)
             {
-                if (args.Length > i + 2)
+                if (args.Length > arg_index + 2)
                 {
-                    notificationInfo.Name = option.Name;
-                    notificationInfo.Value = string.Format($"{args[i + 1]}::{args[i + 2]}");
-                    return i + 2;
+                    return_value = string.Format($"{args[arg_index + 1]}::{args[arg_index + 2]}");
+                    return_arg_index = arg_index + 2;
                 }
 
             }
 
-            if (option.ExpectedNumberOfArguments == 3)
+            if (ExpectedNumberOfArguments == 3)
             {
-                if (args.Length > i + 3)
+                if (args.Length > arg_index + 3)
                 {
-                    notificationInfo.Name = option.Name;
-                    notificationInfo.Value = string.Format($"{args[i + 1]}::{args[i + 2]}::{args[i + 3]}");
-                    return i + 3;
+                    return_value = string.Format($"{args[arg_index + 1]}::{args[arg_index + 2]}::{args[arg_index + 3]}");
+                    return_arg_index = arg_index + 3;
                 }
 
             }
 
-            return i;
+            return (return_arg_index, return_value);
         }
 
         internal void AddCommand(Command Command)
