@@ -19,6 +19,9 @@ namespace SimpleCLI.Commands
             var Argument1 = new Argument(name: "arg1", description: "this is arg1 argument");
             this.AddArgument(Argument1);
 
+            var Argument2 = new Argument(name: "arg2", description: "this is arg2 argument");
+            this.AddArgument(Argument2);
+
 
             var x1option = new Option(name: "--x1", description: "x1 option.");
             x1option.ExpectedNumberOfArguments = 1;
@@ -36,10 +39,12 @@ namespace SimpleCLI.Commands
             this.AddOption(x2option);
             this.AddOption(x3option);
 
-            this.AddUsageMessage("OptionExample <argument> <--x1> <--x2> <--x3>");
+            this.AddUsageMessage("OptionExample <argument> <--x1> <--x2> <--x3> <Argument2>");
 
-            this.AddExampleMessage("OptionExample argument --x1 hello --x3 goodbye");
-            this.AddExampleMessage("OptionExample argument --x1 hello --x3 goodbye  -x2 usingAlias");
+            this.AddExampleMessage("OptionExample argument --x1 hello --x3 A B C");
+            this.AddExampleMessage("OptionExample argument --x1 hello --x3 A B C  -x2 E F");
+            this.AddExampleMessage("OptionExample argument1 argument2 --x1 hello --x3 A B C  -x2 E F");
+            this.AddExampleMessage("OptionExample argument1 --x1 hello --x3 A B C  -x2 E F argument2");
 
             this.CommandHandlerAsync = OptionHandler;
 
