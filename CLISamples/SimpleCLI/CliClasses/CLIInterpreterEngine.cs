@@ -1,9 +1,11 @@
-﻿using SimpleCLI.Commands;
+﻿using Microsoft.VisualBasic.FileIO;
+using SimpleCLI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SimpleCLI.CliClasses
 {
@@ -92,7 +94,9 @@ namespace SimpleCLI.CliClasses
                     {
                         string? optionValue;
 
-                        (i, optionValue) = GenerateOptionValue(option.ExpectedNumberOfArguments, args, i);
+                        int ExpectedNumberOfArguments = CheckForExpectedOptionArguments(command, option, args, i);
+
+                        (i, optionValue) = GenerateOptionValue(ExpectedNumberOfArguments, args, i);
 
                         // if found a matching option value, add it to the list
                         if (optionValue != null)
@@ -138,52 +142,85 @@ namespace SimpleCLI.CliClasses
             {
                 Console.WriteLine($"The entered command does not have a handler method configured");
             }
+        }
 
+        private int CheckForExpectedOptionArguments(Command command, Option option, string[] args, int arg_index)
+        {
+            // if this option has no expected arguments or max is less than minimum, let's call it 0 arguments.
+            if (option.MinimumNumberOfArguments == 0 && option.MaximumNumberOfArguments == 0)
+                return 0;
+            if (option.MinimumNumberOfArguments > option.MaximumNumberOfArguments)
+                return 0;
+
+            arg_index++;
+            for (int i = 0; i < option.MinimumNumberOfArguments; i++)
+            {
+                if (arg_index < args.Length)
+                {
+                    string arg = args[arg_index];
+
+                    foreach (var _option in command.Options)
+                    {
+                        if (_option.IsOptionMatch(arg))
+                        {
+                            // found another option marker, did not get the mimumum expected arguments
+                            throw new ArgumentException(string.Format($"Option {option.Name} detected without the minimum required {option.MinimumNumberOfArguments} argument(s)"));
+                        }
+                    }
+                    arg_index++;
+                }
+
+            }
+
+            int ExpectedOptionsArguments = option.MinimumNumberOfArguments;
+
+            for (int i = ExpectedOptionsArguments; i < option.MaximumNumberOfArguments; i++)
+            {
+                if (arg_index < args.Length)
+                {
+                    string arg = args[arg_index];
+
+                    foreach (var _option in command.Options)
+                    {
+                        if (_option.IsOptionMatch(arg))
+                        {
+                            return ExpectedOptionsArguments;
+                        }
+                    }
+                    arg_index++;
+                    ExpectedOptionsArguments++;
+                }
+
+            }
+
+            return ExpectedOptionsArguments;
         }
 
         private (int, string?) GenerateOptionValue(int ExpectedNumberOfArguments, string[] args, int arg_index)
         {
             int return_arg_index = arg_index;
-            string? return_value = null;
+            string? return_value = string.Empty;
 
-            if (ExpectedNumberOfArguments == 0)
+            if (args.Length > arg_index + ExpectedNumberOfArguments)
             {
-                return_value = string.Empty;
-                return_arg_index = arg_index;
-            }
-
-            if (ExpectedNumberOfArguments == 1)
-            {
-                if (args.Length > arg_index+1)
+                for (int i = 1; i <= ExpectedNumberOfArguments; i++)
                 {
-                    return_value = args[arg_index + 1];
-                    return_arg_index = arg_index + 1;
-                }
-  
-            }
-
-            if (ExpectedNumberOfArguments == 2)
-            {
-                if (args.Length > arg_index + 2)
-                {
-                    return_value = string.Format($"{args[arg_index + 1]}::{args[arg_index + 2]}");
-                    return_arg_index = arg_index + 2;
+                    return_value += string.Format($"{args[arg_index + i]}::");
                 }
 
-            }
-
-            if (ExpectedNumberOfArguments == 3)
-            {
-                if (args.Length > arg_index + 3)
+                // get rid of the trailing "::"
+                if (!string.IsNullOrEmpty(return_value))
                 {
-                    return_value = string.Format($"{args[arg_index + 1]}::{args[arg_index + 2]}::{args[arg_index + 3]}");
-                    return_arg_index = arg_index + 3;
+                    return_value = return_value.Substring(0, return_value.Length - 2);
                 }
 
+                return_arg_index = arg_index + ExpectedNumberOfArguments;
             }
+
 
             return (return_arg_index, return_value);
         }
+
 
         internal void AddCommand(Command Command)
         {
