@@ -40,7 +40,16 @@ namespace DatabaseAccessLib
     public class DataAccessAPIInMemory : IDataAccessAPI
     {
         DatabaseBackup _db = null;
+
+        public DataAccessAPIInMemory()
+        {
+
+        }
         public DataAccessAPIInMemory(DatabaseBackup backup)
+        {
+            _db = backup;
+        }
+        public void SetDatabase(DatabaseBackup backup)
         {
             _db = backup;
         }
