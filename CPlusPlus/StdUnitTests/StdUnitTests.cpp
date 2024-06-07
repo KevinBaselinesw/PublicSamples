@@ -225,5 +225,55 @@ namespace StdUnitTests
 		}
 
 
+		TEST_METHOD(StdVector_Test4)
+		{
+			vector<int> vec1{ {3, 4, 5, 1, 2} };
+
+			vec1.pop_back();
+			vec1.pop_back();
+			vec1.pop_back();
+
+			Assert::AreEqual(2, (int)vec1.size());
+
+			// access the first element
+			Assert::AreEqual(3, vec1.at(0));
+			Assert::AreEqual(3, vec1[0]);
+			Assert::AreEqual(3, vec1.front());
+
+			// access the last element
+			Assert::AreEqual(4, vec1.at(1));
+			Assert::AreEqual(4, vec1[1]);
+			Assert::AreEqual(4, vec1.back());
+
+
+			// iterator
+			int count = 0;
+			for (auto it = vec1.begin(); it != vec1.end(); it++)
+			{
+				std::cout << *it << " ";
+				count++;
+			}
+			Assert::AreEqual(2, count);
+
+			// reverse iterator
+			count = 0;
+			for (auto it = vec1.rbegin(); it != vec1.rend(); it++)
+			{
+				std::cout << *it << " ";
+				count++;
+			}
+			Assert::AreEqual(2, count);
+
+
+			auto it = vec1.begin();
+			vec1.insert(it, 1, 9);
+
+			Assert::AreEqual(3, (int)vec1.size());
+
+
+			return;
+
+		}
+
 	};
 }
