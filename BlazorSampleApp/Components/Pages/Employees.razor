@@ -16,27 +16,51 @@
 
 <PageTitle>Employees</PageTitle>
 
-<h1>Employees</h1>
 
-<RadzenDataGrid @ref=@radzenDataGrid
-                AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true"
-                PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                TItem="EmployeeDTO" Data="@AllEmployees" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
-                SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployee
-                RowSelect="UserRowSelected"
-                RowDeselect="UserRowDeselected"
-                RowDoubleClick="UserRowEdit">
-    <Columns>
-        <RadzenDataGridColumn Property="EmployeeID" Title="ID" Frozen="true" Width="30px" />
-        <RadzenDataGridColumn Property="LastName" Title="Last" Width="60px" />
-        <RadzenDataGridColumn Property="FirstName" Title="First" Width="60px" />
-        <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="100px" />
-        <RadzenDataGridColumn Property="Address" Title="Address" Width="120px" />
-        <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
-        <RadzenDataGridColumn Property="Region" Title="State" Width="60px" />
+<RadzenSplitter Orientation="Orientation.Horizontal">
+    <RadzenSplitterPane Size="60%" Resizable=true>
 
-    </Columns>
-</RadzenDataGrid>
+        <h1>Employees</h1>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true"
+                        PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="EmployeeDTO" Data="@AllEmployees" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployee
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="EmployeeID" Title="ID" Frozen="true" Width="30px" />
+                <RadzenDataGridColumn Property="LastName" Title="Last" Width="60px" />
+                <RadzenDataGridColumn Property="FirstName" Title="First" Width="60px" />
+                <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="100px" />
+                <RadzenDataGridColumn Property="Address" Title="Address" Width="120px" />
+                <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
+                <RadzenDataGridColumn Property="Region" Title="State" Width="60px" />
+
+            </Columns>
+        </RadzenDataGrid>
+  
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="40%" Resizable=true>
+
+        <h1>Orders By Employee</h1>
+
+        <RadzenDataGrid ColumnWidth="150px" AllowFiltering="true" AllowPaging="true"
+                        PageSize="8" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
+                <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="60px" />
+                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="60px" />
+                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="100px" />
+                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="120px" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
 
 @code {
     RadzenDataGrid<EmployeeDTO> radzenDataGrid;
@@ -55,8 +79,9 @@
     }
 
 
-    private async void UserRowSelected(EmployeeDTO user)
+    private async void UserRowSelected(EmployeeDTO employee)
     {
+        OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
         return;
     }
 
