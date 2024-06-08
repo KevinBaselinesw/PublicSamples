@@ -34,7 +34,7 @@
                 <RadzenDataGridColumn Property="EmployeeID" Title="ID" Frozen="true" Width="30px" />
                 <RadzenDataGridColumn Property="LastName" Title="Last" Width="60px" />
                 <RadzenDataGridColumn Property="FirstName" Title="First" Width="60px" />
-                <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="100px" />
+                <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
                 <RadzenDataGridColumn Property="Address" Title="Address" Width="120px" />
                 <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
                 <RadzenDataGridColumn Property="Region" Title="State" Width="60px" />
@@ -51,10 +51,10 @@
                         PageSize="8" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
             <Columns>
                 <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
-                <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="60px" />
-                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="60px" />
-                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="100px" />
-                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="120px" />
+                <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
+                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
             </Columns>
         </RadzenDataGrid>
     </RadzenSplitterPane>
