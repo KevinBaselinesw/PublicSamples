@@ -17,14 +17,14 @@
 <PageTitle>Employees</PageTitle>
 
 
-<RadzenSplitter Orientation="Orientation.Horizontal">
+<RadzenSplitter Orientation="Orientation.Horizontal" >
     <RadzenSplitterPane Size="60%" Resizable=true>
 
-        <h1>Employees</h1>
+        <RadzenText Style="font-size: 12pt; font-weight:bold">List of Employees</RadzenText>
 
         <RadzenDataGrid @ref=@radzenDataGrid
-                        AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true"
-                        PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="EmployeeDTO" Data="@AllEmployees" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployee
                         RowSelect="UserRowSelected"
@@ -32,12 +32,17 @@
                         RowDoubleClick="UserRowEdit">
             <Columns>
                 <RadzenDataGridColumn Property="EmployeeID" Title="ID" Frozen="true" Width="30px" />
-                <RadzenDataGridColumn Property="LastName" Title="Last" Width="60px" />
-                <RadzenDataGridColumn Property="FirstName" Title="First" Width="60px" />
-                <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
-                <RadzenDataGridColumn Property="Address" Title="Address" Width="120px" />
-                <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
-                <RadzenDataGridColumn Property="Region" Title="State" Width="60px" />
+                <RadzenDataGridColumn Property="LastName" Title="Last" Width="50px" />
+                <RadzenDataGridColumn Property="FirstName" Title="First" Width="50px" />
+                <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="60px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="Address" Title="Address" Width="80px" />
+                <RadzenDataGridColumn Property="City" Title="City" Width="50px" />
+                <RadzenDataGridColumn Property="Region" Title="State" Width="30px" />
+                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                    <Template Context="selectedEmployee">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersByEmployeeClick(selectedEmployee))" />
+                    </Template>
+                </RadzenDataGridColumn>
 
             </Columns>
         </RadzenDataGrid>
@@ -45,10 +50,10 @@
     </RadzenSplitterPane>
     <RadzenSplitterPane Size="40%" Resizable=true>
 
-        <h1>Orders By Employee</h1>
+        <RadzenText Style="font-size: 12pt; font-weight:bold">@OrdersByEmployeeTitle</RadzenText>
 
-        <RadzenDataGrid ColumnWidth="150px" AllowFiltering="true" AllowPaging="true"
-                        PageSize="8" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
+        <RadzenDataGrid ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
             <Columns>
                 <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
                 <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
@@ -70,6 +75,8 @@
 
     IEnumerable<OrderDTO> OrdersByEmployee;
 
+    string OrdersByEmployeeTitle;
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -78,10 +85,17 @@
 
     }
 
+    private async void ShowOrdersByEmployeeClick(EmployeeDTO employee)
+    {
+        OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
+        OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        return;
+    }
+
 
     private async void UserRowSelected(EmployeeDTO employee)
     {
-        OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        //OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
         return;
     }
 
