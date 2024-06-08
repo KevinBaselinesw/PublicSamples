@@ -1,0 +1,72 @@
+﻿@page "/Employees"
+
+@rendermode InteractiveAuto
+
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject IDataAccessAPI DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Employees</PageTitle>
+
+<h1>Employees</h1>
+
+<RadzenDataGrid @ref=@radzenDataGrid
+                AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true"
+                PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                TItem="EmployeeDTO" Data="@AllEmployees" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
+                SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployee
+                RowSelect="UserRowSelected"
+                RowDeselect="UserRowDeselected"
+                RowDoubleClick="UserRowEdit">
+    <Columns>
+        <RadzenDataGridColumn Property="EmployeeID" Title="ID" Frozen="true" Width="160px" />
+        <RadzenDataGridColumn Property="LastName" Title="Last" Width="160px" />
+        <RadzenDataGridColumn Property="FirstName" Title="First" Frozen="true" Width="160px" />
+        <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="140px" />
+        <RadzenDataGridColumn Property="Address" Title="Address" Width="120px" />
+        <RadzenDataGridColumn Property="City" Title="City" Width="200px" />
+        <RadzenDataGridColumn Property="Region" Title="State" Width="160px" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    RadzenDataGrid<EmployeeDTO> radzenDataGrid;
+    IList<EmployeeDTO> selectedEmployee;
+
+    IEnumerable<EmployeeDTO> AllEmployees;
+
+    IEnumerable<OrderDTO> OrdersByEmployee;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllEmployees = DataAccessAPI.GetAllEmployees();
+
+    }
+
+
+    private async void UserRowSelected(EmployeeDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(EmployeeDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<EmployeeDTO> args)
+    {
+   
+    }
+
+}
