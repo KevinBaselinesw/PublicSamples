@@ -1,5 +1,6 @@
 using BlazorSampleApp;
 using BlazorSampleApp.Components;
+using Radzen;
 using DatabaseAccessLib;
 
 
@@ -11,9 +12,18 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddRazorComponents()
-            .AddInteractiveServerComponents();
+            .AddInteractiveServerComponents()
+            .AddInteractiveWebAssemblyComponents();
 
         builder.Services.AddSingleton<IDataAccessAPI, DataAccessAPIWrapper>();
+
+        //builder.Services.AddScoped<DialogService>();
+        //builder.Services.AddScoped<NotificationService>();
+        //builder.Services.AddScoped<TooltipService>();
+        //builder.Services.AddScoped<ContextMenuService>();
+
+        builder.Services.AddRadzenComponents();
+
 
         var app = builder.Build();
 
@@ -31,7 +41,11 @@ internal class Program
         app.UseAntiforgery();
 
         app.MapRazorComponents<App>()
-            .AddInteractiveServerRenderMode();
+            .AddInteractiveServerRenderMode()
+            .AddInteractiveWebAssemblyRenderMode();
+
+  
+
 
         app.Run();
     }
