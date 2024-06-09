@@ -50,16 +50,38 @@
     </RadzenSplitterPane>
     <RadzenSplitterPane Size="40%" Resizable=true>
 
-        <RadzenText Style="font-size: 12pt; font-weight:bold">@CategoryTitle</RadzenText>
+        <RadzenStack>
 
-        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
-                        PageSize="15" AllowSorting="true" Data="@CategoryOfProduct" TItem="CategoryDTO">
-            <Columns>
-                <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
-                <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
-                <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
-            </Columns>
-        </RadzenDataGrid>
+            <RadzenText Style="font-size: 12pt; font-weight:bold">@CategoryTitle</RadzenText>
+
+            <RadzenDataGrid AllowFiltering="false" AllowPaging="true"
+                            PageSize="15" AllowSorting="true" Data="@CategoryOfProduct" TItem="CategoryDTO">
+                <Columns>
+                    <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
+                    <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
+                    <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                </Columns>
+            </RadzenDataGrid>
+
+            <RadzenText Style="font-size: 12pt; font-weight:bold">@SupplierTitle</RadzenText>
+
+            <RadzenDataGrid AllowFiltering="false" AllowPaging="true"
+                            PageSize="15" AllowSorting="true" Data="@SupplierOfProduct" TItem="SupplierDTO">
+                <Columns>
+                    <RadzenDataGridColumn Property="SupplierID" Title="ID" Frozen="true" Width="50px" />
+                    <RadzenDataGridColumn Property="CompanyName" Title="Company Name" Width="160px" />
+            @*         <RadzenDataGridColumn Property="ContactName" Title="Contact" Width="160px" /> *@
+                    <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
+                    <RadzenDataGridColumn Property="Region" Title="Region" Width="40px" />
+                    <RadzenDataGridColumn Property="Country" Title="Country" Width="40px" />
+           @*          <RadzenDataGridColumn Property="Phone" Title="Phone" Width="160px" /> *@
+                </Columns>
+            </RadzenDataGrid>
+
+
+        </RadzenStack>
+
+  
     </RadzenSplitterPane>
 </RadzenSplitter>
 
@@ -72,8 +94,10 @@
     IEnumerable<ProductDTO> AllProducts;
 
     IEnumerable<CategoryDTO> CategoryOfProduct;
+    IEnumerable<SupplierDTO> SupplierOfProduct;
 
     string CategoryTitle;
+    string SupplierTitle;
 
     protected override async Task OnInitializedAsync()
     {
@@ -95,6 +119,19 @@
                 CategoryTitle = $"The category for this product is {CategoryOfProduct.ToArray()[0].CategoryName}";
             }
         }
+
+
+        int SupplierID = product.SupplierID != null ? product.SupplierID.Value : -1;
+        if (SupplierID >= 0)
+        {
+            SupplierOfProduct = DataAccessAPI.GetSuppliersByID(SupplierID);
+
+            if (SupplierOfProduct != null && SupplierOfProduct.Count() > 0)
+            {
+                CategoryTitle = $"The supplier for this product is {SupplierOfProduct.ToArray()[0].CompanyName}";
+            }
+        }
+
         return;
     }
 
