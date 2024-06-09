@@ -36,7 +36,7 @@
                 <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
                 <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
                     <Template Context="selectedCategory">
-                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowProductsByCategory(selectedCategory))" />
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Products" Click="@(() => ShowProductsByCategory(selectedCategory))" />
                     </Template>
                 </RadzenDataGridColumn>
 
