@@ -1,0 +1,119 @@
+﻿@page "/Customers"
+
+@rendermode InteractiveServer
+
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject IDataAccessAPI DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Categories</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal" >
+    <RadzenSplitterPane Size="60%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">List of Customers</RadzenText>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="CustomerDTO" Data="@AllCustomers" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedCustomer
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="CustomerID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="CompanyName" Title="Company Name" Width="120px" />
+                <RadzenDataGridColumn Property="ContactName" Title="Contact Name" Width="120px" />
+                <RadzenDataGridColumn Property="Address" Title="Address" Width="100px" />
+                <RadzenDataGridColumn Property="City" Title="City" Width="100px" Frozen="true" />
+                <RadzenDataGridColumn Property="Region" Title="Region" Width="60px" Frozen="true" />
+                <RadzenDataGridColumn Property="Country" Title="Country" Width="60px" Frozen="true" />
+                <RadzenDataGridColumn Property="Phone" Title="Phone" Width="100px" Frozen="true" />
+
+                <RadzenDataGridColumn TItem="CustomerDTO" Property="" Title="Orders" SortOrder="SortOrder.Descending" Width="90px">
+                    <Template Context="selectedCustomer">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersByCustomers(selectedCustomer))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+  
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="40%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">@OrdersByCustomerTitle</RadzenText>
+
+        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@OrdersByCustomer" TItem="OrderWithSubtotalDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="Employee.LastName" Title="Salesman" Width="160px" />
+                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="160px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="Subtotal.Subtotal" Title="Order Total" Width="100px" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
+
+@code {
+    RadzenDataGrid<CustomerDTO> radzenDataGrid;
+    IList<CustomerDTO> selectedCustomer;
+
+    IEnumerable<CustomerDTO> AllCustomers;
+
+    IEnumerable<OrderWithSubtotalDTO> OrdersByCustomer;
+
+    string OrdersByCustomerTitle;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllCustomers = DataAccessAPI.GetAllCustomers();
+
+    }
+
+    private async void ShowOrdersByCustomers(CustomerDTO customer)
+    {
+  
+        OrdersByCustomer = DataAccessAPI.GetAllOrdersWithSubtotalsByCustomerID(customer.CustomerID);
+        if (OrdersByCustomer != null && OrdersByCustomer.Count() > 0)
+        {
+            var FirstOrder = OrdersByCustomer.ToArray()[0];
+            OrdersByCustomerTitle = $"Sales orders for {FirstOrder.Customer.CompanyName}";
+        }
+        return;
+    }
+
+
+    private async void UserRowSelected(CustomerDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(CustomerDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<CustomerDTO> args)
+    {
+   
+    }
+
+}
