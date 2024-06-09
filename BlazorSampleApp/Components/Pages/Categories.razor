@@ -1,0 +1,108 @@
+﻿@page "/Categories"
+
+@rendermode InteractiveServer
+
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject IDataAccessAPI DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Categories</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal" >
+    <RadzenSplitterPane Size="50%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">Categories of products</RadzenText>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="CategoryDTO" Data="@AllCategories" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedCategory
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
+                <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
+                    <Template Context="selectedCategory">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowProductsByCategory(selectedCategory))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+  
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="50%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">@ProductsByCategoryTitle</RadzenText>
+
+        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@ProductsByCategory" TItem="ProductDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="ProductName" Title="Product Name" Width="160px" />
+                <RadzenDataGridColumn Property="QuantityPerUnit" Title="Qty Per Unit" Width="160px" />
+                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="100px" />
+                <RadzenDataGridColumn Property="UnitsInStock" Title="In Stock" Width="100px" />
+                <RadzenDataGridColumn Property="UnitsOnOrder" Title="On Order" Width="100px" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
+
+@code {
+    RadzenDataGrid<CategoryDTO> radzenDataGrid;
+    IList<CategoryDTO> selectedCategory;
+
+    IEnumerable<CategoryDTO> AllCategories;
+
+    IEnumerable<ProductDTO> ProductsByCategory;
+
+    string ProductsByCategoryTitle;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllCategories = DataAccessAPI.GetAllProductCategories();
+
+    }
+
+    private async void ShowProductsByCategory(CategoryDTO category)
+    {
+        ProductsByCategoryTitle = $"Products in the {category.CategoryName} category";
+        ProductsByCategory = DataAccessAPI.GetProductsByCategoryID(category.CategoryID);
+        return;
+    }
+
+
+    private async void UserRowSelected(CategoryDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(CategoryDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<CategoryDTO> args)
+    {
+   
+    }
+
+}
