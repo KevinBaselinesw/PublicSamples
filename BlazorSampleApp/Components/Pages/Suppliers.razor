@@ -1,0 +1,112 @@
+﻿@page "/Suppliers"
+
+@rendermode InteractiveServer
+
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject IDataAccessAPI DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Suppliers</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal" >
+    <RadzenSplitterPane Size="65%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">List of suppliers</RadzenText>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="SupplierDTO" Data="@AllSuppliers" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedSupplier
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="SupplierID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="CompanyName" Title="Company Name" Width="160px" />
+                <RadzenDataGridColumn Property="ContactName" Title="Contact" Width="160px" />
+                <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
+                <RadzenDataGridColumn Property="Region" Title="Region" Width="100px" />
+                <RadzenDataGridColumn Property="Country" Title="Country" Width="80px" />
+                <RadzenDataGridColumn Property="Phone" Title="Phone" Width="120px" />
+                <RadzenDataGridColumn TItem="SupplierDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
+                    <Template Context="selectedProduct">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Products" Click="@(() => ShowProductsBySupplier(selectedProduct))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+  
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="35%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">@ProductsBySupplierTitle</RadzenText>
+
+        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@ProductsBySupplier" TItem="ProductDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="ProductName" Title="Product Name" Width="160px" />
+                <RadzenDataGridColumn Property="QuantityPerUnit" Title="Qty Per Unit" Width="160px" />
+                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="100px" />
+                <RadzenDataGridColumn Property="UnitsInStock" Title="In Stock" Width="100px" />
+                <RadzenDataGridColumn Property="UnitsOnOrder" Title="On Order" Width="100px" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
+
+@code {
+    RadzenDataGrid<SupplierDTO> radzenDataGrid;
+    IList<SupplierDTO> selectedSupplier;
+
+    IEnumerable<SupplierDTO> AllSuppliers;
+
+    IEnumerable<ProductDTO> ProductsBySupplier;
+
+    string ProductsBySupplierTitle;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllSuppliers = DataAccessAPI.GetAllSuppliers();
+
+    }
+
+    private async void ShowProductsBySupplier(SupplierDTO supplier)
+    {
+        ProductsBySupplierTitle = $"Products from {supplier.CompanyName}";
+        ProductsBySupplier = DataAccessAPI.GetProductsBySupplier(supplier.SupplierID);
+        return;
+    }
+
+
+    private async void UserRowSelected(SupplierDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(SupplierDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<SupplierDTO> args)
+    {
+   
+    }
+
+}
