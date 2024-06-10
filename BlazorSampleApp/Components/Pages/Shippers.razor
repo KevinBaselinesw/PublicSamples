@@ -1,0 +1,107 @@
+﻿@page "/Shippers"
+
+@rendermode InteractiveServer
+
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject IDataAccessAPI DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Suppliers</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal" >
+    <RadzenSplitterPane Size="50%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">List of shippers</RadzenText>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="ShipperDTO" Data="@AllShippers" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedShipper
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="ShipperID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="CompanyName" Title="Company Name" Width="160px" />
+                <RadzenDataGridColumn Property="Phone" Title="Phone" Width="120px" />
+                <RadzenDataGridColumn TItem="ShipperDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
+                    <Template Context="selectedProduct">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersByShipper(selectedProduct))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+  
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="50%" Resizable=true>
+
+        <RadzenText Style="font-size: 12pt; font-weight:bold">@OrdersByShipperTitle</RadzenText>
+
+        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@OrdersByShipper" TItem="OrderDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
+                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
+
+@code {
+    RadzenDataGrid<ShipperDTO> radzenDataGrid;
+    IList<ShipperDTO> selectedShipper;
+
+    IEnumerable<ShipperDTO> AllShippers;
+
+    IEnumerable<OrderDTO> OrdersByShipper;
+
+    string OrdersByShipperTitle;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllShippers = DataAccessAPI.GetAllShippers();
+
+    }
+
+    private async void ShowOrdersByShipper(ShipperDTO shipper)
+    {
+        OrdersByShipperTitle = $"Orders sent by {shipper.CompanyName}";
+        OrdersByShipper = DataAccessAPI.GetOrdersByShipVia(shipper.ShipperID);
+        return;
+    }
+
+
+    private async void UserRowSelected(ShipperDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(ShipperDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<ShipperDTO> args)
+    {
+   
+    }
+
+}
