@@ -20,7 +20,10 @@
 <RadzenSplitter Orientation="Orientation.Horizontal" >
     <RadzenSplitterPane Size="60%" Resizable=true>
 
-        <RadzenText Style="font-size: 12pt; font-weight:bold">List of Customers</RadzenText>
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/customers.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">List of Customers</RadzenText>
+        </RadzenStack>
 
         <RadzenDataGrid @ref=@radzenDataGrid
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
@@ -52,7 +55,10 @@
     </RadzenSplitterPane>
     <RadzenSplitterPane Size="40%" Resizable=true>
 
-        <RadzenText Style="font-size: 12pt; font-weight:bold">@OrdersByCustomerTitle</RadzenText>
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/orders.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByCustomerTitle</RadzenText>
+        </RadzenStack>
 
         <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
                         PageSize="15" AllowSorting="true" Data="@OrdersByCustomer" TItem="OrderWithSubtotalDTO">
