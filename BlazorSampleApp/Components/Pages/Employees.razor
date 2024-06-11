@@ -43,6 +43,11 @@
                 <RadzenDataGridColumn Property="Region" Title="State" Width="30px" />
                 <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
                     <Template Context="selectedEmployee">
+                        <img src="data:image/jpeg;base64, @selectedEmployee.PhotoBase64" height="64" />
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                    <Template Context="selectedEmployee">
                         <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersByEmployeeClick(selectedEmployee))" />
                     </Template>
                 </RadzenDataGridColumn>
@@ -74,6 +79,7 @@
 
 
 @code {
+
     RadzenDataGrid<EmployeeDTO> radzenDataGrid;
     IList<EmployeeDTO> selectedEmployee;
 
@@ -88,6 +94,11 @@
         await base.OnInitializedAsync();
 
         AllEmployees = DataAccessAPI.GetAllEmployees();
+
+        foreach (var employee in AllEmployees)
+        {
+            employee.PhotoBase64 = DTOConversions.ConvertPhotoToBase64(employee.Photo);
+        }
 
     }
 

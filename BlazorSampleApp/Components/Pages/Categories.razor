@@ -37,6 +37,11 @@
                 <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
                 <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
                 <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                    <Template Context="selectedCategory">
+                        <img src="data:image/jpeg;base64, @selectedCategory.PictureBase64" height="64" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
                     <Template Context="selectedCategory">
                         <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Products" Click="@(() => ShowProductsByCategory(selectedCategory))" />
@@ -85,6 +90,11 @@
         await base.OnInitializedAsync();
 
         AllCategories = DataAccessAPI.GetAllProductCategories();
+
+        foreach (var category in AllCategories)
+        {
+            category.PictureBase64 = DTOConversions.ConvertPhotoToBase64(category.Picture);
+        }
 
     }
 

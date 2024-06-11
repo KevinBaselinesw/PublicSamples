@@ -92,6 +92,9 @@ namespace DatabaseAccessLib
         public byte[] Photo { get; set; }
 
         [DataMember]
+        public string PhotoBase64 { get; set; }  // reserved for web applications that require base64 encoding
+
+        [DataMember]
         public string Notes { get; set; }
 
         [DataMember]
@@ -132,6 +135,9 @@ namespace DatabaseAccessLib
 
         [DataMember]
         public byte[] Picture { get; set; }
+
+        [DataMember]
+        public string PictureBase64 { get; set; }
 
         [DataMember]
         public List<ProductDTO> Products { get; set; }
@@ -1237,6 +1243,23 @@ namespace DatabaseAccessLib
 
 
         #endregion
+
+
+        public static string ConvertPhotoToBase64(byte [] Photo)
+        {
+            string PhotoBase64 = "";
+            if (Photo != null)
+            {
+                byte[] adjusted = new byte[Photo.Length - 78];
+                Array.Copy(Photo, 78, adjusted, 0, Photo.Length - 78);
+
+
+                PhotoBase64 = Convert.ToBase64String(adjusted);
+            }
+
+            return PhotoBase64;
+        }
+
     }
 
 }

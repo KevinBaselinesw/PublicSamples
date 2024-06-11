@@ -66,6 +66,11 @@
                     <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
                     <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
                     <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                    <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                        <Template Context="selectedCategory">
+                            <img src="data:image/jpeg;base64, @selectedCategory.PictureBase64" height="64" />
+                        </Template>
+                    </RadzenDataGridColumn>
                 </Columns>
             </RadzenDataGrid>
 
@@ -126,6 +131,11 @@
             if (CategoryOfProduct != null && CategoryOfProduct.Count() > 0)
             {
                 CategoryTitle = $"The category for this product is {CategoryOfProduct.ToArray()[0].CategoryName}";
+
+                foreach (var category in CategoryOfProduct)
+                {
+                    category.PictureBase64 = DTOConversions.ConvertPhotoToBase64(category.Picture);
+                }
             }
         }
 
