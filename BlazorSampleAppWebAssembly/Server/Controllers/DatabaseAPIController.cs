@@ -406,4 +406,60 @@ public class DatabaseAPIController : ControllerBase
     }
 
 
+    [HttpGet]
+    public async Task<ActionResult<APIListOfEntityResponse<ShipperDTO>>> GetAllShippers()
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetAllShippers();
+            return Ok(new APIListOfEntityResponse<ShipperDTO>()
+            {
+                Success = true,
+                Data = result
+            });
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+    [HttpGet("{Id}")]
+    public async Task<ActionResult<APIListOfEntityResponse<OrderDTO>>> GetOrdersByShipVia(int Id)
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetOrdersByShipVia(Id);
+            if (result != null)
+            {
+                return Ok(new APIListOfEntityResponse<OrderDTO>()
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            else
+            {
+                return Ok(new APIListOfEntityResponse<OrderDTO>()
+                {
+                    Success = false,
+                    ErrorMessages = new List<string>() { "order records not found" },
+                    Data = null
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+
+
 }

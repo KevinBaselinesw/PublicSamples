@@ -307,4 +307,44 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<IEnumerable<ShipperDTO>> GetAllShippers()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetAllShippers";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<ShipperDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<ShipperDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<OrderDTO>> GetOrdersByShipVia(int id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetOrdersByShipVia/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<OrderDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<OrderDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }
