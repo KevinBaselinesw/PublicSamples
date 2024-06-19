@@ -63,7 +63,7 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByEmployeeTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
+        <RadzenDataGrid @ref=@radzenDataGrid2 ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
                         PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
             <Columns>
                 <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
@@ -81,6 +81,8 @@
 @code {
 
     RadzenDataGrid<EmployeeDTO> radzenDataGrid;
+    RadzenDataGrid<OrderDTO> radzenDataGrid2;
+
     IList<EmployeeDTO> selectedEmployee;
 
     IEnumerable<EmployeeDTO> AllEmployees;
@@ -106,6 +108,7 @@
     {
         OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
         OrdersByEmployee = await DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        await radzenDataGrid2.Reload();
         return;
     }
 
