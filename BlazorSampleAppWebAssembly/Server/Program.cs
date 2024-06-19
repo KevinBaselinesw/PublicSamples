@@ -1,4 +1,5 @@
 using BlazorSampleAppWebAssembly;
+using BlazorSampleAppWebAssembly.Client.Services;
 using DatabaseAccessLib;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IDataAccessAPI, DataAccessAPIWrapper>();
 
 
 var app = builder.Build();
