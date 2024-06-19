@@ -267,4 +267,44 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<IEnumerable<SupplierDTO>> GetAllSuppliers()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetAllSuppliers";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<SupplierDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<SupplierDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<ProductDTO>> GetProductsBySupplier(int id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetProductsBySupplier/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<ProductDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<ProductDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }
