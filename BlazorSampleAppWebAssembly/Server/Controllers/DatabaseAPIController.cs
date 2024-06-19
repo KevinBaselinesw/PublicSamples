@@ -74,4 +74,58 @@ public class DatabaseAPIController : ControllerBase
         }
     }
 
+    [HttpGet]
+    public async Task<ActionResult<APIListOfEntityResponse<CategoryDTO>>> GetAllProductCategories()
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetAllProductCategories();
+            return Ok(new APIListOfEntityResponse<CategoryDTO>()
+            {
+                Success = true,
+                Data = result
+            });
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+    [HttpGet("{Id}")]
+    public async Task<ActionResult<APIListOfEntityResponse<ProductDTO>>> GetProductsByCategoryID(int Id)
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetProductsByCategoryID(Id);
+            if (result != null)
+            {
+                return Ok(new APIListOfEntityResponse<ProductDTO>()
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            else
+            {
+                return Ok(new APIListOfEntityResponse<ProductDTO>()
+                {
+                    Success = false,
+                    ErrorMessages = new List<string>() { "order records not found" },
+                    Data = null
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
 }

@@ -1,16 +1,141 @@
 ﻿@page "/Categories"
 
-<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+@using BlazorSampleAppWebAssembly.Client.Services
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject DatabaseAPIManager DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Categories</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal">
+    <RadzenSplitterPane Size="50%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/category.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">Categories of products</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="CategoryDTO" Data="@AllCategories" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedCategory
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
+                <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                    <Template Context="selectedCategory">
+                        <img src="data:image/jpeg;base64, @selectedCategory.PictureBase64" height="64" />
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
+                    <Template Context="selectedCategory">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Products" Click="@(() => ShowProductsByCategory(selectedCategory))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="50%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/products.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">@ProductsByCategoryTitle</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid @ref=@radzenDataGrid2
+            AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@ProductsByCategory" LoadData="@LoadData" TItem="ProductDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="ProductName" Title="Product Name" Width="160px" />
+                <RadzenDataGridColumn Property="QuantityPerUnit" Title="Qty Per Unit" Width="160px" />
+                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="100px" />
+                <RadzenDataGridColumn Property="UnitsInStock" Title="In Stock" Width="100px" />
+                <RadzenDataGridColumn Property="UnitsOnOrder" Title="On Order" Width="100px" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
 
 @code {
+    RadzenDataGrid<CategoryDTO> radzenDataGrid;
+    RadzenDataGrid<ProductDTO> radzenDataGrid2;
 
-    string buttontext = "Categories";
-    int clickcount = 1;
+    IList<CategoryDTO> selectedCategory;
 
-    void ButtonClicked()
+    IEnumerable<CategoryDTO> AllCategories;
+
+    IEnumerable<ProductDTO> ProductsByCategory;
+    IEnumerable<ProductDTO> ProductsByCategoryQueryResult;
+
+    string ProductsByCategoryTitle;
+
+    protected override async Task OnInitializedAsync()
     {
-        clickcount++;
-        buttontext = $"Categories {clickcount}";
+
+        AllCategories = await DataAccessAPI.GetAllProductCategories();
+
+        foreach (var category in AllCategories)
+        {
+            category.PictureBase64 = DTOConversions.ConvertPhotoToBase64(category.Picture);
+        }
+
+        await base.OnInitializedAsync();
 
     }
+
+    private async void ShowProductsByCategory(CategoryDTO category)
+    {
+        ProductsByCategoryTitle = $"Products in the {category.CategoryName} category";
+
+        ProductsByCategory = null;
+        await radzenDataGrid2.RefreshDataAsync();
+
+        ProductsByCategoryQueryResult = await DataAccessAPI.GetProductsByCategoryID(category.CategoryID);
+        await radzenDataGrid2.RefreshDataAsync();
+        return;
+    }
+    /// <summary>
+    /// This just copies the data retrieved in the call to GetOrdersByEmployeeID.  Not sure why but it works better this way.
+    /// </summary>
+    /// <param name="args"></param>
+    async void LoadData(LoadDataArgs args)
+    {
+        ProductsByCategory = ProductsByCategoryQueryResult;
+    }
+
+
+    private async void UserRowSelected(CategoryDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(CategoryDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<CategoryDTO> args)
+    {
+
+    }
+
 }

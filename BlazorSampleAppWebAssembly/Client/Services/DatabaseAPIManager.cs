@@ -66,6 +66,47 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<IEnumerable<CategoryDTO>> GetAllProductCategories()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetAllProductCategories";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<CategoryDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<CategoryDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<ProductDTO>> GetProductsByCategoryID(int id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetProductsByCategoryID/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<ProductDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<ProductDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+
 
 
 }
