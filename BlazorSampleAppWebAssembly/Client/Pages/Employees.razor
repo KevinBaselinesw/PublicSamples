@@ -1,16 +1,129 @@
 ﻿@page "/Employees"
 
-<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+
+@using BlazorSampleAppWebAssembly.Client.Services
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject DatabaseAPIManager DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Employees</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal">
+    <RadzenSplitterPane Size="60%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/division.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">List of Employees</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="EmployeeDTO" Data="@AllEmployees" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedEmployee
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="EmployeeID" Title="ID" Frozen="true" Width="30px" />
+                <RadzenDataGridColumn Property="LastName" Title="Last" Width="50px" />
+                <RadzenDataGridColumn Property="FirstName" Title="First" Width="50px" />
+                <RadzenDataGridColumn Property="HireDate" Title="Date Of Hire" Width="60px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="Address" Title="Address" Width="80px" />
+                <RadzenDataGridColumn Property="City" Title="City" Width="50px" />
+                <RadzenDataGridColumn Property="Region" Title="State" Width="30px" />
+                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                    <Template Context="selectedEmployee">
+                        <img src="data:image/jpeg;base64, @selectedEmployee.PhotoBase64" height="64" />
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                    <Template Context="selectedEmployee">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersByEmployeeClick(selectedEmployee))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="40%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/orders.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByEmployeeTitle</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
+                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
+                <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
+                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
 
 @code {
 
-    string buttontext = "Employee";
-    int clickcount = 1;
+    RadzenDataGrid<EmployeeDTO> radzenDataGrid;
+    IList<EmployeeDTO> selectedEmployee;
 
-    void ButtonClicked()
+    IEnumerable<EmployeeDTO> AllEmployees;
+
+    IEnumerable<OrderDTO> OrdersByEmployee;
+
+    string OrdersByEmployeeTitle;
+
+    protected override async Task OnInitializedAsync()
     {
-        clickcount++;
-        buttontext = $"Employees {clickcount}";
+        await base.OnInitializedAsync();
+
+        AllEmployees = await DataAccessAPI.GetAllEmployees();
+
+        foreach (var employee in AllEmployees)
+        {
+            employee.PhotoBase64 = DTOConversions.ConvertPhotoToBase64(employee.Photo);
+        }
 
     }
+
+    private async void ShowOrdersByEmployeeClick(EmployeeDTO employee)
+    {
+        OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
+        OrdersByEmployee = await DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        return;
+    }
+
+
+    private async void UserRowSelected(EmployeeDTO employee)
+    {
+        //OrdersByEmployee = await DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        return;
+    }
+
+    private async void UserRowDeselected(EmployeeDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<EmployeeDTO> args)
+    {
+
+    }
+
 }
