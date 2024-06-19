@@ -217,4 +217,61 @@ public class DatabaseAPIController : ControllerBase
         }
     }
 
+
+    [HttpGet]
+    public async Task<ActionResult<APIListOfEntityResponse<CustomerDTO>>> GetAllCustomers()
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetAllCustomers();
+            return Ok(new APIListOfEntityResponse<CustomerDTO>()
+            {
+                Success = true,
+                Data = result
+            });
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+    [HttpGet("{Id}")]
+    public async Task<ActionResult<APIListOfEntityResponse<OrderWithSubtotalDTO>>> GetAllOrdersWithSubtotalsByCustomerID(string Id)
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetAllOrdersWithSubtotalsByCustomerID(Id);
+            if (result != null)
+            {
+                return Ok(new APIListOfEntityResponse<OrderWithSubtotalDTO>()
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            else
+            {
+                return Ok(new APIListOfEntityResponse<OrderWithSubtotalDTO>()
+                {
+                    Success = false,
+                    ErrorMessages = new List<string>() { "supplier records not found" },
+                    Data = null
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+
+
 }

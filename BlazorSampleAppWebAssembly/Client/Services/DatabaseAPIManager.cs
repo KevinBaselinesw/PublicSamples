@@ -167,4 +167,44 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<IEnumerable<CustomerDTO>> GetAllCustomers()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetAllCustomers";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<CustomerDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<CustomerDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<OrderWithSubtotalDTO>> GetAllOrdersWithSubtotalsByCustomerID(string id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetAllOrdersWithSubtotalsByCustomerID/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<OrderWithSubtotalDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<OrderWithSubtotalDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }
