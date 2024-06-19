@@ -18,7 +18,7 @@
 
 
 <RadzenSplitter Orientation="Orientation.Horizontal">
-    <RadzenSplitterPane Size="60%" Resizable=true>
+    <RadzenSplitterPane Size="55%" Resizable=true>
 
         <RadzenStack Orientation="Orientation.Horizontal">
             <RadzenImage src="/Images/division.png" asp-append-version="true" width="50px" />
@@ -41,12 +41,12 @@
                 <RadzenDataGridColumn Property="Address" Title="Address" Width="80px" />
                 <RadzenDataGridColumn Property="City" Title="City" Width="50px" />
                 <RadzenDataGridColumn Property="Region" Title="State" Width="30px" />
-                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
                     <Template Context="selectedEmployee">
                         <img src="data:image/jpeg;base64, @selectedEmployee.PhotoBase64" height="64" />
                     </Template>
                 </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                <RadzenDataGridColumn TItem="EmployeeDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
                     <Template Context="selectedEmployee">
                         <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersByEmployeeClick(selectedEmployee))" />
                     </Template>
@@ -56,17 +56,18 @@
         </RadzenDataGrid>
 
     </RadzenSplitterPane>
-    <RadzenSplitterPane Size="40%" Resizable=true>
+    <RadzenSplitterPane Size="45%" Resizable=true>
 
         <RadzenStack Orientation="Orientation.Horizontal">
             <RadzenImage src="/Images/orders.png" asp-append-version="true" width="50px" />
             <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByEmployeeTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid2 ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
-                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
+
+        <RadzenDataGrid @ref=@radzenDataGrid2 ColumnWidth="150px" AllowFiltering="false" AllowPaging="true" 
+                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" LoadData="@LoadData" TItem="OrderDTO">
             <Columns>
-                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="false" Width="70px" />
                 <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
                 <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
                 <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="120px" FormatString="{0:MMMM dd, yyyy}" />
@@ -88,8 +89,13 @@
     IEnumerable<EmployeeDTO> AllEmployees;
 
     IEnumerable<OrderDTO> OrdersByEmployee;
+    IEnumerable<OrderDTO> OrdersByEmployeeQueryResult;
+
 
     string OrdersByEmployeeTitle;
+
+    bool DetailsGridLoading;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -107,9 +113,24 @@
     private async void ShowOrdersByEmployeeClick(EmployeeDTO employee)
     {
         OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
-        OrdersByEmployee = await DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+
+        OrdersByEmployeeQueryResult = null;
         await radzenDataGrid2.Reload();
+
+
+        OrdersByEmployeeQueryResult = await DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        await radzenDataGrid2.Reload();
+
         return;
+    }
+
+    /// <summary>
+    /// This just copies the data retrieved in the call to GetOrdersByEmployeeID.  Not sure why but it works better this way.
+    /// </summary>
+    /// <param name="args"></param>
+    async void LoadData(LoadDataArgs args)
+    {
+        OrdersByEmployee = OrdersByEmployeeQueryResult;
     }
 
 
