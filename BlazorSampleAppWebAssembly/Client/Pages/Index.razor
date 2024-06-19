@@ -1,16 +1,6 @@
 ﻿@page "/"
 
-<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+<div style="top: 25%; left:25%; position:fixed">
+    <RadzenText Text="Welcome to the Northwinds Blazor WebAssembly Demo!" Style="font-size: 32px; font-style: oblique; color : blue"></RadzenText>
+</div>
 
-@code {
-
-    string buttontext = "Hi";
-    int clickcount = 1;
-
-    void ButtonClicked()
-    {
-        clickcount++;
-        buttontext = $"hello {clickcount}";    
-
-    }
-}

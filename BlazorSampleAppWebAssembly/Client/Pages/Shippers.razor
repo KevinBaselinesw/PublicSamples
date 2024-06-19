@@ -1,0 +1,16 @@
+﻿@page "/Shippers"
+
+<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+
+@code {
+
+    string buttontext = "Shippers";
+    int clickcount = 1;
+
+    void ButtonClicked()
+    {
+        clickcount++;
+        buttontext = $"Shippers {clickcount}";
+
+    }
+}
