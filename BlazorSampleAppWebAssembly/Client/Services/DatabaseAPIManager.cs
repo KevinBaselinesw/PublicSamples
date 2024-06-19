@@ -107,6 +107,64 @@ public class DatabaseAPIManager
     }
 
 
+    public async Task<IEnumerable<ProductDTO>> GetAllProducts()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetAllProducts";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<ProductDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<ProductDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 
+    public async Task<IEnumerable<CategoryDTO>> GetProductCategoriesByID(int id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetProductCategoriesByID/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<CategoryDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<CategoryDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<SupplierDTO>> GetSuppliersByID(int id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetSuppliersByID/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<SupplierDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<SupplierDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 
 }

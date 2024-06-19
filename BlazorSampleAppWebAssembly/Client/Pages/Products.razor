@@ -1,16 +1,202 @@
 ﻿@page "/Products"
 
-<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+
+@using BlazorSampleAppWebAssembly.Client.Services
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject DatabaseAPIManager DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Products</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal">
+    <RadzenSplitterPane Size="60%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/products.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">List of products</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="ProductDTO" Data="@AllProducts" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedProduct
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="40px" />
+                <RadzenDataGridColumn Property="ProductName" Title="Product Name" Width="180px" />
+                <RadzenDataGridColumn Property="QuantityPerUnit" Title="Qty Per Unit" Width="120px" />
+                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="70px" />
+                <RadzenDataGridColumn Property="UnitsInStock" Title="In Stock" Width="70px" />
+                <RadzenDataGridColumn Property="UnitsOnOrder" Title="On Order" Width="70px" />
+
+                <RadzenDataGridColumn TItem="ProductDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="70px">
+                    <Template Context="selectedProduct">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Details" Click="@(() => ShowProductDetails(selectedProduct))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="40%" Resizable=true>
+
+        <RadzenStack>
+
+            <RadzenStack Orientation="Orientation.Horizontal">
+                <RadzenImage src="/Images/category.png" asp-append-version="true" width="50px" />
+                <RadzenText Style="font-size: 24pt; font-weight:bold">@CategoryTitle</RadzenText>
+            </RadzenStack>
+
+            <RadzenDataGrid @ref=@radzenDataGrid2 AllowFiltering="false" AllowPaging="true" LoadData="@LoadData2"
+                            PageSize="15" AllowSorting="true" Data="@CategoryOfProduct" TItem="CategoryDTO">
+                <Columns>
+                    <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
+                    <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
+                    <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                    <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
+                        <Template Context="selectedCategory">
+                            <img src="data:image/jpeg;base64, @selectedCategory.PictureBase64" height="64" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+
+            <RadzenStack Orientation="Orientation.Horizontal">
+                <RadzenImage src="/Images/suppliers.png" asp-append-version="true" width="50px" />
+                <RadzenText Style="font-size: 24pt; font-weight:bold">@SupplierTitle</RadzenText>
+            </RadzenStack>
+
+            <RadzenDataGrid @ref=@radzenDataGrid3 AllowFiltering="false" AllowPaging="true" LoadData="@LoadData3"
+                            PageSize="15" AllowSorting="true" Data="@SupplierOfProduct" TItem="SupplierDTO">
+                <Columns>
+                    <RadzenDataGridColumn Property="SupplierID" Title="ID" Frozen="true" Width="50px" />
+                    <RadzenDataGridColumn Property="CompanyName" Title="Company Name" Width="160px" />
+                    @*         <RadzenDataGridColumn Property="ContactName" Title="Contact" Width="160px" /> *@
+                    <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
+                    <RadzenDataGridColumn Property="Region" Title="Region" Width="40px" />
+                    <RadzenDataGridColumn Property="Country" Title="Country" Width="40px" />
+                    @*          <RadzenDataGridColumn Property="Phone" Title="Phone" Width="160px" /> *@
+                </Columns>
+            </RadzenDataGrid>
+
+
+        </RadzenStack>
+
+
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
 
 @code {
+    RadzenDataGrid<ProductDTO> radzenDataGrid;
+    RadzenDataGrid<CategoryDTO> radzenDataGrid2;
+    RadzenDataGrid<SupplierDTO> radzenDataGrid3;
+    IList<ProductDTO> selectedProduct;
 
-    string buttontext = "Products";
-    int clickcount = 1;
+    IEnumerable<ProductDTO> AllProducts;
 
-    void ButtonClicked()
+    IEnumerable<CategoryDTO> CategoryOfProduct;
+    IEnumerable<CategoryDTO> CategoryOfProductQueryResult;
+    IEnumerable<SupplierDTO> SupplierOfProduct;
+    IEnumerable<SupplierDTO> SupplierOfProductQueryResult;
+
+
+    string CategoryTitle;
+    string SupplierTitle;
+
+    protected override async Task OnInitializedAsync()
     {
-        clickcount++;
-        buttontext = $"Products {clickcount}";
+
+        AllProducts = await DataAccessAPI.GetAllProducts();
+
+        await base.OnInitializedAsync();
+    }
+
+    private async void ShowProductDetails(ProductDTO product)
+    {
+        int CategoryID = product.CategoryID != null ? product.CategoryID.Value : -1;
+        if (CategoryID >= 0)
+        {
+            CategoryOfProductQueryResult = await DataAccessAPI.GetProductCategoriesByID(CategoryID);
+
+            if (CategoryOfProductQueryResult != null && CategoryOfProductQueryResult.Count() > 0)
+            {
+                CategoryTitle = $"The category for this product is {CategoryOfProductQueryResult.ToArray()[0].CategoryName}";
+
+                foreach (var category in CategoryOfProductQueryResult)
+                {
+                    category.PictureBase64 = DTOConversions.ConvertPhotoToBase64(category.Picture);
+                }
+            }
+            await radzenDataGrid2.Reload();
+
+        }
+
+
+        int SupplierID = product.SupplierID != null ? product.SupplierID.Value : -1;
+        if (SupplierID >= 0)
+        {
+            SupplierOfProductQueryResult = await DataAccessAPI.GetSuppliersByID(SupplierID);
+
+            if (SupplierOfProductQueryResult != null && SupplierOfProductQueryResult.Count() > 0)
+            {
+                SupplierTitle = $"The supplier for this product is {SupplierOfProductQueryResult.ToArray()[0].CompanyName}";
+            }
+
+            await radzenDataGrid3.Reload();
+
+        }
+
+        return;
+    }
+
+    /// <summary>
+    /// This just copies the data retrieved in the call to GetOrdersByEmployeeID.  Not sure why but it works better this way.
+    /// </summary>
+    /// <param name="args"></param>
+    async void LoadData2(LoadDataArgs args)
+    {
+        CategoryOfProduct = CategoryOfProductQueryResult;
+    }
+
+    /// <summary>
+    /// This just copies the data retrieved in the call to GetOrdersByEmployeeID.  Not sure why but it works better this way.
+    /// </summary>
+    /// <param name="args"></param>
+    async void LoadData3(LoadDataArgs args)
+    {
+        SupplierOfProduct = SupplierOfProductQueryResult;
+    }
+
+
+
+    private async void UserRowSelected(ProductDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(ProductDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<ProductDTO> args)
+    {
 
     }
+
 }
