@@ -1,3 +1,16 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+
+@code {
+
+    string buttontext = "Hi";
+    int clickcount = 1;
+
+    void ButtonClicked()
+    {
+        clickcount++;
+        buttontext = $"hello {clickcount}";    
+
+    }
+}
