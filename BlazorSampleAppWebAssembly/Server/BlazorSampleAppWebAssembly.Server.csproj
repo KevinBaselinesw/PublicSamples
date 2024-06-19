@@ -7,10 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NorthwindsDB.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NorthwindsDB.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.15" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DatabaseAccessLib\DatabaseAccessLib\DatabaseAccessLib.csproj" />
+    <ProjectReference Include="..\..\UtilityFunctions\UtilityFunctions\UtilityFunctions.csproj" />
     <ProjectReference Include="..\Client\BlazorSampleAppWebAssembly.Client.csproj" />
     <ProjectReference Include="..\Shared\BlazorSampleAppWebAssembly.Shared.csproj" />
   </ItemGroup>
