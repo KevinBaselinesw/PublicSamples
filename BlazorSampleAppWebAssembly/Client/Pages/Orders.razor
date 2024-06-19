@@ -1,16 +1,141 @@
 ﻿@page "/Orders"
 
-<RadzenButton Text=@buttontext Click=@ButtonClicked></RadzenButton>
+
+@using BlazorSampleAppWebAssembly.Client.Services
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject DatabaseAPIManager DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<PageTitle>Orders</PageTitle>
+
+
+<RadzenSplitter Orientation="Orientation.Horizontal">
+    <RadzenSplitterPane Size="60%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/Orders.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">List of orders</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid @ref=@radzenDataGrid
+                        AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
+                        PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="OrderDTO" Data="@AllOrders" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedOrder
+                        RowSelect="UserRowSelected"
+                        RowDeselect="UserRowDeselected"
+                        RowDoubleClick="UserRowEdit">
+            <Columns>
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="80px" />
+                <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="120px" />
+                <RadzenDataGridColumn Property="Employee.LastName" Title="Salesman" Width="120px" />
+                <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="100px" Frozen="true" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="ShippedDate" Title="Shipped Date" Width="60px" Frozen="true" FormatString="{0:MMMM dd, yyyy}" />
+                <RadzenDataGridColumn Property="Subtotal.Subtotal" Title="Order Total" Width="60px" Frozen="true" />
+
+                <RadzenDataGridColumn TItem="OrderDTO" Property="" Title="Order Details" SortOrder="SortOrder.Descending" Width="90px">
+                    <Template Context="selectedOrder">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Orders" Click="@(() => ShowOrdersDetails(selectedOrder))" />
+                    </Template>
+                </RadzenDataGridColumn>
+
+            </Columns>
+        </RadzenDataGrid>
+
+    </RadzenSplitterPane>
+    <RadzenSplitterPane Size="40%" Resizable=true>
+
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenImage src="/Images/Orders.png" asp-append-version="true" width="50px" />
+            <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersDetailsTitle</RadzenText>
+        </RadzenStack>
+
+        <RadzenDataGrid @ref=@radzenDataGrid2
+                        AllowFiltering="false" AllowPaging="true" LoadData="@LoadData"
+                        PageSize="15" AllowSorting="true" Data="@OrderDetails" TItem="Order_Details_ExtendedDTO">
+            <Columns>
+                <RadzenDataGridColumn Property="ProductName" Title="Product" Width="160px" />
+                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="160px" />
+                <RadzenDataGridColumn Property="Quantity" Title="Quantity" Width="100px" />
+                <RadzenDataGridColumn Property="Discount" Title="Discount" Width="100px" />
+                <RadzenDataGridColumn Property="ExtendedPrice" Title="Sub Total" Width="100px" />
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenSplitterPane>
+</RadzenSplitter>
+
+
 
 @code {
+    RadzenDataGrid<OrderDTO> radzenDataGrid;
+    RadzenDataGrid<Order_Details_ExtendedDTO> radzenDataGrid2;
 
-    string buttontext = "Orders";
-    int clickcount = 1;
+    IList<OrderDTO> selectedOrder;
 
-    void ButtonClicked()
+    IEnumerable<OrderDTO> AllOrders;
+
+    IEnumerable<Order_Details_ExtendedDTO> OrderDetails;
+    IEnumerable<Order_Details_ExtendedDTO> OrderDetailsQueryResult;
+
+    string OrdersDetailsTitle;
+
+    protected override async Task OnInitializedAsync()
     {
-        clickcount++;
-        buttontext = $"Orders {clickcount}";
+
+        AllOrders = await DataAccessAPI.GetOrders(10, 100);
+
+        await base.OnInitializedAsync();
+
 
     }
+
+    private async void ShowOrdersDetails(OrderDTO order)
+    {
+
+        OrderDetailsQueryResult = await DataAccessAPI.GetOrderDetailsByOrderID(order.OrderID);
+        if (OrderDetailsQueryResult != null && OrderDetailsQueryResult.Count() > 0)
+        {
+            var FirstOrder = OrderDetailsQueryResult.ToArray()[0];
+            OrdersDetailsTitle = $"Order details for order #{FirstOrder.OrderID}";
+        }
+
+        await radzenDataGrid2.Reload();
+        return;
+    }
+
+    /// <summary>
+    /// This just copies the data retrieved in the call to GetOrdersByEmployeeID.  Not sure why but it works better this way.
+    /// </summary>
+    /// <param name="args"></param>
+    async void LoadData(LoadDataArgs args)
+    {
+        OrderDetails = OrderDetailsQueryResult;
+    }
+
+
+
+    private async void UserRowSelected(OrderDTO employee)
+    {
+        return;
+    }
+
+    private async void UserRowDeselected(OrderDTO user)
+    {
+        return;
+    }
+
+    private async void UserRowEdit(DataGridRowMouseEventArgs<OrderDTO> args)
+    {
+
+    }
+
 }

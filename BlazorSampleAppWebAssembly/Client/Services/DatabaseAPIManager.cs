@@ -207,4 +207,64 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<IEnumerable<OrderDTO>> GetAllOrders()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetAllOrders";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<OrderDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<OrderDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<OrderDTO>> GetOrders(int skip, int take)
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetOrders/{skip}/{take}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<OrderDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<OrderDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<IEnumerable<Order_Details_ExtendedDTO>> GetOrderDetailsByOrderID(int id)
+    {
+        try
+        {
+            var url = $"{_controllerName}/GetOrderDetailsByOrderID/{id}";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIListOfEntityResponse<Order_Details_ExtendedDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new List<Order_Details_ExtendedDTO>();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }

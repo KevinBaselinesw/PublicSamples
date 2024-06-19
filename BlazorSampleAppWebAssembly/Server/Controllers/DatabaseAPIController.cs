@@ -272,6 +272,83 @@ public class DatabaseAPIController : ControllerBase
         }
     }
 
+    [HttpGet]
+    public async Task<ActionResult<APIListOfEntityResponse<OrderDTO>>> GetAllOrders()
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetAllOrders();
+            return Ok(new APIListOfEntityResponse<OrderDTO>()
+            {
+                Success = true,
+                Data = result
+            });
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+    [HttpGet("{skip}/{take}")]
+    public async Task<ActionResult<APIListOfEntityResponse<OrderDTO>>> GetOrders(int skip, int take)
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetAllOrders().Skip(skip).Take(take);
+            return Ok(new APIListOfEntityResponse<OrderDTO>()
+            {
+                Success = true,
+                Data = result
+            });
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+
+
+    [HttpGet("{Id}")]
+    public async Task<ActionResult<APIListOfEntityResponse<Order_Details_ExtendedDTO>>> GetOrderDetailsByOrderID(int Id)
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetOrderDetailsByOrderID(Id);
+            if (result != null)
+            {
+                return Ok(new APIListOfEntityResponse<Order_Details_ExtendedDTO>()
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            else
+            {
+                return Ok(new APIListOfEntityResponse<Order_Details_ExtendedDTO>()
+                {
+                    Success = false,
+                    ErrorMessages = new List<string>() { "order detail records not found" },
+                    Data = null
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
 
 
 }
