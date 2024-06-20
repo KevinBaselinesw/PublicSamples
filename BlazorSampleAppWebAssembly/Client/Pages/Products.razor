@@ -25,7 +25,7 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of products</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
                         PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="ProductDTO" Data="@AllProducts" LogicalFilterOperator="LogicalFilterOperator.Or"
@@ -60,7 +60,7 @@
                 <RadzenText Style="font-size: 24pt; font-weight:bold">@CategoryTitle</RadzenText>
             </RadzenStack>
 
-            <RadzenDataGrid @ref=@radzenDataGrid2 AllowFiltering="false" AllowPaging="true" LoadData="@LoadData2"
+            <RadzenDataGrid @ref=@radzenDataGrid2 AllowFiltering="false" AllowPaging="true" LoadData="@LoadData2" 
                             PageSize="15" AllowSorting="true" Data="@CategoryOfProduct" TItem="CategoryDTO">
                 <Columns>
                     <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />

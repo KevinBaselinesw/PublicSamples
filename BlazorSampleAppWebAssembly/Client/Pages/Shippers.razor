@@ -24,7 +24,7 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of shippers</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
                         PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="ShipperDTO" Data="@AllShippers" LogicalFilterOperator="LogicalFilterOperator.Or"
@@ -53,7 +53,7 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByShipperTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid2 LoadData="@LoadData"
+        <RadzenDataGrid @ref=@radzenDataGrid2 LoadData="@LoadData" Style="height:800px"
                         AllowFiltering="false" AllowPaging="true"
                         PageSize="15" AllowSorting="true" Data="@OrdersByShipper" TItem="OrderDTO">
             <Columns>
