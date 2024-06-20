@@ -293,6 +293,23 @@ public class DatabaseAPIController : ControllerBase
         }
     }
 
+    [HttpGet]
+    public async Task<ActionResult<int>> GetOrdersCount()
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.GetOrdersCount();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
     [HttpGet("{skip}/{take}")]
     public async Task<ActionResult<APIListOfEntityResponse<OrderDTO>>> GetOrders(int skip, int take)
     {

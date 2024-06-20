@@ -128,6 +128,12 @@ namespace DatabaseAccessLib
         IEnumerable<OrderDTO> GetAllOrders();
 
         /// <summary>
+        /// returns the number of records in the orders table
+        /// </summary>
+        /// <returns></returns>
+        int GetOrdersCount();
+
+        /// <summary>
         /// Returns a collection of all orders in the database including the subtotal of those orders
         /// </summary>
         /// <returns></returns>

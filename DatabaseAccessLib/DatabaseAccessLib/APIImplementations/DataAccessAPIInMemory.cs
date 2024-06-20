@@ -132,7 +132,15 @@ namespace DatabaseAccessLib
                 Order_Details = _db.AllOrderDetails.Where(t => t.OrderID == a.OrderID).ToList(),
                 Shipper = _db.AllShippers.FirstOrDefault(t => t.ShipperID == a.ShipVia)
             });
-   
+
+        }
+
+        /// <inheritdoc />
+        public int GetOrdersCount()
+        {
+            Validate();
+
+            return _db.AllOrders.Count();
         }
 
         /// <inheritdoc />

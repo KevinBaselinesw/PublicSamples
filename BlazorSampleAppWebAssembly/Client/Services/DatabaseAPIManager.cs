@@ -227,6 +227,23 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<int> GetOrdersCount()
+    {
+        try
+        {
+            string url = $"{_controllerName}/GetOrdersCount";
+            var result = await http.GetAsync(url);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<int>(responseBody);
+            return response;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
+    }
+
     public async Task<IEnumerable<OrderDTO>> GetOrders(int skip, int take)
     {
         try

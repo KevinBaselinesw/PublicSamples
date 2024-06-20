@@ -138,6 +138,15 @@ namespace DatabaseAccessLib
         }
 
         /// <inheritdoc />
+        public int GetOrdersCount()
+        {
+            using (var dbContext = new NorthWindsModel())
+            {
+                return dbContext.Orders.Count();
+            }
+        }
+
+        /// <inheritdoc />
         public IEnumerable<OrderWithSubtotalDTO> GetAllOrdersWithSubtotals()
         {
             using (var dbContext = new NorthWindsModel())
