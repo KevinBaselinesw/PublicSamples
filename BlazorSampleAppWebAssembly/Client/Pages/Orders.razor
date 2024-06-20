@@ -25,9 +25,9 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of orders</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
-                        PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        PageSize="13" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="OrderDTO" Data="@AllOrders" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedOrder
                         RowSelect="UserRowSelected"
@@ -59,9 +59,9 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersDetailsTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid2
+        <RadzenDataGrid @ref=@radzenDataGrid2 Style="height:800px"
                         AllowFiltering="false" AllowPaging="true" LoadData="@LoadData"
-                        PageSize="15" AllowSorting="true" Data="@OrderDetails" TItem="Order_Details_ExtendedDTO">
+                        PageSize="13" AllowSorting="true" Data="@OrderDetails" TItem="Order_Details_ExtendedDTO">
             <Columns>
                 <RadzenDataGridColumn Property="ProductName" Title="Product" Width="160px" />
                 <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="160px" />
