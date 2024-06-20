@@ -25,9 +25,9 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of suppliers</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
-                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        PageSize="12" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="SupplierDTO" Data="@AllSuppliers" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedSupplier
                         RowSelect="UserRowSelected"
@@ -38,10 +38,10 @@
                 <RadzenDataGridColumn Property="CompanyName" Title="Company Name" Width="160px" />
                 <RadzenDataGridColumn Property="ContactName" Title="Contact" Width="160px" />
                 <RadzenDataGridColumn Property="City" Title="City" Width="100px" />
-                <RadzenDataGridColumn Property="Region" Title="Region" Width="100px" />
-                <RadzenDataGridColumn Property="Country" Title="Country" Width="80px" />
-                <RadzenDataGridColumn Property="Phone" Title="Phone" Width="120px" />
-                <RadzenDataGridColumn TItem="SupplierDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
+                <RadzenDataGridColumn Property="Region" Title="Region" Width="60px" />
+                <RadzenDataGridColumn Property="Country" Title="Country" Width="60px" />
+                <RadzenDataGridColumn Property="Phone" Title="Phone" Width="100px" />
+                <RadzenDataGridColumn TItem="SupplierDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="90px">
                     <Template Context="selectedProduct">
                         <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Products" Click="@(() => ShowProductsBySupplier(selectedProduct))" />
                     </Template>
@@ -58,8 +58,8 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">@ProductsBySupplierTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
-                        PageSize="15" AllowSorting="true" Data="@ProductsBySupplier" TItem="ProductDTO">
+        <RadzenDataGrid AllowFiltering="false" AllowPaging="true" Style="height:800px"
+                        PageSize="12" AllowSorting="true" Data="@ProductsBySupplier" TItem="ProductDTO">
             <Columns>
                 <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="50px" />
                 <RadzenDataGridColumn Property="ProductName" Title="Product Name" Width="160px" />

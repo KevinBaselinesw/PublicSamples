@@ -18,31 +18,31 @@
 
 
 <RadzenSplitter Orientation="Orientation.Horizontal" >
-    <RadzenSplitterPane Size="50%" Resizable=true>
+    <RadzenSplitterPane Size="55%" Resizable=true>
 
         <RadzenStack Orientation="Orientation.Horizontal">
             <RadzenImage src="/Images/category.png" asp-append-version="true" width="50px" />
             <RadzenText Style="font-size: 24pt; font-weight:bold">Categories of products</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
-                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="CategoryDTO" Data="@AllCategories" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedCategory
                         RowSelect="UserRowSelected"
                         RowDeselect="UserRowDeselected"
                         RowDoubleClick="UserRowEdit">
             <Columns>
-                <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
-                <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="160px" />
-                <RadzenDataGridColumn Property="Description" Title="Description" Width="160px" />
+                <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="40px" />
+                <RadzenDataGridColumn Property="CategoryName" Title="Category Name" Width="80px" />
+                <RadzenDataGridColumn Property="Description" Title="Description" Width="140px" />
                 <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
                     <Template Context="selectedCategory">
                         <img src="data:image/jpeg;base64, @selectedCategory.PictureBase64" height="64" />
                     </Template>
                 </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="60px">
+                <RadzenDataGridColumn TItem="CategoryDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="85px">
                     <Template Context="selectedCategory">
                         <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Products" Click="@(() => ShowProductsByCategory(selectedCategory))" />
                     </Template>
@@ -52,14 +52,14 @@
         </RadzenDataGrid>
   
     </RadzenSplitterPane>
-    <RadzenSplitterPane Size="50%" Resizable=true>
+    <RadzenSplitterPane Size="45%" Resizable=true>
 
         <RadzenStack Orientation="Orientation.Horizontal">
             <RadzenImage src="/Images/products.png" asp-append-version="true" width="50px" />
             <RadzenText Style="font-size: 24pt; font-weight:bold">@ProductsByCategoryTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
+        <RadzenDataGrid AllowFiltering="false" AllowPaging="true" Style="height:800px"
                         PageSize="15" AllowSorting="true" Data="@ProductsByCategory" TItem="ProductDTO">
             <Columns>
                 <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="50px" />

@@ -25,9 +25,9 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of Customers</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
-                        PageSize="10" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        PageSize="12" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="CustomerDTO" Data="@AllCustomers" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedCustomer
                         RowSelect="UserRowSelected"
@@ -60,10 +60,10 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByCustomerTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid  AllowFiltering="false" AllowPaging="true"
-                        PageSize="15" AllowSorting="true" Data="@OrdersByCustomer" TItem="OrderWithSubtotalDTO">
+        <RadzenDataGrid AllowFiltering="false" AllowPaging="true" Style="height:800px"
+                        PageSize="14" AllowSorting="true" Data="@OrdersByCustomer" TItem="OrderWithSubtotalDTO">
             <Columns>
-                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="50px" />
+                <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="false" Width="60px" />
                 <RadzenDataGridColumn Property="Employee.LastName" Title="Salesman" Width="160px" />
                 <RadzenDataGridColumn Property="OrderDate" Title="Order Date" Width="160px" FormatString="{0:MMMM dd, yyyy}" />
                 <RadzenDataGridColumn Property="RequiredDate" Title="Required Date" Width="100px" FormatString="{0:MMMM dd, yyyy}" />

@@ -25,7 +25,7 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of products</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid
+        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
                         PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="ProductDTO" Data="@AllProducts" LogicalFilterOperator="LogicalFilterOperator.Or"
@@ -37,11 +37,11 @@
                 <RadzenDataGridColumn Property="ProductID" Title="ID" Frozen="true" Width="40px" />
                 <RadzenDataGridColumn Property="ProductName" Title="Product Name" Width="180px" />
                 <RadzenDataGridColumn Property="QuantityPerUnit" Title="Qty Per Unit" Width="120px" />
-                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="70px" />
-                <RadzenDataGridColumn Property="UnitsInStock" Title="In Stock" Width="70px" />
-                <RadzenDataGridColumn Property="UnitsOnOrder" Title="On Order" Width="70px" />
+                <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" Width="60px" />
+                <RadzenDataGridColumn Property="UnitsInStock" Title="In Stock" Width="60px" />
+                <RadzenDataGridColumn Property="UnitsOnOrder" Title="On Order" Width="60px" />
 
-                <RadzenDataGridColumn TItem="ProductDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="70px">
+                <RadzenDataGridColumn TItem="ProductDTO" Property="" Title="" SortOrder="SortOrder.Descending" Width="80px">
                     <Template Context="selectedProduct">
                         <RadzenButton ButtonStyle="ButtonStyle.Info" Size="ButtonSize.Medium" Text="Details" Click="@(() => ShowProductDetails(selectedProduct))" />
                     </Template>
@@ -60,7 +60,7 @@
                 <RadzenText Style="font-size: 24pt; font-weight:bold">@CategoryTitle</RadzenText>
             </RadzenStack>
 
-            <RadzenDataGrid AllowFiltering="false" AllowPaging="true"
+            <RadzenDataGrid AllowFiltering="false" AllowPaging="true" Style="height:800px"
                             PageSize="15" AllowSorting="true" Data="@CategoryOfProduct" TItem="CategoryDTO">
                 <Columns>
                     <RadzenDataGridColumn Property="CategoryID" Title="ID" Frozen="true" Width="50px" />
