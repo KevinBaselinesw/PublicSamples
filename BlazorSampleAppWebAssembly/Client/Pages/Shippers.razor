@@ -53,7 +53,7 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">@OrdersByShipperTitle</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid2 LoadData="@LoadData" Style="height:800px"
+        <RadzenDataGrid @ref=@radzenDataGrid2 LoadData="@LoadData" Count="@ordersCount"  IsLoading="@ordersIsLoading" Style="height:800px"
                         AllowFiltering="false" AllowPaging="true"
                         PageSize="12" AllowSorting="true" Data="@OrdersByShipper" TItem="OrderDTO">
             <Columns>
@@ -81,9 +81,15 @@
 
     string OrdersByShipperTitle;
 
+    Dictionary<int, IEnumerable<OrderDTO>> RetrievedOrders = new Dictionary<int, IEnumerable<OrderDTO>>();
+
+    int ordersCount = 0;
+    bool ordersIsLoading = false;
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
 
         AllShippers = await DataAccessAPI.GetAllShippers();
 
@@ -94,9 +100,22 @@
         OrdersByShipperQueryResult = null;
         radzenDataGrid2.Reload();
 
+        ordersIsLoading = true;
+
         OrdersByShipperTitle = $"Orders sent by {shipper.CompanyName}";
-        OrdersByShipperQueryResult = await DataAccessAPI.GetOrdersByShipVia(shipper.ShipperID);
+
+        if (RetrievedOrders.ContainsKey(shipper.ShipperID))
+        {
+            OrdersByShipperQueryResult = RetrievedOrders[shipper.ShipperID];
+        }
+        else
+        {
+            OrdersByShipperQueryResult = await DataAccessAPI.GetOrdersByShipVia(shipper.ShipperID);
+            RetrievedOrders.Add(shipper.ShipperID, OrdersByShipperQueryResult);
+        }
+
         radzenDataGrid2.Reload();
+
         return;
     }
 
@@ -106,7 +125,17 @@
     /// <param name="args"></param>
     async void LoadData(LoadDataArgs args)
     {
-        OrdersByShipper = OrdersByShipperQueryResult;
+        if (OrdersByShipperQueryResult != null)
+        {
+            ordersCount = OrdersByShipperQueryResult.Count();
+            OrdersByShipper = OrdersByShipperQueryResult.Skip(args.Skip.Value).Take(args.Top.Value);
+            ordersIsLoading = false;
+        }
+        else
+        {
+            ordersCount = 0;
+            OrdersByShipper = null;
+        }
     }
 
 
