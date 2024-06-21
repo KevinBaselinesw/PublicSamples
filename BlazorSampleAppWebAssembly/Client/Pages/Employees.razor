@@ -64,8 +64,9 @@
         </RadzenStack>
 
 
-        <RadzenDataGrid @ref=@radzenDataGrid2 ColumnWidth="150px" AllowFiltering="false" AllowPaging="true" Style="height:800px"
-                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" LoadData="@LoadData" TItem="OrderDTO">
+        <RadzenDataGrid @ref=@radzenDataGrid2 LoadData="@LoadOrderData" Count="@countOrdersByEmployee" IsLoading="@ordersIsLoading" Style="height:800px"
+                        AllowFiltering="false" AllowPaging="true"
+                        PageSize="18" AllowSorting="true" Data="@OrdersByEmployee"   TItem="OrderDTO">
             <Columns>
                 <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="false" Width="70px" />
                 <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
@@ -90,7 +91,8 @@
 
     IEnumerable<OrderDTO> OrdersByEmployee;
     IEnumerable<OrderDTO> OrdersByEmployeeQueryResult;
-
+    int countOrdersByEmployee = 0;
+    bool ordersIsLoading = false;
 
     string OrdersByEmployeeTitle;
 
@@ -112,11 +114,11 @@
 
     private async void ShowOrdersByEmployeeClick(EmployeeDTO employee)
     {
-        OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
-
         OrdersByEmployeeQueryResult = null;
         await radzenDataGrid2.Reload();
 
+
+        OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
 
         OrdersByEmployeeQueryResult = await DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
         await radzenDataGrid2.Reload();
@@ -128,9 +130,19 @@
     /// This just copies the data retrieved in the call to GetOrdersByEmployeeID.  Not sure why but it works better this way.
     /// </summary>
     /// <param name="args"></param>
-    async void LoadData(LoadDataArgs args)
+    async void LoadOrderData(LoadDataArgs args)
     {
-        OrdersByEmployee = OrdersByEmployeeQueryResult;
+        if (OrdersByEmployeeQueryResult != null)
+        {
+            countOrdersByEmployee = OrdersByEmployeeQueryResult.Count();
+            OrdersByEmployee = OrdersByEmployeeQueryResult.Skip(args.Skip.Value).Take(args.Top.Value);
+            ordersIsLoading = false;
+        }
+        else
+        {
+            countOrdersByEmployee = 0;
+            OrdersByEmployee = null;
+        }
     }
 
 
