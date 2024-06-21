@@ -86,6 +86,8 @@
     IList<OrderDTO> selectedOrder;
 
     IEnumerable<OrderDTO> AllOrders;
+    OrderDTO[] CachedOrders = null;
+
     int count;
 
     IEnumerable<Order_Details_ExtendedDTO> OrderDetails;
@@ -151,9 +153,58 @@
         {
         }
 
-        count = await DataAccessAPI.GetOrdersCount();
+        if (CachedOrders == null)
+        {
+            count = await DataAccessAPI.GetOrdersCount();
+            CachedOrders = new OrderDTO[count];
+        }
 
-        AllOrders = await DataAccessAPI.GetOrders(args.Skip.Value, args.Top.Value);
+        int skip = args.Skip.Value;
+        int top = args.Top.Value;
+
+        if (CheckForCachedOrders(skip, top))
+        {
+            AllOrders = CopyFromCache(skip, top);
+        }
+        else
+        {
+            AllOrders = await DataAccessAPI.GetOrders(skip, top);
+            AddToCachedOrders(AllOrders, skip, top);
+        }
+
+    }
+
+    private bool CheckForCachedOrders(int skip, int take)
+    {
+        for (int i = skip; i < skip + take; i++)
+        {
+            if (CachedOrders[i] == null)
+                return false;
+        }
+
+        return true;
+    }
+
+
+    private void AddToCachedOrders(IEnumerable<OrderDTO> ordersToAdd, int skip, int take)
+    {
+        int j = 0;
+        for (int i = skip; i < skip+take; i++)
+        {
+            CachedOrders[i] = ordersToAdd.ElementAt(j); j++;
+        }
+    }
+
+    private IEnumerable<OrderDTO> CopyFromCache(int skip, int take)
+    {
+        List<OrderDTO> Copied = new List<OrderDTO>(count);
+        for (int i = skip; i < skip + take; i++)
+        {
+            Copied.Add(CachedOrders[i]);
+        }
+
+        return Copied;
+
     }
 
     private async void UserRowSelected(OrderDTO employee)
