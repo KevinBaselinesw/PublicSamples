@@ -91,7 +91,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        AllOrders = await DataAccessAPI.GetOrders(10, 100);
+        AllOrders = await DataAccessAPI.GetAllOrders();
 
         await base.OnInitializedAsync();
 
