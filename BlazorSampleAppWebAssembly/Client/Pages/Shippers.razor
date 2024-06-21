@@ -26,7 +26,7 @@
 
         <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
-                        PageSize="15" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        PageSize="12" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
                         TItem="ShipperDTO" Data="@AllShippers" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedShipper
                         RowSelect="UserRowSelected"
@@ -55,7 +55,7 @@
 
         <RadzenDataGrid @ref=@radzenDataGrid2 LoadData="@LoadData" Style="height:800px"
                         AllowFiltering="false" AllowPaging="true"
-                        PageSize="15" AllowSorting="true" Data="@OrdersByShipper" TItem="OrderDTO">
+                        PageSize="12" AllowSorting="true" Data="@OrdersByShipper" TItem="OrderDTO">
             <Columns>
                 <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="50px" />
                 <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
