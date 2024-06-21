@@ -117,6 +117,8 @@
         OrdersByEmployeeQueryResult = null;
         await radzenDataGrid2.Reload();
 
+        ordersIsLoading = true;
+
 
         OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
 
