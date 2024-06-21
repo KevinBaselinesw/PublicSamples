@@ -64,7 +64,7 @@
         </RadzenStack>
 
         <RadzenDataGrid ColumnWidth="150px" AllowFiltering="false" AllowPaging="true" Style="height:800px"
-                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" TItem="OrderDTO">
+                        PageSize="15" AllowSorting="true" Data="@OrdersByEmployee" Count="@ordersByEmployeeCount" TItem="OrderDTO">
             <Columns>
                 <RadzenDataGridColumn Property="OrderID" Title="ID" Frozen="true" Width="30px" />
                 <RadzenDataGridColumn Property="Customer.CompanyName" Title="Customer Name" Width="160px" />
@@ -86,6 +86,7 @@
     IEnumerable<EmployeeDTO> AllEmployees;
 
     IEnumerable<OrderDTO> OrdersByEmployee;
+    int ordersByEmployeeCount;
 
     string OrdersByEmployeeTitle;
 
@@ -106,6 +107,7 @@
     {
         OrdersByEmployeeTitle = $"Sales orders for {employee.FirstName} {employee.LastName}";
         OrdersByEmployee = DataAccessAPI.GetOrdersByEmployeeID(employee.EmployeeID);
+        ordersByEmployeeCount = OrdersByEmployee.Count();
         return;
     }
 
