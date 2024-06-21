@@ -16,6 +16,7 @@
 
 <PageTitle>Orders</PageTitle>
 
+@* <EventConsole @ref=@console /> *@
 
 <RadzenSplitter Orientation="Orientation.Horizontal">
     <RadzenSplitterPane Size="60%" Resizable=true>
@@ -25,10 +26,10 @@
             <RadzenText Style="font-size: 24pt; font-weight:bold">List of orders</RadzenText>
         </RadzenStack>
 
-        <RadzenDataGrid @ref=@radzenDataGrid Style="height:800px"
+        <RadzenDataGrid @ref=@radzenDataGrid Data="@AllOrders" Count="@count" LoadData="@LoadOrderData" AllowVirtualization="true" Style="height:800px"
                         AllowFiltering="false" AllowColumnResize="true" AllowAlternatingRows="true" FilterMode="FilterMode.Simple" AllowSorting="true"
-                        PageSize="13" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                        TItem="OrderDTO" Data="@AllOrders" LogicalFilterOperator="LogicalFilterOperator.Or"
+                        PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                        TItem="OrderDTO" LogicalFilterOperator="LogicalFilterOperator.Or"
                         SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedOrder
                         RowSelect="UserRowSelected"
                         RowDeselect="UserRowDeselected"
@@ -76,12 +77,16 @@
 
 
 @code {
+
+    EventConsole console;
+
     RadzenDataGrid<OrderDTO> radzenDataGrid;
     RadzenDataGrid<Order_Details_ExtendedDTO> radzenDataGrid2;
 
     IList<OrderDTO> selectedOrder;
 
     IEnumerable<OrderDTO> AllOrders;
+    int count;
 
     IEnumerable<Order_Details_ExtendedDTO> OrderDetails;
     IEnumerable<Order_Details_ExtendedDTO> OrderDetailsQueryResult;
@@ -91,7 +96,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        AllOrders = await DataAccessAPI.GetAllOrders();
+        //AllOrders = await DataAccessAPI.GetAllOrders();
 
         await base.OnInitializedAsync();
 
@@ -121,7 +126,35 @@
         OrderDetails = OrderDetailsQueryResult;
     }
 
+    string lastfilter;
+    async Task LoadOrderData(LoadDataArgs args)
+    {
+        await Task.Yield();
 
+        if (!string.IsNullOrEmpty(args.Filter) && lastfilter != args.Filter)
+        {
+            args.Skip = 0;
+        }
+
+        //console.Log($"Skip: {args.Skip}, Top: {args.Top}");
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            lastfilter = args.Filter;
+        }
+        else
+        {
+        }
+
+        if (!string.IsNullOrEmpty(args.OrderBy))
+        {
+        }
+
+        count = await DataAccessAPI.GetOrdersCount();
+
+        AllOrders = await DataAccessAPI.GetOrders(args.Skip.Value, args.Top.Value);
+    }
 
     private async void UserRowSelected(OrderDTO employee)
     {
