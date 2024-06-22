@@ -64,7 +64,7 @@
         </Menu>
        
         <ToolBarTray Background="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="99"  Margin="5">
-            <ToolBar Background="White" Width="{Binding Path=ActualWidth, ElementName=MainGrid}" ToolBarTray.IsLocked="True">
+            <ToolBar Background="White" Width="Auto" ToolBarTray.IsLocked="True">
                 <Button Style="{StaticResource SubsystemSelector}" Click="Employees_Click">
                     <StackPanel>
                         <TextBlock>Employees</TextBlock>
@@ -113,6 +113,15 @@
                         <TextBlock>Shippers</TextBlock>
                         <TextBlock></TextBlock>
                         <Image Source="Icons\shippers32.png" Style="{StaticResource SubsystemSelectorImage}" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <ToolBar Background="White" Width="Auto" ToolBarTray.IsLocked="True">>
+                <Button Style="{StaticResource SubsystemSelector}" Click="CreateNewOrder_Click">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center">Create New</TextBlock>
+                        <TextBlock HorizontalAlignment="Center">Order</TextBlock>
+                        <Image Source="Icons\orders32.png" Style="{StaticResource SubsystemSelectorImage}" />
                     </StackPanel>
                 </Button>
             </ToolBar>

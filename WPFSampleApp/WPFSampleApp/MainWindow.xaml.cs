@@ -341,5 +341,11 @@ namespace WPFSampleApp
             }
 
         }
+
+        private void CreateNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var CreateDlg = new CreateNewOrder();
+            bool? bReturn = CreateDlg.ShowDialog();
+        }
     }
 }

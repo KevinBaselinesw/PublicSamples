@@ -78,6 +78,9 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ConverterFunctions\Converters.cs" />
+    <Compile Include="Dialogs\CreateNewOrder.xaml.cs">
+      <DependentUpon>CreateNewOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DatabaseDaysToAdjust.xaml.cs">
       <DependentUpon>DatabaseDaysToAdjust.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
     <Compile Include="UserControls\Suppliers.xaml.cs">
       <DependentUpon>Suppliers.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\CreateNewOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\DatabaseDaysToAdjust.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
