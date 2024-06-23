@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFSampleApp.Dialogs"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="Create New Order" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Salesman" FontWeight="Bold"/>
+        <ComboBox Grid.Row="1" Grid.Column="0" x:Name="SalesmanCB" Width="150" Height="Auto"/>
+
+        <Label Grid.Row="0" Grid.Column="2" Content="Customer" FontWeight="Bold"/>
+        <ComboBox Grid.Row="1" Grid.Column="2" x:Name="CustomerCB" Width="250" Height="Auto"/>
+
+        <Label Grid.Row="0" Grid.Column="4" Content="Shipper" FontWeight="Bold"/>
+        <ComboBox Grid.Row="1" Grid.Column="4" x:Name="ShipperCB" Width="150" Height="Auto"/>
+
+        <Button Grid.Row="4" Grid.Column="2" x:Name="SaveOrderButton" Content="Save Order" Click="SaveOrderButton_Click"/>
+
     </Grid>
 </Window>

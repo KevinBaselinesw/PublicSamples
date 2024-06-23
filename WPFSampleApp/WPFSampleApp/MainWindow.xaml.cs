@@ -344,7 +344,7 @@ namespace WPFSampleApp
 
         private void CreateNewOrder_Click(object sender, RoutedEventArgs e)
         {
-            var CreateDlg = new CreateNewOrder();
+            var CreateDlg = new CreateNewOrder(DataAccessAPI);
             bool? bReturn = CreateDlg.ShowDialog();
         }
     }
