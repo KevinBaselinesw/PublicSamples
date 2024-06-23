@@ -137,6 +137,37 @@ namespace DatabaseAccessLib
             }
         }
 
+        public OrderDTO CreateNewOrder(OrderDTO newOrder)
+        {
+            Order order = new Order();
+            order.CustomerID = newOrder.CustomerID;
+            order.EmployeeID = newOrder.EmployeeID;
+            order.OrderDate = newOrder.OrderDate;
+            order.RequiredDate = newOrder.RequiredDate;
+            order.ShippedDate = newOrder.ShippedDate;
+            order.ShipVia = newOrder.ShipVia;
+
+            foreach (var odDTO in newOrder.Order_Details)
+            {
+                Order_Detail od = new Order_Detail();
+                od.ProductID = odDTO.ProductID;
+                od.Quantity = odDTO.Quantity;
+                od.UnitPrice = odDTO.UnitPrice;
+                od.Discount = odDTO.Discount;
+
+                order.Order_Details.Add(od);
+            }
+
+            using (var dbContext = new NorthWindsModel())
+            {
+                var MyOrder = dbContext.Orders.Add(order);
+                dbContext.SaveChanges();
+                     
+                var DTOArray = DTOConversions.ConvertToOrdersDTO(new[] { MyOrder });
+                return DTOArray[0];
+            }
+        }
+
         /// <inheritdoc />
         public int GetOrdersCount()
         {

@@ -171,6 +171,14 @@ namespace DatabaseAccessLib
         IEnumerable<Orders_QryDTO> GetAllOrdersQry();
 
         /// <summary>
+        /// Adds a new order to the database
+        /// </summary>
+        /// <param name="newOrder"></param>
+        /// <returns></returns>
+        OrderDTO CreateNewOrder(OrderDTO newOrder);
+
+
+        /// <summary>
         /// Returns a collection of all suppliers in the database
         /// </summary>
         /// <returns></returns>

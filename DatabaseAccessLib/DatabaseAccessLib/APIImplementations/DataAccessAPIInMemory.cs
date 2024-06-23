@@ -136,6 +136,58 @@ namespace DatabaseAccessLib
         }
 
         /// <inheritdoc />
+        public OrderDTO CreateNewOrder(OrderDTO newOrder)
+        {
+
+            _db.AllOrders.Add(NextID(newOrder));
+            foreach (var od in newOrder.Order_Details)
+            {
+                od.OrderID = newOrder.OrderID;
+                _db.AllOrderDetails.Add(od);
+                _db.All_OrderDetailsExtended.Add(Convert(od));
+            }
+            _db.All_OrderSubtotals.Add(ConvertToSubtotals(newOrder));
+
+            return newOrder;
+        }
+
+        private Order_SubtotalDTO ConvertToSubtotals(OrderDTO od)
+        {
+            Order_SubtotalDTO newOST = new Order_SubtotalDTO();
+            newOST.OrderID = od.OrderID;
+            newOST.Subtotal = 0;
+
+            foreach (var detail in od.Order_Details)
+            {
+                newOST.Subtotal += detail.UnitPrice * detail.Quantity;
+            }
+
+            return newOST;
+        }
+
+        private Order_Details_ExtendedDTO Convert(Order_DetailDTO od)
+        {
+            Order_Details_ExtendedDTO extendedDTO = new Order_Details_ExtendedDTO();
+            extendedDTO.OrderID = od.OrderID;
+            extendedDTO.ProductID = od.ProductID;
+            extendedDTO.ProductName = _db.AllProducts.First(t=>t.ProductID == od.ProductID).ProductName;
+            extendedDTO.UnitPrice = od.UnitPrice;
+            extendedDTO.Quantity = od.Quantity;
+            extendedDTO.Discount = od.Discount;
+            extendedDTO.ExtendedPrice = od.UnitPrice - (od.UnitPrice * (decimal)od.Discount);
+
+            return extendedDTO;
+        }
+
+        private OrderDTO NextID(OrderDTO newOrder)
+        {
+            int MaxId = _db.AllOrders.Max(x => x.OrderID);
+            newOrder.OrderID = MaxId + 1;
+            return newOrder;
+        }
+
+
+        /// <inheritdoc />
         public int GetOrdersCount()
         {
             Validate();
