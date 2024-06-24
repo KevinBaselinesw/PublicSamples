@@ -1,6 +1,7 @@
 ﻿using DatabaseAccessLib;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace WPFSampleApp.Dialogs
     public partial class CreateNewOrder : Window
     {
         IDataAccessAPI DataAccessAPI;
+        ObservableCollection<ProductDTO> AllProducts;
 
         public CreateNewOrder(IDataAccessAPI DataAccessAPI)
         {
@@ -41,6 +43,9 @@ namespace WPFSampleApp.Dialogs
             var Shippers = DataAccessAPI.GetAllShippers();
             ShipperCB.ItemsSource = Shippers;
             ShipperCB.DisplayMemberPath = "CompanyName";
+
+            AllProducts = new ObservableCollection<ProductDTO>(DataAccessAPI.GetAllProducts());
+            ProductGrid.ItemsSource = AllProducts;
         }
 
         private IEnumerable<ComboBoxEmployee> Convert(IEnumerable<EmployeeDTO> employeeDTOs)
@@ -57,6 +62,12 @@ namespace WPFSampleApp.Dialogs
             }
 
             return CBEmployees;
+        }
+
+        private void CancelOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Close();
         }
 
         private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
@@ -126,6 +137,30 @@ namespace WPFSampleApp.Dialogs
             FakedOrders.Add(Order2);
 
             return FakedOrders;
+        }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                int ProductID = (int)btn.Tag;
+
+                var RemovedItem = AllProducts.FirstOrDefault(t => t.ProductID == ProductID);
+                AllProducts.Remove(RemovedItem);
+               // ProductGrid.
+            }
+            return;
+        }
+
+        private void ProductGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            return;
+        }
+
+        private void ProductGrid_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
+        {
+            return;
         }
     }
 
