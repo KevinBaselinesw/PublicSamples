@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,7 +24,7 @@ namespace WPFSampleApp.Dialogs
     public partial class CreateNewOrder : Window
     {
         IDataAccessAPI DataAccessAPI;
-        ObservableCollection<ProductDTO> AllProducts;
+        ObservableCollection<CreateNewOrderInfo> EnteredProducts;
 
         public CreateNewOrder(IDataAccessAPI DataAccessAPI)
         {
@@ -44,8 +46,10 @@ namespace WPFSampleApp.Dialogs
             ShipperCB.ItemsSource = Shippers;
             ShipperCB.DisplayMemberPath = "CompanyName";
 
-            AllProducts = new ObservableCollection<ProductDTO>(DataAccessAPI.GetAllProducts());
-            ProductGrid.ItemsSource = AllProducts;
+            EnteredProducts = new ObservableCollection<CreateNewOrderInfo>();
+            ProductGrid.ItemsSource = EnteredProducts;
+
+            ProductNameCB.ItemsSource = DataAccessAPI.GetAllProducts();
         }
 
         private IEnumerable<ComboBoxEmployee> Convert(IEnumerable<EmployeeDTO> employeeDTOs)
@@ -146,30 +150,152 @@ namespace WPFSampleApp.Dialogs
             {
                 int ProductID = (int)btn.Tag;
 
-                var RemovedItem = AllProducts.FirstOrDefault(t => t.ProductID == ProductID);
-                AllProducts.Remove(RemovedItem);
-               // ProductGrid.
+                var RemovedItem = EnteredProducts.FirstOrDefault(t => t.ProductID == ProductID);
+                EnteredProducts.Remove(RemovedItem);
             }
             return;
         }
 
-        private void ProductGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        private void ProductGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            if (e.Column.SortMemberPath == nameof(CreateNewOrderInfo.Quantity))
+            {
+                CreateNewOrderInfo OrderInfo = e.Row.DataContext as CreateNewOrderInfo;
+                var QuantityTB = e.EditingElement as TextBox;
+
+                int EnteredQuantity = 0;
+                if (int.TryParse(QuantityTB.Text,  out EnteredQuantity))
+                {
+                    OrderInfo.SubTotal = OrderInfo.UnitPrice * EnteredQuantity;
+                }
+                else
+                {
+                    OrderInfo.SubTotal = 0;
+                    OrderInfo.Quantity = 0;
+                }
+
+                
+                return;
+            }
             return;
         }
 
-        private void ProductGrid_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
+    
+        private void ProductNameCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ProductDTO productDTO = e.AddedItems[0] as ProductDTO;
+
+            var rowToModify = ProductGrid.CurrentItem as CreateNewOrderInfo;
+    
+            // modify what you want
+            rowToModify.ProductID = productDTO.ProductID;
+            rowToModify.ProductName = productDTO.ProductName;
+            rowToModify.UnitPrice = productDTO.UnitPrice;
+ 
+            e.Handled = true;
+
             return;
         }
+
     }
-
-
-
 
     public class ComboBoxEmployee
     {
         public string Name { get; set; }
         public int id { get; set; }
     }
+
+    public class CreateNewOrderInfo : INotifyPropertyChanged
+    {
+        public CreateNewOrderInfo()
+        {
+        }
+
+        // INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+   
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        // INotifyPropertyChanged
+
+        private int _ProductID;
+        public int ProductID
+        {
+            get
+            {
+                return this._ProductID;
+            }
+
+            set
+            {
+                if (value != this._ProductID)
+                {
+                    this._ProductID = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string ProductName { get; set; }
+
+        public int? _Quantity;
+        public int? Quantity
+        {
+            get
+            {
+                return this._Quantity;
+            }
+
+            set
+            {
+                if (value != this._Quantity)
+                {
+                    this._Quantity = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private decimal? _UnitPrice;
+        public decimal? UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+
+            set
+            {
+                if (value != this._UnitPrice)
+                {
+                    this._UnitPrice = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private decimal? _SubTotal;
+        public decimal? SubTotal
+        {
+            get
+            {
+                return this._SubTotal;
+            }
+
+            set
+            {
+                if (value != this._SubTotal)
+                {
+                    this._SubTotal = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
+    }
+
+
 }
