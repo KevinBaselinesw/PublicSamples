@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:WPFSampleApp.ConverterFunctions"
         xmlns:local="clr-namespace:WPFSampleApp.Dialogs"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Title="Create New Order" Height="450" Width="800">
+    <Window.Resources>
+        <converters:DecimalToCurrencyConverter x:Key="decimalToCurrencyConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,6 +20,8 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -31,12 +37,12 @@
         <Label Grid.Row="0" Grid.Column="4" Content="Shipper" FontWeight="Bold"/>
         <ComboBox Grid.Row="1" Grid.Column="4" x:Name="ShipperCB" Width="150" Height="Auto"/>
 
-        <DataGrid x:Name="ProductGrid" MaxHeight="400" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False"   
+        <DataGrid x:Name="ProductGrid" MaxHeight="400" Height="Auto" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" AutoGenerateColumns="False"   
             IsReadOnly="False" CellEditEnding="ProductGrid_CellEditEnding" 
             CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ProductID}" Visibility="Hidden"/>
-                <DataGridComboBoxColumn x:Name="ProductNameCB" 
+                <DataGridComboBoxColumn x:Name="ProductNameCB" MinWidth="300"
                                         TextBinding="{Binding ProductName}" Header="Product Name" DisplayMemberPath="ProductName" 
                                         SelectedValuePath="ProductID"  IsReadOnly="False" >
                     <DataGridComboBoxColumn.EditingElementStyle>
@@ -46,8 +52,8 @@
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>
                 <DataGridTextColumn Header="Qty Ordered" Binding="{Binding Quantity}"/>
-                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Sub Total" Binding="{Binding SubTotal}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, Converter={StaticResource decimalToCurrencyConverter}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Sub Total" Binding="{Binding SubTotal, Converter={StaticResource decimalToCurrencyConverter}}" IsReadOnly="True"/>
 
                 <DataGridTemplateColumn Header="Remove">
                     <DataGridTemplateColumn.CellTemplate>
@@ -59,9 +65,10 @@
        
             </DataGrid.Columns>
         </DataGrid>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Right" Margin="2" Content="Add" Click="AddItem_Click" />
 
-        <Button Grid.Row="3" Grid.Column="2" x:Name="CancelOrderButton" Content="Cancel Order" Click="CancelOrderButton_Click"/>
-        <Button Grid.Row="3" Grid.Column="4" x:Name="SaveOrderButton" Content="Save Order" Click="SaveOrderButton_Click"/>
+        <Button Grid.Row="5" Grid.Column="2" x:Name="CancelOrderButton" Content="Cancel Order" Click="CancelOrderButton_Click"/>
+        <Button Grid.Row="5" Grid.Column="4" x:Name="SaveOrderButton" Content="Save Order" Click="SaveOrderButton_Click"/>
 
     </Grid>
 </Window>

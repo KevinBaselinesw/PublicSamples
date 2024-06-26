@@ -46,7 +46,7 @@ namespace WPFSampleApp.Dialogs
             ShipperCB.ItemsSource = Shippers;
             ShipperCB.DisplayMemberPath = "CompanyName";
 
-            EnteredProducts = new ObservableCollection<CreateNewOrderInfo>();
+            EnteredProducts = null;
             ProductGrid.ItemsSource = EnteredProducts;
 
             ProductNameCB.ItemsSource = DataAccessAPI.GetAllProducts();
@@ -148,12 +148,30 @@ namespace WPFSampleApp.Dialogs
             Button btn = sender as Button;
             if (btn != null)
             {
-                int ProductID = (int)btn.Tag;
+                if (btn.Tag != null)
+                {
+                    int ProductID = (int)btn.Tag;
 
-                var RemovedItem = EnteredProducts.FirstOrDefault(t => t.ProductID == ProductID);
-                EnteredProducts.Remove(RemovedItem);
+                    var RemovedItem = EnteredProducts.FirstOrDefault(t => t.ProductID == ProductID);
+                    EnteredProducts.Remove(RemovedItem);
+                }
+
             }
             return;
+        }
+
+
+        private void AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (EnteredProducts == null)
+            {
+                EnteredProducts = new ObservableCollection<CreateNewOrderInfo>();
+                ProductGrid.ItemsSource = EnteredProducts;
+            }
+            else
+            {
+                EnteredProducts.Add(new CreateNewOrderInfo());
+            }
         }
 
         private void ProductGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

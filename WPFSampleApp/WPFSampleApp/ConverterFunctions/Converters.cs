@@ -159,6 +159,8 @@ namespace WPFSampleApp.ConverterFunctions
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+                return null;
             Decimal decValue = (Decimal)value;
             return decValue.ToString("C", CultureInfo.CurrentCulture);
         }
