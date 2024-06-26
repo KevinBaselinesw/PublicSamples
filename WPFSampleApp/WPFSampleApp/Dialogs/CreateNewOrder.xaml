@@ -67,6 +67,7 @@
         </DataGrid>
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Right" Margin="2" Content="Add" Click="AddItem_Click" />
 
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" x:Name="OrderTotalTB" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
         <Button Grid.Row="5" Grid.Column="2" x:Name="CancelOrderButton" Content="Cancel Order" Click="CancelOrderButton_Click"/>
         <Button Grid.Row="5" Grid.Column="4" x:Name="SaveOrderButton" Content="Save Order" Click="SaveOrderButton_Click"/>
 
