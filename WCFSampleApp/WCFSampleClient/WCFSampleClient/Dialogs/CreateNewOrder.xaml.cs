@@ -171,7 +171,7 @@ namespace WCFSampleClient.Dialogs
             Close();
         }
 
-        private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveOrderButton_Click(object sender, RoutedEventArgs e)
         {
             ComboBoxEmployee cbe = SalesmanCB.SelectedValue as ComboBoxEmployee;
             if (cbe == null)
@@ -246,9 +246,16 @@ namespace WCFSampleClient.Dialogs
 
             if (WCFType == WCFType.REST)
             {
-                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+                try
+                {
+                    RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+                    newOrder = await RestClient.Post<OrderDTO, OrderDTO>("CreateNewOrder", newOrder);
+                }
+                catch
+                {
 
-                //newOrder = await RestClient.Post<List<EmployeeDTO>>("GetAllEmployees", null);
+                }
+
             }
 
             if (newOrder != null && newOrder.OrderID > 0)

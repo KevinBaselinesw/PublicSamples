@@ -34,6 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -77,6 +78,44 @@ namespace UtilityFunctions
             }
 
             return default(T);
+        }
+
+        public async Task<R> Post<R,T>(string api, T model)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                try
+                {
+                    DefaultHttpClientSetup(client);
+
+                    string queryString = BuildQueryString(api, null);
+
+                    var settings = new JsonSerializerSettings();
+                    settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;  // important for WCF
+                    var jsonContent = JsonConvert.SerializeObject(model, settings);
+
+                    var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    contentString.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(queryString, contentString);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        R DeserializedResource = JsonConvert.DeserializeObject<R>(json);
+
+                        return DeserializedResource;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+
+            return default(R);
         }
 
         private void DefaultHttpClientSetup(HttpClient client)
