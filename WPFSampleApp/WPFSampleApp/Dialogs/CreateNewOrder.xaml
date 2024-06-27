@@ -62,21 +62,35 @@
                 <DataGridTemplateColumn Header="Remove">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Margin="2" Content="Remove" Tag="{Binding ProductID}" Click="RemoveItem_Click" />
+                            <Button Margin="0" Tag="{Binding ProductID}" Click="RemoveItem_Click" Height="22" Background="Transparent">
+                                <Image Source="..\Icons\minus32.png" Stretch="None" VerticalAlignment="Center" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
        
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Right" Content="Add" Click="AddItem_Click"  Margin="10"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Right" Click="AddItem_Click"  Margin="10,-5,10,10" >
+                <Image Source="..\Icons\plus32.png" Stretch="None" />
+        </Button>
 
         <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="OrderTotalTB" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"  Margin="10"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Right">
-            <Button x:Name="SaveOrderButton" Content="Save Order" Click="SaveOrderButton_Click" Width="100" HorizontalAlignment="Right" Margin="10"/>
+            <Button x:Name="SaveOrderButton" Click="SaveOrderButton_Click" Width="120" HorizontalAlignment="Right" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Icons\Sale32.png" Stretch="None"  />
+                    <TextBlock VerticalAlignment="Center" Margin="5">Save Order</TextBlock>
+                </StackPanel>
+            </Button>
 
-            <Button x:Name="CancelOrderButton" Content="Cancel Order" Click="CancelOrderButton_Click"  Width="100" HorizontalAlignment="Right" Margin="10"/>
+            <Button x:Name="CancelOrderButton" Click="CancelOrderButton_Click"  Width="120" HorizontalAlignment="Right" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="..\Icons\close32.png" Stretch="None" />
+                    <TextBlock VerticalAlignment="Center" Margin="5">Cancel Order</TextBlock>
+                </StackPanel>
+            </Button>
 
         </StackPanel>
 

@@ -79,27 +79,27 @@ namespace WPFSampleApp.Dialogs
             ComboBoxEmployee cbe = SalesmanCB.SelectedValue as ComboBoxEmployee;
             if (cbe == null)
             {
-                MessageBox.Show("Must select an employee for this order");
+                MessageBox.Show("Must select an employee for this order", "Create New Order", MessageBoxButton.OK);
                 return;
             }
 
             CustomerDTO customer = CustomerCB.SelectedValue as CustomerDTO;
             if (customer == null)
             {
-                MessageBox.Show("Must select a customer for this order");
+                MessageBox.Show("Must select a customer for this order", "Create New Order", MessageBoxButton.OK);
                 return;
             }
 
             ShipperDTO shipper = ShipperCB.SelectedValue as ShipperDTO;
             if (shipper == null)
             {
-                MessageBox.Show("Must select a shipper for this order");
+                MessageBox.Show("Must select a shipper for this order", "Create New Order", MessageBoxButton.OK);
                 return;
             }
 
             if (EnteredProducts == null || EnteredProducts.Count() == 0)
             {
-                MessageBox.Show("No products have been entered for this order");
+                MessageBox.Show("No products have been entered for this order", "Create New Order", MessageBoxButton.OK);
                 return;
             }
 
@@ -130,11 +130,11 @@ namespace WPFSampleApp.Dialogs
             newOrder = DataAccessAPI.CreateNewOrder(newOrder);
             if (newOrder != null && newOrder.OrderID > 0)
             {
-                MessageBox.Show("Order successfully added to system", "success", MessageBoxButton.OK);
+                MessageBox.Show("Order successfully added to system", "Create New Order", MessageBoxButton.OK);
             }
             else
             {
-                MessageBox.Show("Order not added to database!", "failure", MessageBoxButton.OK);
+                MessageBox.Show("Order not added to database!", "Create New Order", MessageBoxButton.OK);
             }
 
             return;
