@@ -111,6 +111,10 @@ namespace WPFSampleApp.Dialogs
             newOrder.RequiredDate = ShippingDate.SelectedDate ?? DateTime.Now.AddDays(3);
 
             newOrder.ShipVia = shipper.ShipperID;
+
+            if (ValidateEnteredOrderDetails() < 0)
+                return;
+
             newOrder.Order_Details = EnteredOrderDetails();
 
             // Fill out the rest of the order.  Doesn't appear to be used
@@ -135,6 +139,31 @@ namespace WPFSampleApp.Dialogs
 
             return;
 
+        }
+
+        private int ValidateEnteredOrderDetails()
+        {
+            foreach (var enteredProduct in EnteredProducts)
+            {
+                if (enteredProduct.ProductID <= 0)
+                    continue;
+
+                if (enteredProduct.Quantity == null || enteredProduct.Quantity <= 0)
+                {
+                    MessageBox.Show($"{enteredProduct.ProductName} has an invalid quantity!");
+                    return -1; 
+                }
+
+                if (enteredProduct.SubTotal == null || enteredProduct.SubTotal <= 0)
+                {
+                    MessageBox.Show($"{enteredProduct.ProductName} has an invalid subtotal!");
+                    return -1;
+                }
+  
+            }
+
+            EnteredProducts = new ObservableCollection<CreateNewOrderInfo>(EnteredProducts.Where(t=>t.ProductID > 0));
+            return 0;
         }
 
         private List<Order_DetailDTO> EnteredOrderDetails()
