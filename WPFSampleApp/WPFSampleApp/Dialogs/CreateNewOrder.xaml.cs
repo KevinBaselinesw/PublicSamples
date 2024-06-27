@@ -162,6 +162,7 @@ namespace WPFSampleApp.Dialogs
             if (newOrder != null && newOrder.OrderID > 0)
             {
                 MessageBox.Show("Order successfully added to system", "Create New Order", MessageBoxButton.OK);
+                SaveOrderButton.IsEnabled = false;
             }
             else
             {
