@@ -74,6 +74,40 @@ public class DatabaseAPIController : ControllerBase
         }
     }
 
+    [HttpPost]
+    public async Task<ActionResult<APIEntityResponse<OrderDTO>>> CreateNewOrder(OrderDTO newOrder)
+    {
+        try
+        {
+            await Task.Delay(0);
+
+            var result = database.CreateNewOrder(newOrder);
+            if (result != null)
+            {
+                return Ok(new APIEntityResponse<OrderDTO>()
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            else
+            {
+                return Ok(new APIEntityResponse<OrderDTO>()
+                {
+                    Success = false,
+                    ErrorMessages = new List<string>() { "unable to create order record" },
+                    Data = null
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            // log exception here
+            return StatusCode(500);
+        }
+    }
+
+
     [HttpGet]
     public async Task<ActionResult<APIListOfEntityResponse<CategoryDTO>>> GetAllProductCategories()
     {

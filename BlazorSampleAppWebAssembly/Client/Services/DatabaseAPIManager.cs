@@ -66,6 +66,29 @@ public class DatabaseAPIManager
         }
     }
 
+    public async Task<OrderDTO> CreateNewOrder(OrderDTO Order)
+    {
+        try
+        {
+            var url = $"{_controllerName}/CreateNewOrder";
+
+            JsonSerializerOptions Options = new JsonSerializerOptions();
+            var result = await http.PostAsJsonAsync(url, Order, Options);
+            result.EnsureSuccessStatusCode();
+            string responseBody = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<APIEntityResponse<OrderDTO>>(responseBody);
+            if (response.Success)
+                return response.Data;
+            else
+                return new OrderDTO();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+
     public async Task<IEnumerable<CategoryDTO>> GetAllProductCategories()
     {
         try
