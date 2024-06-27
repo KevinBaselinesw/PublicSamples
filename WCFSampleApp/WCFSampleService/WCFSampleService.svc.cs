@@ -218,7 +218,10 @@ namespace WCFSampleApp
         {
             IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
 
-            newOrder = DatabaseAPI.CreateNewOrder(newOrder);
+            if (newOrder != null)
+            {
+                newOrder = DatabaseAPI.CreateNewOrder(newOrder);
+            }
 
             return newOrder;
         }

@@ -140,12 +140,16 @@ namespace DatabaseAccessLib
         {
 
             _db.AllOrders.Add(NextID(newOrder));
-            foreach (var od in newOrder.Order_Details)
+            if (newOrder.Order_Details != null)
             {
-                od.OrderID = newOrder.OrderID;
-                _db.AllOrderDetails.Add(od);
-                _db.All_OrderDetailsExtended.Add(Convert(od));
+                foreach (var od in newOrder.Order_Details)
+                {
+                    od.OrderID = newOrder.OrderID;
+                    _db.AllOrderDetails.Add(od);
+                    _db.All_OrderDetailsExtended.Add(Convert(od));
+                }
             }
+    
             _db.All_OrderSubtotals.Add(ConvertToSubtotals(newOrder));
 
             return newOrder;
@@ -157,9 +161,12 @@ namespace DatabaseAccessLib
             newOST.OrderID = od.OrderID;
             newOST.Subtotal = 0;
 
-            foreach (var detail in od.Order_Details)
+            if (od.Order_Details != null)
             {
-                newOST.Subtotal += detail.UnitPrice * detail.Quantity;
+                foreach (var detail in od.Order_Details)
+                {
+                    newOST.Subtotal += detail.UnitPrice * detail.Quantity;
+                }
             }
 
             return newOST;
