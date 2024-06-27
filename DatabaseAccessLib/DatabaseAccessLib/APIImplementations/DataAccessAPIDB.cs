@@ -139,6 +139,9 @@ namespace DatabaseAccessLib
 
         public OrderDTO CreateNewOrder(OrderDTO newOrder)
         {
+            if (newOrder == null)
+                return null;
+
             Order order = new Order();
             order.CustomerID = newOrder.CustomerID;
             order.EmployeeID = newOrder.EmployeeID;
@@ -157,16 +160,20 @@ namespace DatabaseAccessLib
             order.ShipCountry = newOrder.ShipCountry;
             // Fill out the rest of the order.  Doesn't appear to be used
 
-            foreach (var odDTO in newOrder.Order_Details)
+            if (newOrder.Order_Details != null)
             {
-                Order_Detail od = new Order_Detail();
-                od.ProductID = odDTO.ProductID;
-                od.Quantity = odDTO.Quantity;
-                od.UnitPrice = odDTO.UnitPrice;
-                od.Discount = odDTO.Discount;
+                foreach (var odDTO in newOrder.Order_Details)
+                {
+                    Order_Detail od = new Order_Detail();
+                    od.ProductID = odDTO.ProductID;
+                    od.Quantity = odDTO.Quantity;
+                    od.UnitPrice = odDTO.UnitPrice;
+                    od.Discount = odDTO.Discount;
 
-                order.Order_Details.Add(od);
+                    order.Order_Details.Add(od);
+                }
             }
+   
 
             using (var dbContext = new NorthWindsModel())
             {
