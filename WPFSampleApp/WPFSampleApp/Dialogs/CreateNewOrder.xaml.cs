@@ -97,15 +97,21 @@ namespace WPFSampleApp.Dialogs
                 return;
             }
 
+            if (EnteredProducts == null || EnteredProducts.Count() == 0)
+            {
+                MessageBox.Show("No products have been entered for this order");
+                return;
+            }
+
 
             OrderDTO newOrder = new OrderDTO();
             newOrder.EmployeeID = cbe.id;
             newOrder.CustomerID = customer.CustomerID;
             newOrder.OrderDate = DateTime.Now;
-            newOrder.RequiredDate = ShippingDate.SelectedDate;
+            newOrder.RequiredDate = ShippingDate.SelectedDate ?? DateTime.Now.AddDays(3);
 
             newOrder.ShipVia = shipper.ShipperID;
-            newOrder.Order_Details = FakedOrderDetails();
+            newOrder.Order_Details = EnteredOrderDetails();
 
 
             newOrder = DataAccessAPI.CreateNewOrder(newOrder);
@@ -122,25 +128,21 @@ namespace WPFSampleApp.Dialogs
 
         }
 
-        private List<Order_DetailDTO> FakedOrderDetails()
+        private List<Order_DetailDTO> EnteredOrderDetails()
         {
-            List<Order_DetailDTO> FakedOrders = new List<Order_DetailDTO>();
+            List<Order_DetailDTO> EnteredOrders = new List<Order_DetailDTO>();
 
-            Order_DetailDTO Order1 = new Order_DetailDTO();
-            Order1.ProductID = 1;
-            Order1.Quantity = 2;
-            Order1.UnitPrice = 3.5m;
-            Order1.Discount = 0.0f;
-            FakedOrders.Add(Order1);
+            foreach (var enteredProduct in EnteredProducts)
+            {
+                Order_DetailDTO Order = new Order_DetailDTO();
+                Order.ProductID = enteredProduct.ProductID;
+                Order.Quantity = enteredProduct.Quantity.Value;
+                Order.UnitPrice = enteredProduct.UnitPrice.Value;
+                Order.Discount = 0.0f;
+                EnteredOrders.Add(Order);
+            }
 
-            Order_DetailDTO Order2 = new Order_DetailDTO();
-            Order2.ProductID = 2;
-            Order2.Quantity = 3;
-            Order2.UnitPrice = 4.5m;
-            Order2.Discount = 0.1f;
-            FakedOrders.Add(Order2);
-
-            return FakedOrders;
+            return EnteredOrders;
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
@@ -268,8 +270,8 @@ namespace WPFSampleApp.Dialogs
 
         public string ProductName { get; set; }
 
-        public int? _Quantity;
-        public int? Quantity
+        public short? _Quantity;
+        public short? Quantity
         {
             get
             {
