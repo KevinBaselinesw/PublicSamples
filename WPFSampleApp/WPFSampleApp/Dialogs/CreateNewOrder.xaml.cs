@@ -102,7 +102,7 @@ namespace WPFSampleApp.Dialogs
             newOrder.EmployeeID = cbe.id;
             newOrder.CustomerID = customer.CustomerID;
             newOrder.OrderDate = DateTime.Now;
-            newOrder.RequiredDate = DateTime.Now.AddDays(3);
+            newOrder.RequiredDate = ShippingDate.SelectedDate;
 
             newOrder.ShipVia = shipper.ShipperID;
             newOrder.Order_Details = FakedOrderDetails();
