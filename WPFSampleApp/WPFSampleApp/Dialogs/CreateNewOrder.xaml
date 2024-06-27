@@ -62,7 +62,7 @@
                 <DataGridTemplateColumn Header="Remove">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Margin="0" Tag="{Binding ProductID}" Click="RemoveItem_Click" Height="22" Background="Transparent">
+                            <Button Margin="0" Tag="{Binding ProductID}" Click="RemoveItem_Click" Height="22" Background="Transparent" BorderBrush="Transparent">
                                 <Image Source="..\Icons\minus32.png" Stretch="None" VerticalAlignment="Center" />
                             </Button>
                         </DataTemplate>
