@@ -303,6 +303,10 @@
       <Link>NorthwindsDB.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Icons\minus32.png" />
+    <Resource Include="Icons\plus32.png" />
+    <Resource Include="Icons\sale32.png" />
+    <Resource Include="Icons\close32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
