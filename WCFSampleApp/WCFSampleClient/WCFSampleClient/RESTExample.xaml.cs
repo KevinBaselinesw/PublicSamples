@@ -42,6 +42,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WCFSampleClient.Dialogs;
 using WCFSampleClient.UserControls;
 
 namespace WCFSampleClient
@@ -96,13 +97,19 @@ namespace WCFSampleClient
         private void Shippers_Click(object sender, RoutedEventArgs e)
         {
             SecondaryContent.Content = null;
-            PrimaryContent.Content = new Shippers(SecondaryContent, WCFType.SOAP);
+            PrimaryContent.Content = new Shippers(SecondaryContent, WCFType.REST);
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
             var aboutBoxRest = new AboutBoxREST();
             aboutBoxRest.ShowDialog();
+        }
+
+        private void CreateNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var CreateDlg = new CreateNewOrder(WCFType.REST);
+            bool? bReturn = CreateDlg.ShowDialog();
         }
     }
 }

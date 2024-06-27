@@ -42,6 +42,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WCFSampleClient.Dialogs;
 using WCFSampleClient.UserControls;
 
 namespace WCFSampleClient
@@ -103,6 +104,12 @@ namespace WCFSampleClient
         {
             var aboutBoxSoap = new AboutBoxSOAP();
             aboutBoxSoap.ShowDialog();
+        }
+
+        private void CreateNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var CreateDlg = new CreateNewOrder(WCFType.SOAP);
+            bool? bReturn = CreateDlg.ShowDialog();
         }
     }
 }

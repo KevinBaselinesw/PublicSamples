@@ -29,7 +29,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-using DatabaseAccessLib;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,41 +46,107 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UtilityFunctions;
+using WCFSampleClient.UserControls;
+using WCFSampleClient.WCFSampleService;
 
-namespace WPFSampleApp.Dialogs
+namespace WCFSampleClient.Dialogs
 {
     /// <summary>
     /// Interaction logic for CreateNewOrder.xaml
     /// </summary>
     public partial class CreateNewOrder : Window
     {
-        IDataAccessAPI DataAccessAPI;
+        WCFType WCFType;
+
         ObservableCollection<CreateNewOrderInfo> EnteredProducts;
 
-        public CreateNewOrder(IDataAccessAPI DataAccessAPI)
+        public CreateNewOrder(WCFType WCFType)
         {
-            this.DataAccessAPI = DataAccessAPI;
+            this.WCFType = WCFType;
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var Employees = DataAccessAPI.GetAllEmployees();
-            SalesmanCB.ItemsSource = Convert(Employees);
-            SalesmanCB.DisplayMemberPath = "Name";
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
 
-            var Customers = DataAccessAPI.GetAllCustomers();
-            CustomerCB.ItemsSource = Customers;
-            CustomerCB.DisplayMemberPath = "CompanyName";
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+                    var Employees = Client.GetAllEmployees();
+                    SalesmanCB.ItemsSource = Convert(Employees);
+                    SalesmanCB.DisplayMemberPath = "Name";
 
-            var Shippers = DataAccessAPI.GetAllShippers();
-            ShipperCB.ItemsSource = Shippers;
-            ShipperCB.DisplayMemberPath = "CompanyName";
+                    var Customers = Client.GetAllCustomers();
+                    CustomerCB.ItemsSource = Customers;
+                    CustomerCB.DisplayMemberPath = "CompanyName";
 
-            EnteredProducts = null;
-            ProductGrid.ItemsSource = EnteredProducts;
+                    var Shippers = Client.GetAllShippers();
+                    ShipperCB.ItemsSource = Shippers;
+                    ShipperCB.DisplayMemberPath = "CompanyName";
 
-            ProductNameCB.ItemsSource = DataAccessAPI.GetAllProducts();
+                    EnteredProducts = null;
+                    ProductGrid.ItemsSource = EnteredProducts;
+
+                    ProductNameCB.ItemsSource = Client.GetAllProducts();
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                var Employees = await RestClient.Get<List<EmployeeDTO>>("GetAllEmployees", null);
+                SalesmanCB.ItemsSource = Convert(Employees);
+                SalesmanCB.DisplayMemberPath = "Name";
+
+                var Customers = await RestClient.Get<List<CustomerDTO>>("GetAllCustomers", null);
+                CustomerCB.ItemsSource = Customers;
+                CustomerCB.DisplayMemberPath = "CompanyName";
+
+                var Shippers = await RestClient.Get<List<ShipperDTO>>("GetAllShippers", null);
+                ShipperCB.ItemsSource = Shippers;
+                ShipperCB.DisplayMemberPath = "CompanyName";
+
+
+                EnteredProducts = null;
+                ProductGrid.ItemsSource = EnteredProducts;
+
+                ProductNameCB.ItemsSource = await RestClient.Get<List<ProductDTO>>("GetAllProducts", null);
+
+                WCFSampleServiceClient Client = null;
+
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+   
+
+
+                    EnteredProducts = null;
+                    ProductGrid.ItemsSource = EnteredProducts;
+
+                    ProductNameCB.ItemsSource = Client.GetAllProducts();
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+
+
         }
 
         private IEnumerable<ComboBoxEmployee> Convert(IEnumerable<EmployeeDTO> employeeDTOs)
@@ -158,7 +224,33 @@ namespace WPFSampleApp.Dialogs
             newOrder.ShipCountry = "USA";
             // Fill out the rest of the order.  Doesn't appear to be used
 
-            newOrder = DataAccessAPI.CreateNewOrder(newOrder);
+            if (WCFType == WCFType.SOAP)
+            {
+                WCFSampleServiceClient Client = null;
+
+                try
+                {
+                    Client = new WCFSampleService.WCFSampleServiceClient();
+                    newOrder = Client.CreateNewOrder(newOrder);
+                    return;
+                }
+                catch (Exception)
+                {
+                    if (Client != null)
+                    {
+                        Client.Abort();
+                    }
+                }
+            }
+
+
+            if (WCFType == WCFType.REST)
+            {
+                RESTClient RestClient = new RESTClient(App.NorthwindsServerBaseURL);
+
+                //newOrder = await RestClient.Post<List<EmployeeDTO>>("GetAllEmployees", null);
+            }
+
             if (newOrder != null && newOrder.OrderID > 0)
             {
                 MessageBox.Show("Order successfully added to system", "Create New Order", MessageBoxButton.OK);
@@ -197,7 +289,7 @@ namespace WPFSampleApp.Dialogs
             return 0;
         }
 
-        private List<Order_DetailDTO> EnteredOrderDetails()
+        private Order_DetailDTO[] EnteredOrderDetails()
         {
             List<Order_DetailDTO> EnteredOrders = new List<Order_DetailDTO>();
 
@@ -211,7 +303,7 @@ namespace WPFSampleApp.Dialogs
                 EnteredOrders.Add(Order);
             }
 
-            return EnteredOrders;
+            return EnteredOrders.ToArray();
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
