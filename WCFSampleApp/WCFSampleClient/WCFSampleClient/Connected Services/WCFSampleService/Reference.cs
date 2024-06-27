@@ -68,6 +68,9 @@ namespace WCFSampleClient.WCFSampleService {
         private byte[] PhotoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhotoBase64Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PhotoPathField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -289,6 +292,19 @@ namespace WCFSampleClient.WCFSampleService {
                 if ((object.ReferenceEquals(this.PhotoField, value) != true)) {
                     this.PhotoField = value;
                     this.RaisePropertyChanged("Photo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PhotoBase64 {
+            get {
+                return this.PhotoBase64Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhotoBase64Field, value) != true)) {
+                    this.PhotoBase64Field = value;
+                    this.RaisePropertyChanged("PhotoBase64");
                 }
             }
         }
@@ -1627,6 +1643,9 @@ namespace WCFSampleClient.WCFSampleService {
         private byte[] PictureField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PictureBase64Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private WCFSampleClient.WCFSampleService.ProductDTO[] ProductsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -1687,6 +1706,19 @@ namespace WCFSampleClient.WCFSampleService {
                 if ((object.ReferenceEquals(this.PictureField, value) != true)) {
                     this.PictureField = value;
                     this.RaisePropertyChanged("Picture");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PictureBase64 {
+            get {
+                return this.PictureBase64Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PictureBase64Field, value) != true)) {
+                    this.PictureBase64Field = value;
+                    this.RaisePropertyChanged("PictureBase64");
                 }
             }
         }
@@ -2826,6 +2858,12 @@ namespace WCFSampleClient.WCFSampleService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQry", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllOrdersQryResponse")]
         System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Orders_QryDTO[]> GetAllOrdersQryAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/CreateNewOrder", ReplyAction="http://tempuri.org/IWCFSampleService/CreateNewOrderResponse")]
+        WCFSampleClient.WCFSampleService.OrderDTO CreateNewOrder(WCFSampleClient.WCFSampleService.OrderDTO newOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/CreateNewOrder", ReplyAction="http://tempuri.org/IWCFSampleService/CreateNewOrderResponse")]
+        System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO> CreateNewOrderAsync(WCFSampleClient.WCFSampleService.OrderDTO newOrder);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWCFSampleService/GetAllSuppliers", ReplyAction="http://tempuri.org/IWCFSampleService/GetAllSuppliersResponse")]
         WCFSampleClient.WCFSampleService.SupplierDTO[] GetAllSuppliers();
         
@@ -2994,6 +3032,14 @@ namespace WCFSampleClient.WCFSampleService {
         
         public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.Orders_QryDTO[]> GetAllOrdersQryAsync() {
             return base.Channel.GetAllOrdersQryAsync();
+        }
+        
+        public WCFSampleClient.WCFSampleService.OrderDTO CreateNewOrder(WCFSampleClient.WCFSampleService.OrderDTO newOrder) {
+            return base.Channel.CreateNewOrder(newOrder);
+        }
+        
+        public System.Threading.Tasks.Task<WCFSampleClient.WCFSampleService.OrderDTO> CreateNewOrderAsync(WCFSampleClient.WCFSampleService.OrderDTO newOrder) {
+            return base.Channel.CreateNewOrderAsync(newOrder);
         }
         
         public WCFSampleClient.WCFSampleService.SupplierDTO[] GetAllSuppliers() {

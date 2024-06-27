@@ -91,6 +91,12 @@
   <wsdl:message name="IWCFSampleService_GetAllOrdersQry_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllOrdersQryResponse" />
   </wsdl:message>
+  <wsdl:message name="IWCFSampleService_CreateNewOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewOrder" />
+  </wsdl:message>
+  <wsdl:message name="IWCFSampleService_CreateNewOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewOrderResponse" />
+  </wsdl:message>
   <wsdl:message name="IWCFSampleService_GetAllSuppliers_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllSuppliers" />
   </wsdl:message>
@@ -177,6 +183,10 @@
     <wsdl:operation name="GetAllOrdersQry">
       <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQry" message="tns:IWCFSampleService_GetAllOrdersQry_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllOrdersQryResponse" message="tns:IWCFSampleService_GetAllOrdersQry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/CreateNewOrder" message="tns:IWCFSampleService_CreateNewOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWCFSampleService/CreateNewOrderResponse" message="tns:IWCFSampleService_CreateNewOrder_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAllSuppliers">
       <wsdl:input wsaw:Action="http://tempuri.org/IWCFSampleService/GetAllSuppliers" message="tns:IWCFSampleService_GetAllSuppliers_InputMessage" />
@@ -320,6 +330,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllOrdersQry">
       <soap:operation soapAction="http://tempuri.org/IWCFSampleService/GetAllOrdersQry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewOrder">
+      <soap:operation soapAction="http://tempuri.org/IWCFSampleService/CreateNewOrder" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -213,6 +213,17 @@ namespace WCFSampleApp
             return orders;
         }
 
+
+        public OrderDTO CreateNewOrder(OrderDTO newOrder)
+        {
+            IDataAccessAPI DatabaseAPI = GetDatabaseAPI();
+
+            newOrder = DatabaseAPI.CreateNewOrder(newOrder);
+
+            return newOrder;
+        }
+
+
         public IEnumerable<SupplierDTO> GetAllSuppliers()
         {
             IDataAccessAPI DatabaseAPI = GetDatabaseAPI();

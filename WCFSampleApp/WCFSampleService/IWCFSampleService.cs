@@ -72,6 +72,10 @@ namespace WCFSampleApp
         IEnumerable<Orders_QryDTO> GetAllOrdersQry();
 
         [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "CreateNewOrder", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        OrderDTO CreateNewOrder(OrderDTO newOrder);
+
+        [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "GetAllSuppliers", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         IEnumerable<SupplierDTO> GetAllSuppliers();
 

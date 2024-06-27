@@ -183,6 +183,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CreateNewOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="newOrder" nillable="true" type="q15:OrderDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateNewOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="CreateNewOrderResult" nillable="true" type="q16:OrderDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetAllSuppliers">
     <xs:complexType>
       <xs:sequence />
@@ -191,7 +205,7 @@
   <xs:element name="GetAllSuppliersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetAllSuppliersResult" nillable="true" type="q15:ArrayOfSupplierDTO" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetAllSuppliersResult" nillable="true" type="q17:ArrayOfSupplierDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -205,7 +219,7 @@
   <xs:element name="GetSuppliersByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetSuppliersByIDResult" nillable="true" type="q16:ArrayOfSupplierDTO" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetSuppliersByIDResult" nillable="true" type="q18:ArrayOfSupplierDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -217,7 +231,7 @@
   <xs:element name="GetAllShippersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetAllShippersResult" nillable="true" type="q17:ArrayOfShipperDTO" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetAllShippersResult" nillable="true" type="q19:ArrayOfShipperDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -231,7 +245,7 @@
   <xs:element name="GetOrderDetailsByProductIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetOrderDetailsByProductIDResult" nillable="true" type="q18:ArrayOfOrder_DetailDTO" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetOrderDetailsByProductIDResult" nillable="true" type="q20:ArrayOfOrder_DetailDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -245,7 +259,7 @@
   <xs:element name="GetOrderDetailsByOrderIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetOrderDetailsByOrderIDResult" nillable="true" type="q19:ArrayOfOrder_Details_ExtendedDTO" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DatabaseAccessLib" minOccurs="0" name="GetOrderDetailsByOrderIDResult" nillable="true" type="q21:ArrayOfOrder_Details_ExtendedDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
