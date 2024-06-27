@@ -147,6 +147,16 @@ namespace DatabaseAccessLib
             order.ShippedDate = newOrder.ShippedDate;
             order.ShipVia = newOrder.ShipVia;
 
+            // Fill out the rest of the order.  Doesn't appear to be used
+            order.Freight = newOrder.Freight;
+            order.ShipName = newOrder.ShipName;
+            order.ShipAddress = newOrder.ShipAddress;
+            order.ShipCity = newOrder.ShipCity;
+            order.ShipRegion = newOrder.ShipRegion;
+            order.ShipPostalCode = newOrder.ShipPostalCode;
+            order.ShipCountry = newOrder.ShipCountry;
+            // Fill out the rest of the order.  Doesn't appear to be used
+
             foreach (var odDTO in newOrder.Order_Details)
             {
                 Order_Detail od = new Order_Detail();

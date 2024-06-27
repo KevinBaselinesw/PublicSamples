@@ -113,6 +113,15 @@ namespace WPFSampleApp.Dialogs
             newOrder.ShipVia = shipper.ShipperID;
             newOrder.Order_Details = EnteredOrderDetails();
 
+            // Fill out the rest of the order.  Doesn't appear to be used
+            newOrder.Freight = 9.99m;
+            newOrder.ShipName = "Kevin McKenna";
+            newOrder.ShipAddress = "1600 Pennsylvania Avenue";
+            newOrder.ShipCity = "Washington";
+            newOrder.ShipRegion = "DC";
+            newOrder.ShipPostalCode = "99999";
+            newOrder.ShipCountry = "USA";
+            // Fill out the rest of the order.  Doesn't appear to be used
 
             newOrder = DataAccessAPI.CreateNewOrder(newOrder);
             if (newOrder != null && newOrder.OrderID > 0)
