@@ -138,6 +138,8 @@ namespace DatabaseAccessLib
         /// <inheritdoc />
         public OrderDTO CreateNewOrder(OrderDTO newOrder)
         {
+            if (newOrder == null)
+                return null;
 
             _db.AllOrders.Add(NextID(newOrder));
             if (newOrder.Order_Details != null)
