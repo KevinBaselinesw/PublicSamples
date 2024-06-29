@@ -27,13 +27,20 @@ We also have some slick animations of windows loading and unloading.
 
 **BlazorSampleApp** - This folder contains a Blazor Server application.
 
+![Blazor App, Entity Framework, LINQ](doc/img/BlazorServerApp.png)
+
 **BlazorSampleWebAssembly** - This folder contains a Blazor Web Assembly App hosted by IIS.
+
+![Blazor WebAssembly App, Entity Framework, LINQ](doc/img/BlazorWebAssemblyApp.png)
 
 **RandomnessLibraries** - This directory contains two libraries of random number generator and common statistical distributions of those random numbers. Each library has an associated collection of unit tests for the statistical distributions. 
 
 One library is written in C# and the other in C++. 
 
 These libraries have been ported from the open source https://github.com/Quansight-Labs/numpy.net which was also developed by Kevin McKenna.  These versions do not have a numpy dependency.
+
+![Randomness  API, C#, C++](doc/img/RandomnessUnitTests.png)
+
 
 **CLISamples** - (Requires VS2022) This console application demonstrates the usage of the Microsoft command line library found here: https://learn.microsoft.com/en-us/dotnet/standard/commandline/
 
