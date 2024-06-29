@@ -9,6 +9,8 @@ All the demo applications can load the XML version for an easy demo without havi
 The database is accessed using EntityFramework with Linq operations. The configuration file allows the application to switch between a SQL Server database and "in memory" version of the database loaded from an XML file as not everyone can or wants to install a new database.
 We also have some slick animations of windows loading and unloading.
 
+![WPF App, Entity Framework, LINQ, Animation](doc/img/WPFSampleApp.png)
+
 **WCFApplications** - This folder contains three projects.  
 
 ***- WCFSampleService*** This library is a WCF service implementation. It can be hosted within a desktop/console application or it can be hosted via IIS.  For this demo we choose to host it via a console application.
@@ -16,6 +18,16 @@ We also have some slick animations of windows loading and unloading.
 ***- WCFSampleServer*** This console application is simply used to host the WCFSampleService library which contains all the important code. **Important:** This application must be started as an administrator because it opens a network port.
 
 ***- WCFSampleClient*** This WPF based GUI application serves as the client application that displays data from the WCFSampleService.  The GUI is almost identical to the WPFSample application.  The difference is that this application retrieves the data over WCF SOAP and REST connections.  Two different windows allow access the web service via SOAP and REST.
+
+![WCF App, Entity Framework, LINQ, SOAP/REST](doc/img/WCFSoapAndRest.png)
+
+![WCF App, Entity Framework, LINQ, SOAP/REST](doc/img/WCFSoapApp.png)
+
+![WCF App, Entity Framework, LINQ, SOAP/REST](doc/img/WCFRestApp.png)
+
+**BlazorSampleApp** - This folder contains a Blazor Server application.
+
+**BlazorSampleWebAssembly** - This folder contains a Blazor Web Assembly App hosted by IIS.
 
 **RandomnessLibraries** - This directory contains two libraries of random number generator and common statistical distributions of those random numbers. Each library has an associated collection of unit tests for the statistical distributions. 
 
