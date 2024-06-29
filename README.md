@@ -1,4 +1,4 @@
-This is a public repository of sample applications written by Kevin McKenna/Baseline Software Solutions.
+**This is a public repository of sample applications written by Kevin McKenna/Baseline Software Solutions.**
 
 The applications in this repository make use of the famous Microsoft "Northwinds" sample database from the the 1990s.  This data has been updated to be used in modern SQL Server instances.  
 
