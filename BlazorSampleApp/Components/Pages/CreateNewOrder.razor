@@ -1,0 +1,198 @@
+﻿@page "/CreateNewOrder"
+
+@rendermode InteractiveServer
+
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@inject DialogService DialogService
+@inject IDataAccessAPI DataAccessAPI;
+
+
+<RadzenTemplateForm TItem="OrderDTO"  Submit="@OnSubmit">
+
+    <RadzenStack Orientation = "Orientation.Horizontal">
+
+        <RadzenStack>
+            <RadzenLabel Text="Salesman" Component="SalesmanDropDown" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenDropDown Context="EmployeeDropDownContext" @bind-Value=@employeeModel.EmployeeID Data=@AllEmployees Style="width: 100%; max-width: 400px;" Name="SalesmanDropDown" ValueProperty="@nameof(EmployeeDTO.EmployeeID)">
+                <Template>
+                    @((EmployeeDropDownContext as EmployeeDTO).LastName), @((EmployeeDropDownContext as EmployeeDTO).FirstName)
+                </Template>
+            </RadzenDropDown>
+        </RadzenStack>
+
+        <RadzenStack>
+            <RadzenLabel Text="Customer" Component="CustomerDropDown" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenDropDown Context="CustomerDropDownContext" @bind-Value=@customerModel.CustomerID Data=@AllCustomers Style="width: 100%; max-width: 400px;" Name="CustomerDropDown" ValueProperty="@nameof(CustomerDTO.CustomerID)">
+                <Template>
+                    @((CustomerDropDownContext as CustomerDTO).CompanyName)
+                </Template>
+            </RadzenDropDown>
+        </RadzenStack>
+
+        <RadzenStack>
+            <RadzenLabel Text="Shipper" Component="ShipperDropDown" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenDropDown Context="ShipperDropDownContext" @bind-Value=@shipperModel.ShipperID Data=@AllShippers Style="width: 100%; max-width: 400px;" Name="ShipperDropDown" ValueProperty="@nameof(ShipperDTO.ShipperID)">
+                <Template>
+                    @((ShipperDropDownContext as ShipperDTO).CompanyName)
+                </Template>
+            </RadzenDropDown>
+        </RadzenStack>
+
+
+    </RadzenStack>
+
+    <RadzenButton Text="Save" Click=@(args => Submit()) />
+
+
+</RadzenTemplateForm>
+
+
+@code {
+    OrderDTO OrderDTO = new OrderDTO();
+    EmployeeDTO employeeModel = new EmployeeDTO();
+    CustomerDTO customerModel = new CustomerDTO();
+    ShipperDTO shipperModel = new ShipperDTO();
+
+
+    string value = "";
+    IEnumerable<EmployeeDTO> AllEmployees;
+    IEnumerable<CustomerDTO> AllCustomers;
+    IEnumerable<ShipperDTO> AllShippers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllEmployees = DataAccessAPI.GetAllEmployees();
+        AllCustomers = DataAccessAPI.GetAllCustomers();
+        AllShippers = DataAccessAPI.GetAllShippers();
+
+    }
+
+    async Task OnSubmit(OrderDTO model)
+    {
+        await Task.Delay(0);
+    }
+
+
+    private void Submit()
+    {
+        // ComboBoxEmployee cbe = SalesmanCB.SelectedValue as ComboBoxEmployee;
+        // if (cbe == null)
+        // {
+        //     MessageBox.Show("Must select an employee for this order", "Create New Order", MessageBoxButton.OK);
+        //     return;
+        // }
+
+        // CustomerDTO customer = CustomerCB.SelectedValue as CustomerDTO;
+        // if (customer == null)
+        // {
+        //     MessageBox.Show("Must select a customer for this order", "Create New Order", MessageBoxButton.OK);
+        //     return;
+        // }
+
+        // ShipperDTO shipper = ShipperCB.SelectedValue as ShipperDTO;
+        // if (shipper == null)
+        // {
+        //     MessageBox.Show("Must select a shipper for this order", "Create New Order", MessageBoxButton.OK);
+        //     return;
+        // }
+
+        // if (EnteredProducts == null || EnteredProducts.Count() == 0)
+        // {
+        //     MessageBox.Show("No products have been entered for this order", "Create New Order", MessageBoxButton.OK);
+        //     return;
+        // }
+
+
+        OrderDTO newOrder = new OrderDTO();
+        newOrder.EmployeeID = employeeModel.EmployeeID;
+        newOrder.CustomerID = customerModel.CustomerID;
+        newOrder.OrderDate = DateTime.Now;
+        newOrder.RequiredDate = DateTime.Now.AddDays(3); // ShippingDate.SelectedDate ?? DateTime.Now.AddDays(3);
+
+        newOrder.ShipVia = shipperModel.ShipperID;
+
+        if (ValidateEnteredOrderDetails() < 0)
+            return;
+
+        newOrder.Order_Details = EnteredOrderDetails();
+
+        // Fill out the rest of the order.  Doesn't appear to be used
+        newOrder.Freight = 9.99m;
+        newOrder.ShipName = "Kevin McKenna";
+        newOrder.ShipAddress = "1600 Pennsylvania Avenue";
+        newOrder.ShipCity = "Washington";
+        newOrder.ShipRegion = "DC";
+        newOrder.ShipPostalCode = "99999";
+        newOrder.ShipCountry = "USA";
+        // Fill out the rest of the order.  Doesn't appear to be used
+
+        newOrder = DataAccessAPI.CreateNewOrder(newOrder);
+        if (newOrder != null && newOrder.OrderID > 0)
+        {
+            //MessageBox.Show("Order successfully added to system", "Create New Order", MessageBoxButton.OK);
+            //SaveOrderButton.IsEnabled = false;
+        }
+        else
+        {
+            //MessageBox.Show("Order not added to database!", "Create New Order", MessageBoxButton.OK);
+        }
+
+        return;
+    }
+
+    private int ValidateEnteredOrderDetails()
+    {
+        // foreach (var enteredProduct in EnteredProducts)
+        // {
+        //     if (enteredProduct.ProductID <= 0)
+        //         continue;
+
+        //     if (enteredProduct.Quantity == null || enteredProduct.Quantity <= 0)
+        //     {
+        //         MessageBox.Show($"{enteredProduct.ProductName} has an invalid quantity!");
+        //         return -1;
+        //     }
+
+        //     if (enteredProduct.SubTotal == null || enteredProduct.SubTotal <= 0)
+        //     {
+        //         MessageBox.Show($"{enteredProduct.ProductName} has an invalid subtotal!");
+        //         return -1;
+        //     }
+
+        // }
+
+        // EnteredProducts = new ObservableCollection<CreateNewOrderInfo>(EnteredProducts.Where(t => t.ProductID > 0));
+        return 0;
+    }
+
+    private List<Order_DetailDTO> EnteredOrderDetails()
+    {
+        List<Order_DetailDTO> EnteredOrders = new List<Order_DetailDTO>();
+
+        // foreach (var enteredProduct in EnteredProducts)
+        // {
+        //     Order_DetailDTO Order = new Order_DetailDTO();
+        //     Order.ProductID = enteredProduct.ProductID;
+        //     Order.Quantity = enteredProduct.Quantity.Value;
+        //     Order.UnitPrice = enteredProduct.UnitPrice.Value;
+        //     Order.Discount = 0.0f;
+        //     EnteredOrders.Add(Order);
+        // }
+
+        Order_DetailDTO FakeOrder = new Order_DetailDTO();
+        FakeOrder.ProductID = 1;
+        FakeOrder.Quantity = 1;
+        FakeOrder.UnitPrice = 10.0m;
+        FakeOrder.Discount = 0.0f;
+        
+        EnteredOrders.Add(FakeOrder);
+
+        return EnteredOrders;
+    }
+
+
+}
