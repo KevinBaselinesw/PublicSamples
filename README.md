@@ -1,6 +1,6 @@
 **This is a public repository of sample applications written by Kevin McKenna/Baseline Software Solutions.**
 
-The applications in this repository make use of the famous Microsoft "Northwinds" sample database from the the 1990s.  This data has been updated to be used in modern SQL Server instances.  
+The applications in this repository make use of the famous Microsoft "Northwinds" sample database from the 1990s.  This data has been updated to be used in modern SQL Server instances.  
 
 The NorthwindsDB directory contains SQL server backups and also SQL script that can be used to recreate the database.  It also contains NorthwindsDB.xml which is the entire database in XML.
 All the demo applications can load the XML version for an easy demo without having to load a SQL database.
