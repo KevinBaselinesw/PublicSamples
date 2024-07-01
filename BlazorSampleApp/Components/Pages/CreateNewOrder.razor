@@ -38,6 +38,7 @@
                     @((ShipperDropDownContext as ShipperDTO).CompanyName)
                 </Template>
             </RadzenDropDown>
+            <RadzenDatePicker @bind-Value=@shippingDate Name="RadzenDatePickerBindValue" ShowCalendarWeek />
         </RadzenStack>
 
 
@@ -54,7 +55,7 @@
     EmployeeDTO employeeModel = new EmployeeDTO();
     CustomerDTO customerModel = new CustomerDTO();
     ShipperDTO shipperModel = new ShipperDTO();
-
+    DateTime? shippingDate ;
 
     string value = "";
     IEnumerable<EmployeeDTO> AllEmployees;
@@ -111,7 +112,7 @@
         newOrder.EmployeeID = employeeModel.EmployeeID;
         newOrder.CustomerID = customerModel.CustomerID;
         newOrder.OrderDate = DateTime.Now;
-        newOrder.RequiredDate = DateTime.Now.AddDays(3); // ShippingDate.SelectedDate ?? DateTime.Now.AddDays(3);
+        newOrder.RequiredDate = shippingDate;
 
         newOrder.ShipVia = shipperModel.ShipperID;
 
