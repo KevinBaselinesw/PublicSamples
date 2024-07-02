@@ -5,9 +5,17 @@
 @using DatabaseAccessLib
 @using Radzen
 @using Radzen.Blazor
+@using System.ComponentModel
+@using System.Runtime.CompilerServices
+@using System.Collections.ObjectModel
 @inject DialogService DialogService
 @inject IDataAccessAPI DataAccessAPI;
 
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
 
 <RadzenTemplateForm TItem="OrderDTO"  Submit="@OnSubmit">
 
@@ -44,6 +52,24 @@
 
     </RadzenStack>
 
+    <RadzenDataGrid @ref=@dgNewOrder ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
+                    PageSize="8" AllowSorting="true" Data="@EnteredProducts" TItem="CreateNewOrderInfo"
+                    RowSelect=@ApptRowSelected>
+          <Columns>
+                    <RadzenDataGridColumn Property="ProductID" Title="ID" />
+
+                    <RadzenDataGridColumn Context="productitem" Width="55px" TItem="ProductDTO" Property="ProductID" Title="Product">
+                        <EditTemplate>
+                            <RadzenDropDown Style="width: 100%;" @bind-Value="@productitem.ProductID" Data="@AllProducts" TextProperty="ProductName" ValueProperty="Id" />
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+
+                    <RadzenDataGridColumn Property="Quantity" Title="Qty Ordered" />
+                    <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" />
+                    <RadzenDataGridColumn Property="SubTotal" Title="Sub Total" />
+                </Columns>
+    </RadzenDataGrid>
+
     <RadzenButton Text="Save" Click=@(args => Submit()) />
 
 
@@ -51,6 +77,10 @@
 
 
 @code {
+
+    RadzenDataGrid<CreateNewOrderInfo> dgNewOrder;
+    ObservableCollection<CreateNewOrderInfo> EnteredProducts;
+
     OrderDTO OrderDTO = new OrderDTO();
     EmployeeDTO employeeModel = new EmployeeDTO();
     CustomerDTO customerModel = new CustomerDTO();
@@ -61,6 +91,8 @@
     IEnumerable<EmployeeDTO> AllEmployees;
     IEnumerable<CustomerDTO> AllCustomers;
     IEnumerable<ShipperDTO> AllShippers;
+    IEnumerable<ProductDTO> AllProducts;
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,7 +101,19 @@
         AllEmployees = DataAccessAPI.GetAllEmployees();
         AllCustomers = DataAccessAPI.GetAllCustomers();
         AllShippers = DataAccessAPI.GetAllShippers();
+        AllProducts = DataAccessAPI.GetAllProducts();
 
+
+        EnteredProducts = FakeEnteredProducts();
+        return;
+
+    }
+
+    void OnChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        Console.WriteLine($"Value changed to {str}");
     }
 
     async Task OnSubmit(OrderDTO model)
@@ -77,6 +121,15 @@
         await Task.Delay(0);
     }
 
+    void LoadData(LoadDataArgs args)
+    {
+        return;
+    }
+
+    private void RowRender(RowRenderEventArgs<CreateNewOrderInfo> args)
+    {
+        return;
+    }
 
     private void Submit()
     {
@@ -195,5 +248,134 @@
         return EnteredOrders;
     }
 
+    private ObservableCollection<CreateNewOrderInfo> FakeEnteredProducts()
+    {
+        var EnteredOrders = new ObservableCollection<CreateNewOrderInfo>();
 
+        // foreach (var enteredProduct in EnteredProducts)
+        // {
+        //     Order_DetailDTO Order = new Order_DetailDTO();
+        //     Order.ProductID = enteredProduct.ProductID;
+        //     Order.Quantity = enteredProduct.Quantity.Value;
+        //     Order.UnitPrice = enteredProduct.UnitPrice.Value;
+        //     Order.Discount = 0.0f;
+        //     EnteredOrders.Add(Order);
+        // }
+
+        CreateNewOrderInfo FakeOrder = new CreateNewOrderInfo();
+        FakeOrder.ProductID = 1;
+        FakeOrder.Quantity = 1;
+        FakeOrder.UnitPrice = 10.0m;
+
+        EnteredOrders.Add(FakeOrder);
+
+        FakeOrder = new CreateNewOrderInfo();
+        FakeOrder.ProductID = 2;
+        FakeOrder.Quantity = 2;
+        FakeOrder.UnitPrice = 20.0m;
+
+        EnteredOrders.Add(FakeOrder);
+
+        return EnteredOrders;
+    }
+
+    private async void ApptRowSelected(CreateNewOrderInfo apptParam)
+    {
+
+    }
+
+
+    public class CreateNewOrderInfo : INotifyPropertyChanged
+    {
+        public CreateNewOrderInfo()
+        {
+        }
+
+        // INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        // INotifyPropertyChanged
+
+        private int _ProductID;
+        public int ProductID
+        {
+            get
+            {
+                return this._ProductID;
+            }
+
+            set
+            {
+                if (value != this._ProductID)
+                {
+                    this._ProductID = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string ProductName { get; set; }
+
+        public short? _Quantity;
+        public short? Quantity
+        {
+            get
+            {
+                return this._Quantity;
+            }
+
+            set
+            {
+                if (value != this._Quantity)
+                {
+                    this._Quantity = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private decimal? _UnitPrice;
+        public decimal? UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+
+            set
+            {
+                if (value != this._UnitPrice)
+                {
+                    this._UnitPrice = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private decimal? _SubTotal;
+        public decimal? SubTotal
+        {
+            get
+            {
+                return this._SubTotal;
+            }
+
+            set
+            {
+                if (value != this._SubTotal)
+                {
+                    this._SubTotal = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
+    }
+
+   
 }
