@@ -229,6 +229,9 @@ namespace WPFSampleApp.Dialogs
                 }
 
             }
+
+            UpdateOrderTotal();
+
             return;
         }
 
@@ -264,20 +267,25 @@ namespace WPFSampleApp.Dialogs
                     OrderInfo.Quantity = 0;
                 }
 
-
-                decimal OrderTotal = 0;
-                foreach (var enteredProduct in EnteredProducts)
-                {
-                    if (enteredProduct.SubTotal != null)
-                    {
-                        OrderTotal += enteredProduct.SubTotal.Value;
-                    }
-                }
-
-                OrderTotalTB.Text = string.Format("Order Total: ${0:0.00}", OrderTotal);
+                UpdateOrderTotal();
+       
                 return;
             }
             return;
+        }
+
+        private void UpdateOrderTotal()
+        {
+            decimal OrderTotal = 0;
+            foreach (var enteredProduct in EnteredProducts)
+            {
+                if (enteredProduct.SubTotal != null)
+                {
+                    OrderTotal += enteredProduct.SubTotal.Value;
+                }
+            }
+
+            OrderTotalTB.Text = string.Format("Order Total: ${0:0.00}", OrderTotal);
         }
 
     

@@ -328,6 +328,9 @@ namespace WCFSampleClient.Dialogs
                 }
 
             }
+
+            UpdateOrderTotal();
+
             return;
         }
 
@@ -363,23 +366,28 @@ namespace WCFSampleClient.Dialogs
                     OrderInfo.Quantity = 0;
                 }
 
+                UpdateOrderTotal();
 
-                decimal OrderTotal = 0;
-                foreach (var enteredProduct in EnteredProducts)
-                {
-                    if (enteredProduct.SubTotal != null)
-                    {
-                        OrderTotal += enteredProduct.SubTotal.Value;
-                    }
-                }
-
-                OrderTotalTB.Text = string.Format("Order Total: ${0:0.00}", OrderTotal);
                 return;
             }
             return;
         }
 
-    
+        private void UpdateOrderTotal()
+        {
+            decimal OrderTotal = 0;
+            foreach (var enteredProduct in EnteredProducts)
+            {
+                if (enteredProduct.SubTotal != null)
+                {
+                    OrderTotal += enteredProduct.SubTotal.Value;
+                }
+            }
+
+            OrderTotalTB.Text = string.Format("Order Total: ${0:0.00}", OrderTotal);
+        }
+
+
         private void ProductNameCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ProductDTO productDTO = e.AddedItems[0] as ProductDTO;
