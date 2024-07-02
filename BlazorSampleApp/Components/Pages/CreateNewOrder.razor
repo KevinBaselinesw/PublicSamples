@@ -92,7 +92,7 @@
 
     <RadzenText Text=@OrderTotalTB Margin="10"/>
 
-    <RadzenButton Text="Save" Click=@(args => Submit()) />
+    <RadzenButton Text="Save" Disabled=@DisableSaveOrderButton Click=@(args => Submit()) />
 
 
 </RadzenTemplateForm>
@@ -101,6 +101,7 @@
 @code {
 
     RadzenDataGrid<CreateNewOrderInfo> dgNewOrder;
+    bool DisableSaveOrderButton = false;
     string OrderTotalTB;
     ObservableCollection<CreateNewOrderInfo> EnteredProducts;
 
@@ -232,32 +233,31 @@
 
     private void Submit()
     {
-        // ComboBoxEmployee cbe = SalesmanCB.SelectedValue as ComboBoxEmployee;
-        // if (cbe == null)
-        // {
-        //     MessageBox.Show("Must select an employee for this order", "Create New Order", MessageBoxButton.OK);
-        //     return;
-        // }
 
-        // CustomerDTO customer = CustomerCB.SelectedValue as CustomerDTO;
-        // if (customer == null)
-        // {
-        //     MessageBox.Show("Must select a customer for this order", "Create New Order", MessageBoxButton.OK);
-        //     return;
-        // }
+        if (employeeModel.EmployeeID <= 0)
+        {
+            DialogService.Alert("Must select an employee for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
 
-        // ShipperDTO shipper = ShipperCB.SelectedValue as ShipperDTO;
-        // if (shipper == null)
-        // {
-        //     MessageBox.Show("Must select a shipper for this order", "Create New Order", MessageBoxButton.OK);
-        //     return;
-        // }
+        if (string.IsNullOrEmpty(customerModel.CustomerID))
+        {
+            DialogService.Alert("Must select an customer for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
 
-        // if (EnteredProducts == null || EnteredProducts.Count() == 0)
-        // {
-        //     MessageBox.Show("No products have been entered for this order", "Create New Order", MessageBoxButton.OK);
-        //     return;
-        // }
+        if (shipperModel.ShipperID <= 0)
+        {
+            DialogService.Alert("Must select a shipper for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
+
+
+        if (EnteredProducts == null || EnteredProducts.Count() == 0)
+        {
+            DialogService.Alert("No products have been entered for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
 
 
         OrderDTO newOrder = new OrderDTO();
@@ -286,12 +286,12 @@
         newOrder = DataAccessAPI.CreateNewOrder(newOrder);
         if (newOrder != null && newOrder.OrderID > 0)
         {
-            //MessageBox.Show("Order successfully added to system", "Create New Order", MessageBoxButton.OK);
-            //SaveOrderButton.IsEnabled = false;
+            DialogService.Alert("Order successfully added to system!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            DisableSaveOrderButton = true;
         }
         else
         {
-            //MessageBox.Show("Order not added to database!", "Create New Order", MessageBoxButton.OK);
+            DialogService.Alert("Order not added to database!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
         }
 
         return;
@@ -299,26 +299,26 @@
 
     private int ValidateEnteredOrderDetails()
     {
-        // foreach (var enteredProduct in EnteredProducts)
-        // {
-        //     if (enteredProduct.ProductID <= 0)
-        //         continue;
+        foreach (var enteredProduct in EnteredProducts)
+        {
+            if (enteredProduct.ProductID <= 0)
+                continue;
 
-        //     if (enteredProduct.Quantity == null || enteredProduct.Quantity <= 0)
-        //     {
-        //         MessageBox.Show($"{enteredProduct.ProductName} has an invalid quantity!");
-        //         return -1;
-        //     }
+            if (enteredProduct.Quantity == null || enteredProduct.Quantity <= 0)
+            {
+                DialogService.Alert($"{enteredProduct.ProductName} has an invalid quantity!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+                return -1;
+            }
 
-        //     if (enteredProduct.SubTotal == null || enteredProduct.SubTotal <= 0)
-        //     {
-        //         MessageBox.Show($"{enteredProduct.ProductName} has an invalid subtotal!");
-        //         return -1;
-        //     }
+            if (enteredProduct.SubTotal == null || enteredProduct.SubTotal <= 0)
+            {
+                DialogService.Alert($"{enteredProduct.ProductName} has an invalid subtotal!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+                return -1;
+            }
 
-        // }
+        }
 
-        // EnteredProducts = new ObservableCollection<CreateNewOrderInfo>(EnteredProducts.Where(t => t.ProductID > 0));
+        EnteredProducts = new ObservableCollection<CreateNewOrderInfo>(EnteredProducts.Where(t => t.ProductID > 0));
         return 0;
     }
 
