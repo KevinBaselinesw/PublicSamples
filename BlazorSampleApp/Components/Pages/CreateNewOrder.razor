@@ -54,14 +54,17 @@
 
     <RadzenDataGrid @ref=@dgNewOrder ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"
                     PageSize="8" AllowSorting="true" Data="@EnteredProducts" TItem="CreateNewOrderInfo"
-                    RowSelect=@ApptRowSelected>
+                    RowSelect=@NewOrderRowSelected>
           <Columns>
-                    <RadzenDataGridColumn Property="ProductID" Title="ID" />
+                    <RadzenDataGridColumn Property="ProductID" Title="ID" Visible=false />
 
-                    <RadzenDataGridColumn Context="productitem" Width="55px" TItem="ProductDTO" Property="ProductID" Title="Product">
-                        <EditTemplate>
-                            <RadzenDropDown Style="width: 100%;" @bind-Value="@productitem.ProductID" Data="@AllProducts" TextProperty="ProductName" ValueProperty="Id" />
-                        </EditTemplate>
+                    <RadzenDataGridColumn Context="productitem" Title="Product Name">
+                        <Template>
+                            <RadzenDropDown Style="width: 100%;" 
+                                    @bind-Value="@productitem.ProductID" Data="@AllProducts" TextProperty="ProductName" ValueProperty="ProductID" 
+                                    Change="@NewOrderProductChanged"
+                                    AllowClear=true Placeholder="" />
+                        </Template>
                     </RadzenDataGridColumn>
 
                     <RadzenDataGridColumn Property="Quantity" Title="Qty Ordered" />
@@ -109,11 +112,30 @@
 
     }
 
-    void OnChange(object value)
+    private CreateNewOrderInfo? CurrentOrder = null;
+    private void NewOrderRowSelected(CreateNewOrderInfo CurrentOrder)
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        this.CurrentOrder = CurrentOrder;
+    }
 
-        Console.WriteLine($"Value changed to {str}");
+
+    void NewOrderProductChanged(object value)
+    {
+        int ProductID = (int)value;
+
+        ProductDTO? SelectedProduct = AllProducts.FirstOrDefault(t => t.ProductID == ProductID);
+        if (SelectedProduct != null)
+        {
+            if (CurrentOrder != null)
+            {
+                CurrentOrder.ProductID = SelectedProduct.ProductID;
+                CurrentOrder.UnitPrice = SelectedProduct.UnitPrice;
+                CurrentOrder.Quantity = 2;
+                CurrentOrder.SubTotal = CurrentOrder.UnitPrice * CurrentOrder.Quantity;
+            }
+        }
+
+ 
     }
 
     async Task OnSubmit(OrderDTO model)
@@ -263,14 +285,14 @@
         // }
 
         CreateNewOrderInfo FakeOrder = new CreateNewOrderInfo();
-        FakeOrder.ProductID = 1;
+        FakeOrder.ProductID = -1;
         FakeOrder.Quantity = 1;
         FakeOrder.UnitPrice = 10.0m;
 
         EnteredOrders.Add(FakeOrder);
 
         FakeOrder = new CreateNewOrderInfo();
-        FakeOrder.ProductID = 2;
+        FakeOrder.ProductID = -2;
         FakeOrder.Quantity = 2;
         FakeOrder.UnitPrice = 20.0m;
 
@@ -279,11 +301,7 @@
         return EnteredOrders;
     }
 
-    private async void ApptRowSelected(CreateNewOrderInfo apptParam)
-    {
-
-    }
-
+ 
 
     public class CreateNewOrderInfo : INotifyPropertyChanged
     {
