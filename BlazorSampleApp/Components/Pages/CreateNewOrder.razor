@@ -68,10 +68,8 @@
 
                     <RadzenDataGridColumn Context="productitem" Title="Qty Ordered" >
                         <Template>
-                    
-                            <RadzenTextBox Style="width: 100%;"
-                                   @bind-Value="productitem.sQuantity" BindOnInput="true"
-                                    TextProperty="Quantity" ValueProperty="Quantity"
+                            <RadzenNumeric TValue="short?" ShowUpDown="false"
+                                   @bind-Value="productitem.Quantity" 
                                    Change=@(() => NewOrderQuantityChanged(productitem)) />
                         </Template>
                     </RadzenDataGridColumn>
@@ -165,17 +163,12 @@
     {
         if (CurrentOrder != null)
         {
-            short Quantity;
-            if (short.TryParse(CurrentOrder.sQuantity, out Quantity))
-            {
-                CurrentOrder.Quantity = Quantity;
-                CurrentOrder.SubTotal = CurrentOrder.UnitPrice * CurrentOrder.Quantity;
-            }
-            else
+            if (CurrentOrder.Quantity <= 0)
             {
                 CurrentOrder.Quantity = 0;
-                CurrentOrder.SubTotal = CurrentOrder.UnitPrice * CurrentOrder.Quantity;
             }
+  
+            CurrentOrder.SubTotal = CurrentOrder.UnitPrice * CurrentOrder.Quantity;
 
             UpdateOrderTotal();
         }
@@ -342,8 +335,7 @@
         public string ProductName { get; set; }
 
 
-        public string sQuantity { get; set; }
-
+  
         public short? _Quantity;
         public short? Quantity
         {
