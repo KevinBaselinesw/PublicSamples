@@ -25,11 +25,11 @@ We also have some slick animations of windows loading and unloading.
 
 ![WCF App, Entity Framework, LINQ, SOAP/REST](doc/img/WCFRestApp.png)
 
-**BlazorSampleApp** - This folder contains a Blazor Server application.
+**BlazorSampleApp** - This folder contains a Blazor Server application.  It is written in C#, .NET core with Radzen Blazor as the UI framework.  SQL, LINQ, Async/await pattern.
 
 ![Blazor App, Entity Framework, LINQ](doc/img/BlazorServerApp.png)
 
-**BlazorSampleWebAssembly** - This folder contains a Blazor Web Assembly App hosted by IIS.
+**BlazorSampleWebAssembly** - This folder contains a Blazor Web Assembly App hosted by IIS.  It is written in C#, .NET core with Radzen Blazor as the UI framework.  SQL, LINQ, Async/await pattern, web services.
 
 ![Blazor WebAssembly App, Entity Framework, LINQ](doc/img/BlazorWebAssemblyApp.png)
 
