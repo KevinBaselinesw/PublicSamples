@@ -19,11 +19,11 @@
 
 <RadzenTemplateForm TItem="OrderDTO" >
 
-    <RadzenStack Orientation = "Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" Style="max-width: 1000px;">
 
         <RadzenStack>
             <RadzenLabel Text="Salesman" Component="SalesmanDropDown" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenDropDown Context="EmployeeDropDownContext" @bind-Value=@employeeModel.EmployeeID Data=@AllEmployees Style="width: 100%; max-width: 400px;" Name="SalesmanDropDown" ValueProperty="@nameof(EmployeeDTO.EmployeeID)">
+            <RadzenDropDown Context="EmployeeDropDownContext" @bind-Value=@employeeModel.EmployeeID Data=@AllEmployees Style="width: 250px; max-width: 400px;" Name="SalesmanDropDown" ValueProperty="@nameof(EmployeeDTO.EmployeeID)">
                 <Template>
                     @((EmployeeDropDownContext as EmployeeDTO).LastName), @((EmployeeDropDownContext as EmployeeDTO).FirstName)
                 </Template>
@@ -32,7 +32,7 @@
 
         <RadzenStack>
             <RadzenLabel Text="Customer" Component="CustomerDropDown" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenDropDown Context="CustomerDropDownContext" @bind-Value=@customerModel.CustomerID Data=@AllCustomers Style="width: 100%; max-width: 400px;" Name="CustomerDropDown" ValueProperty="@nameof(CustomerDTO.CustomerID)">
+            <RadzenDropDown Context="CustomerDropDownContext" @bind-Value=@customerModel.CustomerID Data=@AllCustomers Style="width: 400px; max-width: 400px;" Name="CustomerDropDown" ValueProperty="@nameof(CustomerDTO.CustomerID)">
                 <Template>
                     @((CustomerDropDownContext as CustomerDTO).CompanyName)
                 </Template>
@@ -41,7 +41,7 @@
 
         <RadzenStack>
             <RadzenLabel Text="Shipper" Component="ShipperDropDown" Style="margin-right: 8px; vertical-align: middle;" />
-            <RadzenDropDown Context="ShipperDropDownContext" @bind-Value=@shipperModel.ShipperID Data=@AllShippers Style="width: 100%; max-width: 400px;" Name="ShipperDropDown" ValueProperty="@nameof(ShipperDTO.ShipperID)">
+            <RadzenDropDown Context="ShipperDropDownContext" @bind-Value=@shipperModel.ShipperID Data=@AllShippers Style="width: 250px; max-width: 400px;" Name="ShipperDropDown" ValueProperty="@nameof(ShipperDTO.ShipperID)">
                 <Template>
                     @((ShipperDropDownContext as ShipperDTO).CompanyName)
                 </Template>
@@ -52,12 +52,14 @@
 
     </RadzenStack>
 
-    <RadzenDataGrid @ref=@dgNewOrder ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"  Context="Order"
-                    PageSize="8" AllowSorting="true" Data="@EnteredProducts" TItem="CreateNewOrderInfo">
-          <Columns>
-                    <RadzenDataGridColumn Property="ProductID" Title="ID" Visible=false />
+    <br />  <br /> <br />
 
-                    <RadzenDataGridColumn Context="productitem" Title="Product Name" TItem="CreateNewOrderInfo">
+    <RadzenDataGrid @ref=@dgNewOrder ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"  Context="Order"
+                    PageSize="8" AllowSorting="true" Data="@EnteredProducts" TItem="CreateNewOrderInfo" Style="max-width: 1000px;">
+          <Columns>
+                    <RadzenDataGridColumn Property="ProductID" Title="ID" Visible=false/>
+
+                    <RadzenDataGridColumn Context="productitem" Title="Product Name" TItem="CreateNewOrderInfo" Width="250px">
                         <Template>
                             <RadzenDropDown Style="width: 100%;" 
                                     @bind-Value="@productitem.ProductID" Data="@AllProducts" TextProperty="ProductName" ValueProperty="ProductID" 
@@ -66,7 +68,7 @@
                         </Template>
                     </RadzenDataGridColumn>
 
-                    <RadzenDataGridColumn Context="productitem" Title="Qty Ordered" >
+                    <RadzenDataGridColumn Context="productitem" Title="Qty Ordered" Width="100px">
                         <Template>
                             <RadzenNumeric TValue="short?" ShowUpDown="false"
                                    @bind-Value="productitem.Quantity" 
@@ -74,25 +76,28 @@
                         </Template>
                     </RadzenDataGridColumn>
 
-                    <RadzenDataGridColumn Property="UnitPrice" Title="Unit Price" />
-                    <RadzenDataGridColumn Property="SubTotal" Title="Sub Total" />
+                    <RadzenDataGridColumn Property="UnitPrice" FormatString="{0:0.00}" Title="Unit Price" Width="100px" />
+                    <RadzenDataGridColumn Property="SubTotal" FormatString="{0:0.00}" Title="Sub Total" Width="100px" />
 
-                    <RadzenDataGridColumn Context="productitem" Title="Qty Ordered">
+                    <RadzenDataGridColumn Context="productitem" Title="Remove" Width="100px">
                         <Template>
-                            <RadzenButton ButtonStyle=ButtonStyle.Secondary Image="Images/minus32.png" Style="height: 40px; width: 40px; margin: 10px" class="text-left" Click=@(args => DeleteProductItem(productitem)) />
+                            <RadzenButton ButtonStyle=ButtonStyle.Secondary Image="Images/minus32.png" Style="height: 40px; width: 60px; margin: 10px; background:transparent; border:none; outline:none" class="text-left" Click=@(args => DeleteProductItem(productitem)) />
                         </Template>
                     </RadzenDataGridColumn>
 
 
                 </Columns>
     </RadzenDataGrid>
-    <RadzenButton ButtonStyle=ButtonStyle.Secondary Image="Images/plus32.png" Style="height: 40px; width: 40px; margin: 10px" class="text-left" Click=@(args => AddNewProductItem()) />
+    <RadzenButton ButtonStyle=ButtonStyle.Secondary Image="Images/plus32.png" Style="height: 40px; width: 60px; margin: 10px; background:transparent; border:none; outline:none" class="text-left" Click=@(args => AddNewProductItem()) />
 
-    <RadzenText Text=@OrderTotalTB Margin="10"/>
+    <br />  <br /> <br />
 
-    <RadzenButton Text="Save" Disabled=@DisableSaveOrderButton Click=@(args => Submit()) />
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End">
+        <RadzenText Text=@OrderTotalTB  Margin="auto" style="position: absolute; left: 600px;" />
+        <RadzenButton ButtonStyle=ButtonStyle.Primary style="position: absolute; left: 1200px;" Text="Save" Disabled=@DisableSaveOrderButton Click=@(args => Submit()) />
+    </RadzenStack>
 
-
+ 
 </RadzenTemplateForm>
 
 
