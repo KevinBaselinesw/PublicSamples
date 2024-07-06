@@ -1,0 +1,402 @@
+﻿@page "/CreateNewOrder"
+
+
+@using BlazorSampleAppWebAssembly.Client.Services
+@using DatabaseAccessLib
+@using Radzen
+@using Radzen.Blazor
+@using System.ComponentModel
+@using System.Runtime.CompilerServices
+@using System.Collections.ObjectModel
+@inject DialogService DialogService
+@inject DatabaseAPIManager DataAccessAPI;
+
+<Radzen.Blazor.RadzenDialog />
+<Radzen.Blazor.RadzenNotification />
+<Radzen.Blazor.RadzenContextMenu />
+<Radzen.Blazor.RadzenTooltip />
+<Radzen.Blazor.RadzenTabs />
+
+<RadzenTemplateForm TItem="OrderDTO" >
+
+    <RadzenStack Orientation="Orientation.Horizontal" Style="max-width: 1000px;">
+
+        <RadzenStack>
+            <RadzenLabel Text="Salesman" Component="SalesmanDropDown" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenDropDown Context="EmployeeDropDownContext" @bind-Value=@employeeModel.EmployeeID Data=@AllEmployees Style="width: 250px; max-width: 400px;" Name="SalesmanDropDown" ValueProperty="@nameof(EmployeeDTO.EmployeeID)">
+                <Template>
+                    @((EmployeeDropDownContext as EmployeeDTO).LastName), @((EmployeeDropDownContext as EmployeeDTO).FirstName)
+                </Template>
+            </RadzenDropDown>
+        </RadzenStack>
+
+        <RadzenStack>
+            <RadzenLabel Text="Customer" Component="CustomerDropDown" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenDropDown Context="CustomerDropDownContext" @bind-Value=@customerModel.CustomerID Data=@AllCustomers Style="width: 400px; max-width: 400px;" Name="CustomerDropDown" ValueProperty="@nameof(CustomerDTO.CustomerID)">
+                <Template>
+                    @((CustomerDropDownContext as CustomerDTO).CompanyName)
+                </Template>
+            </RadzenDropDown>
+        </RadzenStack>
+
+        <RadzenStack>
+            <RadzenLabel Text="Shipper" Component="ShipperDropDown" Style="margin-right: 8px; vertical-align: middle;" />
+            <RadzenDropDown Context="ShipperDropDownContext" @bind-Value=@shipperModel.ShipperID Data=@AllShippers Style="width: 250px; max-width: 400px;" Name="ShipperDropDown" ValueProperty="@nameof(ShipperDTO.ShipperID)">
+                <Template>
+                    @((ShipperDropDownContext as ShipperDTO).CompanyName)
+                </Template>
+            </RadzenDropDown>
+            <RadzenDatePicker @bind-Value=@shippingDate Name="RadzenDatePickerBindValue" ShowCalendarWeek />
+        </RadzenStack>
+
+
+    </RadzenStack>
+
+    <br />  <br /> <br />
+
+    <RadzenDataGrid @ref=@dgNewOrder ColumnWidth="150px" AllowFiltering="false" AllowPaging="true"  Context="Order"
+                    PageSize="8" AllowSorting="true" Data="@EnteredProducts" TItem="CreateNewOrderInfo" Style="max-width: 1000px;">
+          <Columns>
+                    <RadzenDataGridColumn Property="ProductID" Title="ID" Visible=false/>
+
+                    <RadzenDataGridColumn Context="productitem" Title="Product Name" TItem="CreateNewOrderInfo" Width="250px">
+                        <Template>
+                            <RadzenDropDown Style="width: 100%;" 
+                                    @bind-Value="@productitem.ProductID" Data="@AllProducts" TextProperty="ProductName" ValueProperty="ProductID" 
+                                    Change=@(() => NewOrderProductDropDownChanged(productitem))
+                                    AllowClear=true Placeholder="" />
+                        </Template>
+                    </RadzenDataGridColumn>
+
+                    <RadzenDataGridColumn Context="productitem" Title="Qty Ordered" Width="100px">
+                        <Template>
+                            <RadzenNumeric TValue="short?" ShowUpDown="false"
+                                   @bind-Value="productitem.Quantity" 
+                                   Change=@(() => NewOrderQuantityChanged(productitem)) />
+                        </Template>
+                    </RadzenDataGridColumn>
+
+                    <RadzenDataGridColumn Property="UnitPrice" FormatString="{0:0.00}" Title="Unit Price" Width="100px" />
+                    <RadzenDataGridColumn Property="SubTotal" FormatString="{0:0.00}" Title="Sub Total" Width="100px" />
+
+                    <RadzenDataGridColumn Context="productitem" Title="Remove" Width="100px">
+                        <Template>
+                            <RadzenButton ButtonStyle=ButtonStyle.Secondary Image="Images/minus32.png" Style="height: 40px; width: 60px; margin: 10px; background:transparent; border:none; outline:none" class="text-left" Click=@(args => DeleteProductItem(productitem)) />
+                        </Template>
+                    </RadzenDataGridColumn>
+
+
+                </Columns>
+    </RadzenDataGrid>
+    <RadzenButton ButtonStyle=ButtonStyle.Secondary Image="Images/plus32.png" Style="height: 40px; width: 60px; margin: 10px; background:transparent; border:none; outline:none" class="text-left" Click=@(args => AddNewProductItem()) />
+
+    <br />  <br /> <br />
+
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End">
+        <RadzenText Text=@OrderTotalTB  Margin="auto" style="position: absolute; left: 300px;" />
+        <RadzenButton ButtonStyle=ButtonStyle.Primary style="position: absolute; left: 600px;" Text="Save" Disabled=@DisableSaveOrderButton Click=@(args => Submit()) />
+    </RadzenStack>
+
+ 
+</RadzenTemplateForm>
+
+
+@code {
+    RadzenDataGrid<CreateNewOrderInfo> dgNewOrder;
+    bool DisableSaveOrderButton = false;
+    string OrderTotalTB;
+    ObservableCollection<CreateNewOrderInfo> EnteredProducts;
+
+    OrderDTO OrderDTO = new OrderDTO();
+    EmployeeDTO employeeModel = new EmployeeDTO();
+    CustomerDTO customerModel = new CustomerDTO();
+    ShipperDTO shipperModel = new ShipperDTO();
+    DateTime? shippingDate ;
+
+    string value = "";
+    IEnumerable<EmployeeDTO> AllEmployees;
+    IEnumerable<CustomerDTO> AllCustomers;
+    IEnumerable<ShipperDTO> AllShippers;
+    IEnumerable<ProductDTO> AllProducts;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        AllEmployees = await DataAccessAPI.GetAllEmployees();
+        AllCustomers = await DataAccessAPI.GetAllCustomers();
+        AllShippers = await DataAccessAPI.GetAllShippers();
+        AllProducts = await DataAccessAPI.GetAllProducts();
+
+        EnteredProducts = new ObservableCollection<CreateNewOrderInfo>();
+        return;
+
+    }
+
+    private async void AddNewProductItem()
+    {
+        EnteredProducts.Add(new CreateNewOrderInfo());
+        await dgNewOrder.SelectRow(EnteredProducts[EnteredProducts.Count() - 1], true);
+    }
+
+    private async void DeleteProductItem(CreateNewOrderInfo CurrentOrder)
+    {
+        if (CurrentOrder != null)
+        {
+            EnteredProducts.Remove(CurrentOrder);
+        }
+
+        UpdateOrderTotal();
+
+        await Task.Delay(0);
+    }
+
+
+    void NewOrderProductDropDownChanged(CreateNewOrderInfo CurrentOrder)
+    {
+        var Matching = AllProducts.FirstOrDefault(t => t.ProductID == CurrentOrder.ProductID);
+        if (Matching != null)
+        {
+            CurrentOrder.ProductName = Matching.ProductName;
+            CurrentOrder.UnitPrice = Matching.UnitPrice;
+        }
+        return;
+    }
+
+    void NewOrderQuantityChanged(CreateNewOrderInfo CurrentOrder)
+    {
+        if (CurrentOrder != null)
+        {
+            if (CurrentOrder.Quantity <= 0)
+            {
+                CurrentOrder.Quantity = 0;
+            }
+  
+            CurrentOrder.SubTotal = CurrentOrder.UnitPrice * CurrentOrder.Quantity;
+
+            UpdateOrderTotal();
+        }
+
+    }
+
+    private void UpdateOrderTotal()
+    {
+        decimal OrderTotal = 0;
+        foreach (var enteredProduct in EnteredProducts)
+        {
+            if (enteredProduct.SubTotal != null)
+            {
+                OrderTotal += enteredProduct.SubTotal.Value;
+            }
+        }
+
+        OrderTotalTB = string.Format("Order Total: ${0:0.00}", OrderTotal);
+    }
+
+    private async void Submit()
+    {
+
+        if (employeeModel.EmployeeID <= 0)
+        {
+            await DialogService.Alert("Must select an employee for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
+
+        if (string.IsNullOrEmpty(customerModel.CustomerID))
+        {
+            await DialogService.Alert("Must select an customer for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
+
+        if (shipperModel.ShipperID <= 0)
+        {
+            await DialogService.Alert("Must select a shipper for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
+
+
+        if (EnteredProducts == null || EnteredProducts.Count() == 0)
+        {
+            await DialogService.Alert("No products have been entered for this order!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            return;
+        }
+
+
+        OrderDTO newOrder = new OrderDTO();
+        newOrder.EmployeeID = employeeModel.EmployeeID;
+        newOrder.CustomerID = customerModel.CustomerID;
+        newOrder.OrderDate = DateTime.Now;
+        newOrder.RequiredDate = shippingDate;
+
+        newOrder.ShipVia = shipperModel.ShipperID;
+
+        if (await ValidateEnteredOrderDetails() < 0)
+            return;
+
+        newOrder.Order_Details = EnteredOrderDetails();
+
+        // Fill out the rest of the order.  Doesn't appear to be used
+        newOrder.Freight = 9.99m;
+        newOrder.ShipName = "Kevin McKenna";
+        newOrder.ShipAddress = "1600 Pennsylvania Avenue";
+        newOrder.ShipCity = "Washington";
+        newOrder.ShipRegion = "DC";
+        newOrder.ShipPostalCode = "99999";
+        newOrder.ShipCountry = "USA";
+        // Fill out the rest of the order.  Doesn't appear to be used
+
+        newOrder = await DataAccessAPI.CreateNewOrder(newOrder);
+        if (newOrder != null && newOrder.OrderID > 0)
+        {
+            await DialogService.Alert("Order successfully added to system!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+            DisableSaveOrderButton = true;
+        }
+        else
+        {
+            await DialogService.Alert("Order not added to database!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+        }
+
+        return;
+    }
+
+    private async Task<int> ValidateEnteredOrderDetails()
+    {
+        foreach (var enteredProduct in EnteredProducts)
+        {
+            if (enteredProduct.ProductID <= 0)
+                continue;
+
+            if (enteredProduct.Quantity == null || enteredProduct.Quantity <= 0)
+            {
+                await DialogService.Alert($"{enteredProduct.ProductName} has an invalid quantity!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+                return -1;
+            }
+
+            if (enteredProduct.SubTotal == null || enteredProduct.SubTotal <= 0)
+            {
+                await DialogService.Alert($"{enteredProduct.ProductName} has an invalid subtotal!", "Create New Order", new AlertOptions() { OkButtonText = "OK" });
+                return -1;
+            }
+
+        }
+
+        EnteredProducts = new ObservableCollection<CreateNewOrderInfo>(EnteredProducts.Where(t => t.ProductID > 0));
+        return 0;
+    }
+
+    private List<Order_DetailDTO> EnteredOrderDetails()
+    {
+        List<Order_DetailDTO> EnteredOrders = new List<Order_DetailDTO>();
+
+        foreach (var enteredProduct in EnteredProducts)
+        {
+            Order_DetailDTO Order = new Order_DetailDTO();
+            Order.ProductID = enteredProduct.ProductID;
+            Order.Quantity = enteredProduct.Quantity.Value;
+            Order.UnitPrice = enteredProduct.UnitPrice.Value;
+            Order.Discount = 0.0f;
+            EnteredOrders.Add(Order);
+        }
+
+
+        return EnteredOrders;
+    }
+
+
+    public class CreateNewOrderInfo : INotifyPropertyChanged
+    {
+        public CreateNewOrderInfo()
+        {
+        }
+
+        // INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        // INotifyPropertyChanged
+
+        private int _ProductID;
+        public int ProductID
+        {
+            get
+            {
+                return this._ProductID;
+            }
+
+            set
+            {
+                if (value != this._ProductID)
+                {
+                    this._ProductID = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string ProductName { get; set; }
+
+
+  
+        public short? _Quantity;
+        public short? Quantity
+        {
+            get
+            {
+                return this._Quantity;
+            }
+
+            set
+            {
+                if (value != this._Quantity)
+                {
+                    this._Quantity = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private decimal? _UnitPrice;
+        public decimal? UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+
+            set
+            {
+                if (value != this._UnitPrice)
+                {
+                    this._UnitPrice = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private decimal? _SubTotal;
+        public decimal? SubTotal
+        {
+            get
+            {
+                return this._SubTotal;
+            }
+
+            set
+            {
+                if (value != this._SubTotal)
+                {
+                    this._SubTotal = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+
+    }
+
+   
+}
