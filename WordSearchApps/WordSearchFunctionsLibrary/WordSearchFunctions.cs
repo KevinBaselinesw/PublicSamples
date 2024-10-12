@@ -53,23 +53,34 @@ namespace WordSearchFunctionsLibrary
             return FilteredWords;
         }
 
-        public IEnumerable<string> WordsContainingExclusive(string[] containingLetters, int MinLin, int MaxLen)
+        public IEnumerable<string> WordsContainingExclusive(string[] containingLetters, int MinLin, int MaxLen, bool UseLettersOnce = false)
         {
             var FilteredWords = AllWords.Where(t => (t.Length >= MinLin && t.Length <= MaxLen));
             List<char> charLetters = ConvertToCharArray(containingLetters);
 
-            FilteredWords = FilteredWords.Where(t => ContainsExclusive(t, charLetters));
+            FilteredWords = FilteredWords.Where(t => ContainsExclusive(t, charLetters, UseLettersOnce));
                  
             return FilteredWords;
         }
 
-        private bool ContainsExclusive(string word, List<char> containingLetters)
+        private bool ContainsExclusive(string word, List<char> containingLetters, bool UseLettersOnce)
         {
             foreach (char letter in word.ToUpper())
             {
                 if (!containingLetters.Contains(letter))
                     return false;
-                  
+
+                // if we want to use letters only once
+                if (UseLettersOnce)
+                {
+                    int countContainingLetter = containingLetters.Count(t => t == letter);
+                    int countWordsLetter = word.ToUpper().Count(t => t == letter);
+                    
+                    // If this word contains more than the specified number of letters, return false
+                    if (countContainingLetter < countWordsLetter)
+                        return false;
+                }
+                 
             }
             return true;
         }

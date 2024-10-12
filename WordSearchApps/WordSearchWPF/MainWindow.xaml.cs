@@ -49,8 +49,9 @@ namespace WordSearchWPF
                     var WordsEndingWith = WordSearchFunctions.WordsEndingWith("ing").ToList();
 
                     var WordsContaing1 = WordSearchFunctions.WordsContaining(new string[] { "A", "N", "D" }, 1, 7).ToList();
-                    var WordsContaing2 = WordSearchFunctions.WordsContainingExclusive(new string[] { "A", "N", "D" }, 3, 4).ToList();
+                    var WordsContaing2 = WordSearchFunctions.WordsContainingExclusive(new string[] { "A", "N", "N", "D" }, 3, 4).ToList();
                     var WordsContaing3 = WordSearchFunctions.WordsContainingExclusive(new string[] { "A", "N", "D" }, 3, 4).ToList();
+                    var WordsContaing4 = WordSearchFunctions.WordsContainingExclusive(new string[] { "A", "N", "D" }, 3, 4, true).ToList();
 
                     return;
                 }
