@@ -46,7 +46,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClientSample", "HttpCli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WordSearchApps", "WordSearchApps", "{898748BB-4518-4175-BACF-62A732D023A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSearchWPF", "WordSearchApps\WordSearchWPF\WordSearchWPF.csproj", "{C40A269F-3B1A-4957-8022-A8CC2E16F108}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSearchWPF", "WordSearchApps\WordSearchWPF\WordSearchWPF.csproj", "{C40A269F-3B1A-4957-8022-A8CC2E16F108}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSearchFunctionsLibrary", "WordSearchApps\WordSearchFunctionsLibrary\WordSearchFunctionsLibrary.csproj", "{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -220,6 +222,18 @@ Global
 		{C40A269F-3B1A-4957-8022-A8CC2E16F108}.Release|x64.Build.0 = Release|Any CPU
 		{C40A269F-3B1A-4957-8022-A8CC2E16F108}.Release|x86.ActiveCfg = Release|Any CPU
 		{C40A269F-3B1A-4957-8022-A8CC2E16F108}.Release|x86.Build.0 = Release|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Debug|x64.Build.0 = Debug|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Debug|x86.Build.0 = Debug|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x64.ActiveCfg = Release|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x64.Build.0 = Release|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,6 +247,7 @@ Global
 		{913E932A-17D0-4628-8B5A-D3F0939ABBE9} = {F3141A34-4E46-461E-A842-E64AA647DA9B}
 		{F53313D2-73AB-48C8-AEBB-895E7E00202F} = {F3141A34-4E46-461E-A842-E64AA647DA9B}
 		{C40A269F-3B1A-4957-8022-A8CC2E16F108} = {898748BB-4518-4175-BACF-62A732D023A9}
+		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F} = {898748BB-4518-4175-BACF-62A732D023A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAE03D83-60C0-41EF-A09E-63983051A8F3}
