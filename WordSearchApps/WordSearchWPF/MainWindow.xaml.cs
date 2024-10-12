@@ -18,7 +18,7 @@ namespace WordSearchWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        string[] Alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        //string[] Alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
         WordSearchFunctionsLibrary.WordSearchFunctions? WordSearchFunctions = null;
         public MainWindow()
@@ -41,7 +41,7 @@ namespace WordSearchWPF
                 try
                 {
                     IEnumerable<string> AllWords = ParseWordsFile(AllWordsFile);
-                    WordSearchFunctions = new WordSearchFunctionsLibrary.WordSearchFunctions(AllWords, Alphabet);
+                    WordSearchFunctions = new WordSearchFunctionsLibrary.WordSearchFunctions(AllWords /*, Alphabet */);
 
                     var WordsStartingWith = WordSearchFunctions.WordsStartingWith("st").ToList();
                     var WordsStartingWith2 = WordSearchFunctions.WordsStartingWith("st", 5,7).ToList();

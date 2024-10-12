@@ -6,17 +6,17 @@ namespace WordSearchFunctionsLibrary
     public class WordSearchFunctions
     {
         IEnumerable<string> AllWords;
-        List<IEnumerable<string>> WordsByFirstLetter = new List<IEnumerable<string>>();
+       // List<IEnumerable<string>> WordsByFirstLetter = new List<IEnumerable<string>>();
 
-        public WordSearchFunctions(IEnumerable<string> AllWords, string[] Alphabet)
+        public WordSearchFunctions(IEnumerable<string> AllWords /*, string[] Alphabet*/)
         {
             this.AllWords = AllWords;
 
 
-            foreach (string Letter in Alphabet) 
-            {
-                WordsByFirstLetter.Add(AllWords.Where(t => t.StartsWith(Letter, StringComparison.OrdinalIgnoreCase)).ToList());
-            }
+            //foreach (string Letter in Alphabet) 
+            //{
+            //    WordsByFirstLetter.Add(AllWords.Where(t => t.StartsWith(Letter, StringComparison.OrdinalIgnoreCase)).ToList());
+            //}
 
         }
 
