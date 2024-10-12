@@ -86,5 +86,44 @@ namespace WordSearchWPF
 
             return AllWords;
         }
+
+
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            ListBox[] ListBoxes = new ListBox[] { WordScapeListBox0, WordScapeListBox1, WordScapeListBox2, WordScapeListBox3, WordScapeListBox4, 
+                                                  WordScapeListBox5, WordScapeListBox6, WordScapeListBox7, WordScapeListBox8 };
+
+
+            foreach (var lb in ListBoxes)
+            {
+                lb.Visibility = Visibility.Collapsed;
+                lb.ItemsSource = null;
+            }
+
+            string enteredLetters = EnteredLetters.Text.ToUpper();
+
+            List<string> searchLetters = new List<string>();
+
+            foreach (char letter in enteredLetters)
+            {
+                if (char.IsAsciiLetter(letter))
+                {
+                    searchLetters.Add(letter.ToString());
+                }
+            }
+            
+            var WordsContaining = WordSearchFunctions?.WordsContainingExclusive(searchLetters.ToArray(), 2, searchLetters.Count, true).ToList();
+
+            for (int i = 2; i <= searchLetters.Count; i++)
+            {
+                ListBoxes[i].ItemsSource = WordsContaining?.Where(t => t.Length == i).ToList();
+                ListBoxes[i].Visibility = Visibility.Visible;
+            }
+
+    
+
+
+        }
     }
 }

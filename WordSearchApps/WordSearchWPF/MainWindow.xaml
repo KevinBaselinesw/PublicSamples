@@ -6,8 +6,52 @@
         xmlns:local="clr-namespace:WordSearchWPF"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="WordScape Helper" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+    
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Text="Enter WordScape Letters:" Margin="10" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Text="abc" x:Name="EnteredLetters" Margin="10" Height="50" Width="200" VerticalContentAlignment="Center"/>
+        <Button Grid.Column="2" Content="Search For Words" Margin="10" Height="50" Click="SearchButton_Click"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" x:Name="ListBoxRow"/>
+            </Grid.RowDefinitions>
+
+            <ListBox Grid.Row="0" Grid.Column="0" x:Name="WordScapeListBox0" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100" />
+            <ListBox Grid.Row="0" Grid.Column="1" x:Name="WordScapeListBox1" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="2" x:Name="WordScapeListBox2" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="3" x:Name="WordScapeListBox3" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="4" x:Name="WordScapeListBox4" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="5" x:Name="WordScapeListBox5" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="6" x:Name="WordScapeListBox6" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="7" x:Name="WordScapeListBox7" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+            <ListBox Grid.Row="0" Grid.Column="8" x:Name="WordScapeListBox8" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="500" FontSize="16" Visibility="Collapsed" MinWidth="100"/>
+
+        </Grid>
+
+  
+
 
     </Grid>
 </Window>
