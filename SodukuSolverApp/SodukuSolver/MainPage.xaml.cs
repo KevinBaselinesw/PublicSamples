@@ -62,6 +62,10 @@ namespace SodukuSolver
                     Debug.WriteLine($"{rowIndex}, {columnIndex}, {blockIndex}");
                 }
             }
+
+            var notes = puzzle.GetPuzzleNotes();
+
+            return;
             
         }
     }
