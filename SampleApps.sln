@@ -48,7 +48,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WordSearchApps", "WordSearc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSearchWPF", "WordSearchApps\WordSearchWPF\WordSearchWPF.csproj", "{C40A269F-3B1A-4957-8022-A8CC2E16F108}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSearchFunctionsLibrary", "WordSearchApps\WordSearchFunctionsLibrary\WordSearchFunctionsLibrary.csproj", "{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSearchFunctionsLibrary", "WordSearchApps\WordSearchFunctionsLibrary\WordSearchFunctionsLibrary.csproj", "{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SodukuSolver", "SodukuSolverApp\SodukuSolver\SodukuSolver.csproj", "{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -234,6 +236,24 @@ Global
 		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x64.Build.0 = Release|Any CPU
 		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x86.ActiveCfg = Release|Any CPU
 		{2F19B5EC-D9BC-46F5-9F19-AD1E578CDA5F}.Release|x86.Build.0 = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|x64.Build.0 = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|x64.ActiveCfg = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|x64.Build.0 = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|x64.Deploy.0 = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|x86.Build.0 = Release|Any CPU
+		{D3698B3E-8C57-46B8-A640-A1CAFAEC76E8}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
