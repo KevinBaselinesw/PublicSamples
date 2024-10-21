@@ -160,5 +160,86 @@ namespace SodukuSolver
             return Values;
         }
 
+        public IEnumerable<string> CheckHiddenSingles(List<int>[,] Notes)
+        {
+            List<string> Messages = new List<string>();
+
+
+            for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < 9; columnIndex++)
+                {
+                    if (Notes[rowIndex, columnIndex] != null)
+                    {
+                        if (Notes[rowIndex, columnIndex].Count == 1)
+                        {
+                            Messages.Add($"Naked single {Notes[rowIndex, columnIndex][0]} in row {rowIndex} at col {columnIndex}");
+                        }
+                    }
+                }
+            }
+
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int totalRowCount = 0;
+                string singleRowMessage = string.Empty;
+                for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+                {
+                    totalRowCount = 0;
+
+                    for (int columnIndex = 0; columnIndex < 9; columnIndex++)
+                    {
+                        if (Notes[rowIndex, columnIndex] != null)
+                        {
+                            if (Notes[rowIndex, columnIndex].Contains(i))
+                            {
+                                totalRowCount++;
+                                singleRowMessage = $"Hidden single {i} in row {rowIndex} at col {columnIndex}";
+                            }
+                        }
+                    }
+                }
+
+                if (totalRowCount == 1)
+                {
+                    Messages.Add(singleRowMessage);
+                }
+            }
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int totalColumnCount = 0;
+                string singleRowMessage = string.Empty;
+                for (int columnIndex = 0; columnIndex < 9; columnIndex++)
+                {
+                    totalColumnCount = 0;
+
+                    for (int rowIndex = 0; rowIndex < 9; rowIndex++)
+                    {
+                        if (Notes[rowIndex, columnIndex] != null)
+                        {
+                            if (Notes[rowIndex, columnIndex].Contains(i))
+                            {
+                                totalColumnCount++;
+                                singleRowMessage = $"Hidden single {i} in col {columnIndex} at row {rowIndex}";
+                            }
+                    
+                        }
+                    }
+                }
+
+                if (totalColumnCount == 1)
+                {
+                    Messages.Add(singleRowMessage);
+                }
+            }
+
+
+
+
+            return Messages;
+        }
+
     }
 }

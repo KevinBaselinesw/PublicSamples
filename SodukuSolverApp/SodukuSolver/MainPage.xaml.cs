@@ -65,6 +65,8 @@ namespace SodukuSolver
 
             var notes = puzzle.GetPuzzleNotes();
 
+            var x = puzzle.CheckHiddenSingles(notes);
+
             return;
             
         }
