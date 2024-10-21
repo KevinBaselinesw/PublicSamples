@@ -142,8 +142,8 @@ namespace SodukuSolver
 
             int[] Values = new int[9];
 
-            int colIndex = (block % 3) * 3;
-            int rowIndex = (block / 3) * 3;
+            int colIndex = blockIndexes[block].ColumnIndex;
+            int rowIndex = blockIndexes[block].RowIndex;
 
             Values[0] = puzzleData[rowIndex + 0, colIndex + 0];
             Values[1] = puzzleData[rowIndex + 0, colIndex + 1];
@@ -179,7 +179,7 @@ namespace SodukuSolver
                 }
             }
 
-
+            // check rows for single hidden 
             for (int i = 1; i <= 9; i++)
             {
                 int totalRowCount = 0;
@@ -207,6 +207,7 @@ namespace SodukuSolver
                 }
             }
 
+            // check columns for single hidden
             for (int i = 1; i <= 9; i++)
             {
                 int totalColumnCount = 0;
@@ -235,11 +236,63 @@ namespace SodukuSolver
                 }
             }
 
+            // check the blocks
 
+            foreach (var blockIndex in blockIndexes)
+            {
+                for (int i = 1; i <= 9; i++)
+                {
+                    int totalBlockCount = 0;
+                    string singleBlockMessage = string.Empty;
+                    for (int rowIndex = blockIndex.RowIndex; rowIndex < blockIndex.RowIndex+3; rowIndex++)
+                    {
+                        for (int columnIndex = blockIndex.ColumnIndex; columnIndex < blockIndex.ColumnIndex+3; columnIndex++)
+                        {
+                            if (Notes[rowIndex, columnIndex] != null)
+                            {
+                                if (Notes[rowIndex, columnIndex].Contains(i))
+                                {
+                                    totalBlockCount++;
+                                    singleBlockMessage = $"Hidden single {i} block {blockIndex.BlockNumber} at row {rowIndex}, col {columnIndex}";
+                                }
+                            }
+                        }
+                    }
+
+                    if (totalBlockCount == 1)
+                    {
+                        Messages.Add(singleBlockMessage);
+                    }
+                }
+            }
 
 
             return Messages;
         }
 
+        static BlockIndexes[] blockIndexes = new BlockIndexes[9]
+        {
+                new BlockIndexes() {BlockNumber = 1, RowIndex = 0, ColumnIndex = 0},
+                new BlockIndexes() {BlockNumber = 2, RowIndex = 0, ColumnIndex = 3},
+                new BlockIndexes() {BlockNumber = 3, RowIndex = 0, ColumnIndex = 6},
+                new BlockIndexes() {BlockNumber = 4, RowIndex = 3, ColumnIndex = 0},
+                new BlockIndexes() {BlockNumber = 5, RowIndex = 3, ColumnIndex = 3},
+                new BlockIndexes() {BlockNumber = 6, RowIndex = 3, ColumnIndex = 6},
+                new BlockIndexes() {BlockNumber = 7, RowIndex = 6, ColumnIndex = 0},
+                new BlockIndexes() {BlockNumber = 8, RowIndex = 6, ColumnIndex = 3},
+                new BlockIndexes() {BlockNumber = 9, RowIndex = 6, ColumnIndex = 6}
+        };
+        
+
+
+        private class BlockIndexes
+        {
+            public int BlockNumber;
+            public int RowIndex;
+            public int ColumnIndex;
+        }
+
     }
+
+  
 }
