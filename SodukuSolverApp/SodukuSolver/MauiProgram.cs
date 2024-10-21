@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace SodukuSolver
 {
@@ -17,6 +18,7 @@ namespace SodukuSolver
 
 #if DEBUG
     		builder.Logging.AddDebug();
+            Trace.WriteLine(builder);
 #endif
 
             return builder.Build();

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:uc="clr-namespace:SodukuSolver"
+             Loaded="ContentPage_Loaded"
              x:Class="SodukuSolver.MainPage">
 
     <ScrollView>
@@ -21,15 +22,15 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <uc:SodukuBlock Grid.Column="0" Grid.Row="0"/>
-                <uc:SodukuBlock Grid.Column="1" Grid.Row="0"/>
-                <uc:SodukuBlock Grid.Column="2" Grid.Row="0"/>
-                <uc:SodukuBlock Grid.Column="0" Grid.Row="1"/>
-                <uc:SodukuBlock Grid.Column="1" Grid.Row="1"/>
-                <uc:SodukuBlock Grid.Column="2" Grid.Row="1"/>
-                <uc:SodukuBlock Grid.Column="0" Grid.Row="2"/>
-                <uc:SodukuBlock Grid.Column="1" Grid.Row="2"/>
-                <uc:SodukuBlock Grid.Column="2" Grid.Row="2"/>
+                <uc:SodukuBlock x:Name="Block0" Grid.Column="0" Grid.Row="0"/>
+                <uc:SodukuBlock x:Name="Block1" Grid.Column="1" Grid.Row="0"/>
+                <uc:SodukuBlock x:Name="Block2" Grid.Column="2" Grid.Row="0"/>
+                <uc:SodukuBlock x:Name="Block3" Grid.Column="0" Grid.Row="1"/>
+                <uc:SodukuBlock x:Name="Block4" Grid.Column="1" Grid.Row="1"/>
+                <uc:SodukuBlock x:Name="Block5" Grid.Column="2" Grid.Row="1"/>
+                <uc:SodukuBlock x:Name="Block6" Grid.Column="0" Grid.Row="2"/>
+                <uc:SodukuBlock x:Name="Block7" Grid.Column="1" Grid.Row="2"/>
+                <uc:SodukuBlock x:Name="Block8" Grid.Column="2" Grid.Row="2"/>
 
             </Grid>
        
