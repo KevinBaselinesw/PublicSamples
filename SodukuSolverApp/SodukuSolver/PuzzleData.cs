@@ -270,22 +270,23 @@ namespace SodukuSolver
             return Messages;
         }
 
-        static BlockIndexes[] blockIndexes = new BlockIndexes[9]
+ 
+        public static BlockIndex[] blockIndexes = new BlockIndex[9]
         {
-                new BlockIndexes() {BlockNumber = 1, RowIndex = 0, ColumnIndex = 0},
-                new BlockIndexes() {BlockNumber = 2, RowIndex = 0, ColumnIndex = 3},
-                new BlockIndexes() {BlockNumber = 3, RowIndex = 0, ColumnIndex = 6},
-                new BlockIndexes() {BlockNumber = 4, RowIndex = 3, ColumnIndex = 0},
-                new BlockIndexes() {BlockNumber = 5, RowIndex = 3, ColumnIndex = 3},
-                new BlockIndexes() {BlockNumber = 6, RowIndex = 3, ColumnIndex = 6},
-                new BlockIndexes() {BlockNumber = 7, RowIndex = 6, ColumnIndex = 0},
-                new BlockIndexes() {BlockNumber = 8, RowIndex = 6, ColumnIndex = 3},
-                new BlockIndexes() {BlockNumber = 9, RowIndex = 6, ColumnIndex = 6}
+                new BlockIndex() {BlockNumber = 1, RowIndex = 0, ColumnIndex = 0},
+                new BlockIndex() {BlockNumber = 2, RowIndex = 0, ColumnIndex = 3},
+                new BlockIndex() {BlockNumber = 3, RowIndex = 0, ColumnIndex = 6},
+                new BlockIndex() {BlockNumber = 4, RowIndex = 3, ColumnIndex = 0},
+                new BlockIndex() {BlockNumber = 5, RowIndex = 3, ColumnIndex = 3},
+                new BlockIndex() {BlockNumber = 6, RowIndex = 3, ColumnIndex = 6},
+                new BlockIndex() {BlockNumber = 7, RowIndex = 6, ColumnIndex = 0},
+                new BlockIndex() {BlockNumber = 8, RowIndex = 6, ColumnIndex = 3},
+                new BlockIndex() {BlockNumber = 9, RowIndex = 6, ColumnIndex = 6}
         };
         
 
 
-        private class BlockIndexes
+        internal class BlockIndex
         {
             public int BlockNumber;
             public int RowIndex;

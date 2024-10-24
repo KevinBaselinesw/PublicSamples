@@ -24,20 +24,27 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--<Entry MaxLength="1" Grid.Column="0" Grid.Row="0" Text="1" Style="{StaticResource Key=LocalEntryStyle}"/>-->
-        <uc:BlockNotes Grid.Column="0" Grid.Row="0" />
+   
+        <Entry x:Name="EntryA" MaxLength="1" Grid.Column="0" Grid.Row="0" Text="1" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesA" Grid.Column="0" Grid.Row="0" />
+        <Entry x:Name="EntryB" MaxLength="1" Grid.Column="1" Grid.Row="0" Text="2" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesB" Grid.Column="1" Grid.Row="0" />
+        <Entry x:Name="EntryC" MaxLength="1" Grid.Column="2" Grid.Row="0" Text="3" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesC" Grid.Column="2" Grid.Row="0" />
 
-        <Entry MaxLength="1" Grid.Column="1" Grid.Row="0" Text="2" Style="{StaticResource Key=LocalEntryStyle}"/>
-        <Entry MaxLength="1" Grid.Column="2" Grid.Row="0" Text="3" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <Entry x:Name="EntryD" MaxLength="1" Grid.Column="0" Grid.Row="1" Text="4" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesD" Grid.Column="0" Grid.Row="1" />
+        <Entry x:Name="EntryE" MaxLength="1" Grid.Column="1" Grid.Row="1" Text="5" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesE" Grid.Column="1" Grid.Row="1" />
+        <Entry x:Name="EntryF" MaxLength="1" Grid.Column="2" Grid.Row="1" Text="6" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesF" Grid.Column="2" Grid.Row="1" />
 
-        <Entry MaxLength="1" Grid.Column="0" Grid.Row="1" Text="4" Style="{StaticResource Key=LocalEntryStyle}"/>
-        <Entry MaxLength="1" Grid.Column="1" Grid.Row="1" Text="5" Style="{StaticResource Key=LocalEntryStyle}"/>
-        <Entry MaxLength="1" Grid.Column="2" Grid.Row="1" Text="6" Style="{StaticResource Key=LocalEntryStyle}"/>
-
-        <Entry MaxLength="1" Grid.Column="0" Grid.Row="2" Text="7" Style="{StaticResource Key=LocalEntryStyle}"/>
-        <Entry MaxLength="1" Grid.Column="1" Grid.Row="2" Text="8" Style="{StaticResource Key=LocalEntryStyle}"/>
-        <!--<Entry MaxLength="1" Grid.Column="2" Grid.Row="2" Text="9" Style="{StaticResource Key=LocalEntryStyle}"/>-->
-        <uc:BlockNotes Grid.Column="2" Grid.Row="2" />
-
+        <Entry x:Name="EntryG" MaxLength="1" Grid.Column="0" Grid.Row="2" Text="7" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesG" Grid.Column="0" Grid.Row="2" />
+        <Entry x:Name="EntryH" MaxLength="1" Grid.Column="1" Grid.Row="2" Text="8" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesH" Grid.Column="1" Grid.Row="2" />
+        <Entry x:Name="EntryI" MaxLength="1" Grid.Column="2" Grid.Row="2" Text="9" Style="{StaticResource Key=LocalEntryStyle}"/>
+        <uc:BlockNotes x:Name="NotesI" Grid.Column="2" Grid.Row="2" />
+  
     </Grid>
 </ContentView>

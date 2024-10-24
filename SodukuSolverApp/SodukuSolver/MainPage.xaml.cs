@@ -67,6 +67,16 @@ namespace SodukuSolver
 
             var x = puzzle.CheckHiddenSingles(notes);
 
+            Block0.UpdateValues(0, puzzle, notes);
+            Block1.UpdateValues(1, puzzle, notes);
+            Block2.UpdateValues(2, puzzle, notes);
+            Block3.UpdateValues(3, puzzle, notes);
+            Block4.UpdateValues(4, puzzle, notes);
+            Block5.UpdateValues(5, puzzle, notes);
+            Block6.UpdateValues(6, puzzle, notes);
+            Block7.UpdateValues(7, puzzle, notes);
+            Block8.UpdateValues(8, puzzle, notes);
+
             return;
             
         }

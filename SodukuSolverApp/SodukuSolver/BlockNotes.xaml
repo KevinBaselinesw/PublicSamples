@@ -25,17 +25,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Text="1" Style="{StaticResource Key=LocalLabelStyle}"/>
-        <Label Grid.Column="1" Grid.Row="0" Text="2" Style="{StaticResource Key=LocalLabelStyle}"/>
-        <Label Grid.Column="2" Grid.Row="0" Text="3" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note1" Grid.Column="0" Grid.Row="0" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note2" Grid.Column="1" Grid.Row="0" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note3" Grid.Column="2" Grid.Row="0" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
 
-        <Label Grid.Column="0" Grid.Row="1" Text="4" Style="{StaticResource Key=LocalLabelStyle}"/>
-        <Label Grid.Column="1" Grid.Row="1" Text="5" Style="{StaticResource Key=LocalLabelStyle}"/>
-        <Label Grid.Column="2" Grid.Row="1" Text="6" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note4" Grid.Column="0" Grid.Row="1" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note5" Grid.Column="1" Grid.Row="1" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note6" Grid.Column="2" Grid.Row="1" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
 
-        <Label Grid.Column="0" Grid.Row="2" Text="7" Style="{StaticResource Key=LocalLabelStyle}"/>
-        <Label Grid.Column="1" Grid.Row="2" Text="8" Style="{StaticResource Key=LocalLabelStyle}"/>
-        <Label Grid.Column="2" Grid.Row="2" Text="9" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note7" Grid.Column="0" Grid.Row="2" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note8" Grid.Column="1" Grid.Row="2" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
+        <Label x:Name="Note9" Grid.Column="2" Grid.Row="2" Text="" Style="{StaticResource Key=LocalLabelStyle}"/>
 
      </Grid>
         
