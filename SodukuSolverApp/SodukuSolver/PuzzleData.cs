@@ -33,6 +33,12 @@ namespace SodukuSolver
             puzzleData = testPuzzle;
         }
 
+
+        public PuzzleData(int[,] puzzleData)
+        {
+            this.puzzleData = puzzleData;
+        }
+
         public List<int>[,] GetPuzzleNotes() 
         {
             List<int>?[,] Notes = new List<int>[9, 9];
