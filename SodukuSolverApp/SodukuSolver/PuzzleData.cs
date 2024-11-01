@@ -205,12 +205,13 @@ namespace SodukuSolver
                             }
                         }
                     }
-                }
 
-                if (totalRowCount == 1)
-                {
-                    Messages.Add(singleRowMessage);
+                    if (totalRowCount == 1)
+                    {
+                        Messages.Add(singleRowMessage);
+                    }
                 }
+   
             }
 
             // check columns for single hidden
@@ -234,12 +235,14 @@ namespace SodukuSolver
                     
                         }
                     }
+
+                    if (totalColumnCount == 1)
+                    {
+                        Messages.Add(singleRowMessage);
+                    }
                 }
 
-                if (totalColumnCount == 1)
-                {
-                    Messages.Add(singleRowMessage);
-                }
+    
             }
 
             // check the blocks
